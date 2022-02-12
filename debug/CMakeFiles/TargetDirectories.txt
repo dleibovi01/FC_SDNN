@@ -1,0 +1,3 @@
+/home/dleibovi/Documents/C++/Shock solver (copy)/debug/CMakeFiles/rebuild_cache.dir
+/home/dleibovi/Documents/C++/Shock solver (copy)/debug/CMakeFiles/edit_cache.dir
+/home/dleibovi/Documents/C++/Shock solver (copy)/debug/CMakeFiles/Test_shock_solver.dir

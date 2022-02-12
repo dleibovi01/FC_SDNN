@@ -1,0 +1,43 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: icpc build active file",
+            //"command": "/opt/ohpc/pub/compiler/intel/compilers_and_libraries/linux/bin/intel64/icpc",
+            "command": "/opt/ohpc/pub/compiler/intel/compiler/2021.1.1/linux/bin/intel64/icpc",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-Wall",
+                "-pedantic",
+                "Fcont_Gram_Blend.cpp",
+                "FC.cpp",
+                "printing.cpp",
+                "TestingSuite.cpp",
+                "VectorField1D.cpp",
+                "Node1D.cpp",
+                "Patch1DUniform.cpp",
+                "Patch1D.cpp",
+                "Mesh.cpp",
+                // "Test.cpp",
+                "-o",
+                // "-Wall",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-mkl",
+                "-O3",
+                // "-O0",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "version": "2.0.0"
+}

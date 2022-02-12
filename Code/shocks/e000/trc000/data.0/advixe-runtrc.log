@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log version="1.0" tool="runtool">
+
+<msg id="1" tool="runtool">
+  <type>log-start</type>
+  <arg>2021/08/21 18:58:21</arg>
+</msg>
+<msg id="2" tool="runtool">
+  <type>bandwidth-measurement-starts</type>
+</msg>
+<msg id="3" tool="runtool">
+  <type>bandwidth-measurement-done</type>
+</msg>
+<msg id="4" tool="runtool">
+  <type>collector-starts</type>
+</msg>
+<msg id="5" tool="runtool">
+  <type>marker-file</type>
+  <arg>/home/dleibovi/Documents/C++/Shock solver/shocks/e000/trc000/trc000.advixe</arg>
+</msg>
+<msg id="6" tool="trc">
+  <type>PROCESS_START</type>
+  <arg>/home/dleibovi/Documents/C++/Shock solver/TestingSuite</arg>
+  <arg>1911</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="7" tool="trc">
+  <type>PROCESS_ANALYSIS_MODE</type>
+  <arg>full</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="8" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/home/dleibovi/Documents/C++/Shock solver/TestingSuite</arg>
+  <arg>0x400000</arg>
+  <arg>0x659ba7</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="9" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/lib64/ld-linux-x86-64.so.2</arg>
+  <arg>0x7f1adc903000</arg>
+  <arg>0x7f1adcb2614f</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="10" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>[vdso]</arg>
+  <arg>0x7fffb5765000</arg>
+  <arg>0x7fffb5765fdc</arg>
+  <arg>no</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="11" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_lp64.so</arg>
+  <arg>0x7f1ac65b6000</arg>
+  <arg>0x7f1ac6ff519f</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="12" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_thread.so</arg>
+  <arg>0x7f1ac4af2000</arg>
+  <arg>0x7f1ac6583747</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="13" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_core.so</arg>
+  <arg>0x7f1ac2fff000</arg>
+  <arg>0x7f1ac4af1fc7</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="14" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64/libiomp5.so</arg>
+  <arg>0x7f1ac2c5d000</arg>
+  <arg>0x7f1ac2ffe9bf</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="15" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/usr/lib64/libstdc++.so.6</arg>
+  <arg>0x7f1ac28fd000</arg>
+  <arg>0x7f1ac2c0441f</arg>
+  <arg>no</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="16" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/usr/lib64/libm.so.6</arg>
+  <arg>0x7f1ac25fb000</arg>
+  <arg>0x7f1ac28fc137</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="17" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/usr/lib64/libgcc_s.so.1</arg>
+  <arg>0x7f1ac23e5000</arg>
+  <arg>0x7f1ac25fa3ff</arg>
+  <arg>no</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="18" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/usr/lib64/libpthread.so.0</arg>
+  <arg>0x7f1ac21c9000</arg>
+  <arg>0x7f1ac23e4487</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="19" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/usr/lib64/libc.so.6</arg>
+  <arg>0x7f1ac1e06000</arg>
+  <arg>0x7f1ac21c81bf</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:37 2021</timestamp>
+</msg>
+<msg id="20" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/usr/lib64/libdl.so.2</arg>
+  <arg>0x7f1ac1c02000</arg>
+  <arg>0x7f1ac1e0512f</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:38 2021</timestamp>
+</msg>
+<msg id="21" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/advisor_2020.2.0.606470/2021.1.1/lib64/runtime/libittnotify.so</arg>
+  <arg>0x7f1abeb2e000</arg>
+  <arg>0x7f1abed3a65f</arg>
+  <arg>no</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="22" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/home/dleibovi/Documents/C++/Shock solver/TestingSuite</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="23" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/ld-linux-x86-64.so.2</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="24" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>[vdso]</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="25" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_lp64.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="26" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_thread.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="27" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_core.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="28" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/compiler/lib/intel64/libiomp5.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="29" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/usr/lib64/libstdc++.so.6</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="30" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/usr/lib64/libm.so.6</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="31" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/usr/lib64/libgcc_s.so.1</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="32" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/usr/lib64/libpthread.so.0</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="33" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/usr/lib64/libc.so.6</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="34" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/usr/lib64/libdl.so.2</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="35" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/opt/ohpc/pub/compiler/intel/advisor_2020.2.0.606470/2021.1.1/lib64/runtime/libittnotify.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="36" tool="trc">
+  <type>PROCESS_FINISH</type>
+  <arg>/home/dleibovi/Documents/C++/Shock solver/TestingSuite</arg>
+  <arg>1911</arg>
+  <arg>0x0</arg>
+  <severity>INFO</severity>
+  <timestamp>Sat Aug 21 18:58:39 2021</timestamp>
+</msg>
+<msg id="37" tool="runtool">
+  <type>app-exit-code</type>
+  <arg>0</arg>
+</msg>
+<msg id="38" tool="runtool">
+  <type>marker-file</type>
+  <arg>/home/dleibovi/Documents/C++/Shock solver/shocks/e000/trc000/trc000.advixe</arg>
+</msg>
+<msg id="39" tool="runtool">
+  <type>collector-done</type>
+</msg>
+<msg id="40" tool="runtool">
+  <type>log-end</type>
+  <arg>2021/08/21 18:58:43</arg>
+</msg>
+
+</log>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <!DOCTYPE IntelParallelAdvisorSummaryCollection SYSTEM  "IntelParallelAdvisorSummaryCollection.dtd"> -->
+
+<IntelParallelAdvisorSummary version="" 
+                             kind="DATAKIND_SURVEY_EX" >
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h"
+           line_no="136"
+           routine="Lambda&lt;Mesh1DUniform&gt;"
+           is_vectorized="0"
+           self_time="1.299774E-01"
+           total_time="0.000000E+00"
+           trip_counts=""
+           func_instance="441"
+           priority="0">
+           <recommendation id="rec_div_c" title="add_div_title" confidence="1" gain="-1"/>
+  </hotspot>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.cpp"
+           line_no="55"
+           routine="VectorField1D::operator="
+           is_vectorized="0"
+           self_time="3.999982E-02"
+           total_time="0.000000E+00"
+           trip_counts=""
+           func_instance="73"
+           priority="0">
+           <recommendation id="rec_system_functions_move_c" title="Remove system function call(s) inside loop" confidence="1" gain="-1"/>
+  </hotspot>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.cpp"
+           line_no="55"
+           routine="VectorField1D::operator="
+           is_vectorized="0"
+           self_time="3.999982E-02"
+           total_time="0.000000E+00"
+           trip_counts=""
+           func_instance="73"
+           priority="0">
+           <recommendation id="rec_user_function_prevent_vectorization_try_simd_c" title="Vectorize serialized function(s) inside loop" confidence="1" gain="-1"/>
+  </hotspot>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Solver.h"
+           line_no="134"
+           routine="Solver&lt;Mesh1DUniform, LA1D_SDNN, SSPRK_4, FC_1D&lt;Patch1DUniform&gt;, FC_1D&lt;Patch1DUniform&gt;&gt;::solve"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="0.000000E+00"
+           trip_counts=""
+           func_instance="62"
+           priority="0">
+           <recommendation id="rec_type_conversions_smallest_c" title="Use the smallest data type" confidence="1" gain="-1"/>
+  </hotspot>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/PDE.h"
+           line_no="177"
+           routine="LA1D_SDNN::Cons_to_flux&lt;FC_1D&lt;Patch1DUniform&gt;&gt;"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="0.000000E+00"
+           trip_counts=""
+           func_instance="89"
+           priority="0">
+           <recommendation id="rec_type_conversions_smallest_c" title="Use the smallest data type" confidence="1" gain="-1"/>
+  </hotspot>
+</IntelParallelAdvisorSummary >

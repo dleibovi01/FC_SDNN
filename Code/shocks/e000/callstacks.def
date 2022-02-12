@@ -1,0 +1,28 @@
+# callstacks file version: 7
+#    rowid	    parent	       rva	 loop	 system	                                function	binary	instance_start_rva	instance_size	instance_end_rva	finst_rowid	roi	is_inlined	jit_method_id	tripcounts_roi	flops_roi	cachesim_roi	data_transfer_roi
+         1	        -1	      8000	    0	      0	                                  _start	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	8000	48	0	4	0	0	0	0	0	0	0
+         2	        -1	      8040	    0	      0	                                  _start	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	8000	48	0	4	0	0	0	0	0	0	0
+         3	        15	    138244	    1	      1	     [Loop@0x21b49 in __libc_start_main]	/usr/lib64/libc.so.6	138057	391	0	5	0	0	0	0	0	0	0
+         4	        20	     19911	    0	      0	                         TestingVector1D	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	19287	2107	0	13	0	1	0	0	0	0	0
+         5	        24	     18037	    1	      0	[Loop at line 43 in Print_VectorField1D]	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	18023	36	17867,17975	16	0	0	0	0	0	0	0
+         6	         5	    616337	    0	      1	 std::endl<char, std::char_traits<char>>	/usr/lib64/libstdc++.so.6	616288	93	0	1	0	0	0	0	0	0	0
+         7	        13	    615749	    1	      1	     [Loop@0x964c7 in std::ostream::put]	/usr/lib64/libstdc++.so.6	615623	149	0	2	0	0	0	0	0	0	0
+         8	         7	    474184	    0	      1	                                    putc	/usr/lib64/libc.so.6	474000	256	0	7	0	0	0	0	0	0	0
+         9	         8	    489458	    0	      1	                       _IO_file_overflow	/usr/lib64/libc.so.6	489216	508	0	8	0	0	0	0	0	0	0
+        10	         9	    488475	    0	      1	                            _IO_do_write	/usr/lib64/libc.so.6	488352	266	0	9	0	0	0	0	0	0	0
+        11	        17	    483250	    1	      1	        [Loop@0x75f90 in _IO_file_write]	/usr/lib64/libc.so.6	483216	49	0	10	0	0	0	0	0	0	0
+        12	        11	    956480	    0	      1	                                 __write	/usr/lib64/libc.so.6	956464	90	0	12	0	0	0	0	0	0	0
+        13	         6	    615623	    0	      1	                       std::ostream::put	/usr/lib64/libstdc++.so.6	615536	375	0	3	0	0	0	0	0	0	0
+        14	         6	    615749	    0	      1	                       std::ostream::put	/usr/lib64/libstdc++.so.6	615536	375	0	3	0	0	0	0	0	0	0
+        15	         2	    138057	    0	      1	                       __libc_start_main	/usr/lib64/libc.so.6	138000	448	0	6	0	0	0	0	0	0	0
+        16	         2	    138244	    0	      1	                       __libc_start_main	/usr/lib64/libc.so.6	138000	448	0	6	0	0	0	0	0	0	0
+        17	        10	    483216	    0	      1	                          _IO_file_write	/usr/lib64/libc.so.6	483184	149	0	11	0	0	0	0	0	0	0
+        18	        10	    483250	    0	      1	                          _IO_file_write	/usr/lib64/libc.so.6	483184	149	0	11	0	0	0	0	0	0	0
+        19	         3	     19430	    0	      0	                                    main	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	19248	2640	0	15	0	0	0	0	0	0	0
+        20	        19	     19287	    1	      0	              [Loop at line 108 in main]	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	19430	2287	20380	14	0	0	0	0	0	0	0
+        21	        19	     19911	    1	      0	              [Loop at line 108 in main]	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	19430	2287	20380	14	0	0	0	0	0	0	0
+        22	         3	     19911	    0	      0	                                    main	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	19248	2640	0	15	0	0	0	0	0	0	0
+        23	         4	     17975	    0	      0	                     Print_VectorField1D	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	17760	560	0	17	0	0	0	0	0	0	0
+        24	        23	     18023	    1	      0	[Loop at line 43 in Print_VectorField1D]	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	17975	84	17867	18	0	0	0	0	0	0	0
+        25	         4	     18037	    0	      0	                     Print_VectorField1D	/home/dleibovi/Documents/C++/Shock solver/TestingSuite	17760	560	0	17	0	0	0	0	0	0	0
+        26	        -1	         0	    0	      0	                [Unknown stack frame(s)]	n/a	0	1	0	31	0	0	0	0	0	0	0

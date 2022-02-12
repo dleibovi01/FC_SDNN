@@ -1,0 +1,10 @@
+
+=== Start: [2021/08/21 18:58:21] === 
+Peak bandwidth measurement started...
+Peak bandwidth measurement finished.
+Analysis started...
+Result file: /home/dleibovi/Documents/C++/Shock solver/shocks/e000/trc000/trc000.advixe 
+Application exit code: 0 
+Result file: /home/dleibovi/Documents/C++/Shock solver/shocks/e000/trc000/trc000.advixe 
+Analysis completed
+=== End: [2021/08/21 18:58:43] === 

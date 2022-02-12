@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <!DOCTYPE IntelParallelAdvisorSummaryCollection SYSTEM  "IntelParallelAdvisorSummaryCollection.dtd"> -->
+
+<IntelParallelAdvisorSummary version="" 
+                             kind="DATAKIND_SURVEY_EX" >
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="[MKL VML"
+           is_vectorized="0"
+           self_time="3.798631E-01"
+           total_time="1.629375E+00"
+           trip_counts=""
+           func_instance="530"
+           priority="0"/>
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="[MKL FFT"
+           is_vectorized="1"
+           self_time="1.499195E-01"
+           total_time="1.499195E-01"
+           trip_counts=""
+           func_instance="540"
+           priority="0"/>
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="[MKL VML"
+           is_vectorized="0"
+           self_time="1.399413E-01"
+           total_time="1.249511E+00"
+           trip_counts=""
+           func_instance="528"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h"
+           line_no="254"
+           routine="form_stencils"
+           is_vectorized="0"
+           self_time="1.100007E-01"
+           total_time="1.100007E-01"
+           trip_counts=""
+           func_instance="85"
+           priority="0"/>
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="__intel_ssse3_rep_memmove"
+           is_vectorized="1"
+           self_time="1.099577E-01"
+           total_time="1.099577E-01"
+           trip_counts=""
+           func_instance="127"
+           priority="0"/>
+</IntelParallelAdvisorSummary >

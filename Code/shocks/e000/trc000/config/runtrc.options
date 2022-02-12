@@ -1,0 +1,11 @@
+-r
+/home/dleibovi/Documents/C++/Shock solver/shocks/e000/trc000
+--return-app-exitcode
+--cs-mode=count-loops,count-flops,stl-profiling,stack-stitching
+--count-flops
+--benchmarks=dram,mcdram,cpu_cache,flop_peak,int
+--cs-file=/home/dleibovi/Documents/C++/Shock solver/shocks/e000/callstacks.def
+--jit-profiling
+--gpu-collect-traffic
+--
+/home/dleibovi/Documents/C++/Shock solver/TestingSuite

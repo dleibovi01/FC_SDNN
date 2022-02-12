@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <!DOCTYPE IntelParallelAdvisorSummaryCollection SYSTEM  "IntelParallelAdvisorSummaryCollection.dtd"> -->
+
+<IntelParallelAdvisorSummary version="" 
+                             kind="DATAKIND_SURVEY_EX" >
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.cpp"
+           line_no="79"
+           routine="Patch1D::VectorFieldToNodes"
+           is_vectorized="0"
+           self_time="3.799959E-01"
+           total_time="7.100049E-01"
+           trip_counts="4"
+           func_instance="75"
+           priority="0"/>
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="__intel_ssse3_rep_memmove"
+           is_vectorized="1"
+           self_time="2.800217E-01"
+           total_time="2.800217E-01"
+           trip_counts="11"
+           func_instance="84"
+           priority="0"/>
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="__intel_ssse3_rep_memmove"
+           is_vectorized="1"
+           self_time="2.299841E-01"
+           total_time="2.299841E-01"
+           trip_counts="11"
+           func_instance="136"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.cpp"
+           line_no="77"
+           routine="Patch1D::VectorFieldToNodes"
+           is_vectorized="0"
+           self_time="1.500075E-01"
+           total_time="8.800125E-01"
+           trip_counts="200"
+           func_instance="77"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h"
+           line_no="136"
+           routine="Lambda&lt;Mesh1DUniform&gt;"
+           is_vectorized="0"
+           self_time="1.299774E-01"
+           total_time="4.799319E-01"
+           trip_counts="200"
+           func_instance="441"
+           priority="0"/>
+</IntelParallelAdvisorSummary >

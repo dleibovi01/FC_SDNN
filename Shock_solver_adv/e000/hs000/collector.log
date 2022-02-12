@@ -1,0 +1,68 @@
+Collection status has changed. 1
+Collection has been started.
+Collection has stopped. Application exit code:  0
+Finalizing results
+Finalizing the result
+Clearing the database
+The database has been cleared, elapsed time is 0.362 seconds.
+Loading raw data to the database
+Loading 'systemcollector-2681-emscat-head.sc' file
+Loading '2681-2693.0.trace' file
+Loading 'userapicollector-2693-09847383.trace' file
+Updating precomputed scalar metrics
+Raw data has been loaded to the database, elapsed time is 1.051 seconds.
+Processing profile metrics and debug information
+Data transformations have been finished, elapsed time is 0.000 seconds.
+Setting data model parameters
+Resolving module symbols
+Resolving information for `libdl.so.2'
+Resolving information for `libstlport-dynamic.so'
+Warning: Cannot locate debugging information for file `/usr/lib64/libdl.so.2'.
+Resolving information for `Test_shock_solver'
+Resolving information for `libc.so.6'
+Warning: Cannot locate debugging information for file `/usr/lib64/libc.so.6'.
+Resolving information for `libittnotify_collector.so'
+Resolving information for `libc-dynamic.so'
+Resolving information for `pinbin'
+Warning: Cannot locate debugging information for file `/opt/ohpc/pub/compiler/intel/advisor_2020.2.0.606470/2021.1.1/lib64/runtime/libittnotify_collector.so'.
+Resolving information for `libstdc++.so.6'
+Warning: Cannot locate debugging information for file `/usr/lib64/libstdc++.so.6'.
+Resolving information for `libmkl_vml_avx2.so'
+Resolving information for `ld-linux-x86-64.so.2'
+Warning: Cannot locate debugging information for file `/lib64/ld-linux-x86-64.so.2'.
+Resolving information for `libmkl_core.so'
+Resolving information for `libiomp5.so'
+Resolving information for `libtpsstool.so'
+Resolving information for `libpin3dwarf.so'
+Resolving information for `libmkl_intel_thread.so'
+Warning: Cannot locate debugging information for file `/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_core.so'.
+Warning: Cannot locate debugging information for file `/opt/ohpc/pub/compiler/intel/advisor_2020.2.0.606470/2021.1.1/lib64/libtpsstool.so'.
+Resolving information for `libmkl_avx2.so'
+Warning: Cannot locate debugging information for file `/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_thread.so'.
+Resolving information for `libmkl_intel_lp64.so'
+Warning: Cannot locate debugging information for file `/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_lp64.so'.
+Warning: Cannot locate debugging information for file `/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so'.
+Resolving bottom user stack information
+Resolving thread name information
+Resolving call target names for dynamic code
+Symbol resolution has been finished, elapsed time is 7.348 seconds.
+Processing profile metrics and debug information
+Deferred data transformations have been finished, elapsed time is 0.014 seconds.
+Setting data model parameters
+Data model parameters have been set, elapsed time is 0.026 seconds.
+Precomputing frequently used data
+Precomputing frequently used data
+Updating precomputed scalar metrics
+Precomputing frequently used data has been finished, elapsed time is 0.057 seconds.
+Discarding redundant overtime data
+Saving the result
+Redundant overtime data has been discarded, elapsed time is 0.294 seconds.
+Raw collector data has been discarded, elapsed time is 0.000 seconds.
+Finalizing the result took 9.251 seconds.
+Preparing data for display of survey call tree
+Resolving module symbols
+Resolving information for dangling locations
+Resolving bottom user stack information
+Resolving thread name information
+Resolving call target names for dynamic code
+Precomputing frequently used data

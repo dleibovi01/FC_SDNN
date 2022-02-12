@@ -1,0 +1,13 @@
+-r
+/home/dleibovi/Documents/C++/Shock solver (copy)/Shock_solver_adv/e000/trc000
+--return-app-exitcode
+--cs-mode=count-loops,count-flops,stl-profiling,stack-stitching
+--count-flops
+--benchmarks=dram,mcdram,cpu_cache,flop_peak,int
+--cs-file=/home/dleibovi/Documents/C++/Shock solver (copy)/Shock_solver_adv/e000/callstacks.def
+--jit-profiling
+--enable-cache-simulation
+--cache-config=16:32k:8w/256k:8w/2:20480k:20w
+--gpu-collect-traffic
+--
+/home/dleibovi/Documents/C++/Shock solver (copy)/RelWithDebInfo/Test_shock_solver

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <!DOCTYPE IntelParallelAdvisorSummaryCollection SYSTEM  "IntelParallelAdvisorSummaryCollection.dtd"> -->
+
+<IntelParallelAdvisorSummary version="" 
+                             kind="DATAKIND_SURVEY_EX" >
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h"
+           line_no="128"
+           routine="Lambda&lt;Mesh1DUniform&gt;"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="2.969892E+00"
+           trip_counts="200"
+           func_instance="68"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h"
+           line_no="122"
+           routine="Lambda&lt;Mesh1DUniform&gt;"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="2.969892E+00"
+           trip_counts="2"
+           func_instance="69"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h"
+           line_no="131"
+           routine="Lambda&lt;Mesh1DUniform&gt;"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="2.959891E+00"
+           trip_counts="2"
+           func_instance="67"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.cpp"
+           line_no="64"
+           routine="VectorField1D::operator="
+           is_vectorized="0"
+           self_time="3.000020E-02"
+           total_time="1.239999E+00"
+           trip_counts="8"
+           func_instance="71"
+           priority="0"/>
+  <hotspot filename="/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.cpp"
+           line_no="77"
+           routine="Patch1D::VectorFieldToNodes"
+           is_vectorized="0"
+           self_time="1.500075E-01"
+           total_time="8.800125E-01"
+           trip_counts="200"
+           func_instance="77"
+           priority="0"/>
+</IntelParallelAdvisorSummary >

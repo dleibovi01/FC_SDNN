@@ -1,0 +1,236 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/BC.h
+Patch1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+Patch1DUniform.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1DUniform.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/FC.h
+iostream
+-
+complex
+-
+mkl.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl.h
+mkl_dfti.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl_dfti.h
+fstream
+-
+string
+-
+math.h
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/FC_data.h
+array
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/IC.h
+string
+-
+math.h
+-
+iostream
+-
+Patch1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+Patch1DUniform.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1DUniform.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+Patch1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+Patch1DUniform.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1DUniform.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Node1D.h
+iostream
+-
+vector
+-
+cmath
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/PDE.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+IC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/IC.h
+BC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/BC.h
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+string
+-
+fstream
+-
+cmath
+-
+mkl_operations.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl_operations.h
+SDNN.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h
+FC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/FC.h
+printing.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/printing.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+Node1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Node1D.h
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+iostream
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1DUniform.h
+Patch1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h
+cmath
+-
+PDE.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/PDE.h
+string
+-
+mkl_operations.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl_operations.h
+FC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/FC.h
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+SDNN_data.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN_data.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN_data.h
+array
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Solver.h
+SpatDiffScheme.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SpatDiffScheme.h
+TimeStepScheme.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/TimeStepScheme.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+PDE.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/PDE.h
+printing.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/printing.h
+SDNN.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SDNN.h
+chrono
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SpatDiffScheme.h
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+algorithm
+-
+FC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/FC.h
+FC_data.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/FC_data.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/TestingSuite.cpp
+TestingSuite.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/TestingSuite.h
+mkl.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/TestingSuite.h
+vector
+-
+iostream
+-
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+Node1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Node1D.h
+Patch1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+Patch1DUniform.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1DUniform.h
+IC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/IC.h
+BC.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/BC.h
+printing.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/printing.h
+SpatDiffScheme.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SpatDiffScheme.h
+TimeStepScheme.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/TimeStepScheme.h
+Solver.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Solver.h
+chrono
+-
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/TimeStepScheme.h
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+SpatDiffScheme.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/SpatDiffScheme.h
+algorithm
+-
+printing.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/printing.h
+PDE.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/PDE.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+vector
+-
+iostream
+-
+algorithm
+-
+mkl.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl_operations.h
+mkl.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl.h
+mkl_dfti.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/mkl_dfti.h
+
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/printing.h
+iostream
+-
+fstream
+-
+iomanip
+-
+complex
+-
+string
+-
+VectorField1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/VectorField1D.h
+Node1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Node1D.h
+Patch1D.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Patch1D.h
+Mesh.h
+/home/dleibovi/Documents/C++/Shock solver (copy)/Code/Mesh.h
+
