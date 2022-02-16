@@ -1,69 +1,87 @@
 # hash file version: 3
-28	544	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	6150780	6150953		0	173	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-29	542	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	6150729	6151116		0	387	cea1b0ff13d964f27b8fc5908957eb17	0	1	0	0	0
-48	550	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	6150974	6151023		0	49	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-50	552	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	26340896	26340962		0	66	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-51	547	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	26340832	26341067		0	235	cea1b0ff13d964f27b8fc5908957eb17	0	1	0	0	0
-76	528	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_vml_avx2.so	1825472	1825485		0	200	694bcb93ccdf986dd3acbfc58a5153c4	0	1	0	0	0
-77	530	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_vml_avx2.so	1824139	1824610		0	832	694bcb93ccdf986dd3acbfc58a5153c4	0	1	0	0	0
-79	583	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_intel_thread.so	8858430	8858528		0	140	d812dca3337f8470dcae449e1980ff5f	0	1	0	0	0
-133	33	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	14543470	14543577		0	107	cea1b0ff13d964f27b8fc5908957eb17	0	1	0	0	0
-134	35	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	14637528	14637867		0	339	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-135	38	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	119493	119536	/home/dleibovi/Documents/C++/Shock solver/Code/SVW.h	131	43	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-136	42	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	119198	119879	/home/dleibovi/Documents/C++/Shock solver/Code/SVW.h	222	703	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-137	46	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	103992	104101	/home/dleibovi/Documents/C++/Shock solver/Code/Solver.h	148	109	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-138	47	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	98862	104260	/home/dleibovi/Documents/C++/Shock solver/Code/Solver.h	98	6415	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-139	50	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	117702	118125	/home/dleibovi/Documents/C++/Shock solver/Code/TimeStepScheme.h	82	423	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-140	56	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	116700	116947	/home/dleibovi/Documents/C++/Shock solver/Code/TimeStepScheme.h	51	247	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-141	58	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	102459	102532	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	244	73	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-142	60	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	107371	107851	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	203	480	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-143	69	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	43371	43404	/home/dleibovi/Documents/C++/Shock solver/Code/FC.cpp	176	33	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-144	70	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	99084	99217	/home/dleibovi/Documents/C++/Shock solver/Code/Solver.h	117	479	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-145	72	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	132945	132992	/home/dleibovi/Documents/C++/Shock solver/Code/VectorField1D.cpp	228	47	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-146	74	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	101256	101331	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	38	75	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-147	78	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	101029	101935	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	487	997	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-148	79	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	99249	102391	/home/dleibovi/Documents/C++/Shock solver/Code/Solver.h	104	3409	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-149	82	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	101460	101535	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	38	75	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-150	112	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	0		/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	275	1	1c7fb05d7ea63efaa86c1650cc3ef86f	0	7	0	0	0
-150	84	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	0		/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	254	1	1c7fb05d7ea63efaa86c1650cc3ef86f	0	7	0	0	0
-150	107	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	0		/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	284	1	1c7fb05d7ea63efaa86c1650cc3ef86f	0	7	0	0	0
-151	85	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	99635	99797	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	254	162	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-152	94	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	117832	117965	/home/dleibovi/Documents/C++/Shock solver/Code/TimeStepScheme.h	86	133	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-153	96	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	43112	43135	/home/dleibovi/Documents/C++/Shock solver/Code/FC.cpp	172	23	1c7fb05d7ea63efaa86c1650cc3ef86f	0	2	0	0	0
-154	97	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	116809	116875	/home/dleibovi/Documents/C++/Shock solver/Code/TimeStepScheme.h	55	66	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-155	98	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	118470	118595	/home/dleibovi/Documents/C++/Shock solver/Code/SpatDiffScheme.h	226	125	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-156	106	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40910	41852	/home/dleibovi/Documents/C++/Shock solver/Code/FC.cpp	136	942	1c7fb05d7ea63efaa86c1650cc3ef86f	0	8	0	0	0
-158	110	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	134513	134784,134859	/home/dleibovi/Documents/C++/Shock solver/Code/VectorField1D.cpp	30	313	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-160	113	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	99871	100187	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	269	316	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-161	115	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	136936	137192,137277	/home/dleibovi/Documents/C++/Shock solver/Code/VectorField1D.cpp	82	306	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-162	127	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	277648	277735		0	87	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-163	129	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40534	40670	/usr/include/c++/4.8.5/bits/stl_algobase.h	333	136	1c7fb05d7ea63efaa86c1650cc3ef86f	1	4	0	0	0
-164	140	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	105978	106032	/usr/include/c++/4.8.5/bits/stl_algo.h	6239	54	1c7fb05d7ea63efaa86c1650cc3ef86f	0	2	0	0	0
-165	143	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40096	40144	/usr/include/c++/4.8.5/bits/stl_algobase.h	333	48	1c7fb05d7ea63efaa86c1650cc3ef86f	0	2	0	0	0
-166	151	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	229921	229991		0	70	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-167	157	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	277783	277864		0	81	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-168	158	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	101667	101742	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	38	75	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-169	170	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	136832	136879	/home/dleibovi/Documents/C++/Shock solver/Code/VectorField1D.cpp	73	47	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-170	189	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	209330	209341,209369,209391,209405		0	55	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-171	218	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	109082	109899	/home/dleibovi/Documents/C++/Shock solver/Code/BC.h	82	1323	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-172	228	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	209176	209193,209216,209231		0	44	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-173	231	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	109266	109823	/home/dleibovi/Documents/C++/Shock solver/Code/BC.h	67	956	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-174	240	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	115722	115745	/usr/include/c++/4.8.5/bits/stl_construct.h	102	23	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-175	262	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	107498	107590	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	100	92	1c7fb05d7ea63efaa86c1650cc3ef86f	0	2	0	0	0
-176	265	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	111657	112089	/home/dleibovi/Documents/C++/Shock solver/Code/TimeStepScheme.h	165	432	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-177	274	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	124541	124662	/home/dleibovi/Documents/C++/Shock solver/Code/printing.h	34	121	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-178	277	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	124471	124693	/home/dleibovi/Documents/C++/Shock solver/Code/printing.h	30	222	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-179	278	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	124362	124760	/home/dleibovi/Documents/C++/Shock solver/Code/printing.h	46	398	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-180	281	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40335		/usr/include/c++/4.8.5/bits/stl_algobase.h	333	27	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-181	282	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40386	40522	/usr/include/c++/4.8.5/bits/stl_algobase.h	333	136	1c7fb05d7ea63efaa86c1650cc3ef86f	1	4	0	0	0
-182	283	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40710		/usr/include/c++/4.8.5/bits/stl_algobase.h	333	27	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-183	284	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40765		/usr/include/c++/4.8.5/bits/stl_algobase.h	333	48	1c7fb05d7ea63efaa86c1650cc3ef86f	0	2	0	0	0
-184	292	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	100236		/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	269	234	1c7fb05d7ea63efaa86c1650cc3ef86f	0	1	0	0	0
-185	535	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	15996676	15997883		0	1207	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-186	538	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	14544430	14544537		0	107	cea1b0ff13d964f27b8fc5908957eb17	0	1	0	0	0
-187	540	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	15977159	15978361		0	1202	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-188	545	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	26340997	26341031		0	34	cea1b0ff13d964f27b8fc5908957eb17	0	1	0	0	0
-189	548	/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2017.2.174/linux/mkl/lib/intel64/libmkl_avx2.so	14604744	14605092		0	348	cea1b0ff13d964f27b8fc5908957eb17	1	1	0	0	0
-190	588	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	43336	43360,43404	/home/dleibovi/Documents/C++/Shock solver/Code/FC.cpp	176	57	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-191	594	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	99871	100187,100470	/home/dleibovi/Documents/C++/Shock solver/Code/SDNN.h	269	550	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
-192	596	/home/dleibovi/Documents/C++/Shock solver/RelWithDebInfo/Test_shock_solver	40335	40362,40522,40670,40737,40813	/usr/include/c++/4.8.5/bits/stl_algobase.h	333	374	1c7fb05d7ea63efaa86c1650cc3ef86f	1	1	0	0	0
+1	51	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46186473	46186527		0	54	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+2	55	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46186252	46186457		0	205	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+3	57	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46359363	46359745		0	382	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+4	59	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46364799	46365539		0	740	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+5	60	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46364789	46365557		0	768	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+6	61	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46364700	46368082,46367061,46366365		0	1665	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+7	63	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46342723	46343105		0	382	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+8	65	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46351485	46351854		0	369	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+9	66	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46185035	46185228		0	193	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+10	68	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46368125	46368494		0	369	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+11	69	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46348159	46348899		0	740	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+12	70	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46348149	46348917		0	768	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+13	71	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46348060	46351442,46350421,46349725		0	1665	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+14	73	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631433	5631820		0	387	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+15	75	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631484	5631657		0	173	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+16	77	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	46309890	46309957		0	67	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+17	79	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631678	5631727		0	49	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+18	81	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	44702685	44702641,44702778		0	93	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+19	82	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5632176	5632264		0	88	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+20	264	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	31692791	31692845		0	54	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+21	266	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	31692731	31692947		0	216	63f388927e7bc7b6beae0124e39a3585	0	1	0	0	0
+22	268	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5449344	5449462		0	118	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+23	269	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5860336	5860416		0	80	63f388927e7bc7b6beae0124e39a3585	1	1	0	0	0
+24	278	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	137542	137585	/home/leibov/Documents/FC_SDNN/Code/SVW.h	131	43	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+25	282	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	137247	137927	/home/leibov/Documents/FC_SDNN/Code/SVW.h	222	702	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+26	286	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	119194	119319	/home/leibov/Documents/FC_SDNN/Code/Solver.h	170	125	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+27	287	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	114134	120149,119641	/home/leibov/Documents/FC_SDNN/Code/Solver.h	100	5575	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+28	289	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4197947	4197960		0	295	af535e3840d8809cfa29f634aea6b193	1	1	0	0	0
+29	291	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4195869	4196947		0	1596	af535e3840d8809cfa29f634aea6b193	0	1	0	0	0
+30	293	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	136184	136303	/home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h	86	119	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+31	295	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	136071	136494	/home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h	82	423	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+32	298	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	52185	53118	/home/leibov/Documents/FC_SDNN/Code/FC.cpp	136	933	c34d8b9b7d14bbb492682b5629f1de84	0	8	0	0	0
+33	303	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133493	133758	/home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h	51	265	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+34	306	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	118412	118492	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	276	80	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+35	310	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	170868	170904	/home/leibov/Documents/FC_SDNN/Code/VectorField1D.cpp	73	36	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+36	313	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	121557	122034	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	216	477	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+37	316	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	54651	54684	/home/leibov/Documents/FC_SDNN/Code/FC.cpp	181	33	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+38	318	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	114543	114685	/home/leibov/Documents/FC_SDNN/Code/Solver.h	143	142	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+39	319	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	114361	114775	/home/leibov/Documents/FC_SDNN/Code/Solver.h	134	731	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+40	320	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	170963	171382,171279,171357	/home/leibov/Documents/FC_SDNN/Code/VectorField1D.cpp	82	359	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+41	322	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116949	117829	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	511	971	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+42	324	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	114810	118322	/home/leibov/Documents/FC_SDNN/Code/Solver.h	106	3775	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+43	326	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133609	133677	/home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h	55	68	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+44	329	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0		/home/leibov/Documents/FC_SDNN/Code/SDNN.h	109	1	c34d8b9b7d14bbb492682b5629f1de84	0	7	0	0	0
+44	478	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0		/home/leibov/Documents/FC_SDNN/Code/SDNN.h	298	1	c34d8b9b7d14bbb492682b5629f1de84	0	7	0	0	0
+44	469	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0		/home/leibov/Documents/FC_SDNN/Code/SDNN.h	109	1	c34d8b9b7d14bbb492682b5629f1de84	0	7	0	0	0
+44	456	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0		/home/leibov/Documents/FC_SDNN/Code/SDNN.h	307	1	c34d8b9b7d14bbb492682b5629f1de84	0	7	0	0	0
+44	455	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0		/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/complex	309	1	c34d8b9b7d14bbb492682b5629f1de84	0	7	0	0	0
+45	330	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	122238	122400	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	109	162	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+46	332	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	168267	168667,168594,168662	/home/leibov/Documents/FC_SDNN/Code/VectorField1D.cpp	30	359	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+47	335	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	51793	51930	/usr/include/c++/9/bits/stl_algobase.h	340	137	c34d8b9b7d14bbb492682b5629f1de84	1	4	0	0	0
+48	340	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	166437	166476	/home/leibov/Documents/FC_SDNN/Code/VectorField1D.cpp	228	39	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+49	361	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117168	117245	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	38	77	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+50	373	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	280976	281120		0	137	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+51	375	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	54392	54415	/home/leibov/Documents/FC_SDNN/Code/FC.cpp	172	23	c34d8b9b7d14bbb492682b5629f1de84	0	2	0	0	0
+52	376	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	122433	122592	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	242	159	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+53	377	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117366	117443	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	38	77	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+54	383	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	251852	251870,251894,251919,251933		0	62	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+55	386	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117560	117637	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	38	77	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+56	398	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	120270	120322	/usr/include/c++/9/bits/stl_algo.h	5627	52	c34d8b9b7d14bbb492682b5629f1de84	0	2	0	0	0
+57	416	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	283200	281120		0	103	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+58	420	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	125371	125701	/home/leibov/Documents/FC_SDNN/Code/BC.h	87	330	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+59	422	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	125010	125785,125866	/home/leibov/Documents/FC_SDNN/Code/BC.h	104	775	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+60	437	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	120345	120403	/usr/include/c++/9/bits/stl_algo.h	5691	58	c34d8b9b7d14bbb492682b5629f1de84	0	2	0	0	0
+61	438	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	275248	275392		0	137	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+62	439	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	287159	287229		0	70	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+63	445	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	170042	170398,170325,170393	/home/leibov/Documents/FC_SDNN/Code/VectorField1D.cpp	59	318	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+64	450	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117956	118015	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	359	59	c34d8b9b7d14bbb492682b5629f1de84	1	4	0	0	0
+68	470	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	115503	115655	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	109	152	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+69	473	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	136339	136404	/home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h	91	65	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+70	475	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128728	128955	/home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h	165	227	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+71	477	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	277472	275392		0	103	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+73	479	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	115730	116046	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	292	316	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+74	489	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	132775	132823	/usr/include/c++/9/bits/vector.tcc	1734	48	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+75	518	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	122474	122530	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	244	56	c34d8b9b7d14bbb492682b5629f1de84	0	2	0	0	0
+76	521	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	51338	51384	/usr/include/c++/9/bits/stl_algobase.h	340	46	c34d8b9b7d14bbb492682b5629f1de84	0	2	0	0	0
+77	547	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116095		/home/leibov/Documents/FC_SDNN/Code/SDNN.h	292	242	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+78	553	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	118055		/home/leibov/Documents/FC_SDNN/Code/SDNN.h	359	24	c34d8b9b7d14bbb492682b5629f1de84	0	1	0	0	0
+79	591	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4197001	4197368		0	692	af535e3840d8809cfa29f634aea6b193	1	1	0	0	0
+80	592	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	1538929	1540852		0	2426	af535e3840d8809cfa29f634aea6b193	1	1	0	0	0
+81	639	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	3943184	3943281		0	97	af535e3840d8809cfa29f634aea6b193	1	1	0	0	0
+82	640	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	3804552	3805049		0	1043	af535e3840d8809cfa29f634aea6b193	1	1	0	0	0
+83	652	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	54616	54640,54684	/home/leibov/Documents/FC_SDNN/Code/FC.cpp	181	57	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+84	658	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	115730	116046,116337	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	292	558	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+85	659	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117956	118015,118079	/home/leibov/Documents/FC_SDNN/Code/SDNN.h	359	83	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0
+86	660	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	51583	51611,51777,51930,51999,52078	/usr/include/c++/9/bits/stl_algobase.h	340	377	c34d8b9b7d14bbb492682b5629f1de84	1	1	0	0	0

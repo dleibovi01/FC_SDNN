@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <!DOCTYPE IntelParallelAdvisorSummaryCollection SYSTEM  "IntelParallelAdvisorSummaryCollection.dtd"> -->
+
+<IntelParallelAdvisorSummary version="" 
+                             kind="DATAKIND_SURVEY_EX" >
+  <hotspot filename="/home/leibov/Documents/FC_SDNN/Code/Solver.h"
+           line_no="100"
+           routine="Solver&lt;Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D&lt;Patch1DUniform&gt;, FC_1D&lt;Patch1DUniform&gt;&gt;::solve_sdnn"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="9.035695E+00"
+           trip_counts=""
+           func_instance="287"
+           priority="0"/>
+  <hotspot filename="/home/leibov/Documents/FC_SDNN/Code/Solver.h"
+           line_no="170"
+           routine="Solver&lt;Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D&lt;Patch1DUniform&gt;, FC_1D&lt;Patch1DUniform&gt;&gt;::solve_sdnn"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="4.609885E+00"
+           trip_counts=""
+           func_instance="286"
+           priority="0"/>
+  <hotspot filename="/home/leibov/Documents/FC_SDNN/Code/SDNN.h"
+           line_no="276"
+           routine="updateVisc&lt;Mesh1DUniform, Euler1D_SDNN, FC_1D&lt;Patch1DUniform&gt;&gt;"
+           is_vectorized="0"
+           self_time="0.000000E+00"
+           total_time="2.851794E+00"
+           trip_counts=""
+           func_instance="306"
+           priority="0"/>
+  <hotspot filename="/home/leibov/Documents/FC_SDNN/Code/SDNN.h"
+           line_no="216"
+           routine="updateViscPatch&lt;Patch1DUniform, Mesh1DUniform, SVW*, Euler1D_SDNN, FC_1D&lt;Patch1DUniform&gt;&gt;"
+           is_vectorized="0"
+           self_time="1.000000E-02"
+           total_time="1.980072E+00"
+           trip_counts=""
+           func_instance="313"
+           priority="0"/>
+  <hotspot filename=""
+           line_no="4294967295"
+           routine="[MKL VML"
+           is_vectorized="0"
+           self_time="4.324254E-01"
+           total_time="1.814228E+00"
+           trip_counts=""
+           func_instance="291"
+           priority="0"/>
+</IntelParallelAdvisorSummary >

@@ -172,11 +172,19 @@ void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs,
     std::complex<double> f_ext[N + C];
     Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
     vzMul(N + C, der_coeffs, f_ext, f_ext);
+
+    // std::cout << std::endl;
+    // Print_Mat(f_ext, N + C , 1);
+    // std::cout << std::endl;
+    
     status = DftiComputeBackward(desc_handle, f_ext); 
     for (int j = 0; j < N; j++)
     {
         f_der[j] = f_ext[j].real();
     }
+    // std::cout << std::endl;
+    // Print_Mat(f_der, N , 1);
+    // std::cout << std::endl;
 }
 
 
@@ -196,6 +204,20 @@ double * Fcont(const double * fx, int N, int d, int C, double fourPts,
         f_der[j] = f_ext[j].real();
     }
     return f_der;
+}
+
+void Fcont(const double * fx, double * f_der, int N, int d, int C,
+     double fourPts, const double * AQ, const double * FAQF, 
+     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
+{
+    MKL_LONG status;
+    std::complex<double> f_ext[N + C];
+    Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
+    status = DftiComputeBackward(desc_handle, f_ext); 
+    for (int j = 0; j < N + C; j++)
+    {
+        f_der[j] = f_ext[j].real();
+    }
 }
 
 

@@ -39,6 +39,10 @@ double * Fcont(const double * fx, int N, int d, int C, double fourPts,
     const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
 
+void Fcont(const double * fx, double * f_der, int N, int d, int C,
+     double fourPts, const double * AQ, const double * FAQF, 
+     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
+
 void Fcont_shift(const double * fx, double * f_shift, 
     std::complex<double> * shift_coeffs, int N, int d, int C, double fourPts, 
     const double * AQ, const double * FAQF, 

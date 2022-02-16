@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
+ <cli_project type="bool">true</cli_project>
+ <connectionOption type="string">localhost</connectionOption>
  <rdmgr>
-  <timestamp type="u64_t">1644138803</timestamp>
-  <hostname type="string">emscat-1-2</hostname>
+  <timestamp type="u64_t">1644996592</timestamp>
+  <hostname type="string">ubuntu</hostname>
   <os type="string">linux</os>
-  <product type="string">Intel® Advisor 2021.1</product>
-  <buildNumber type="s32_t">607872</buildNumber>
-  <logicalCPUCount type="s32_t">48</logicalCPUCount>
-  <physicalCoreCount type="s32_t">24</physicalCoreCount>
+  <product type="string">Intel® Advisor 2022.0</product>
+  <buildNumber type="s32_t">611554</buildNumber>
+  <logicalCPUCount type="s32_t">2</logicalCPUCount>
+  <physicalCoreCount type="s32_t">2</physicalCoreCount>
   <processorPackageCount type="s32_t">2</processorPackageCount>
-  <CPUFrequency type="s64_t">2300000000</CPUFrequency>
+  <CPUFrequency type="s64_t">2600000000</CPUFrequency>
   <CPUFamily type="s32_t">6</CPUFamily>
-  <CPUModel type="s32_t">63</CPUModel>
-  <CPUStepping type="s32_t">2</CPUStepping>
-  <CPUBrandName type="string">Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz</CPUBrandName>
+  <CPUModel type="s32_t">158</CPUModel>
+  <CPUStepping type="s32_t">10</CPUStepping>
+  <CPUBrandName type="string">Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz</CPUBrandName>
   <isa type="string">avx2</isa>
  </rdmgr>
  <All_Configurations-All_Platforms>
@@ -25,14 +27,11 @@
        <targetName type="string">release</targetName>
        <launch_app.app_to_launch type="string">./Test_shock_solver</launch_app.app_to_launch>
        <launch_app.app_parameters type="string"></launch_app.app_parameters>
+       <search_directories type="bag"/>
        <context>
         <contextValue>
          <id type="string">auto_finalize</id>
          <value type="bool">true</value>
-        </contextValue>
-        <contextValue>
-         <id type="string">collectGpuOpenCl</id>
-         <value type="bool">false</value>
         </contextValue>
         <contextValue>
          <id type="string">dataLimit</id>
@@ -107,6 +106,10 @@
          <value type="bool">false</value>
         </contextValue>
         <contextValue>
+         <id type="string">targetGPU</id>
+         <value type="string">none</value>
+        </contextValue>
+        <contextValue>
          <id type="string">targetType</id>
          <value type="string">release</value>
         </contextValue>
@@ -119,6 +122,10 @@
      </release>
     </localhost>
    </workloads>
+   <selected_workload>
+    <localhost type="string">release</localhost>
+   </selected_workload>
   </target_settings>
  </All_Configurations-All_Platforms>
+ <contextValues type="bag"/>
 </root>

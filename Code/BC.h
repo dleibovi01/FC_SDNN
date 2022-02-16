@@ -26,6 +26,7 @@ private:
                 std::string problem4 = "three_waves";
                 std::string problem5 = "one_wave";
                 std::string problem6 = "smooth_LA";
+                std::string problem7 = "Euler1D_Sod";
                 std::vector<double> y;
                 if(problem.compare(problem0) == 0)
                 {
@@ -51,7 +52,22 @@ private:
                 else if(problem.compare(problem6) == 0)
                 {
                     y.push_back(0.0);
-                }                               
+                }           
+                else if(problem.compare(problem7) == 0)
+                {
+                   if(x == 0.0)
+                    {
+                        y.push_back(1.0);
+                        y.push_back(0.0);
+                        y.push_back(2.5);
+                    }  
+                   else if(x == 1.0)
+                    {
+                        y.push_back(0.125);
+                        y.push_back(0.0);
+                        y.push_back(0.25);
+                    }  
+                }                         
                 return y;
             }
     };

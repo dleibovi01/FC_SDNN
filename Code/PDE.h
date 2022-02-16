@@ -107,6 +107,7 @@ public:
             mu_max = getMuMax(v, unknowns, stages);
             h = patch->getH();
             // std::cout <<"mu_max = " << mu_max << std::endl;
+            // std::cout <<"MWSB_max = " << MWSB_max << std::endl;
             timestep = CFL / (pi*(MWSB_max/h + mu_max/h/h));
             if(i == 0)
             {
@@ -185,9 +186,10 @@ public:
         }
     }
 
-    double * getProxy(const VectorField1D &v, int stage) const
+    void getProxy(const VectorField1D &v, double* proxy) const
     {
-        return v.getField(stage);    
+        int N = v.getLength();
+        std::copy(v.getField(0), v.getField(0) + N, proxy);    
     }
 
 
@@ -205,11 +207,11 @@ public:
 
 
     Euler1D_SDNN(const IC &_ic, const BC &_bc, double &_T, double _gamma, 
-    const ANN &ann) : SDNN_flux<VectorField1D>{_ic, _bc, _T, 1, ann}, 
-    gamma{_gamma} {}
+        const ANN &ann) : SDNN_flux<VectorField1D>{_ic, _bc, _T, 3, ann}, 
+        gamma{_gamma} {}
 
     Euler1D_SDNN(const Euler1D_SDNN & flux) : SDNN_flux<VectorField1D>(flux), 
-    gamma{flux.gamma} {}
+        gamma{flux.gamma} {}
 
 
     VectorField1D Prim_to_cons(const VectorField1D &v, int stages, int stage) {return v;}
@@ -224,31 +226,47 @@ public:
         double data2[N];
         double vel[N];
         double kin[N];
+        double data_temp[N];
         double data3[N];
 
-        vdDiv(N, v.getField(stages + 1), v.getField(stages), vel);
-        vdMul(N, vel, v.getField(stages + 1), kin);
+        vdDiv(N, v.getField(stage*phys_unknowns + 1), 
+            v.getField(stage*phys_unknowns), vel);
+        vdMul(N, vel, v.getField(stage*phys_unknowns + 1), kin);
 
+        // Differentiating
+        sp.diff(v.getField(stage*phys_unknowns), data1);
+        sp.diff(v.getField(stage*phys_unknowns + 1), data2);
+        sp.diff(v.getField(stage*phys_unknowns + 2), data3);   
 
         // 1st element
-        std::copy(v.getField(stage + 1), v,getField(stage + 1) + N, data1);
+        vdMul(N, v.getField(stages*phys_unknowns + 1), data1, data1);
+        cblas_daxpy(N, -1.0, v.getField(stage*phys_unknowns + 1), 1, data1, 1);
+        cblas_dscal(N, -1.0, data1, 1);
 
         // 2nd element
-        std::copy(kin, kin + N, data2);
-        cblas_dscal(N, 1.0 - 0.5*(gamma - 1.0), data2, 1);
-        cblas_daxpy(N, gamma - 1.0, v.getField(stage + 2), 1, data2, 1);
+        std::copy(kin, kin + N, data_temp);
+        cblas_dscal(N, 1.0 - 0.5*(gamma - 1.0), data_temp, 1);
+        cblas_daxpy(N, gamma - 1.0, v.getField(stage*phys_unknowns + 2), 1, 
+            data_temp, 1);
+        vdMul(N, v.getField(stages*phys_unknowns + 1), data2, data2);
+        cblas_daxpy(N, -1.0, data_temp, 1, data2, 1);
+        cblas_dscal(N, -1.0, data2, 1);
 
         // 3rd element
-        std::copy(kin, kin + N, data3);
-        cblas_dscal(N, 0.5*(gamma - 1.0), data3, 1);
-        cblas_daxpy(N, gamma, v.getField(stage + 2), 1, data3, 1);
-        vdMul(N, vel, data3, data3);
+        std::copy(kin, kin + N, data_temp);
+        cblas_dscal(N, -0.5*(gamma - 1.0), data_temp, 1);
+        cblas_daxpy(N, gamma, v.getField(stage*phys_unknowns + 2), 1, 
+            data_temp, 1);
+        vdMul(N, vel, data_temp, data_temp);
+        vdMul(N, v.getField(stages*phys_unknowns + 1), data3, data3);
+        cblas_daxpy(N, -1.0, data_temp, 1, data3, 1);
+        cblas_dscal(N, -1.0, data3, 1);
 
         // Differentiating
 
-        sp.diff(data1, data1);
-        sp.diff(data2, data2);
-        sp.diff(data3, data3);
+        // sp.diff(data1, data1);
+        // sp.diff(data2, data2);
+        // sp.diff(data3, data3);
 
         flux->setField(0, N, data1);
         flux->setField(1, N, data2);
@@ -258,15 +276,42 @@ public:
     void getMWSB(const VectorField1D &v, double * MWSB) const
     {
         int N = v.getLength();
-        for(int i = 0; i < N; i++)
-        {
-            MWSB[i] = a;
-        }
+        double vel[N];
+        double vel_sq[N];
+
+        // Obtaining v
+        vdDiv(N, v.getField(1), v.getField(0), vel);
+        // Obtaining v^2
+        vdMul(N, vel, vel, vel_sq);
+        // Forming the speed of sound
+        vdDiv(N, v.getField(2), v.getField(0), MWSB);
+        cblas_daxpy(N, -0.5, vel_sq, 1, MWSB, 1);
+        vdSqrt(N, MWSB, MWSB);
+        cblas_dscal(N, std::sqrt(gamma * (gamma - 1)), MWSB, 1);
+        // Getting the MWSB
+        vdAbs(N, vel, vel);
+        cblas_daxpy(N, 1.0, vel, 1, MWSB, 1);
+        // Print_Mat(MWSB, N, 1);
+        // std::cout << std::endl;
     }
 
-    double * getProxy(const VectorField1D &v, int stage) const
+    void getProxy(const VectorField1D &v, double* proxy) const
     {
-        return v.getField(stage);    
+        int N = v.getLength();
+        double vel[N];
+        double vel_sq[N];
+        // Obtaining v
+        vdDiv(N, v.getField(1), v.getField(0), vel);
+        // Obtaining v^2
+        vdMul(N, vel, vel, vel_sq);
+        // Forming the speed of sound
+        vdDiv(N, v.getField(2), v.getField(0), proxy);
+        cblas_daxpy(N, -0.5, vel_sq, 1, proxy, 1);
+        vdSqrt(N, proxy, proxy);
+        cblas_dscal(N, std::sqrt(gamma * (gamma - 1)), proxy, 1); 
+        // Obtaining Ma
+        vdAbs(N, vel, vel);
+        vdDiv(N, vel, proxy, proxy);
     }
 
 

@@ -104,6 +104,18 @@ std::vector<double> Visc_weights(int N, const double* tau)
     return w;
 }
 
+void form_stencils(int N, int C, const double* proxy_ext, double* stencils)
+{
+    for(int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < s; j++)
+        {
+            stencils[s*i+ j] = proxy_ext[(N + C - 3 + i + j) % (N + C)];
+        }
+    } 
+}
+
+
 template<typename Mesh>
 void Lambda(Mesh * mesh, int phys_unknowns, int stages, double cutoff, 
     bool initialization)
@@ -175,9 +187,10 @@ void Lambda(Mesh * mesh, int phys_unknowns, int stages, double cutoff,
 
 
 
-template<typename Patch, typename Mesh, typename SVW, typename PDE >
+template<typename Patch, typename Mesh, typename SVW, typename PDE, 
+    typename SpatDiffScheme>
 void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde, 
-    int phys_unknowns, int stages, int stage)
+    const SpatDiffScheme &sp_diff, int phys_unknowns, int stages, int stage)
 {
     auto v = patch->getFlow();
     auto v0 = patch->getFlow();
@@ -196,7 +209,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     double h = patch->getH();
     pde.getMWSB(v, MWSB);
     double alpha = 1.0;
-    double beta = 1.0;
+    double beta = 1.0;  
     int status;
     int N0;
     // Compute the contribution of each smooth wave function
@@ -208,34 +221,53 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
         W[i]->MV(alpha, weighted_tau.data(), beta, mu);
     }
 
-
-    // Muiltiply by the wave speed
-    // vdMul(N, MWSB, v.getField(phys_unknowns*stages + 1), MWSB);
-    vdMul(N, MWSB, mu, mu);
-    // std::cout << std::endl;
     // Print_Mat(mu, N, 1);
     // std::cout << std::endl;
+    // std::cout << std::endl; 
+ 
+    // Need to form stencils and get maximums of MWSB
+    int s = 7;
+    int C = sp_diff.getC();
+    double MWSB_cont[N + C];
+    double MWSB_stencils[N*s];
+    double MWSB_maxed[N];
+    Fcont(MWSB, MWSB_cont, N, sp_diff.getD(), C, sp_diff.getFourPts_dbl(),
+        sp_diff.getAQ(), sp_diff.getFAQF(), sp_diff.getDescHandle());
+
+    // Print_Mat(MWSB_cont, N+C, 1);
+    // std::cout << std::endl;
+    // std::cout << std::endl;    
+    form_stencils(N, C, MWSB_cont, MWSB_stencils);
+    vdAbs(N + C, MWSB_cont, MWSB_cont);
+    for(int i = 0; i < N; i++)
+    {
+        MWSB_maxed[i] = *(std::max_element(MWSB_stencils + i*s, 
+            MWSB_stencils + (i + 1)*s));
+    }
+
+    // Print_Mat(MWSB_maxed, N, 1);
+    // std::cout << std::endl;
+    // std::cout << std::endl; 
+
+   // Muiltiply by the wave speed
+    // vdMul(N, MWSB, mu, mu);
+    vdMul(N, MWSB_maxed, mu, mu);
     double y[N];
     for(int i = 0; i < N; i++)
     {
         y[i] = 0.0;
     }
     // Muiltiply by h
-    cblas_daxpy(N, h, mu, 1, y, 1);
-    // std::cout << std::endl;
-    // Print_Mat(y, N, 1);
-    // std::cout << std::endl;    
+    cblas_daxpy(N, h, mu, 1, y, 1);  
     v.setField(phys_unknowns*stages + 1, N, y);
     patch->setField(v);
-    // std::cout << std::endl;
-    // Print_VectorField1D(patch->getFlow());
-    // std::cout << std::endl; 
 }
 
 
-template<typename Mesh, typename PDE>
-void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde, 
-    int phys_unknowns, int stages, int stage)
+template<typename Mesh, typename PDE, typename SpatDiffScheme>
+void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde,
+    const std::vector<SpatDiffScheme> &sp_diffs, int phys_unknowns, int stages,
+    int stage)
 {
     auto patches = mesh->getPatches();
     // auto patch = patches[0];
@@ -244,21 +276,12 @@ void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde,
     for(int i = 0; i < npatches; i++)
     {
         // patch = patches[i];
-        updateViscPatch(patches[i], mesh, svws[i], pde, phys_unknowns, stages, 
-            stage);
+        updateViscPatch(patches[i], mesh, svws[i], pde, sp_diffs[i], 
+            phys_unknowns, stages, stage);
     }
 }
 
-void form_stencils(int N, int C, const double* proxy_ext, double* stencils)
-{
-    for(int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < s; j++)
-        {
-            stencils[s*i+ j] = proxy_ext[(N + C - 3 + i + j) % (N + C)];
-        }
-    } 
-}
+
 
 void preprocess_stencils(int N, double *stencils, bool* discard, int* tau)
 {
@@ -304,8 +327,9 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     int fourPts;
     auto v = patch->getFlow();
     
-    double * proxy = pde.getProxy(v, 0);
     int N = v.getLength();
+    double proxy[N];
+    pde.getProxy(v, proxy);
     int tau[N];
     bool discard[N];
 

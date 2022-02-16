@@ -159,6 +159,7 @@ int getN() const {return N;}
 int getD() const {return d;}
 int getC() const {return C;}
 int getFourPts() const {return fourPts;}
+double getFourPts_dbl() const {return fourPts_dbl;}
 double getPrd() const {return prd;}
 std::complex<double> * getFilterCoeffs() const {return filter_coeffs;}
 std::complex<double> * getDerCoeffs() const {return der_coeffs;}

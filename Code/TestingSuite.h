@@ -29,5 +29,7 @@ void TestingSpatDiffScheme();
 void TestingTimeStepScheme();
 void TestingSolver();
 void TestingSVW();
+void TestingSDNN();
+void TestingEulerSDNN();
 
 #endif

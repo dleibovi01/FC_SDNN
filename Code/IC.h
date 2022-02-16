@@ -31,6 +31,7 @@ private:
                 std::string problem4 = "three_waves";
                 std::string problem5 = "one_wave";
                 std::string problem6 = "smooth_LA";
+                std::string problem7 = "Euler1D_Sod";
                 std::vector<double> y;
                 if(problem.compare(problem0) == 0)
                 {
@@ -95,7 +96,22 @@ private:
                 else if(problem.compare(problem6) == 0)
                 {
                     y.push_back(std::exp(- 160 * (x - 0.5) * (x - 0.5)));
-                }                                 
+                }     
+                else if(problem.compare(problem7) == 0)
+                {
+                    if(0 <= x && x <= 0.5)
+                    {
+                        y.push_back(1.0);
+                        y.push_back(0.0);
+                        y.push_back(2.5);
+                    }
+                    else
+                    {
+                        y.push_back(0.125);
+                        y.push_back(0.0);
+                        y.push_back(0.25);
+                    }    
+                }                              
                 return y;
             }
     };
@@ -109,10 +125,6 @@ public:
     void setIC(Patch* patch)
     {
         function f{problem};
-        // for(int i = 0; i < patch->getNnodes(); i++)
-        // {
-        //     patch->getNode(i)->setValue(0, f( patch->getNode(i)->getPos()));
-        // }
         std::vector<double> init_values;
         for(int i = 0; i < patch->getNnodes(); i++)
         {

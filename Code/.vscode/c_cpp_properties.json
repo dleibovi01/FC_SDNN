@@ -4,20 +4,17 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/ohpc/pub/compiler/intel/mkl/2021.1.1/include",
-                // "/opt/ohpc/pub/compiler/intel/compilers_and_libraries_2020.2.254/linux/mkl/2021.1.1/include",
-                "/usr/include/c++/4.8.2/x86_64-redhat-linux/32",
-                "/opt/ohpc/pub/MATLAB/R2019a/extern",
-                "/opt/ohpc/pub/MATLAB/R2019a/extern/include"
+                "/opt/intel/oneapi/mkl/2022.0.2/include",
+                "/usr/include/linux",
+                "/usr/include/c++/9/tr1"
             ],
             "defines": [],
-            // "compilerPath": "/opt/ohpc/pub/compiler/intel/compilers_and_libraries/linux/bin/intel64/icpc",
-            "compilerPath": "/opt/ohpc/pub/compiler/intel/compiler/2021.1.1/linux/bin/intel64/icpc",
+            "compilerPath": "/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc",
             "cStandard": "c11",
             "cppStandard": "c++14",
             "intelliSenseMode": "clang-x64",
             "compilerArgs": [
-                "-mkl",
+                "-qmkl",
                 "-lmat",
                 "-std=c++17",
                 "-O3"
