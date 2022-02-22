@@ -14,6 +14,7 @@
 #include "SDNN.h"
 #include "FC.h"
 #include "printing.h"
+#include <array>
 
 template <typename VectorField>
 class PDE{
@@ -263,11 +264,189 @@ public:
         cblas_dscal(N, -1.0, data3, 1);
 
         // Differentiating
+        flux->setField(0, N, data1);
+        flux->setField(1, N, data2);
+        flux->setField(2, N, data3);
+    }
 
-        // sp.diff(data1, data1);
-        // sp.diff(data2, data2);
-        // sp.diff(data3, data3);
 
+    template<typename Sp_diff, std::size_t fourPts>
+    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+        const Sp_diff &sp, int stages, int stage, 
+        const std::vector<std::array<std::complex<double>, fourPts> > & ffts_old, 
+        std::vector<std::array<std::complex<double> , fourPts> > *ffts_flux) const
+    {
+        const int N = v.getLength();
+        const int C = sp.getC();
+        int d = sp.getD();
+        std::complex<double> * der_coeffs = sp.getDerCoeffs();
+        double fourPts_dbl = sp.getFourPts_dbl();
+        DFTI_DESCRIPTOR_HANDLE desc_handle = sp.getDescHandle();
+
+        double data1[N];
+        double data2[N];
+        double data2_temp[N];
+        double data3[N];
+        double vel[N];
+        double kin[N];
+        double data_temp[N];
+ 
+
+        double k1x[N];
+        double k2x[N];
+        double k3x[N];       
+
+        std::complex<double> fft_temp[N+C]; 
+
+        vdDiv(N, v.getField(stage*phys_unknowns + 1), 
+            v.getField(stage*phys_unknowns), vel);
+        vdMul(N, vel, v.getField(stage*phys_unknowns + 1), kin);
+
+        // Differentiating
+        FC_Der(k1x, ffts_old[0].data(), der_coeffs, N, C, desc_handle);
+        FC_Der(k2x, ffts_old[1].data(), der_coeffs, N, C, desc_handle);
+        FC_Der(k3x, ffts_old[2].data(), der_coeffs, N, C, desc_handle);
+
+        // 1st element
+        vdMul(N, v.getField(stages*phys_unknowns + 1), k1x, data1);
+        cblas_daxpy(N, -1.0, v.getField(stage*phys_unknowns + 1), 1, data1, 1);
+        cblas_dscal(N, -1.0, data1, 1);        
+        // Fcont_Gram_Blend(data1, ffts_flux->at(0), N, d, C, fourPts_dbl, sp.getAQ(),
+        //     sp.getFAQF(), desc_handle);
+        Fcont_Gram_Blend(data1, fft_temp, N, d, C, fourPts_dbl, sp.getAQ(),
+            sp.getFAQF(), desc_handle);
+        std::copy(fft_temp, fft_temp + N + C, ffts_flux->at(0).begin());
+
+        // 2nd element
+        vdMul(N, v.getField(stages*phys_unknowns + 1), k2x, data2);
+        std::copy(kin, kin + N, data_temp);
+        cblas_dscal(N, 1.5 - 0.5*gamma, data_temp, 1);
+        cblas_daxpy(N, gamma - 1.0, v.getField(stage*phys_unknowns + 2), 1, 
+            data_temp, 1);
+        cblas_daxpy(N, -1.0, data_temp, 1, data2, 1);
+        cblas_dscal(N, -1.0, data2, 1);
+        // Fcont_Gram_Blend(data2, ffts_flux->at(1), N, d, C, fourPts_dbl, sp.getAQ(),
+        //     sp.getFAQF(), desc_handle);
+        Fcont_Gram_Blend(data1, fft_temp, N, d, C, fourPts_dbl, sp.getAQ(),
+            sp.getFAQF(), desc_handle);
+        std::copy(fft_temp, fft_temp + N + C, ffts_flux->at(1).begin());
+
+        // 3rd element
+        vdMul(N, v.getField(stages*phys_unknowns + 1), k3x, data3);
+        std::copy(kin, kin + N, data_temp);
+        cblas_dscal(N, -0.5*(gamma - 1.0), data_temp, 1);
+        cblas_daxpy(N, gamma, v.getField(stage*phys_unknowns + 2), 1, 
+            data_temp, 1);
+        vdMul(N, vel, data_temp, data_temp);
+        cblas_daxpy(N, -1.0, data_temp, 1, data3, 1);
+        cblas_dscal(N, -1.0, data3, 1);
+        // Fcont_Gram_Blend(data3, ffts_flux->at(2), N, d, C, fourPts_dbl, sp.getAQ(),
+        //     sp.getFAQF(), desc_handle);
+        Fcont_Gram_Blend(data1, fft_temp, N, d, C, fourPts_dbl, sp.getAQ(),
+            sp.getFAQF(), desc_handle);
+        std::copy(fft_temp, fft_temp + N + C, ffts_flux->at(2).begin());
+
+        // Differentiating
+        flux->setField(0, N, data1);
+        flux->setField(1, N, data2);
+        flux->setField(2, N, data3);
+    }
+
+
+    template<typename Sp_diff>
+    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+        const Sp_diff &sp, int stages, int stage, const double * mux) const
+    {
+        const int N = v.getLength();
+        double data1[N];
+        double data1_temp[N];
+
+        double data2[N];
+        double data2_temp1[N];
+
+        double vel[N];
+        double vel2[N];
+        double e[N];
+
+        double data3[N];
+        double data3_temp1[N];
+        double data3_temp2[N];
+
+        double k1x[N];
+        double k2x[N];
+        double k3x[N];
+
+        double k1xx[N];
+        double k2xx[N];
+        double k3xx[N];   
+
+        // Differentiating
+        sp.diff(v.getField(stage*phys_unknowns), k1x, k1xx);
+        sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx);
+        sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx);
+
+        // std::cout <<"k1x" << std::endl;
+        // Print_Mat(k3x, N, 1);
+        // std::cout << std::endl;
+        // std::cout << std::endl;
+        // std::cout <<"k1xx" << std::endl;
+        // Print_Mat(k3xx, N, 1);
+
+        // Pre-computing some useful fields
+        // vel = k2/k1
+        vdDiv(N, v.getField(stage*phys_unknowns + 1), 
+            v.getField(stage*phys_unknowns), vel);
+        // vel2 = (k2/k1)^2
+        vdMul(N, vel, vel, vel2);
+        // e = k3/k1
+        vdDiv(N, v.getField(stage*phys_unknowns + 2), 
+            v.getField(stage*phys_unknowns), e);
+
+        // 1st element
+        vdMul(N, mux, k1x, data1);
+        vdMul(N, v.getField(stages*phys_unknowns + 1), k1xx, data1_temp);
+        vdAdd(N, data1_temp, data1, data1);
+        cblas_dscal(N, -1.0, data1, 1);
+        vdAdd(N, k2x, data1, data1);
+
+        // 2nd element
+        // get the viscous term
+        vdMul(N, mux, k2x, data2);
+        vdMul(N, v.getField(stages*phys_unknowns + 1), k2xx, data2_temp1);
+        vdAdd(N, data2_temp1, data2, data2);
+        cblas_dscal(N, -1.0, data2, 1);
+        // get the flux term
+        vdMul(N, vel, k2x, data2_temp1);
+        cblas_daxpy(N, 3.0 - gamma, data2_temp1, 1, data2, 1);
+        vdMul(N, vel2, k1x, data2_temp1);
+        cblas_daxpy(N, -0.5*(3.0 - gamma), data2_temp1, 1, data2, 1);
+        cblas_daxpy(N, gamma - 1.0, k3x, 1, data2, 1);
+
+        // 3rd element
+         // get the viscous term
+        vdMul(N, mux, k3x, data3);
+        vdMul(N, v.getField(stages*phys_unknowns + 1), k3xx, data3_temp1);
+        vdAdd(N, data3_temp1, data3, data3);
+        cblas_dscal(N, -1.0, data3, 1);
+        // get the flux term
+        // 1st part (gamma*k3*k2/k1)_x
+        vdMul(N, vel, k3x, data3_temp1);
+        vdMul(N, e, k2x, data3_temp2);
+        vdAdd(N, data3_temp1, data3_temp2, data3_temp1);
+        vdMul(N, e, vel, data3_temp2);
+        vdMul(N, data3_temp2, k1x, data3_temp2);
+        cblas_daxpy(N, -1.0, data3_temp2, 1, data3_temp1, 1);
+        cblas_daxpy(N, gamma, data3_temp1, 1, data3, 1);
+        // 2nd part -0.5*(gamma - 1)*k2^3/k1^2
+        vdMul(N, vel2, k2x, data3_temp1);
+        cblas_dscal(N, 3.0, data3_temp1, 1);
+        vdMul(N, vel2, vel, data3_temp2);
+        vdMul(N, data3_temp2, k1x, data3_temp2);
+        cblas_daxpy(N, -2.0, data3_temp2, 1, data3_temp1, 1);
+        cblas_daxpy(N, -0.5*(gamma - 1.0), data3_temp1, 1, data3, 1);
+
+
+        // Setting the full flux
         flux->setField(0, N, data1);
         flux->setField(1, N, data2);
         flux->setField(2, N, data3);

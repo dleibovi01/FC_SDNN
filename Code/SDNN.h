@@ -220,10 +220,6 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
         weighted_tau = Visc_weights(N0, v0.getField(phys_unknowns*stages));
         W[i]->MV(alpha, weighted_tau.data(), beta, mu);
     }
-
-    // Print_Mat(mu, N, 1);
-    // std::cout << std::endl;
-    // std::cout << std::endl; 
  
     // Need to form stencils and get maximums of MWSB
     int s = 7;
@@ -232,11 +228,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     double MWSB_stencils[N*s];
     double MWSB_maxed[N];
     Fcont(MWSB, MWSB_cont, N, sp_diff.getD(), C, sp_diff.getFourPts_dbl(),
-        sp_diff.getAQ(), sp_diff.getFAQF(), sp_diff.getDescHandle());
-
-    // Print_Mat(MWSB_cont, N+C, 1);
-    // std::cout << std::endl;
-    // std::cout << std::endl;    
+        sp_diff.getAQ(), sp_diff.getFAQF(), sp_diff.getDescHandle()); 
     form_stencils(N, C, MWSB_cont, MWSB_stencils);
     vdAbs(N + C, MWSB_cont, MWSB_cont);
     for(int i = 0; i < N; i++)
@@ -245,12 +237,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
             MWSB_stencils + (i + 1)*s));
     }
 
-    // Print_Mat(MWSB_maxed, N, 1);
-    // std::cout << std::endl;
-    // std::cout << std::endl; 
-
    // Muiltiply by the wave speed
-    // vdMul(N, MWSB, mu, mu);
     vdMul(N, MWSB_maxed, mu, mu);
     double y[N];
     for(int i = 0; i < N; i++)
@@ -270,7 +257,6 @@ void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde,
     int stage)
 {
     auto patches = mesh->getPatches();
-    // auto patch = patches[0];
     int npatches = patches.size();
     auto svws = svw_mesh.getSVWs();
     for(int i = 0; i < npatches; i++)

@@ -6,9 +6,13 @@
 #include "VectorField1D.h"
 #include "Mesh.h"
 #include "SpatDiffScheme.h"
+#define MKL_Complex16 std::complex<double>
+#define MKL_Complex8 std::complex<float>
+#include "mkl.h"
 #include <algorithm> 
 #include "printing.h"
 #include "PDE.h"
+#include <array>
 
 /*
 template<typename Sp_Diff>
@@ -30,6 +34,50 @@ public:
 Fwd_Euler(const Sp_Diff & sd, double _dt, double _h) : sp_diff{sd}, dt{_dt}, 
 h{_h} {}
 */
+
+
+template<typename VectorField>
+void linComb(VectorField* v, 
+    const std::vector<std::vector<int> > &extractions, 
+    const std::vector<int> &target, const std::vector<double> & coeffs,
+    const VectorField &flux)
+{
+    int ncoeffs = coeffs.size();
+    int N = v->getLength();
+    double data[v->getLength()];
+    int unknowns = v->getUnknowns();
+    for(int i = 0; i < N; i++)
+    {
+        data[i] = 0.0;
+    }
+    for(int i = 0; i < extractions[0].size(); i++) 
+    {
+        std::copy(flux.getField(i), flux.getField(i) + N, data);
+        // cblas_daxpy(N, coeffs[ncoeffs - 1], flux.getField(i), 1, data, 1);
+        cblas_dscal(N, coeffs[ncoeffs - 1], data, 1);
+        for(int j = 0; j < ncoeffs - 1; j++)
+        {
+            cblas_daxpy(N, coeffs[j], v->getField(extractions[j][i]), 1, data, 1);
+        }
+        v->setField(target[i], N, data);
+    }
+};
+
+
+
+void linComb(int N, const std::vector<std::complex<double> *> & inputs,
+    std::complex<double> * output, 
+    const std::vector<std::complex<double> > & coeffs)
+
+{
+    int ncoeffs = coeffs.size();
+    for(int i = 0; i < ncoeffs; i++) 
+    {
+        cblas_zaxpy(N, &coeffs[i], inputs[i], 1, output, 1);
+    }
+};
+
+
 
 
 template<typename VectorField, typename Sp_Diff>
@@ -237,6 +285,7 @@ public:
         extractions4.push_back(stage3);
         std::vector<double> coeffs4 = {a41, a42, -a43*dt};
         diffLinComb(v, extractions4, stage4, coeffs4, flux, sp_diff);
+
            
         // Stepping   
         VectorField1D flux3 = flux;
@@ -250,6 +299,260 @@ public:
         std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
         diffLinComb(v, extractions5, stage0, coeffs5, fluxes5, coeffs5_diff, sp_diff);
     }
+
+
+    template<typename VectorField, typename Sp_Diff, typename PDE>
+    void advance_fast(VectorField* v, 
+        std::vector<std::complex<double> *> * cons_fft,
+        std::vector<std::complex<double> *> * flux_fft,
+        const Sp_Diff &sp_diff, const PDE &pde, const double dt)
+    {
+        const int unknowns = pde.getPhysUnknowns();
+        const int N = v->getLength();
+        const int C = sp_diff.getC();
+        int d = sp_diff.getD();
+        double fourPts_dbl = sp_diff.getFourPts_dbl();
+
+        std::vector<int> stage0;
+        std::vector<int> stage1;
+        std::vector<int> stage2;
+        std::vector<int> stage3;
+        std::vector<int> stage4;
+        for(int i = 0; i < unknowns; i++)
+        {
+            stage0.push_back(i);
+            stage1.push_back(i + unknowns);
+            stage2.push_back(i + 2*unknowns);
+            stage3.push_back(i + 3*unknowns);
+            stage4.push_back(i + 4*unknowns);
+        }
+
+
+        VectorField flux{unknowns, N};
+
+        std::vector<std::complex<double> * > inputs;
+        std::complex<double> fft_temp[N + C];
+        std::complex<double> temp_cons[N+C];
+        std::complex<double> temp_cons2[N+C];
+        std::complex<double> temp_flux[N+C];
+        
+
+
+        // for(int i = 0; i < unknowns; i++)
+        // {
+        //     Fcont_Gram_Blend(v->getField(0), fft_temp, N, d, C, fourPts_dbl, 
+        //         sp_diff.getAQ(), sp_diff.getFAQF(), sp_diff.getDescHandle());
+        //     cons_fft_1.push_back(new std::complex<double>[N+C])
+        // }
+        // 1st stage
+        // std::vector<std::vector<int> > extractions1;
+        // extractions1.push_back(stage0);
+        // std::vector<double> coeffs1 = {1.0};
+        // std::vector<double> coeffs1_diff = {-a11*dt};
+        // pde.Cons_to_flux(*v, &flux, sp_diff, stages, 0);
+        // std::vector<VectorField*> fluxes = {&flux};
+        // diffLinComb(v, extractions1, stage1, coeffs1, fluxes, coeffs1_diff, sp_diff);
+        std::vector<std::vector<int> > extractions1;
+        extractions1.push_back(stage0);
+        std::vector<double> coeffs1 = {1.0, -a11*dt};
+        std::vector<std::complex<double> > zcoeffs1 = {1.0, -a11*dt};
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, cons_fft, & flux_fft);
+        linComb(v, extractions1, stage1, coeffs1, flux);
+        for(int i = 0; i < unknowns; i++)
+        {
+            std::copy(cons_fft[i].begin(), cons_fft[i].end(), temp_cons);
+            inputs.push_back(temp_cons);
+            std::copy(flux_fft[i].begin(), flux_fft[i].end(), temp_flux);
+            inputs.push_back(temp_flux);
+            linComb(N + C, inputs, fft_temp, zcoeffs1);
+            std::copy(fft_temp, fft_temp + N + C, cons_fft[i + unknowns].begin());
+        }     
+
+
+
+        // // 2nd stage
+        // pde.Cons_to_flux(*v, &flux, sp_diff, stages, 1);
+        // std::vector<std::vector<int> > extractions2;
+        // extractions2.push_back(stage0);
+        // extractions2.push_back(stage1);
+        // std::vector<double> coeffs2 = {a21, a22, -a23*dt};
+        // diffLinComb(v, extractions2, stage2, coeffs2, flux, sp_diff);
+        std::vector<std::vector<int> > extractions2;
+        extractions2.push_back(stage0);
+        extractions2.push_back(stage1);
+        std::vector<double> coeffs2 = {a21, a22, -a23*dt};
+        std::vector<std::complex<double> > zcoeffs2 = {a21, a22, -a23*dt};
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, cons_fft, & flux_fft);
+        linComb(v, extractions1, stage1, coeffs1, flux);
+        for(int i = 0; i < unknowns; i++)
+        {
+            // std::copy(cons_fft[i].begin(), cons_fft[i].end(), temp_cons);
+            // inputs.push_back(temp_cons);
+            std::copy(cons_fft[i + unknowns].begin(), 
+                cons_fft[i + unknowns].end(), temp_cons2);
+            inputs.push_back(temp_cons2);
+            std::copy(flux_fft[i].begin(), flux_fft[i].end(), temp_flux);
+            inputs.push_back(temp_flux);
+            linComb(N + C, inputs, fft_temp, zcoeffs1);
+            std::copy(fft_temp, fft_temp + N + C, cons_fft[i + 2*unknowns].begin());
+        }   
+
+
+        // // 3rd stage
+        // pde.Cons_to_flux(*v, &flux, sp_diff, stages, 2);
+        // std::vector<std::vector<int> > extractions3;
+        // extractions3.push_back(stage0);
+        // extractions3.push_back(stage2);
+        // std::vector<double> coeffs3 = {a31, a32, -a33*dt};
+        // diffLinComb(v, extractions3, stage3, coeffs3, flux, sp_diff);
+        std::vector<std::vector<int> > extractions3;
+        extractions3.push_back(stage0);
+        extractions3.push_back(stage2);
+        std::vector<double> coeffs3 = {a31, a32, -a33*dt};
+        std::vector<std::complex<double> > zcoeffs3 = {a31, a32, -a33*dt};
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 2, cons_fft, & flux_fft);
+        linComb(v, extractions2, stage2, coeffs2, flux);
+        for(int i = 0; i < unknowns; i++)
+        {
+            // std::copy(cons_fft[i].begin(), cons_fft[i].end(), temp_cons);
+            // inputs.push_back(temp_cons);
+            inputs.pop_back();
+            std::copy(cons_fft[i + 2*unknowns].begin(), 
+                cons_fft[i + 2*unknowns].end(), temp_cons2);
+            inputs.push_back(temp_cons2);
+            std::copy(flux_fft[i].begin(), flux_fft[i].end(), temp_flux);
+            inputs.push_back(temp_flux);
+            linComb(N + C, inputs, fft_temp, zcoeffs2);
+            std::copy(fft_temp, fft_temp + N + C, cons_fft[i + 3*unknowns].begin());
+        }   
+
+        // // 4th stage
+        // pde.Cons_to_flux(*v, &flux, sp_diff, stages, 3);
+        // std::vector<std::vector<int> > extractions4;
+        // extractions4.push_back(stage0);
+        // extractions4.push_back(stage3);
+        // std::vector<double> coeffs4 = {a41, a42, -a43*dt};
+        // diffLinComb(v, extractions4, stage4, coeffs4, flux, sp_diff);
+        std::vector<std::vector<int> > extractions3;
+        extractions3.push_back(stage0);
+        extractions3.push_back(stage3);
+        std::vector<double> coeffs4 = {a41, a42, -a43*dt};
+        std::vector<std::complex<double> > zcoeffs4 = {a41, a42, -a43*dt};
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 3, cons_fft, & flux_fft);
+        linComb(v, extractions3, stage3, coeffs3, flux);
+        for(int i = 0; i < unknowns; i++)
+        {
+            inputs.pop_back();
+            // std::copy(cons_fft[i].begin(), cons_fft[i].end(), temp_cons);
+            // inputs.push_back(temp_cons);
+            std::copy(cons_fft[i + 3*unknowns].begin(), 
+                cons_fft[i + 3*unknowns].end(), temp_cons2);
+            inputs.push_back(temp_cons2);
+            std::copy(flux_fft[i].begin(), flux_fft[i].end(), temp_flux);
+            inputs.push_back(temp_flux);
+            linComb(N + C, inputs, fft_temp, zcoeffs2);
+            std::copy(fft_temp, fft_temp + N + C, cons_fft[i + 4*unknowns].begin());
+        }  
+
+           
+        // // Stepping   
+        // VectorField1D flux3 = flux;
+        // pde.Cons_to_flux(*v, &flux, sp_diff, stages, 4);
+        // std::vector<std::vector<int> > extractions5;
+        // extractions5.push_back(stage2);
+        // extractions5.push_back(stage3);
+        // extractions5.push_back(stage4);
+        // std::vector<double> coeffs5 = {a51, a52, a54};
+        // std::vector<double> coeffs5_diff = {-a53*dt, -a55*dt};
+        // std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+        // diffLinComb(v, extractions5, stage0, coeffs5, fluxes5, coeffs5_diff, sp_diff);
+    }
+
+
+
+
+
+    template<typename VectorField, typename Sp_Diff, typename PDE>
+    void advance(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
+        const double dt, bool flag)
+    {
+        const int unknowns = pde.getPhysUnknowns();
+        const int N = v->getLength();
+        const int C = sp_diff.getC();
+
+        std::vector<int> stage0;
+        std::vector<int> stage1;
+        std::vector<int> stage2;
+        std::vector<int> stage3;
+        std::vector<int> stage4;
+        for(int i = 0; i < unknowns; i++)
+        {
+            stage0.push_back(i);
+            stage1.push_back(i + unknowns);
+            stage2.push_back(i + 2*unknowns);
+            stage3.push_back(i + 3*unknowns);
+            stage4.push_back(i + 4*unknowns);
+        }
+
+        VectorField flux{unknowns, N};
+
+
+
+        // Pre-computing the derivative of the viscosity mu
+        double mux[N];
+        sp_diff.diff(v->getField(stages*unknowns + 1), mux);
+
+        // std::cout << "mux" << std::endl;
+        // Print_Mat(mux, N, 1);
+        // std::cout << std::endl;
+        // std::cout << std::endl;
+
+
+        // 1st stage
+        std::vector<std::vector<int> > extractions1;
+        extractions1.push_back(stage0);
+        std::vector<double> coeffs1 = {1.0, -a11*dt};
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux);
+        linComb(v, extractions1, stage1, coeffs1, flux);
+
+        // 2nd stage
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux);
+        std::vector<std::vector<int> > extractions2;
+        extractions2.push_back(stage0);
+        extractions2.push_back(stage1);
+        std::vector<double> coeffs2 = {a21, a22, -a23*dt};
+        linComb(v, extractions2, stage2, coeffs2, flux);
+
+        // 3rd stage
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 2, mux);
+        std::vector<std::vector<int> > extractions3;
+        extractions3.push_back(stage0);
+        extractions3.push_back(stage2);
+        std::vector<double> coeffs3 = {a31, a32, -a33*dt};
+        linComb(v, extractions3, stage3, coeffs3, flux);
+
+        // 4th stage
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 3, mux);
+        std::vector<std::vector<int> > extractions4;
+        extractions4.push_back(stage0);
+        extractions4.push_back(stage3);
+        std::vector<double> coeffs4 = {a41, a42, -a43*dt};
+        linComb(v, extractions4, stage4, coeffs4, flux);
+
+        // Stepping   
+        VectorField1D flux3 = flux;
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux);
+        std::vector<std::vector<int> > extractions5;
+        extractions5.push_back(stage2);
+        extractions5.push_back(stage3);
+        extractions5.push_back(stage4); 
+        std::vector<double> coeffs5 = {a51, a52, a54, -a53*dt};
+        std::vector<double> coeffs5_bis = {1, -a55*dt};
+        std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+        linComb(v, extractions5, stage0, coeffs5, flux3);   
+        linComb(v, extractions1, stage0, coeffs5_bis, flux); 
+    }        
+    
 
 };
 

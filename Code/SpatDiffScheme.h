@@ -3,11 +3,15 @@
 #ifndef SPADIFFSCHEME_H
 #define SPADIFFSCHEME_H
 
+#define MKL_Complex16 std::complex<double>
+#define MKL_Complex8 std::complex<float>
+#include "mkl.h"
 #include "VectorField1D.h"
 #include "Mesh.h"
 #include <algorithm> 
 #include "FC.h"
 #include "FC_data.h"
+// #define MKL_Complex16 std::complex<double>
 
 template<typename Patch>
 class SpatDiffScheme{
@@ -37,6 +41,7 @@ class FC_1D : public SpatDiffScheme<Patch>{
 
 Patch* patch;
 std::complex<double> * der_coeffs;
+std::complex<double> * der_coeffs_2;
 std::complex<double> * filter_coeffs;
 std::complex<double> * shift_coeffs;
 int N;
@@ -62,6 +67,7 @@ FC_1D(int _N, int _d, int _C, Patch *_patch, std::string filename_A,
    double h = patch->getH();
    prd = fourPts_dbl*h;
    der_coeffs = new std::complex<double> [N+C];
+   der_coeffs_2 = new std::complex<double> [N+C];
    filter_coeffs = new std::complex<double> [N+C];
    double A[C*d];
    double Q[d*d];   
@@ -103,8 +109,6 @@ FC_1D(int _N, int _d, int _C, Patch *_patch, double delta) : patch{_patch}
    init(_N, _d, _C);
    int k[fourPts];
    getK(k, fourPts);
-   // std::complex<double> shift_coeffs[fourPts];
-   // std::complex<double> filter_coeffs[fourPts];
    const double pi = std::acos(-1);
    const std::complex<double> I(0, 1);     
    for(int i = 0; i < fourPts; i++)
@@ -112,8 +116,7 @@ FC_1D(int _N, int _d, int _C, Patch *_patch, double delta) : patch{_patch}
       shift_coeffs[i] = std::exp(2.0*pi*I* double(k[i]) * delta / 
          double(fourPts));
    }
-   // Print_Mat(shift_coeffs, fourPts, 1);
-   // std::cout << std::endl;
+
 }
 
 
@@ -128,12 +131,15 @@ FC_1D(const FC_1D &slv)
    prd = slv.getPrd();
    desc_handle = slv.getDescHandle();
    der_coeffs = new std::complex<double> [N+C];
+   der_coeffs_2 = new std::complex<double> [N+C];
    filter_coeffs = new std::complex<double> [N+C]; 
    shift_coeffs = new std::complex<double> [N+C];
    AQ = new double [C*d];
    FAQF = new double [C*d];
    std::complex<double> * d_c = slv.getDerCoeffs();
    std::copy(d_c, d_c + N + C, der_coeffs);
+   std::complex<double> * d_c_2 = slv.getDerCoeffs2();
+   std::copy(d_c_2, d_c_2 + N + C, der_coeffs_2);
    std::complex<double> * f_c = slv.getFilterCoeffs();
    std::copy(f_c, f_c + N + C, filter_coeffs);  
    std::complex<double> * s_c = slv.getShiftCoeffs();
@@ -151,6 +157,7 @@ FC_1D(const FC_1D &slv)
    delete [] FAQF;
    delete [] filter_coeffs;
    delete [] der_coeffs;
+   delete [] der_coeffs_2;
    delete [] shift_coeffs;
 }
 
@@ -163,6 +170,7 @@ double getFourPts_dbl() const {return fourPts_dbl;}
 double getPrd() const {return prd;}
 std::complex<double> * getFilterCoeffs() const {return filter_coeffs;}
 std::complex<double> * getDerCoeffs() const {return der_coeffs;}
+std::complex<double> * getDerCoeffs2() const {return der_coeffs_2;}
 std::complex<double> * getShiftCoeffs() const {return shift_coeffs;}
 double * getAQ() const {return AQ;}
 double * getFAQF() const {return FAQF;}
@@ -186,11 +194,18 @@ VectorField1D  diff(const VectorField1D & v) const
 
 void diff(const double* y, double *y_der) const
 {
-   // std::cout << "fourPts = " << fourPts << std::endl;
-   // std::cout << "fourPts_dbl = " << fourPts_dbl << std::endl;
    FC_Der(y, y_der, der_coeffs, filter_coeffs, N, d, C, fourPts_dbl, AQ,
       FAQF, desc_handle);
 }
+
+void diff(const double* y, double * y_der, double* y_der_2) const
+{
+   std::complex<double> y_hat[N + C];
+   Fcont_Gram_Blend(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+   FC_Der(y_der, y_hat, der_coeffs, N, C, desc_handle);
+   FC_Der(y_der_2, y_hat, der_coeffs_2, N, C, desc_handle);
+}
+
 
 void set_FC_Data(double* A, double* Q, int d, int C)
 {
@@ -244,6 +259,7 @@ private:
       double h = patch->getH();
       prd = fourPts_dbl*h;
       der_coeffs = new std::complex<double> [N+C];
+      der_coeffs_2 = new std::complex<double> [N+C];
       filter_coeffs = new std::complex<double> [N+C];
       shift_coeffs = new std::complex<double> [N+C];
       double A[C*d];
@@ -258,7 +274,9 @@ private:
       for(int j = 0; j < N + C; j++)
       {
          der_coeffs[j] = 2.0*pi/prd*I*double(k[j]);
-      }        
+         der_coeffs_2[j] = -4.0*pi*pi/prd/prd*double(k[j])*double(k[j]);
+      }      
+      // vzMul(N + C, der_coeffs, der_coeffs, der_coeffs_2);  
       for(int j = 0; j < N + C; j++)
       {
          filter_coeffs[j] = 1.0;
