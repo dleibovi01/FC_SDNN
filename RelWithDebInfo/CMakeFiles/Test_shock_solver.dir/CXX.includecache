@@ -89,6 +89,8 @@ FC.h
 /home/leibov/Documents/FC_SDNN/Code/FC.h
 printing.h
 /home/leibov/Documents/FC_SDNN/Code/printing.h
+array
+-
 
 /home/leibov/Documents/FC_SDNN/Code/Patch1D.h
 Node1D.h
@@ -153,6 +155,8 @@ SDNN.h
 /home/leibov/Documents/FC_SDNN/Code/SDNN.h
 chrono
 -
+array
+-
 
 /home/leibov/Documents/FC_SDNN/Code/SpMatrix_csr.h
 vector
@@ -163,6 +167,8 @@ printing.h
 /home/leibov/Documents/FC_SDNN/Code/printing.h
 
 /home/leibov/Documents/FC_SDNN/Code/SpatDiffScheme.h
+mkl.h
+/home/leibov/Documents/FC_SDNN/Code/mkl.h
 VectorField1D.h
 /home/leibov/Documents/FC_SDNN/Code/VectorField1D.h
 Mesh.h
@@ -221,12 +227,16 @@ Mesh.h
 /home/leibov/Documents/FC_SDNN/Code/Mesh.h
 SpatDiffScheme.h
 /home/leibov/Documents/FC_SDNN/Code/SpatDiffScheme.h
+mkl.h
+/home/leibov/Documents/FC_SDNN/Code/mkl.h
 algorithm
 -
 printing.h
 /home/leibov/Documents/FC_SDNN/Code/printing.h
 PDE.h
 /home/leibov/Documents/FC_SDNN/Code/PDE.h
+array
+-
 
 /home/leibov/Documents/FC_SDNN/Code/VectorField1D.h
 vector
