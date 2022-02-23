@@ -405,7 +405,8 @@ public:
         VectorMul(N, mux, k1x, data1);
         // vdMul(N, v.getField(stages*phys_unknowns + 1), k1xx, data1_temp);
         VectorMul(N, v.getField(stages*phys_unknowns + 1), k1xx, data1_temp);
-        vdAdd(N, data1_temp, data1, data1);
+        // vdAdd(N, data1_temp, data1, data1);
+        VectorAdd(N, data1_temp, data1, data1);
         cblas_dscal(N, -1.0, data1, 1);
         vdAdd(N, k2x, data1, data1);
 
@@ -415,7 +416,8 @@ public:
         VectorMul(N, mux, k2x, data2);
         // vdMul(N, v.getField(stages*phys_unknowns + 1), k2xx, data2_temp1);
         VectorMul(N, v.getField(stages*phys_unknowns + 1), k2xx, data2_temp1);
-        vdAdd(N, data2_temp1, data2, data2);
+        // vdAdd(N, data2_temp1, data2, data2);
+        VectorAdd(N, data2_temp1, data2, data2);
         cblas_dscal(N, -1.0, data2, 1);
         // get the flux term
         // vdMul(N, vel, k2x, data2_temp1);
@@ -432,7 +434,8 @@ public:
         VectorMul(N, mux, k3x, data3);
         // vdMul(N, v.getField(stages*phys_unknowns + 1), k3xx, data3_temp1);
         VectorMul(N, v.getField(stages*phys_unknowns + 1), k3xx, data3_temp1);
-        vdAdd(N, data3_temp1, data3, data3);
+        // vdAdd(N, data3_temp1, data3, data3);
+        VectorAdd(N, data3_temp1, data3, data3);
         cblas_dscal(N, -1.0, data3, 1);
         // get the flux term
         // 1st part (gamma*k3*k2/k1)_x
@@ -440,7 +443,8 @@ public:
         VectorMul(N, vel, k3x, data3_temp1);
         // vdMul(N, e, k2x, data3_temp2);
         VectorMul(N, e, k2x, data3_temp2);
-        vdAdd(N, data3_temp1, data3_temp2, data3_temp1);
+        // vdAdd(N, data3_temp1, data3_temp2, data3_temp1);
+        VectorAdd(N, data3_temp1, data3_temp2, data3_temp1);
         // vdMul(N, e, vel, data3_temp2);
         VectorMul(N, e, vel, data3_temp2);
         // vdMul(N, data3_temp2, k1x, data3_temp2);

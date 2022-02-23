@@ -13,5 +13,7 @@ void VectorMul(int N, const std::complex<double> * a,
 
 void VectorMul(int N, const double * a, const double * b, double * c);
 
+void VectorAdd(int N, const double * a, const double * b, double *c);
+
 #endif
 

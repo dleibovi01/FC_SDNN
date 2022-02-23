@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/VectorField1D.cpp.o"
+  "CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o"
   "Test_shock_solver"
   "Test_shock_solver.pdb"

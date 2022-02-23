@@ -16,6 +16,26 @@ Mesh.h
 vector
 -
 
+/home/leibov/Documents/FC_SDNN/Code/FC.cpp
+iostream
+-
+complex
+-
+mkl.h
+/home/leibov/Documents/FC_SDNN/Code/mkl.h
+mkl_dfti.h
+/home/leibov/Documents/FC_SDNN/Code/mkl_dfti.h
+fstream
+-
+string
+-
+time.h
+/home/leibov/Documents/FC_SDNN/Code/time.h
+FC.h
+/home/leibov/Documents/FC_SDNN/Code/FC.h
+printing.h
+/home/leibov/Documents/FC_SDNN/Code/printing.h
+
 /home/leibov/Documents/FC_SDNN/Code/FC.h
 iostream
 -
@@ -31,6 +51,8 @@ string
 -
 math.h
 -
+VectorOperations.h
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
 
 /home/leibov/Documents/FC_SDNN/Code/FC_data.h
 array
@@ -85,6 +107,8 @@ mkl_operations.h
 /home/leibov/Documents/FC_SDNN/Code/mkl_operations.h
 SDNN.h
 /home/leibov/Documents/FC_SDNN/Code/SDNN.h
+VectorOperations.h
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
 FC.h
 /home/leibov/Documents/FC_SDNN/Code/FC.h
 printing.h
@@ -187,9 +211,13 @@ mkl.h
 /home/leibov/Documents/FC_SDNN/Code/mkl.h
 
 /home/leibov/Documents/FC_SDNN/Code/TestingSuite.h
-vector
--
 iostream
+-
+complex
+-
+mkl.h
+/home/leibov/Documents/FC_SDNN/Code/mkl.h
+vector
 -
 VectorField1D.h
 /home/leibov/Documents/FC_SDNN/Code/VectorField1D.h
@@ -219,8 +247,6 @@ SVW.h
 /home/leibov/Documents/FC_SDNN/Code/SVW.h
 SpMatrix_csr.h
 /home/leibov/Documents/FC_SDNN/Code/SpMatrix_csr.h
-mkl.h
-/home/leibov/Documents/FC_SDNN/Code/mkl.h
 
 /home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h
 VectorField1D.h
@@ -249,6 +275,20 @@ algorithm
 -
 mkl.h
 /home/leibov/Documents/FC_SDNN/Code/mkl.h
+
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.cpp
+iostream
+-
+complex
+-
+VectorOperations.h
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
+
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
+iostream
+-
+complex
+-
 
 /home/leibov/Documents/FC_SDNN/Code/mkl_operations.h
 mkl.h

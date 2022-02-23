@@ -8,6 +8,7 @@ CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/Node1D.h
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/Patch1D.h
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/Patch1DUniform.h
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/VectorField1D.h
+CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/VectorOperations.h
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/printing.h
 
 CMakeFiles/Test_shock_solver.dir/Code/Mesh.cpp.o: ../Code/Mesh.cpp
@@ -59,6 +60,7 @@ CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/TestingSuite.c
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/TestingSuite.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/TimeStepScheme.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/VectorField1D.h
+CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/VectorOperations.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/mkl_operations.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/printing.h
 
@@ -69,6 +71,9 @@ CMakeFiles/Test_shock_solver.dir/Code/VectorField1D.cpp.o: ../Code/Patch1DUnifor
 CMakeFiles/Test_shock_solver.dir/Code/VectorField1D.cpp.o: ../Code/VectorField1D.cpp
 CMakeFiles/Test_shock_solver.dir/Code/VectorField1D.cpp.o: ../Code/VectorField1D.h
 CMakeFiles/Test_shock_solver.dir/Code/VectorField1D.cpp.o: ../Code/printing.h
+
+CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o: ../Code/VectorOperations.cpp
+CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o: ../Code/VectorOperations.h
 
 CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o: ../Code/Mesh.h
 CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o: ../Code/Node1D.h

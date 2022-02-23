@@ -339,6 +339,33 @@ Code/VectorField1D.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/VectorField1D.cpp.s
 .PHONY : Code/VectorField1D.cpp.s
 
+Code/VectorOperations.o: Code/VectorOperations.cpp.o
+
+.PHONY : Code/VectorOperations.o
+
+# target to build an object file
+Code/VectorOperations.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o
+.PHONY : Code/VectorOperations.cpp.o
+
+Code/VectorOperations.i: Code/VectorOperations.cpp.i
+
+.PHONY : Code/VectorOperations.i
+
+# target to preprocess a source file
+Code/VectorOperations.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.i
+.PHONY : Code/VectorOperations.cpp.i
+
+Code/VectorOperations.s: Code/VectorOperations.cpp.s
+
+.PHONY : Code/VectorOperations.s
+
+# target to generate assembly for a file
+Code/VectorOperations.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.s
+.PHONY : Code/VectorOperations.cpp.s
+
 Code/printing.o: Code/printing.cpp.o
 
 .PHONY : Code/printing.o
@@ -399,6 +426,9 @@ help:
 	@echo "... Code/VectorField1D.o"
 	@echo "... Code/VectorField1D.i"
 	@echo "... Code/VectorField1D.s"
+	@echo "... Code/VectorOperations.o"
+	@echo "... Code/VectorOperations.i"
+	@echo "... Code/VectorOperations.s"
 	@echo "... Code/printing.o"
 	@echo "... Code/printing.i"
 	@echo "... Code/printing.s"
