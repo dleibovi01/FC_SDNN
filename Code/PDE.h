@@ -12,9 +12,11 @@
 #include <cmath>
 #include "mkl_operations.h"
 #include "SDNN.h"
+#include "VectorOperations.h"
 #include "FC.h"
 #include "printing.h"
 #include <array>
+
 
 template <typename VectorField>
 class PDE{
@@ -222,6 +224,8 @@ public:
     void Cons_to_flux(const VectorField1D &v, VectorField1D* flux, 
         const Sp_diff &sp, int stages, int stage) const
     {
+
+        // int mode = vmlSetMode(VML_EP);
         int N = v.getLength();
         double data1[N];
         double data2[N];
@@ -385,63 +389,72 @@ public:
         sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx);
         sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx);
 
-        // std::cout <<"k1x" << std::endl;
-        // Print_Mat(k3x, N, 1);
-        // std::cout << std::endl;
-        // std::cout << std::endl;
-        // std::cout <<"k1xx" << std::endl;
-        // Print_Mat(k3xx, N, 1);
-
         // Pre-computing some useful fields
         // vel = k2/k1
         vdDiv(N, v.getField(stage*phys_unknowns + 1), 
             v.getField(stage*phys_unknowns), vel);
         // vel2 = (k2/k1)^2
-        vdMul(N, vel, vel, vel2);
+        // vdMul(N, vel, vel, vel2);
+        VectorMul(N, vel, vel, vel2);
         // e = k3/k1
         vdDiv(N, v.getField(stage*phys_unknowns + 2), 
             v.getField(stage*phys_unknowns), e);
 
         // 1st element
-        vdMul(N, mux, k1x, data1);
-        vdMul(N, v.getField(stages*phys_unknowns + 1), k1xx, data1_temp);
+        // vdMul(N, mux, k1x, data1);
+        VectorMul(N, mux, k1x, data1);
+        // vdMul(N, v.getField(stages*phys_unknowns + 1), k1xx, data1_temp);
+        VectorMul(N, v.getField(stages*phys_unknowns + 1), k1xx, data1_temp);
         vdAdd(N, data1_temp, data1, data1);
         cblas_dscal(N, -1.0, data1, 1);
         vdAdd(N, k2x, data1, data1);
 
         // 2nd element
         // get the viscous term
-        vdMul(N, mux, k2x, data2);
-        vdMul(N, v.getField(stages*phys_unknowns + 1), k2xx, data2_temp1);
+        // vdMul(N, mux, k2x, data2);
+        VectorMul(N, mux, k2x, data2);
+        // vdMul(N, v.getField(stages*phys_unknowns + 1), k2xx, data2_temp1);
+        VectorMul(N, v.getField(stages*phys_unknowns + 1), k2xx, data2_temp1);
         vdAdd(N, data2_temp1, data2, data2);
         cblas_dscal(N, -1.0, data2, 1);
         // get the flux term
-        vdMul(N, vel, k2x, data2_temp1);
+        // vdMul(N, vel, k2x, data2_temp1);
+        VectorMul(N, vel, k2x, data2_temp1);
         cblas_daxpy(N, 3.0 - gamma, data2_temp1, 1, data2, 1);
-        vdMul(N, vel2, k1x, data2_temp1);
+        // vdMul(N, vel2, k1x, data2_temp1);
+        VectorMul(N, vel2, k1x, data2_temp1);
         cblas_daxpy(N, -0.5*(3.0 - gamma), data2_temp1, 1, data2, 1);
         cblas_daxpy(N, gamma - 1.0, k3x, 1, data2, 1);
 
         // 3rd element
          // get the viscous term
-        vdMul(N, mux, k3x, data3);
-        vdMul(N, v.getField(stages*phys_unknowns + 1), k3xx, data3_temp1);
+        // vdMul(N, mux, k3x, data3);
+        VectorMul(N, mux, k3x, data3);
+        // vdMul(N, v.getField(stages*phys_unknowns + 1), k3xx, data3_temp1);
+        VectorMul(N, v.getField(stages*phys_unknowns + 1), k3xx, data3_temp1);
         vdAdd(N, data3_temp1, data3, data3);
         cblas_dscal(N, -1.0, data3, 1);
         // get the flux term
         // 1st part (gamma*k3*k2/k1)_x
-        vdMul(N, vel, k3x, data3_temp1);
-        vdMul(N, e, k2x, data3_temp2);
+        // vdMul(N, vel, k3x, data3_temp1);
+        VectorMul(N, vel, k3x, data3_temp1);
+        // vdMul(N, e, k2x, data3_temp2);
+        VectorMul(N, e, k2x, data3_temp2);
         vdAdd(N, data3_temp1, data3_temp2, data3_temp1);
-        vdMul(N, e, vel, data3_temp2);
-        vdMul(N, data3_temp2, k1x, data3_temp2);
+        // vdMul(N, e, vel, data3_temp2);
+        VectorMul(N, e, vel, data3_temp2);
+        // vdMul(N, data3_temp2, k1x, data3_temp2);
+        VectorMul(N, data3_temp2, k1x, data3_temp2);
         cblas_daxpy(N, -1.0, data3_temp2, 1, data3_temp1, 1);
         cblas_daxpy(N, gamma, data3_temp1, 1, data3, 1);
         // 2nd part -0.5*(gamma - 1)*k2^3/k1^2
-        vdMul(N, vel2, k2x, data3_temp1);
+        // vdMul(N, vel2, k2x, data3_temp1);
+        VectorMul(N, vel2, k2x, data3_temp1);
         cblas_dscal(N, 3.0, data3_temp1, 1);
-        vdMul(N, vel2, vel, data3_temp2);
-        vdMul(N, data3_temp2, k1x, data3_temp2);
+        // vdMul(N, vel2, vel, data3_temp2);
+        VectorMul(N, vel2, vel, data3_temp2);
+        // vdMul(N, data3_temp2, k1x, data3_temp2);
+        VectorMul(N, data3_temp2, k1x, data3_temp2);
         cblas_daxpy(N, -2.0, data3_temp2, 1, data3_temp1, 1);
         cblas_daxpy(N, -0.5*(gamma - 1.0), data3_temp1, 1, data3, 1);
 
@@ -470,8 +483,6 @@ public:
         // Getting the MWSB
         vdAbs(N, vel, vel);
         cblas_daxpy(N, 1.0, vel, 1, MWSB, 1);
-        // Print_Mat(MWSB, N, 1);
-        // std::cout << std::endl;
     }
 
     void getProxy(const VectorField1D &v, double* proxy) const

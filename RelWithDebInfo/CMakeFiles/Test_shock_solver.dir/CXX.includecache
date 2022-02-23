@@ -219,6 +219,8 @@ SVW.h
 /home/leibov/Documents/FC_SDNN/Code/SVW.h
 SpMatrix_csr.h
 /home/leibov/Documents/FC_SDNN/Code/SpMatrix_csr.h
+mkl.h
+/home/leibov/Documents/FC_SDNN/Code/mkl.h
 
 /home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h
 VectorField1D.h

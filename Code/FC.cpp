@@ -12,6 +12,7 @@
 #include "FC.h"
 #include "printing.h"
 
+
 void read_FC_Data(double *A, double *Q, int d, int C, std::string filename_A, 
     std::string filename_Q)
 {
@@ -153,7 +154,8 @@ double * FC_Der(const double * fx, std::complex<double> * der_coeffs,
     std::complex<double> f_ext[N + C];
     double * f_der = new double[N];
     Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
-    vzMul(N + C, der_coeffs, f_ext, f_ext);
+    // vzMul(N + C, der_coeffs, f_ext, f_ext);
+    VectorMul(N + C, der_coeffs, f_ext, f_ext); 
     status = DftiComputeBackward(desc_handle, f_ext); 
     for (int j = 0; j < N; j++)
     {
@@ -171,7 +173,9 @@ void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs,
     MKL_LONG status;
     std::complex<double> f_ext[N + C];
     Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
-    vzMul(N + C, der_coeffs, f_ext, f_ext);  
+    // int mode = vmlSetMode(VML_EP);
+    // vzMul(N + C, der_coeffs, f_ext, f_ext);  
+    VectorMul(N + C, der_coeffs, f_ext, f_ext); 
     status = DftiComputeBackward(desc_handle, f_ext); 
     for (int j = 0; j < N; j++)
     {
@@ -185,7 +189,9 @@ void FC_Der(double *f_der, const std::complex<double> * f_hat,
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 {
    std::complex<double> f_hat_temp[N+C];
-   vzMul(N + C, der_coeffs, f_hat, f_hat_temp);
+//    int mode = vmlSetMode(VML_EP);
+//    vzMul(N + C, der_coeffs, f_hat, f_hat_temp);
+   VectorMul(N + C, der_coeffs, f_hat, f_hat_temp);
    int status = DftiComputeBackward(desc_handle, f_hat_temp); 
    for (int j = 0; j < N; j++)
    {

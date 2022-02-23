@@ -9,10 +9,10 @@
 #define MKL_Complex8 std::complex<float>
 #include "mkl.h"
 #include "mkl_dfti.h"
-
 #include <fstream>
 #include <string>
 #include <math.h>
+#include "VectorOperations.h"
 
 
 void read_FC_Data(double *A, double *Q, int d, int C, std::string filename_A, 

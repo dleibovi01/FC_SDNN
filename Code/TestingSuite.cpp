@@ -489,6 +489,114 @@ void TestingSVW()
     std::cout << std::endl;
 }
 
+void TestingVML()
+{
+    const int N = 128;
+    const int M = 10000000;
+    std::complex<double> c[N];
+    std::complex<double>  d[N];
+    std::complex<double>  e[N];
+    std::complex<double>  e2[N];
+    std::complex<double> I(0, 1); 
+    for(int i = 0; i < N; i++)
+    {
+        c[i] = double(i) + I;
+        d[i] = 2.0*double(i) - 3.0*I;
+    }
+    // double c[N];
+    // double d[N];
+    // double e[N];
+    // for(int i = 0; i < N; i++)
+    // {
+    //     c[i] = double(i);
+    //     d[i] = 2.0*double(i);
+    // }
+    auto t = std::chrono::high_resolution_clock::now();
+    auto t1 = std::chrono::high_resolution_clock::now();
+    int mode = 0;
+    for(int i = 0; i < M; i++)
+    {
+        mode = vmlSetMode(VML_EP);
+        vzMul(N, c, d, e);
+    }
+    auto t2 = std::chrono::high_resolution_clock::now();
+
+    int m = 0;
+    double a0, a1, a2, a3, a4, a5;
+    for(int i = 0; i < M; i++)
+    {
+        
+        // for(int j = 0; j < N; j++)
+        // {
+        //     e2[j] = c[j] * d[j];
+        //     // e2[j + 1] = c[j + 1] * d[j + 1];
+        //     // e2[j + 1] = c[j + 1] * d[j + 1];
+        //     // e2[j + 2] = c[j + 2] * d[j + 2];
+        //     // e2[j + 3] = c[j + 3] * d[j + 3];
+        //     // e2[j + 4] = c[j + 4] * d[j + 4];
+        //     // e2[j + 5] = c[j + 5] * d[j + 5];
+        //     // e[j + 6] = c[j + 6] * d[j + 6];
+        //     // e2[j + 7] = c[j + 7] * d[j + 7];
+        // }
+        for(int j = 0; j < N; j+=4)
+        {
+            a0 = c[j].real() * d[j].real();
+            a1 = c[j].real() * d[j].imag();
+            a2 = c[j].imag() * d[j].real();
+            a3 = c[j].imag() * d[j].imag();
+            e2[j].real(a0 - a3);
+            e2[j].imag(a1 + a2);
+    
+            a0 = c[j + 1].real() * d[j + 1].real();
+            a1 = c[j + 1].real() * d[j + 1].imag();
+            a2 = c[j + 1].imag() * d[j + 1].real();
+            a3 = c[j + 1].imag() * d[j + 1].imag();
+            e2[j + 1].real(a0 - a3);
+            e2[j + 1].imag(a1 + a2);
+
+            a0 = c[j + 2].real() * d[j + 2].real();
+            a1 = c[j + 2].real() * d[j + 2].imag();
+            a2 = c[j + 2].imag() * d[j + 2].real();
+            a3 = c[j + 2].imag() * d[j + 2].imag();
+            e2[j + 2].real(a0 - a3);
+            e2[j + 2].imag(a1 + a2);
+
+            a0 = c[j + 3].real() * d[j + 3].real();
+            a1 = c[j + 3].real() * d[j + 3].imag();
+            a2 = c[j + 3].imag() * d[j + 3].real();
+            a3 = c[j + 3].imag() * d[j + 3].imag();
+            e2[j + 3].real(a0 - a3);
+            e2[j + 3].imag(a1 + a2);
+            // e2[j + 1] = c[j + 1] * d[j + 1];
+            // e2[j + 2] = c[j + 2] * d[j + 2];
+            // e2[j + 3] = c[j + 3] * d[j + 3];
+            // e2[j + 4] = c[j + 4] * d[j + 4];
+            // e2[j + 5] = c[j + 5] * d[j + 5];
+            // e[j + 6] = c[j + 6] * d[j + 6];
+            // e2[j + 7] = c[j + 7] * d[j + 7];
+        }
+        // for(int j = 0; j < N; j++)
+        // {
+        //     e[j] = c[j] + d[j];
+        // }
+        
+    }
+
+    auto t3 = std::chrono::high_resolution_clock::now();
+
+    // Getting number of milliseconds as an integer. //
+    auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1); 
+    auto ms_int2 = std::chrono::duration_cast<std::chrono::milliseconds>(t3 - t2);
+    // Getting number of milliseconds as a double. //
+    std::chrono::duration<double, std::milli> ms_double = t2 - t1;
+    std::chrono::duration<double, std::milli> ms_double2 = t3 - t2;
+    std::cout << ms_double.count() << "ms" << std::endl; 
+    std::cout << ms_double2.count() << "ms" << std::endl; 
+
+}
+
+
+
 
 int main()
 {
@@ -499,9 +607,10 @@ int main()
     //TestingNode1D();
     //TestingPatch1D();
     //TestingMesh1D();
-    // TestingSDNN();
+    //TestingSDNN();
     TestingEulerSDNN();
     // TestingSVW();
+    // TestingVML();
 
     
     // auto t1 = std::chrono::high_resolution_clock::now();

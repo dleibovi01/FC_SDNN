@@ -2,10 +2,12 @@
 #ifndef TESTINGSUITE_H
 #define TESTINGSUITE_H
 
-
-
-#include <vector>
 #include <iostream>
+#include <complex>
+#define MKL_Complex16 std::complex<double>
+#define MKL_Complex8 std::complex<float>
+#include "mkl.h"
+#include <vector>
 #include "VectorField1D.h"
 #include "Node1D.h"
 #include "Patch1D.h"
@@ -21,6 +23,7 @@
 #include "SVW.h"
 #include "SpMatrix_csr.h"
 
+
 void TestingVector1D();
 void TestingNode1D();
 void TestingPatch1D();
@@ -31,5 +34,6 @@ void TestingSolver();
 void TestingSVW();
 void TestingSDNN();
 void TestingEulerSDNN();
+void TestingVML();
 
 #endif

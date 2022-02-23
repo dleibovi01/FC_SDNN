@@ -1,0 +1,600 @@
+# callstacks file version: 8
+#    rowid	    parent	       rva	 loop	 system	                                function	binary	instance_start_rva	instance_size	instance_end_rva	finst_rowid	roi	is_inlined	jit_method_id	tripcounts_roi	flops_roi	cachesim_roi	data_transfer_roi	projection_roi
+         1	        -1	     42304	    0	      0	                                  _start	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	42304	47	0	57	0	0	0	0	0	0	0	0
+         2	        -1	     42349	    0	      0	                                  _start	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	42304	47	0	57	0	0	0	0	0	0	0	0
+         3	       428	    159922	    1	      1	 [Loop at line 261 in __libc_start_main]	/lib/x86_64-linux-gnu/libc.so.6	159782	228	0	258	0	0	0	0	0	0	0	0
+         4	         3	     73802	    0	      0	                                    main	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	73744	80	0	58	0	0	0	0	0	0	0	0
+         5	         4	     75972	    0	      0	                        TestingEulerSDNN	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	73824	7776	0	59	0	0	0	0	0	0	0	0
+         6	         5	     46073	    0	      0	                          build_Cont_Mat	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	44736	1664	0	60	0	0	0	0	0	0	0	0
+         7	         6	   2830858	    0	      0	                             cblas_dgemm	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2830240	688	0	15	0	0	0	0	0	0	0	0
+         8	         7	   2307709	    0	      0	                                  dgemm_	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2307008	1808	0	16	0	0	0	0	0	0	0	0
+         9	         8	   5130375	    0	      0	                        [MKL BLAS]@dgemm	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	5129696	6384	0	45	0	0	0	0	0	0	0	0
+        10	         9	   4106061	    0	      0	           [MKL SERVICE]@get_num_stripes	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4105936	3312	0	226	0	0	0	0	0	0	0	0
+        11	        10	    654082	    0	      1	             __kmp_api_omp_get_num_procs	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	653984	112	0	278	0	0	0	0	0	0	0	0
+        12	       318	    805212	    0	      1	            __kmp_acquire_bootstrap_lock	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	805193	20	0	279	0	1	0	0	0	0	0	0
+        13	       320	    719054	    0	      1	_INTERNAL1ad8c856::__kmp_acquire_ticket_lock_timed_template	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	719010	492	0	281	0	1	0	0	0	0	0	0
+        14	        13	    252817	    0	      1	_INTERNAL389a824c::__kmp_itt_fsync_acquired_init_3_0	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	252736	96	0	283	0	0	0	0	0	0	0	0
+        15	        14	    230583	    0	      1	                   __kmp_itt_init_ittlib	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	229040	3408	0	284	0	0	0	0	0	0	0	0
+        16	        15	     51161	    0	      1	                          __itt_api_init	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	51072	768	0	2	0	0	0	0	0	0	0	0
+        17	        16	     46287	    0	      1	                             func@0xb420	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	46112	240	0	5	0	0	0	0	0	0	0	0
+        18	        17	     62367	    0	      1	                             func@0xf350	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	62288	160	0	6	0	0	0	0	0	0	0	0
+        19	        18	     62813	    0	      1	                             func@0xf410	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	62480	496	0	7	0	0	0	0	0	0	0	0
+        20	        19	     65796	    0	      1	                             func@0xf810	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	63504	4640	0	8	0	0	0	0	0	0	0	0
+        21	        20	     68297	    0	      1	                            func@0x10a30	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	68144	208	0	9	0	0	0	0	0	0	0	0
+        22	        21	    160622	    0	      1	                            func@0x272f0	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	160496	176	0	10	0	0	0	0	0	0	0	0
+        23	        22	    160323	    0	      1	                            func@0x27220	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	160288	208	0	11	0	0	0	0	0	0	0	0
+        24	        23	    162766	    0	      1	                            func@0x27b10	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	162576	288	0	12	0	0	0	0	0	0	0	0
+        25	       399	   2845503	    1	      1	[Loop@0x2b6b19 in tpss_connect_mod2_ver0]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	2845465	165	0	204	0	0	0	0	0	0	0	0
+        26	        25	     83207	    0	      1	                          __libc_connect	/lib/x86_64-linux-gnu/libpthread.so.0	83184	149	0	35	0	0	0	0	0	0	0	0
+        27	        17	     62418	    0	      1	                             func@0xf350	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	62288	160	0	6	0	0	0	0	0	0	0	0
+        28	        27	     55115	    0	      1	                             func@0xd6d0	/opt/intel/oneapi/advisor/2022.0.0/lib64/runtime/libittnotify_collector.so	54992	176	0	13	0	0	0	0	0	0	0	0
+        29	         8	   5131178	    0	      0	                        [MKL BLAS]@dgemm	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	5129696	6384	0	45	0	0	0	0	0	0	0	0
+        30	        29	   2327129	    0	      0	       [MKL BLAS]@get_kernel_api_version	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2327104	288	0	304	0	0	0	0	0	0	0	0
+        31	        30	   2186291	    0	      0	                  [MKL SERVICE]@load_dll	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2185712	624	0	316	0	0	0	0	0	0	0	0
+        32	        31	   2187732	    0	      0	           __mkl_cpu_detect_and_load_dll	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2186336	3568	0	317	0	0	0	0	0	0	0	0
+        33	        32	   2190104	    0	      0	                            MKL_Load_Lib	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2189904	512	0	319	0	0	0	0	0	0	0	0
+        34	        33	      5081	    0	      1	                                __dlopen	/lib/x86_64-linux-gnu/libdl.so.2	5008	133	0	275	0	0	0	0	0	0	0	0
+        35	        34	      7000	    0	      1	                            _dlerror_run	/lib/x86_64-linux-gnu/libdl.so.2	6896	357	0	276	0	0	0	0	0	0	0	0
+        36	        35	   1456514	    0	      1	                                    __GI	/lib/x86_64-linux-gnu/libc.so.6	1456464	106	0	260	0	0	0	0	0	0	0	0
+        37	        36	   1456311	    0	      1	                                    __GI	/lib/x86_64-linux-gnu/libc.so.6	1456176	276	0	261	0	0	0	0	0	0	0	0
+        38	        37	      4939	    0	      1	                             dlopen_doit	/lib/x86_64-linux-gnu/libdl.so.2	4848	154	0	277	0	0	0	0	0	0	0	0
+        39	       377	     87545	    1	      1	          [Loop@0x155ad in func@0x15554]	/lib64/ld-linux-x86-64.so.2	87469	124	0	240	0	0	0	0	0	0	0	0
+        40	        39	   1456311	    0	      1	                                    __GI	/lib/x86_64-linux-gnu/libc.so.6	1456176	276	0	261	0	0	0	0	0	0	0	0
+        41	       379	     89599	    1	      1	          [Loop@0x15de2 in func@0x15c14]	/lib64/ld-linux-x86-64.so.2	89570	333	0	242	0	0	0	0	0	0	0	0
+        42	        41	   8246356	    0	      1	                           func@0x7dd410	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8246288	128	0	206	0	0	0	0	0	0	0	0
+        43	        42	   8246148	    0	      1	                           func@0x7dd320	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8246048	240	0	207	0	0	0	0	0	0	0	0
+        44	       401	   8241338	    1	      1	        [Loop@0x7dc094 in func@0x7dbece]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8241300	56	0	208	0	0	0	0	0	0	0	0
+        45	        44	   7950874	    0	      1	       LEVEL_PINCLIENT::ProcessImageLoad	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7950800	211	0	210	0	0	0	0	0	0	0	0
+        46	        45	   7940684	    0	      1	                           func@0x792260	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7938656	7675	0	211	0	0	0	0	0	0	0	0
+        47	        46	   8291374	    0	      1	          LEVEL_PINCLIENT::ElfCookRegsym	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8290928	2851	0	212	0	0	0	0	0	0	0	0
+        48	       403	   8304632	    1	      1	[Loop@0x7eb668 in LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8304232	560	0	213	0	0	0	0	0	0	0	0
+        49	        48	   8917780	    0	      1	                   LEVEL_CORE::SYM_Alloc	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8917744	123	0	215	0	0	0	0	0	0	0	0
+        50	       405	   8483895	    1	      1	[Loop@0x817402 in LEVEL_BASE::ARRAYBASE::Memset]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8483842	63	0	216	0	0	0	0	0	0	0	0
+        51	       314	    113344	    1	      1	                [Loop@0x1bac0 in memset]	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	113344	36	0	51	0	0	0	0	0	0	0	0
+        52	        46	   8292676	    0	      1	          LEVEL_PINCLIENT::ElfCookRegsym	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8290928	2851	0	212	0	0	0	0	0	0	0	0
+        53	       407	   8306620	    1	      1	[Loop@0x7eb668 in LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8306592	38	0	213	0	0	0	0	0	0	0	0
+        54	        53	   8281158	    0	      1	                           func@0x7e5b80	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8280960	432	0	218	0	0	0	0	0	0	0	0
+        55	       407	   8304245	    1	      1	[Loop@0x7eb668 in LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8304232	560	0	213	0	0	0	0	0	0	0	0
+        56	        45	   7943525	    0	      1	                           func@0x792260	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7938656	7675	0	211	0	0	0	0	0	0	0	0
+        57	        56	   8258238	    0	      1	     LEVEL_PINCLIENT::GetSubprogramsInfo	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8258176	7657	0	219	0	0	0	0	0	0	0	0
+        58	        57	    234553	    0	      1	               GetSubprogramsListInImage	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	234512	796	0	250	0	0	0	0	0	0	0	0
+        59	        58	    230482	    0	      1	                        LoadDwarfForFile	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	230224	3360	0	251	0	0	0	0	0	0	0	0
+        60	        59	    240128	    0	      1	llvm::object::ObjectFile::createObjectFile	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	240048	178	0	252	0	0	0	0	0	0	0	0
+        61	        60	    670267	    0	      1	             llvm::MemoryBuffer::getFile	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670096	290	0	253	0	0	0	0	0	0	0	0
+        62	       306	    670765	    1	      1	       [Loop@0xa3c20 in getOpenFileImpl]	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670752	32	0	254	0	0	0	0	0	0	0	0
+        63	        62	     92099	    0	      1	                                    read	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	92064	79	0	53	0	0	0	0	0	0	0	0
+        64	        63	    486223	    0	      1	                               OS_ReadFD	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	486192	135	0	54	0	0	0	0	0	0	0	0
+        65	        64	    506815	    0	      1	                            OS_SyscallDo	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	506592	342	0	55	0	0	0	0	0	0	0	0
+        66	        65	    506455	    0	      1	    OS_BARESYSCALL_DoCallAsmIntel64Linux	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	506424	36	0	56	0	0	0	0	0	0	0	0
+        67	        45	   7940725	    0	      1	                           func@0x792260	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7938656	7675	0	211	0	0	0	0	0	0	0	0
+        68	       413	   7933611	    1	      1	        [Loop@0x790e37 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933495	216	0	220	0	0	0	0	0	0	0	0
+        69	        68	   8845451	    0	      1	                   LEVEL_CORE::RTN_Alloc	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8845280	1081	0	225	0	0	0	0	0	0	0	0
+        70	       308	    342172	    1	      1	          [Loop@0x53894 in operator new]	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	342164	51	0	256	0	0	0	0	0	0	0	0
+        71	        70	   2050538	    0	      1	          LEVEL_BASE::SWMALLOC::Allocate	/opt/intel/oneapi/advisor/2022.0.0/bin64/pinbin	2048816	2584	0	26	0	0	0	0	0	0	0	0
+        72	        71	   2045499	    0	      1	          LEVEL_BASE::SWMALLOC::GetPages	/opt/intel/oneapi/advisor/2022.0.0/bin64/pinbin	2045424	105	0	28	0	0	0	0	0	0	0	0
+        73	       411	   7932717	    1	      1	        [Loop@0x7907b4 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7931828	981	0	223	0	0	0	0	0	0	0	0
+        74	       417	   7912519	    1	      1	        [Loop@0x78abe8 in func@0x78ab30]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7912512	44	0	227	0	0	0	0	0	0	0	0
+        75	        74	    599579	    0	      1	           std::__malloc_alloc::allocate	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libstlport-dynamic.so	599568	92	0	14	0	0	0	0	0	0	0	0
+        76	        75	   2050538	    0	      1	          LEVEL_BASE::SWMALLOC::Allocate	/opt/intel/oneapi/advisor/2022.0.0/bin64/pinbin	2048816	2584	0	26	0	0	0	0	0	0	0	0
+        77	        76	   2045499	    0	      1	          LEVEL_BASE::SWMALLOC::GetPages	/opt/intel/oneapi/advisor/2022.0.0/bin64/pinbin	2045424	105	0	28	0	0	0	0	0	0	0	0
+        78	       381	     89947	    1	      1	          [Loop@0x15f30 in func@0x15c14]	/lib64/ld-linux-x86-64.so.2	89904	49	0	244	0	0	0	0	0	0	0	0
+        79	       386	     58116	    1	      1	            [Loop@0xe2e0 in func@0xd9e0]	/lib64/ld-linux-x86-64.so.2	58080	44	0	245	0	0	0	0	0	0	0	0
+        80	        31	   2187820	    0	      0	           __mkl_cpu_detect_and_load_dll	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2186336	3568	0	317	0	0	0	0	0	0	0	0
+        81	        80	   2190104	    0	      0	                            MKL_Load_Lib	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2189904	512	0	319	0	0	0	0	0	0	0	0
+        82	        81	      5081	    0	      1	                                __dlopen	/lib/x86_64-linux-gnu/libdl.so.2	5008	133	0	275	0	0	0	0	0	0	0	0
+        83	        82	      7000	    0	      1	                            _dlerror_run	/lib/x86_64-linux-gnu/libdl.so.2	6896	357	0	276	0	0	0	0	0	0	0	0
+        84	        83	   1456514	    0	      1	                                    __GI	/lib/x86_64-linux-gnu/libc.so.6	1456464	106	0	260	0	0	0	0	0	0	0	0
+        85	        84	   1456311	    0	      1	                                    __GI	/lib/x86_64-linux-gnu/libc.so.6	1456176	276	0	261	0	0	0	0	0	0	0	0
+        86	        85	      4939	    0	      1	                             dlopen_doit	/lib/x86_64-linux-gnu/libdl.so.2	4848	154	0	277	0	0	0	0	0	0	0	0
+        87	       388	     87545	    1	      1	          [Loop@0x155ad in func@0x15554]	/lib64/ld-linux-x86-64.so.2	87469	124	0	240	0	0	0	0	0	0	0	0
+        88	        87	   1456311	    0	      1	                                    __GI	/lib/x86_64-linux-gnu/libc.so.6	1456176	276	0	261	0	0	0	0	0	0	0	0
+        89	       390	     89599	    1	      1	          [Loop@0x15de2 in func@0x15c14]	/lib64/ld-linux-x86-64.so.2	89570	333	0	242	0	0	0	0	0	0	0	0
+        90	        89	   8246356	    0	      1	                           func@0x7dd410	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8246288	128	0	206	0	0	0	0	0	0	0	0
+        91	        90	   8246148	    0	      1	                           func@0x7dd320	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8246048	240	0	207	0	0	0	0	0	0	0	0
+        92	       419	   8241338	    1	      1	        [Loop@0x7dc094 in func@0x7dbece]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8241300	56	0	208	0	0	0	0	0	0	0	0
+        93	        92	   7950874	    0	      1	       LEVEL_PINCLIENT::ProcessImageLoad	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7950800	211	0	210	0	0	0	0	0	0	0	0
+        94	        93	   7943525	    0	      1	                           func@0x792260	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7938656	7675	0	211	0	0	0	0	0	0	0	0
+        95	        94	   8258238	    0	      1	     LEVEL_PINCLIENT::GetSubprogramsInfo	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8258176	7657	0	219	0	0	0	0	0	0	0	0
+        96	        95	    234553	    0	      1	               GetSubprogramsListInImage	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	234512	796	0	250	0	0	0	0	0	0	0	0
+        97	        96	    230482	    0	      1	                        LoadDwarfForFile	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	230224	3360	0	251	0	0	0	0	0	0	0	0
+        98	        97	    240128	    0	      1	llvm::object::ObjectFile::createObjectFile	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	240048	178	0	252	0	0	0	0	0	0	0	0
+        99	        98	    670267	    0	      1	             llvm::MemoryBuffer::getFile	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670096	290	0	253	0	0	0	0	0	0	0	0
+       100	       310	    670765	    1	      1	       [Loop@0xa3c20 in getOpenFileImpl]	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670752	32	0	254	0	0	0	0	0	0	0	0
+       101	       100	     92099	    0	      1	                                    read	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	92064	79	0	53	0	0	0	0	0	0	0	0
+       102	       101	    486223	    0	      1	                               OS_ReadFD	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	486192	135	0	54	0	0	0	0	0	0	0	0
+       103	       102	    506815	    0	      1	                            OS_SyscallDo	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	506592	342	0	55	0	0	0	0	0	0	0	0
+       104	       103	    506455	    0	      1	    OS_BARESYSCALL_DoCallAsmIntel64Linux	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	506424	36	0	56	0	0	0	0	0	0	0	0
+       105	        93	   7940725	    0	      1	                           func@0x792260	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7938656	7675	0	211	0	0	0	0	0	0	0	0
+       106	       424	   7933611	    1	      1	        [Loop@0x790e37 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933495	216	0	220	0	0	0	0	0	0	0	0
+       107	       106	   8845326	    0	      1	                   LEVEL_CORE::RTN_Alloc	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8845280	1081	0	225	0	0	0	0	0	0	0	0
+       108	       426	   8483895	    1	      1	[Loop@0x817402 in LEVEL_BASE::ARRAYBASE::Memset]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8483842	63	0	216	0	0	0	0	0	0	0	0
+       109	       316	    113344	    1	      1	                [Loop@0x1bac0 in memset]	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	113344	36	0	51	0	0	0	0	0	0	0	0
+       110	         4	     79765	    0	      0	                        TestingEulerSDNN	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	73824	7776	0	59	0	0	0	0	0	0	0	0
+       111	       110	    109158	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       112	       468	    134118	    1	      0	[Loop at line 131 in SVW::setScaledSVWS]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	134102	43	134145	62	0	0	0	0	0	0	0	0
+       113	       472	     72009	    0	      0	                        SpMatrix_csr::MV	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	71967	43	0	67	0	1	0	0	0	0	0	0
+       114	       113	  12074157	    0	      0	    mkl_sparse_d_default_mv_procedure_i4	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	12073472	1264	0	231	0	0	0	0	0	0	0	0
+       115	       114	  11989243	    0	      0	           mkl_sparse_d_xcsr_mv_n_def_i4	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	11989008	784	0	232	0	0	0	0	0	0	0	0
+       116	       115	    515252	    0	      1	                           [OpenMP fork]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	514832	592	0	285	0	0	0	0	0	0	0	0
+       117	       323	    773412	    1	      1	  [Loop at line 1911 in __kmp_fork_call]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	773136	1965	0	286	0	0	0	0	0	0	0	0
+       118	       325	    784340	    1	      1	[Loop at line 5552 in __kmp_allocate_team]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	784327	91	0	289	0	0	0	0	0	0	0	0
+       119	       118	    756860	    0	      1	                   __kmp_allocate_thread	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	754816	2832	0	291	0	0	0	0	0	0	0	0
+       120	       329	   1315196	    1	      1	[Loop at line 751 in __kmp_create_worker]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1314377	1031	0	292	0	0	0	0	0	0	0	0
+       121	       476	    113589	    1	      0	[Loop at line 262 in updateVisc<Mesh1DUniform, Euler1D_SDNN, FC_1D<Patch1DUniform>>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	113534	80	113614	70	0	0	0	0	0	0	0	0
+       122	       479	    118314	    1	      0	[Loop at line 216 in updateViscPatch<Patch1DUniform, Mesh1DUniform, SVW*, Euler1D_SDNN, FC_1D<Patch1DUniform>>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117854	477	118331	73	0	0	0	0	0	0	0	0
+       123	       122	  12074157	    0	      0	    mkl_sparse_d_default_mv_procedure_i4	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	12073472	1264	0	231	0	0	0	0	0	0	0	0
+       124	       123	  11989243	    0	      0	           mkl_sparse_d_xcsr_mv_n_def_i4	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	11989008	784	0	232	0	0	0	0	0	0	0	0
+       125	       124	    515252	    0	      1	                           [OpenMP fork]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	514832	592	0	285	0	0	0	0	0	0	0	0
+       126	       332	    775034	    1	      1	  [Loop at line 1911 in __kmp_fork_call]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	773136	1965	0	286	0	0	0	0	0	0	0	0
+       127	       126	   5398793	    0	      1	tpss___itt_stack_caller_create_mod0_ver0	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	5397280	2142	0	230	0	0	0	0	0	0	0	0
+       128	       127	   6484239	    0	      1	                           func@0x62f090	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	6484112	176	0	234	0	0	0	0	0	0	0	0
+       129	       124	    515283	    0	      1	                           [OpenMP fork]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	514832	592	0	285	0	0	0	0	0	0	0	0
+       130	       129	    789458	    0	      1	                         __kmp_join_call	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	789008	3232	0	296	0	0	0	0	0	0	0	0
+       131	       130	    792316	    0	      1	                     __kmp_internal_join	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	792240	400	0	297	0	0	0	0	0	0	0	0
+       132	       131	    505333	    0	      1	                      __kmp_join_barrier	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	504224	4160	0	298	0	0	0	0	0	0	0	0
+       133	       337	    498167	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	498133	53	0	299	0	0	0	0	0	0	0	0
+       134	       133	   1071259	    0	      1	                             sched_yield	/lib/x86_64-linux-gnu/libc.so.6	1071248	37	0	262	0	0	0	0	0	0	0	0
+       135	       481	    115014	    1	      0	[Loop at line 171 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	114935	135	115070	75	0	0	0	0	0	0	0	0
+       136	       135	    125689	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       137	       136	    131380	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       138	       137	   9962506	    0	      0	                                   vdAdd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	9962336	624	0	17	0	0	0	0	0	0	0	0
+       139	       138	  45554776	    0	      0	          [MKL SERVICE]@threader_d_2i_1o	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	45554268	1988	0	233	0	0	0	0	0	0	0	0
+       140	       139	   3940920	    0	      0	                  [MKL VML]@dAdd_L9LAynn	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	3940768	432	0	46	0	0	0	0	0	0	0	0
+       141	       121	    117821	    0	      0	updateViscPatch<Patch1DUniform, Mesh1DUniform, SVW*, Euler1D_SDNN, FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117472	2320	0	74	0	0	0	0	0	0	0	0
+       142	       141	    141197	    0	      0	                   Euler1D_SDNN::getMWSB	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	140944	336	0	78	0	0	0	0	0	0	0	0
+       143	       142	     41936	    0	      0	                           func@0x40a3d0	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	41936	6	0	79	0	0	0	0	0	0	0	0
+       144	       489	    111554	    0	      0	std::__max_element<double*, __gnu_cxx::__ops::_Iter_less_iter>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111538	64	0	80	0	1	0	0	0	0	0	0
+       145	       135	    124985	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       146	       492	    130449	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130277	260	0	86	0	1	0	0	0	0	0	0
+       147	       146	     47367	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       148	       147	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       149	       148	   2435758	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       150	       149	   4122544	    0	      0	      [MKL SERVICE]@set_xerbla_interface	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4122544	80	0	235	0	0	0	0	0	0	0	0
+       151	       135	    126057	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       152	       494	    130745	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130580	253	0	88	0	1	0	0	0	0	0	0
+       153	       497	     48840	    0	      0	                          std::operator/	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48762	106	0	89	0	1	0	0	0	0	0	0
+       154	       337	    497682	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	497297	542	0	299	0	0	0	0	0	0	0	0
+       155	       500	    131041	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130876	253	0	91	0	1	0	0	0	0	0	0
+       156	       503	     49120	    0	      0	                          std::operator/	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	49089	105	0	89	0	1	0	0	0	0	0	0
+       157	       506	    130745	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130580	253	0	88	0	1	0	0	0	0	0	0
+       158	       509	     48389	    0	      0	                          std::operator/	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48334	193	0	89	0	1	0	0	0	0	0	0
+       159	       512	    131041	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130876	253	0	91	0	1	0	0	0	0	0	0
+       160	       159	     47426	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       161	       160	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       162	       161	   2436025	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       163	       162	   4246201	    0	      0	                        [MKL BLAS]@dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4246064	1376	0	237	0	0	0	0	0	0	0	0
+       164	       163	   5628101	    0	      0	                  [MKL BLAS]@avx2_xdgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5627968	3136	0	27	0	0	0	0	0	0	0	0
+       165	       121	    117571	    0	      0	updateViscPatch<Patch1DUniform, Mesh1DUniform, SVW*, Euler1D_SDNN, FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117472	2320	0	74	0	0	0	0	0	0	0	0
+       166	       514	    150901	    1	      0	[Loop at line 30 in VectorField1D::VectorField1D]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	150859	333	151265,151192,151260	92	0	0	0	0	0	0	0	0
+       167	       395	    699192	    1	      1	          [Loop@0xaab31 in operator new]	/lib/x86_64-linux-gnu/libstdc++.so.6	699185	13	0	1	0	0	0	0	0	0	0	0
+       168	       430	    644120	    1	      1	[Loop at line 3064 in __GI___libc_malloc]	/lib/x86_64-linux-gnu/libc.so.6	644110	162	0	263	0	0	0	0	0	0	0	0
+       169	       168	    636786	    0	      1	                             _int_malloc	/lib/x86_64-linux-gnu/libc.so.6	633840	3778	0	265	0	0	0	0	0	0	0	0
+       170	       169	    625192	    0	      1	                            unlink_chunk	/lib/x86_64-linux-gnu/libc.so.6	625184	215	0	266	0	0	0	0	0	0	0	0
+       171	       135	    126765	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       172	       526	    128110	    0	      0	__gnu_cxx::new_allocator<int>::deallocate	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128106	5	0	94	0	1	0	0	0	0	0	0
+       173	       172	    691568	    0	      1	                         operator delete	/lib/x86_64-linux-gnu/libstdc++.so.6	691568	9	0	4	0	0	0	0	0	0	0	0
+       174	       529	    112839	    0	      0	                      ANN::getRegularity	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111969	1053	0	106	0	1	0	0	0	0	0	0
+       175	       174	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       176	       175	   2436025	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       177	       176	   4246201	    0	      0	                        [MKL BLAS]@dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4246064	1376	0	237	0	0	0	0	0	0	0	0
+       178	       177	   5629129	    0	      0	                  [MKL BLAS]@avx2_xdgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5627968	3136	0	27	0	0	0	0	0	0	0	0
+       179	       178	   5631387	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       180	       135	    125340	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       181	       532	    131041	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130876	253	0	91	0	1	0	0	0	0	0	0
+       182	       181	     47367	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       183	       182	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       184	       183	   2436025	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       185	       184	   4246201	    0	      0	                        [MKL BLAS]@dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4246064	1376	0	237	0	0	0	0	0	0	0	0
+       186	       185	   5629129	    0	      0	                  [MKL BLAS]@avx2_xdgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5627968	3136	0	27	0	0	0	0	0	0	0	0
+       187	       186	   5631159	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       188	       529	    112441	    0	      0	                      ANN::getRegularity	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111969	1053	0	106	0	1	0	0	0	0	0	0
+       189	       188	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       190	       189	   2436025	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       191	       190	   4246201	    0	      0	                        [MKL BLAS]@dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4246064	1376	0	237	0	0	0	0	0	0	0	0
+       192	       191	   5629129	    0	      0	                  [MKL BLAS]@avx2_xdgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5627968	3136	0	27	0	0	0	0	0	0	0	0
+       193	       440	   5631447	    1	      0	[Loop@0x55edc9 in [MKL BLAS]@avx2_xdgemv_n]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631433	387	5631820	30	0	0	0	0	0	0	0	0
+       194	       536	    130517	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130277	260	0	86	0	1	0	0	0	0	0	0
+       195	       194	     51173	    0	      0	                                  FC_Der	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	50960	512	0	108	0	0	0	0	0	0	0	0
+       196	       195	  10053690	    0	      0	                                   vzMul	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	10053520	624	0	20	0	0	0	0	0	0	0	0
+       197	       196	  45587970	    0	      0	          [MKL SERVICE]@threader_z_2i_1o	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	45587462	1988	0	238	0	0	0	0	0	0	0	0
+       198	       393	   4187222	    1	      0	[Loop@0x3fe3d8 in [MKL VML]@zMul_L9EPnnn]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4187178	161	4187109	47	0	0	0	0	0	0	0	0
+       199	       198	   4195175	    0	      0	                         vzmul_cout_rare	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4190432	5248	0	50	0	0	0	0	0	0	0	0
+       200	       538	    109517	    1	      0	[Loop at line 135 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109498	399	109897	109	0	0	0	0	0	0	0	0
+       201	       540	    266281	    1	      0	  [Loop@0x441000 in __intel_avx_memmove]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	266240	103	264160	110	0	0	0	0	0	0	0	0
+       202	       135	    126073	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       203	       202	    129765	    0	      0	std::vector<std::vector<int, std::allocator<int>>, std::allocator<std::vector<int, std::allocator<int>>>>::vector	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129744	48	0	112	0	0	0	0	0	0	0	0
+       204	       203	   1202567	    0	      1	                                 _mcount	/lib/x86_64-linux-gnu/libc.so.6	1202512	95	0	267	0	0	0	0	0	0	0	0
+       205	       204	   1199108	    0	      1	                       __mcount_internal	/lib/x86_64-linux-gnu/libc.so.6	1199088	346	0	268	0	0	0	0	0	0	0	0
+       206	       337	    497830	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	497297	542	0	299	0	0	0	0	0	0	0	0
+       207	       206	    512843	    0	      1	kmp_flag_native<unsigned long long, (flag_type)1, (bool)1>::notdone_check	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	512832	32	0	305	0	0	0	0	0	0	0	0
+       208	       337	    497689	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	497297	542	0	299	0	0	0	0	0	0	0	0
+       209	       542	    110008	    0	      0	updateTau<Patch1DUniform, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110004	3402	0	84	0	1	0	0	0	0	0	0
+       210	       545	    150901	    1	      0	[Loop at line 30 in VectorField1D::VectorField1D]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	150859	333	151265,151192,151260	92	0	0	0	0	0	0	0	0
+       211	       397	    699192	    1	      1	          [Loop@0xaab31 in operator new]	/lib/x86_64-linux-gnu/libstdc++.so.6	699185	13	0	1	0	0	0	0	0	0	0	0
+       212	       432	    644120	    1	      1	[Loop at line 3064 in __GI___libc_malloc]	/lib/x86_64-linux-gnu/libc.so.6	644110	162	0	263	0	0	0	0	0	0	0	0
+       213	       212	    636786	    0	      1	                             _int_malloc	/lib/x86_64-linux-gnu/libc.so.6	633840	3778	0	265	0	0	0	0	0	0	0	0
+       214	       213	    625233	    0	      1	                            unlink_chunk	/lib/x86_64-linux-gnu/libc.so.6	625184	215	0	266	0	0	0	0	0	0	0	0
+       215	       553	    116137	    1	      0	[Loop at line 5627 in std::__min_element<double*, __gnu_cxx::__ops::_Iter_less_iter>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116108	52	116160	113	0	0	0	0	0	0	0	0
+       216	       159	     48277	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       217	       216	   9336713	    0	      0	                      DftiComputeForward	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	9336512	1008	0	21	0	0	0	0	0	0	0	0
+       218	       442	  16063683	    1	      0	 [Loop@0xf51c78 in compute_rowbatch_fwd]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063608	109	16063717	31	0	0	0	0	0	0	0	0
+       219	       444	  17817444	    1	      0	[Loop@0x10fddc1 in [MKL FFT]@coDFTTwid_Compact_Fwd_v_16_d]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17817025	1201	17818226	33	0	0	0	0	0	0	0	0
+       220	       135	    124905	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       221	       556	    131041	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130876	253	0	91	0	1	0	0	0	0	0	0
+       222	       221	     47367	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       223	       222	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       224	       223	   2436025	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       225	       224	   4246201	    0	      0	                        [MKL BLAS]@dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4246064	1376	0	237	0	0	0	0	0	0	0	0
+       226	       225	   5630907	    0	      0	                  [MKL BLAS]@avx2_xdgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5627968	3136	0	27	0	0	0	0	0	0	0	0
+       227	       556	    131109	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130876	253	0	91	0	1	0	0	0	0	0	0
+       228	       227	     51190	    0	      0	                                  FC_Der	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	50960	512	0	108	0	0	0	0	0	0	0	0
+       229	       228	   9333787	    0	      0	                     DftiComputeBackward	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	9333584	1008	0	22	0	0	0	0	0	0	0	0
+       230	       446	  16064147	    1	      0	 [Loop@0xf51e48 in compute_rowbatch_bwd]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16064072	109	16064181	38	0	0	0	0	0	0	0	0
+       231	       448	  17801275	    1	      0	[Loop@0x10f9e27 in [MKL FFT]@coDFTTwid_Compact_Bwd_v_16_d]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17800743	1197	17801940	40	0	0	0	0	0	0	0	0
+       232	       529	    112639	    0	      0	                      ANN::getRegularity	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111969	1053	0	106	0	1	0	0	0	0	0	0
+       233	       232	   2838459	    0	      0	                             cblas_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2838112	784	0	18	0	0	0	0	0	0	0	0
+       234	       233	   2436025	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       235	       234	   4246201	    0	      0	                        [MKL BLAS]@dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4246064	1376	0	237	0	0	0	0	0	0	0	0
+       236	       235	   5629129	    0	      0	                  [MKL BLAS]@avx2_xdgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5627968	3136	0	27	0	0	0	0	0	0	0	0
+       237	       451	   5631584	    1	      0	[Loop@0x55edfc in [MKL BLAS]@avx2_xdgemv_n]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631484	173	5631657	42	0	0	0	0	0	0	0	0
+       238	       233	   2435994	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       239	       563	    109740	    0	      0	FC_1D<Patch1DUniform>::filter<VectorField1D>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109611	134	0	116	0	1	0	0	0	0	0	0
+       240	       239	     50631	    0	      0	                                  FC_Der	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	50416	544	0	118	0	0	0	0	0	0	0	0
+       241	       240	     48277	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       242	       241	   9336713	    0	      0	                      DftiComputeForward	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	9336512	1008	0	21	0	0	0	0	0	0	0	0
+       243	       453	  16063683	    1	      0	 [Loop@0xf51c78 in compute_rowbatch_fwd]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063608	109	16063717	31	0	0	0	0	0	0	0	0
+       244	       455	  17817069	    1	      0	[Loop@0x10fddc1 in [MKL FFT]@coDFTTwid_Compact_Fwd_v_16_d]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17817025	1201	17818226	33	0	0	0	0	0	0	0	0
+       245	       457	   5631628	    1	      0	[Loop@0x55edfc in [MKL BLAS]@avx2_xdgemv_n]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631484	173	5631657	42	0	0	0	0	0	0	0	0
+       246	       568	    110710	    1	      0	     [Loop at line 109 in form_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110625	152	110777	120	0	0	0	0	0	0	0	0
+       247	       135	    125649	    0	      0	SSPRK_4::advance<VectorField1D, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	124256	3440	0	76	0	0	0	0	0	0	0	0
+       248	       573	    128659	    1	      0	[Loop at line 58 in linComb<VectorField1D>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128607	66	128673	122	0	0	0	0	0	0	0	0
+       249	       248	   2808757	    0	      0	                             cblas_daxpy	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2808704	64	0	23	0	0	0	0	0	0	0	0
+       250	       249	   2416453	    0	      0	                       [MKL BLAS]@_daxpy	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2416352	576	0	24	0	0	0	0	0	0	0	0
+       251	       250	   4165415	    0	      0	                        [MKL BLAS]@daxpy	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_thread.so.2	4164784	1328	0	239	0	0	0	0	0	0	0	0
+       252	       459	   5860369	    1	      0	[Loop@0x596bf0 in [MKL BLAS]@avx2_xdaxpy]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5860336	80	5860416	43	0	0	0	0	0	0	0	0
+       253	       189	   2435846	    0	      0	                       [MKL BLAS]@_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2435712	1440	0	19	0	0	0	0	0	0	0	0
+       254	       253	   2575511	    0	      0	                 [MKL BLAS]@errchk_dgemv	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	2575424	304	0	25	0	0	0	0	0	0	0	0
+       255	       254	   2262401	    0	      0	                     [MKL SERVICE]@lsame	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_core.so.2	2262384	64	0	320	0	0	0	0	0	0	0	0
+       256	       532	    131109	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130876	253	0	91	0	1	0	0	0	0	0	0
+       257	       256	     51190	    0	      0	                                  FC_Der	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	50960	512	0	108	0	0	0	0	0	0	0	0
+       258	       257	   9333787	    0	      0	                     DftiComputeBackward	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_intel_lp64.so.2	9333584	1008	0	22	0	0	0	0	0	0	0	0
+       259	       461	  16064147	    1	      0	 [Loop@0xf51e48 in compute_rowbatch_bwd]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16064072	109	16064181	38	0	0	0	0	0	0	0	0
+       260	       463	  17800987	    1	      0	[Loop@0x10f9e27 in [MKL FFT]@coDFTTwid_Compact_Bwd_v_16_d]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17800743	1197	17801940	40	0	0	0	0	0	0	0	0
+       261	       576	    130745	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130580	253	0	88	0	1	0	0	0	0	0	0
+       262	       579	     49106	    0	      0	                          std::operator/	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	49089	105	0	89	0	1	0	0	0	0	0	0
+       263	       585	    116108	    0	      0	__gnu_cxx::__ops::_Iter_less_iter::operator()<double*, double*>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	28	0	125	0	1	0	0	0	0	0	0
+       264	       438	    635911	    1	      1	      [Loop at line 3728 in _int_malloc]	/lib/x86_64-linux-gnu/libc.so.6	635832	105	0	269	0	0	0	0	0	0	0	0
+       265	       590	    110939	    1	      0	[Loop at line 278 in preprocess_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110852	316	111168	127	0	0	0	0	0	0	0	0
+       266	       532	    130864	    0	      0	             FC_1D<Patch1DUniform>::diff	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	130864	8	0	91	0	1	0	0	0	0	0	0
+       267	        -1	   1312320	    0	      1	      _INTERNALa0ac8784::[OpenMP worker]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1312320	1472	0	306	0	0	0	0	0	0	0	0
+       268	        -1	   1188498	    0	      1	                                   clone	/lib/x86_64-linux-gnu/libc.so.6	1188432	94	0	274	0	0	0	0	0	0	0	0
+       269	       312	     38408	    1	      1	      [Loop at line 414 in start_thread]	/lib/x86_64-linux-gnu/libpthread.so.0	38311	274	0	36	0	0	0	0	0	0	0	0
+       270	       269	   5122205	    0	      1	       tpss_thread_start_routine_wrapper	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	5121280	1869	0	236	0	0	0	0	0	0	0	0
+       271	       343	   1312827	    1	      1	[Loop at line 529 in _INTERNALa0ac8784::[OpenMP worker]]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1312812	34	0	307	0	0	0	0	0	0	0	0
+       272	       345	    763955	    1	      1	[Loop at line 6200 in __kmp_launch_thread]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	763943	317	0	309	0	0	0	0	0	0	0	0
+       273	       272	    508970	    0	      1	                      __kmp_fork_barrier	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	508384	1520	0	311	0	0	0	0	0	0	0	0
+       274	       347	    473782	    0	      1	     kmp_flag_64<(bool)0, (bool)1>::wait	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	473766	17	0	312	0	1	0	0	0	0	0	0
+       275	       349	    462283	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       276	       275	    512832	    0	      1	kmp_flag_native<unsigned long long, (flag_type)1, (bool)1>::notdone_check	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	512832	32	0	305	0	0	0	0	0	0	0	0
+       277	       349	    461954	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       278	       349	    462135	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       279	       349	    462273	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       280	       349	    462640	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	462606	53	0	314	0	0	0	0	0	0	0	0
+       281	       280	   1071259	    0	      1	                             sched_yield	/lib/x86_64-linux-gnu/libc.so.6	1071248	37	0	262	0	0	0	0	0	0	0	0
+       282	       349	    462094	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       283	       349	    462429	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	462429	143	0	314	0	0	0	0	0	0	0	0
+       284	       349	    461805	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       285	       349	    461963	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       286	       349	    461961	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       287	       349	    461758	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       288	       349	    461966	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       289	       349	    462142	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       290	       349	    461837	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       291	       349	    462630	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	462606	53	0	314	0	0	0	0	0	0	0	0
+       292	       349	    462113	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       293	       349	    461993	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       294	       349	    461971	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       295	       349	    462139	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       296	       349	    462625	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	462606	53	0	314	0	0	0	0	0	0	0	0
+       297	       349	    462006	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       298	       349	    462284	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       299	       275	    512843	    0	      1	kmp_flag_native<unsigned long long, (flag_type)1, (bool)1>::notdone_check	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	512832	32	0	305	0	0	0	0	0	0	0	0
+       300	       349	    462027	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       301	       349	    461858	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       302	       349	    461855	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       303	       280	   1323744	    0	      1	                             __kmp_yield	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1323744	16	0	318	0	0	0	0	0	0	0	0
+       304	       349	    462452	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	462429	143	0	314	0	0	0	0	0	0	0	0
+       305	       349	    462037	    1	      1	[Loop at line 554 in _INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461758	534	0	314	0	0	0	0	0	0	0	0
+       306	        61	    670752	    0	      1	                         getOpenFileImpl	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670432	518	0	255	0	0	0	0	0	0	0	0
+       307	        61	    670765	    0	      1	                         getOpenFileImpl	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670432	518	0	255	0	0	0	0	0	0	0	0
+       308	        69	    342164	    0	      1	                            operator new	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	342128	107	0	257	0	0	0	0	0	0	0	0
+       309	        69	    342172	    0	      1	                            operator new	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	342128	107	0	257	0	0	0	0	0	0	0	0
+       310	        99	    670752	    0	      1	                         getOpenFileImpl	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670432	518	0	255	0	0	0	0	0	0	0	0
+       311	        99	    670765	    0	      1	                         getOpenFileImpl	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libpin3dwarf.so	670432	518	0	255	0	0	0	0	0	0	0	0
+       312	       268	     38311	    0	      1	                            start_thread	/lib/x86_64-linux-gnu/libpthread.so.0	38192	926	0	37	0	0	0	0	0	0	0	0
+       313	       268	     38408	    0	      1	                            start_thread	/lib/x86_64-linux-gnu/libpthread.so.0	38192	926	0	37	0	0	0	0	0	0	0	0
+       314	        50	    113344	    0	      1	                                  memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	113232	152	0	52	0	0	0	0	0	0	0	0
+       315	        50	    113344	    0	      1	                                  memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	113232	152	0	52	0	0	0	0	0	0	0	0
+       316	       108	    113344	    0	      1	                                  memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	113232	152	0	52	0	0	0	0	0	0	0	0
+       317	       108	    113344	    0	      1	                                  memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/pinruntime/libc-dynamic.so	113232	152	0	52	0	0	0	0	0	0	0	0
+       318	        11	    805193	    0	      1	                 __kmp_middle_initialize	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	805152	496	0	280	0	0	0	0	0	0	0	0
+       319	        11	    805212	    0	      1	                 __kmp_middle_initialize	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	805152	496	0	280	0	0	0	0	0	0	0	0
+       320	        12	    718993	    0	      1	               __kmp_acquire_ticket_lock	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	718992	576	0	282	0	0	0	0	0	0	0	0
+       321	        12	    719054	    0	      1	               __kmp_acquire_ticket_lock	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	718992	576	0	282	0	0	0	0	0	0	0	0
+       322	       116	    769717	    0	      1	                         __kmp_fork_call	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	768976	10800	0	287	0	0	0	0	0	0	0	0
+       323	       322	    773136	    1	      1	  [Loop at line 1930 in __kmp_fork_call]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	773136	1965	0	288	0	0	0	0	0	0	0	0
+       324	       116	    773412	    0	      1	                         __kmp_fork_call	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	768976	10800	0	287	0	0	0	0	0	0	0	0
+       325	       117	    784327	    0	      1	                     __kmp_allocate_team	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	779840	5968	0	290	0	0	0	0	0	0	0	0
+       326	       117	    784340	    0	      1	                     __kmp_allocate_team	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	779840	5968	0	290	0	0	0	0	0	0	0	0
+       327	       119	   1314168	    0	      1	                     __kmp_create_worker	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1313984	2320	0	293	0	0	0	0	0	0	0	0
+       328	       327	   1314192	    1	      1	[Loop at line 749 in __kmp_create_worker]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1314168	1240	0	295	0	0	0	0	0	0	0	0
+       329	       328	   1314226	    1	      1	[Loop at line 749 in __kmp_create_worker]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1314192	1216	0	294	0	0	0	0	0	0	0	0
+       330	       119	   1315196	    0	      1	                     __kmp_create_worker	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1313984	2320	0	293	0	0	0	0	0	0	0	0
+       331	       125	    769717	    0	      1	                         __kmp_fork_call	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	768976	10800	0	287	0	0	0	0	0	0	0	0
+       332	       331	    773136	    1	      1	  [Loop at line 1930 in __kmp_fork_call]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	773136	1965	0	288	0	0	0	0	0	0	0	0
+       333	       125	    775034	    0	      1	                         __kmp_fork_call	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	768976	10800	0	287	0	0	0	0	0	0	0	0
+       334	       132	    496169	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	495920	2496	0	300	0	0	0	0	0	0	0	0
+       335	       334	    496210	    1	      1	[Loop@0x79229 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	497036	1248	0	303	0	0	0	0	0	0	0	0
+       336	       335	    496307	    1	      1	[Loop@0x79252 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	497036	1248	0	302	0	0	0	0	0	0	0	0
+       337	       336	    497297	    1	      1	[Loop@0x792b3 in _INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	497036	1248	0	301	0	0	0	0	0	0	0	0
+       338	       132	    498167	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	495920	2496	0	300	0	0	0	0	0	0	0	0
+       339	       132	    497682	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	495920	2496	0	300	0	0	0	0	0	0	0	0
+       340	       132	    497830	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	495920	2496	0	300	0	0	0	0	0	0	0	0
+       341	       132	    497689	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_gather..0	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	495920	2496	0	300	0	0	0	0	0	0	0	0
+       342	       270	   1312787	    0	      1	      _INTERNALa0ac8784::[OpenMP worker]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1312320	1472	0	306	0	0	0	0	0	0	0	0
+       343	       342	   1312812	    1	      1	[Loop at line 529 in _INTERNALa0ac8784::[OpenMP worker]]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1312787	59	0	308	0	0	0	0	0	0	0	0
+       344	       270	   1312827	    0	      1	      _INTERNALa0ac8784::[OpenMP worker]	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	1312320	1472	0	306	0	0	0	0	0	0	0	0
+       345	       271	    763943	    0	      1	                     __kmp_launch_thread	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	763744	640	0	310	0	0	0	0	0	0	0	0
+       346	       271	    763955	    0	      1	                     __kmp_launch_thread	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	763744	640	0	310	0	0	0	0	0	0	0	0
+       347	       273	    473705	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_release	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	473536	1392	0	313	0	0	0	0	0	0	0	0
+       348	       273	    473782	    0	      1	_INTERNALc8ed1ec4::__kmp_hyper_barrier_release	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	473536	1392	0	313	0	0	0	0	0	0	0	0
+       349	       274	    461758	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       350	       274	    462283	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       351	       274	    461954	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       352	       274	    462135	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       353	       274	    462273	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       354	       274	    462640	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       355	       274	    462094	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       356	       274	    462429	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       357	       274	    461805	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       358	       274	    461963	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       359	       274	    461961	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       360	       274	    461758	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       361	       274	    461966	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       362	       274	    462142	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       363	       274	    461837	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       364	       274	    462630	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       365	       274	    462113	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       366	       274	    461993	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       367	       274	    461971	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       368	       274	    462139	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       369	       274	    462625	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       370	       274	    462006	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       371	       274	    462284	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       372	       274	    462027	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       373	       274	    461858	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       374	       274	    461855	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       375	       274	    462452	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       376	       274	    462037	    0	      1	_INTERNALc8ed1ec4::__kmp_wait_template<kmp_flag_64<(bool)0, (bool)1>, (bool)1, (bool)0, (bool)1>	/opt/intel/oneapi/compiler/2022.0.2/linux/compiler/lib/intel64_lin/libiomp5.so	461264	1520	0	315	0	0	0	0	0	0	0	0
+       377	        38	     87469	    0	      1	                            func@0x15554	/lib64/ld-linux-x86-64.so.2	87380	1404	0	241	0	0	0	0	0	0	0	0
+       378	        38	     87545	    0	      1	                            func@0x15554	/lib64/ld-linux-x86-64.so.2	87380	1404	0	241	0	0	0	0	0	0	0	0
+       379	        40	     89570	    0	      1	                            func@0x15c14	/lib64/ld-linux-x86-64.so.2	89108	3436	0	243	0	0	0	0	0	0	0	0
+       380	        40	     89599	    0	      1	                            func@0x15c14	/lib64/ld-linux-x86-64.so.2	89108	3436	0	243	0	0	0	0	0	0	0	0
+       381	       379	     89904	    1	      1	          [Loop@0x15de2 in func@0x15c14]	/lib64/ld-linux-x86-64.so.2	89904	79	0	242	0	0	0	0	0	0	0	0
+       382	        40	     89947	    0	      1	                            func@0x15c14	/lib64/ld-linux-x86-64.so.2	89108	3436	0	243	0	0	0	0	0	0	0	0
+       383	        78	     55901	    0	      1	                             func@0xd9e0	/lib64/ld-linux-x86-64.so.2	55776	6752	0	246	0	0	0	0	0	0	0	0
+       384	       383	     55979	    1	      1	            [Loop@0xda5d in func@0xd9e0]	/lib64/ld-linux-x86-64.so.2	58064	438	0	249	0	0	0	0	0	0	0	0
+       385	       384	     56260	    1	      1	            [Loop@0xdaab in func@0xd9e0]	/lib64/ld-linux-x86-64.so.2	58064	209	0	248	0	0	0	0	0	0	0	0
+       386	       385	     58080	    1	      1	            [Loop@0xdbc4 in func@0xd9e0]	/lib64/ld-linux-x86-64.so.2	58064	209	0	247	0	0	0	0	0	0	0	0
+       387	        78	     58116	    0	      1	                             func@0xd9e0	/lib64/ld-linux-x86-64.so.2	55776	6752	0	246	0	0	0	0	0	0	0	0
+       388	        86	     87469	    0	      1	                            func@0x15554	/lib64/ld-linux-x86-64.so.2	87380	1404	0	241	0	0	0	0	0	0	0	0
+       389	        86	     87545	    0	      1	                            func@0x15554	/lib64/ld-linux-x86-64.so.2	87380	1404	0	241	0	0	0	0	0	0	0	0
+       390	        88	     89570	    0	      1	                            func@0x15c14	/lib64/ld-linux-x86-64.so.2	89108	3436	0	243	0	0	0	0	0	0	0	0
+       391	        88	     89599	    0	      1	                            func@0x15c14	/lib64/ld-linux-x86-64.so.2	89108	3436	0	243	0	0	0	0	0	0	0	0
+       392	       197	   4186033	    0	      0	                  [MKL VML]@zMul_L9EPnnn	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4185840	1504	0	48	0	0	0	0	0	0	0	0
+       393	       392	   4187096	    1	      0	[Loop@0x3fdfb1 in [MKL VML]@zMul_L9EPnnn]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4186935	404	4186491	49	0	0	0	0	0	0	0	0
+       394	       197	   4187222	    0	      0	                  [MKL VML]@zMul_L9EPnnn	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_vml_avx2.so.2	4185840	1504	0	48	0	0	0	0	0	0	0	0
+       395	       166	    699185	    0	      1	                            operator new	/lib/x86_64-linux-gnu/libstdc++.so.6	699168	50	0	3	0	0	0	0	0	0	0	0
+       396	       166	    699192	    0	      1	                            operator new	/lib/x86_64-linux-gnu/libstdc++.so.6	699168	50	0	3	0	0	0	0	0	0	0	0
+       397	       210	    699185	    0	      1	                            operator new	/lib/x86_64-linux-gnu/libstdc++.so.6	699168	50	0	3	0	0	0	0	0	0	0	0
+       398	       210	    699192	    0	      1	                            operator new	/lib/x86_64-linux-gnu/libstdc++.so.6	699168	50	0	3	0	0	0	0	0	0	0	0
+       399	        24	   2845465	    0	      1	                  tpss_connect_mod2_ver0	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	2844464	2815	0	205	0	0	0	0	0	0	0	0
+       400	        24	   2845503	    0	      1	                  tpss_connect_mod2_ver0	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	2844464	2815	0	205	0	0	0	0	0	0	0	0
+       401	        43	   8241300	    0	      1	                           func@0x7dbece	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8240846	4898	0	209	0	0	0	0	0	0	0	0
+       402	        43	   8241338	    0	      1	                           func@0x7dbece	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8240846	4898	0	209	0	0	0	0	0	0	0	0
+       403	        47	   8304232	    0	      1	  LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8303904	4349	0	214	0	0	0	0	0	0	0	0
+       404	        47	   8304632	    0	      1	  LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8303904	4349	0	214	0	0	0	0	0	0	0	0
+       405	        49	   8483842	    0	      1	           LEVEL_BASE::ARRAYBASE::Memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8483712	314	0	217	0	0	0	0	0	0	0	0
+       406	        49	   8483895	    0	      1	           LEVEL_BASE::ARRAYBASE::Memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8483712	314	0	217	0	0	0	0	0	0	0	0
+       407	        52	   8304232	    0	      1	  LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8303904	4349	0	214	0	0	0	0	0	0	0	0
+       408	        52	   8306620	    0	      1	  LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8303904	4349	0	214	0	0	0	0	0	0	0	0
+       409	        52	   8304245	    0	      1	  LEVEL_PINCLIENT::CookSymSec<Elf64_Sym>	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8303904	4349	0	214	0	0	0	0	0	0	0	0
+       410	        67	   7930896	    0	      1	                           func@0x790370	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7930736	5360	0	221	0	0	0	0	0	0	0	0
+       411	       410	   7931828	    1	      1	        [Loop@0x790410 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933264	494	0	224	0	0	0	0	0	0	0	0
+       412	       411	   7932592	    1	      1	        [Loop@0x7907b4 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933264	494	0	223	0	0	0	0	0	0	0	0
+       413	       412	   7933495	    1	      1	        [Loop@0x790ab0 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933264	494	0	222	0	0	0	0	0	0	0	0
+       414	        67	   7933611	    0	      1	                           func@0x790370	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7930736	5360	0	221	0	0	0	0	0	0	0	0
+       415	        67	   7932717	    0	      1	                           func@0x790370	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7930736	5360	0	221	0	0	0	0	0	0	0	0
+       416	        73	   7908240	    0	      1	                           func@0x78ab30	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7908144	5296	0	228	0	0	0	0	0	0	0	0
+       417	       416	   7908328	    1	      1	        [Loop@0x78ab90 in func@0x78ab30]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7912512	44	0	229	0	0	0	0	0	0	0	0
+       418	        73	   7912519	    0	      1	                           func@0x78ab30	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7908144	5296	0	228	0	0	0	0	0	0	0	0
+       419	        91	   8241300	    0	      1	                           func@0x7dbece	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8240846	4898	0	209	0	0	0	0	0	0	0	0
+       420	        91	   8241338	    0	      1	                           func@0x7dbece	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8240846	4898	0	209	0	0	0	0	0	0	0	0
+       421	       105	   7930896	    0	      1	                           func@0x790370	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7930736	5360	0	221	0	0	0	0	0	0	0	0
+       422	       421	   7931828	    1	      1	        [Loop@0x790410 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933264	494	0	224	0	0	0	0	0	0	0	0
+       423	       422	   7932592	    1	      1	        [Loop@0x7907b4 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933264	494	0	223	0	0	0	0	0	0	0	0
+       424	       423	   7933495	    1	      1	        [Loop@0x790ab0 in func@0x790370]	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7933264	494	0	222	0	0	0	0	0	0	0	0
+       425	       105	   7933611	    0	      1	                           func@0x790370	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	7930736	5360	0	221	0	0	0	0	0	0	0	0
+       426	       107	   8483842	    0	      1	           LEVEL_BASE::ARRAYBASE::Memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8483712	314	0	217	0	0	0	0	0	0	0	0
+       427	       107	   8483895	    0	      1	           LEVEL_BASE::ARRAYBASE::Memset	/opt/intel/oneapi/advisor/2022.0.0/lib64/libtpsstool.so	8483712	314	0	217	0	0	0	0	0	0	0	0
+       428	         2	    159782	    0	      1	                       __libc_start_main	/lib/x86_64-linux-gnu/libc.so.6	159680	483	0	259	0	0	0	0	0	0	0	0
+       429	         2	    159922	    0	      1	                       __libc_start_main	/lib/x86_64-linux-gnu/libc.so.6	159680	483	0	259	0	0	0	0	0	0	0	0
+       430	       167	    644110	    0	      1	                      __GI___libc_malloc	/lib/x86_64-linux-gnu/libc.so.6	643680	773	0	264	0	0	0	0	0	0	0	0
+       431	       167	    644120	    0	      1	                      __GI___libc_malloc	/lib/x86_64-linux-gnu/libc.so.6	643680	773	0	264	0	0	0	0	0	0	0	0
+       432	       211	    644110	    0	      1	                      __GI___libc_malloc	/lib/x86_64-linux-gnu/libc.so.6	643680	773	0	264	0	0	0	0	0	0	0	0
+       433	       211	    644120	    0	      1	                      __GI___libc_malloc	/lib/x86_64-linux-gnu/libc.so.6	643680	773	0	264	0	0	0	0	0	0	0	0
+       434	       168	    634983	    0	      1	                             _int_malloc	/lib/x86_64-linux-gnu/libc.so.6	633840	3778	0	265	0	0	0	0	0	0	0	0
+       435	       434	    634983	    1	      1	      [Loop at line 3728 in _int_malloc]	/lib/x86_64-linux-gnu/libc.so.6	635808	129	0	273	0	0	0	0	0	0	0	0
+       436	       435	    634983	    1	      1	      [Loop at line 3728 in _int_malloc]	/lib/x86_64-linux-gnu/libc.so.6	635808	129	0	272	0	0	0	0	0	0	0	0
+       437	       436	    634983	    1	      1	      [Loop at line 3728 in _int_malloc]	/lib/x86_64-linux-gnu/libc.so.6	635832	105	0	271	0	0	0	0	0	0	0	0
+       438	       437	    634983	    1	      1	      [Loop at line 3728 in _int_malloc]	/lib/x86_64-linux-gnu/libc.so.6	635832	105	0	270	0	0	0	0	0	0	0	0
+       439	       168	    635911	    0	      1	                             _int_malloc	/lib/x86_64-linux-gnu/libc.so.6	633840	3778	0	265	0	0	0	0	0	0	0	0
+       440	       192	   5631433	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       441	       192	   5631447	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       442	       217	  16063608	    0	      0	                    compute_rowbatch_fwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063280	464	0	32	0	0	0	0	0	0	0	0
+       443	       217	  16063683	    0	      0	                    compute_rowbatch_fwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063280	464	0	32	0	0	0	0	0	0	0	0
+       444	       218	  17817025	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Fwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17816544	1712	0	34	0	0	0	0	0	0	0	0
+       445	       218	  17817444	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Fwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17816544	1712	0	34	0	0	0	0	0	0	0	0
+       446	       229	  16064072	    0	      0	                    compute_rowbatch_bwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063744	464	0	39	0	0	0	0	0	0	0	0
+       447	       229	  16064147	    0	      0	                    compute_rowbatch_bwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063744	464	0	39	0	0	0	0	0	0	0	0
+       448	       230	  17800743	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Bwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17800256	1712	0	41	0	0	0	0	0	0	0	0
+       449	       230	  17801275	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Bwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17800256	1712	0	41	0	0	0	0	0	0	0	0
+       450	       236	   5631433	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       451	       450	   5631484	    1	      0	[Loop@0x55edc9 in [MKL BLAS]@avx2_xdgemv_n]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631433	387	5631820	30	0	0	0	0	0	0	0	0
+       452	       236	   5631584	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       453	       242	  16063608	    0	      0	                    compute_rowbatch_fwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063280	464	0	32	0	0	0	0	0	0	0	0
+       454	       242	  16063683	    0	      0	                    compute_rowbatch_fwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063280	464	0	32	0	0	0	0	0	0	0	0
+       455	       243	  17817025	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Fwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17816544	1712	0	34	0	0	0	0	0	0	0	0
+       456	       243	  17817069	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Fwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17816544	1712	0	34	0	0	0	0	0	0	0	0
+       457	       440	   5631484	    1	      0	[Loop@0x55edc9 in [MKL BLAS]@avx2_xdgemv_n]	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631433	387	5631820	30	0	0	0	0	0	0	0	0
+       458	       192	   5631628	    0	      0	                [MKL BLAS]@avx2_xdgemv_n	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5631104	1280	0	29	0	0	0	0	0	0	0	0
+       459	       251	   5860336	    0	      0	                  [MKL BLAS]@avx2_xdaxpy	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5860096	948	0	44	0	0	0	0	0	0	0	0
+       460	       251	   5860369	    0	      0	                  [MKL BLAS]@avx2_xdaxpy	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	5860096	948	0	44	0	0	0	0	0	0	0	0
+       461	       258	  16064072	    0	      0	                    compute_rowbatch_bwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063744	464	0	39	0	0	0	0	0	0	0	0
+       462	       258	  16064147	    0	      0	                    compute_rowbatch_bwd	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	16063744	464	0	39	0	0	0	0	0	0	0	0
+       463	       259	  17800743	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Bwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17800256	1712	0	41	0	0	0	0	0	0	0	0
+       464	       259	  17800987	    0	      0	  [MKL FFT]@coDFTTwid_Compact_Bwd_v_16_d	/opt/intel/oneapi/mkl/2022.0.2/lib/intel64/libmkl_avx2.so.2	17800256	1712	0	41	0	0	0	0	0	0	0	0
+       465	       111	    133807	    0	      0	       SVW_mesh::SVW_mesh<Mesh1DUniform>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133248	1520	0	64	0	0	0	0	0	0	0	0
+       466	       465	    133648	    1	      0	[Loop at line 222 in SVW_mesh::SVW_mesh<Mesh1DUniform>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133807	680	134487	66	0	0	0	0	0	0	0	0
+       467	       466	    133811	    0	      0	        SVW_mesh::setSVWs<Mesh1DUniform>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133648	856	0	65	0	1	0	0	0	0	0	0
+       468	       467	    134102	    0	      0	                      SVW::setScaledSVWS	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133844	619	0	63	0	1	0	0	0	0	0	0
+       469	       467	    134118	    0	      0	                      SVW::setScaledSVWS	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133844	619	0	63	0	1	0	0	0	0	0	0
+       470	       111	    134118	    0	      0	       SVW_mesh::SVW_mesh<Mesh1DUniform>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	133248	1520	0	64	0	0	0	0	0	0	0	0
+       471	       112	     71967	    0	      0	                    SpMatrix_csr::rowSum	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	71904	176	0	68	0	0	0	0	0	0	0	0
+       472	       471	     71967	    0	      0	                        SpMatrix_csr::MV	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	71967	43	0	69	0	1	0	0	0	0	0	0
+       473	       112	     72009	    0	      0	                    SpMatrix_csr::rowSum	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	71904	176	0	68	0	0	0	0	0	0	0	0
+       474	       110	    109271	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       475	       474	    113444	    1	      0	[Loop at line 101 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109271	4386	115900,115392	72	0	0	0	0	0	0	0	0
+       476	       475	    113534	    0	      0	updateVisc<Mesh1DUniform, Euler1D_SDNN, FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	113444	244	0	71	0	1	0	0	0	0	0	0
+       477	       475	    113589	    0	      0	updateVisc<Mesh1DUniform, Euler1D_SDNN, FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	113444	244	0	71	0	1	0	0	0	0	0	0
+       478	       110	    113589	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       479	       121	    117854	    0	      0	updateViscPatch<Patch1DUniform, Mesh1DUniform, SVW*, Euler1D_SDNN, FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117472	2320	0	74	0	0	0	0	0	0	0	0
+       480	       121	    118314	    0	      0	updateViscPatch<Patch1DUniform, Mesh1DUniform, SVW*, Euler1D_SDNN, FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	117472	2320	0	74	0	0	0	0	0	0	0	0
+       481	       474	    114935	    1	      0	[Loop at line 101 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	114160	1232	115900,115392	72	0	0	0	0	0	0	0	0
+       482	       110	    115014	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       483	       110	    109271	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       484	       483	    109932	    1	      0	[Loop at line 101 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109271	4386	115900,115392	72	0	0	0	0	0	0	0	0
+       485	       484	    111534	    1	      0	[Loop at line 107 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109932	3512	113444	85	0	0	0	0	0	0	0	0
+       486	       485	    109193	    1	      0	[Loop at line 287 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111534	417	111951	81	0	0	0	0	0	0	0	0
+       487	       486	    110777	    0	      0	updateTau<Patch1DUniform, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110004	3402	0	84	0	1	0	0	0	0	0	0
+       488	       487	    111465	    0	      0	                     preprocess_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110777	1192	0	83	0	1	0	0	0	0	0	0
+       489	       488	    111538	    0	      0	               std::max_element<double*>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111538	64	0	82	0	1	0	0	0	0	0	0
+       490	       485	    111554	    1	      0	[Loop at line 287 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111534	417	111951	81	0	0	0	0	0	0	0	0
+       491	       110	    111554	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       492	       145	    130246	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       493	       145	    130449	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       494	       151	    130548	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       495	       151	    130745	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       496	       152	     48326	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       497	       496	     48326	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       498	       496	     48840	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       499	       152	     48840	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       500	       145	    130844	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       501	       145	    131041	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       502	       155	     48326	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       503	       502	     48326	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       504	       502	     49120	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       505	       155	     49120	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       506	       136	    130548	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       507	       136	    130745	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       508	       157	     48326	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       509	       508	     48326	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       510	       508	     48389	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       511	       157	     48389	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       512	       151	    130844	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       513	       151	    131041	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       514	       165	    150859	    0	      0	            VectorField1D::VectorField1D	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	150784	496	0	93	0	0	0	0	0	0	0	0
+       515	       165	    150901	    0	      0	            VectorField1D::VectorField1D	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	150784	496	0	93	0	0	0	0	0	0	0	0
+       516	       171	    128048	    0	      0	std::vector<std::vector<int, std::allocator<int>>, std::allocator<std::vector<int, std::allocator<int>>>>::~vector	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128048	112	0	96	0	0	0	0	0	0	0	0
+       517	       516	    128048	    0	      0	std::_Destroy<std::vector<int, std::allocator<int>>*, std::vector<int, std::allocator<int>>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128048	80	0	105	0	1	0	0	0	0	0	0
+       518	       517	    128048	    0	      0	std::_Destroy<std::vector<int, std::allocator<int>>*>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128048	80	0	104	0	1	0	0	0	0	0	0
+       519	       518	    128098	    0	      0	std::_Destroy_aux<(bool)0>::__destroy<std::vector<int, std::allocator<int>>*>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128048	80	0	103	0	1	0	0	0	0	0	0
+       520	       519	    128048	    1	      0	[Loop at line 107 in std::_Destroy_aux<(bool)0>::__destroy<std::vector<int, std::allocator<int>>*>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128098	22	128120	95	0	0	0	0	0	0	0	0
+       521	       520	    128048	    0	      0	std::_Destroy<std::vector<int, std::allocator<int>>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128098	13	0	102	0	1	0	0	0	0	0	0
+       522	       521	    128098	    0	      0	std::vector<int, std::allocator<int>>::~vector	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128098	13	0	101	0	1	0	0	0	0	0	0
+       523	       522	    128098	    0	      0	std::_Vector_base<int, std::allocator<int>>::~_Vector_base	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128098	13	0	100	0	1	0	0	0	0	0	0
+       524	       523	    128101	    0	      0	std::_Vector_base<int, std::allocator<int>>::~_Vector_base	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128098	13	0	99	0	1	0	0	0	0	0	0
+       525	       524	    128106	    0	      0	std::_Vector_base<int, std::allocator<int>>::_M_deallocate	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128101	10	0	98	0	1	0	0	0	0	0	0
+       526	       525	    128106	    0	      0	std::allocator_traits<std::allocator<int>>::deallocate	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128106	5	0	97	0	1	0	0	0	0	0	0
+       527	       519	    128110	    1	      0	[Loop at line 107 in std::_Destroy_aux<(bool)0>::__destroy<std::vector<int, std::allocator<int>>*>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128098	22	128120	95	0	0	0	0	0	0	0	0
+       528	       171	    128110	    0	      0	std::vector<std::vector<int, std::allocator<int>>, std::allocator<std::vector<int, std::allocator<int>>>>::~vector	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128048	112	0	96	0	0	0	0	0	0	0	0
+       529	       486	    111969	    0	      0	updateTau<Patch1DUniform, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110004	3402	0	84	0	1	0	0	0	0	0	0
+       530	       485	    112839	    1	      0	[Loop at line 497 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	112071	880	0	107	0	0	0	0	0	0	0	0
+       531	       110	    112839	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       532	       180	    130844	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       533	       180	    131041	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       534	       485	    112441	    1	      0	[Loop at line 497 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	112071	880	0	107	0	0	0	0	0	0	0	0
+       535	       110	    112441	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       536	       136	    130246	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       537	       136	    130517	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       538	       474	    109498	    1	      0	[Loop at line 101 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109271	4386	115900,115392	72	0	0	0	0	0	0	0	0
+       539	       110	    109517	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       540	       200	    266240	    0	      0	                     __intel_avx_memmove	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	255952	14080	0	111	0	0	0	0	0	0	0	0
+       541	       200	    266281	    0	      0	                     __intel_avx_memmove	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	255952	14080	0	111	0	0	0	0	0	0	0	0
+       542	       484	    109193	    1	      0	[Loop at line 107 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109932	3512	113444	85	0	0	0	0	0	0	0	0
+       543	       484	    110008	    1	      0	[Loop at line 107 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109932	3512	113444	85	0	0	0	0	0	0	0	0
+       544	       110	    110008	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       545	       209	    150859	    0	      0	            VectorField1D::VectorField1D	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	150784	496	0	93	0	0	0	0	0	0	0	0
+       546	       209	    150901	    0	      0	            VectorField1D::VectorField1D	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	150784	496	0	93	0	0	0	0	0	0	0	0
+       547	       474	    109932	    1	      0	[Loop at line 101 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109271	4386	115900,115392	72	0	0	0	0	0	0	0	0
+       548	       547	    111534	    1	      0	[Loop at line 107 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109932	3512	113444	85	0	0	0	0	0	0	0	0
+       549	       548	    109193	    1	      0	[Loop at line 287 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111534	417	111951	81	0	0	0	0	0	0	0	0
+       550	       549	    110777	    0	      0	updateTau<Patch1DUniform, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110004	3402	0	84	0	1	0	0	0	0	0	0
+       551	       550	    111602	    0	      0	                     preprocess_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	163	0	83	0	1	0	0	0	0	0	0
+       552	       551	    111602	    0	      0	               std::min_element<double*>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	75	0	115	0	1	0	0	0	0	0	0
+       553	       552	    116108	    0	      0	std::__min_element<double*, __gnu_cxx::__ops::_Iter_less_iter>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	75	0	114	0	1	0	0	0	0	0	0
+       554	       552	    116137	    0	      0	std::__min_element<double*, __gnu_cxx::__ops::_Iter_less_iter>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	75	0	114	0	1	0	0	0	0	0	0
+       555	       110	    116137	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       556	       220	    130844	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       557	       220	    131041	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       558	       220	    131109	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       559	       485	    112639	    1	      0	[Loop at line 497 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	112071	880	0	107	0	0	0	0	0	0	0	0
+       560	       110	    112639	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       561	       483	    109498	    1	      0	[Loop at line 101 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109271	4386	115900,115392	72	0	0	0	0	0	0	0	0
+       562	       561	    109677	    1	      0	[Loop at line 135 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109498	399	109897	109	0	0	0	0	0	0	0	0
+       563	       562	    109545	    1	      0	[Loop at line 144 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109677	136	109813	117	0	0	0	0	0	0	0	0
+       564	       562	    109740	    1	      0	[Loop at line 144 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109677	136	109813	117	0	0	0	0	0	0	0	0
+       565	       110	    109740	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       566	       547	    109193	    1	      0	[Loop at line 107 in Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	109932	3512	113444	85	0	0	0	0	0	0	0	0
+       567	       566	    110592	    0	      0	updateTau<Patch1DUniform, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110004	3402	0	84	0	1	0	0	0	0	0	0
+       568	       567	    110625	    0	      0	                           form_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110592	185	0	121	0	1	0	0	0	0	0	0
+       569	       567	    110710	    0	      0	                           form_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110592	185	0	121	0	1	0	0	0	0	0	0
+       570	       110	    110710	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       571	       246	    110625	    1	      0	     [Loop at line 109 in form_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0	0	0	119	0	0	0	0	0	0	0	0
+       572	       247	    128529	    0	      0	                  linComb<VectorField1D>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128256	608	0	123	0	0	0	0	0	0	0	0
+       573	       572	    128607	    1	      0	[Loop at line 53 in linComb<VectorField1D>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128529	217	128746	124	0	0	0	0	0	0	0	0
+       574	       247	    128659	    0	      0	                  linComb<VectorField1D>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	128256	608	0	123	0	0	0	0	0	0	0	0
+       575	       180	    131109	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       576	       145	    130548	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       577	       145	    130745	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       578	       261	     48326	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       579	       578	     48326	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       580	       578	     49106	    1	      0	  [Loop at line 136 in Fcont_Gram_Blend]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	48326	933	49259	90	0	0	0	0	0	0	0	0
+       581	       261	     49106	    0	      0	                        Fcont_Gram_Blend	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	46976	3440	0	87	0	0	0	0	0	0	0	0
+       582	       487	    111602	    0	      0	                     preprocess_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	163	0	83	0	1	0	0	0	0	0	0
+       583	       582	    111602	    0	      0	               std::min_element<double*>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	75	0	115	0	1	0	0	0	0	0	0
+       584	       583	    116108	    0	      0	std::__min_element<double*, __gnu_cxx::__ops::_Iter_less_iter>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116093	75	0	114	0	1	0	0	0	0	0	0
+       585	       584	    111621	    1	      0	[Loop at line 5627 in std::__min_element<double*, __gnu_cxx::__ops::_Iter_less_iter>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116108	52	116160	113	0	0	0	0	0	0	0	0
+       586	       584	    116108	    1	      0	[Loop at line 5627 in std::__min_element<double*, __gnu_cxx::__ops::_Iter_less_iter>]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	116108	52	116160	113	0	0	0	0	0	0	0	0
+       587	       110	    116108	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       588	       566	    110777	    0	      0	updateTau<Patch1DUniform, FC_1D<Patch1DUniform>, Euler1D_SDNN>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110004	3402	0	84	0	1	0	0	0	0	0	0
+       589	       588	    110852	    0	      0	                     preprocess_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110777	1192	0	83	0	1	0	0	0	0	0	0
+       590	       589	    110939	    1	      0	[Loop at line 278 in preprocess_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110852	316	111168,111459	379	0	0	0	0	0	0	0	0
+       591	       588	    110939	    0	      0	                     preprocess_stencils	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110777	1192	0	83	0	1	0	0	0	0	0	0
+       592	       110	    110939	    0	      0	Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform>>::solve_sdnn	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	108592	8016	0	61	0	0	0	0	0	0	0	0
+       593	       265	    110852	    1	      0	[Loop at line 284 in preprocess_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	0	0	0	126	0	0	0	0	0	0	0	0
+       594	       590	    110939	    1	      0	[Loop at line 278 in preprocess_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110852	316	111168	127	0	0	0	0	0	0	0	0
+       595	       590	    110853	    1	      0	[Loop at line 278 in preprocess_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	110852	316	111168	127	0	0	0	0	0	0	0	0
+       596	       590	    111218	    1	      0	[Loop at line 278 in preprocess_stencils]	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	111217	242	0	150	0	0	0	0	0	0	0	0
+       597	       180	    130864	    0	      0	Euler1D_SDNN::Cons_to_der_flux<FC_1D<Patch1DUniform>>	/home/leibov/Documents/FC_SDNN/RelWithDebInfo/Test_shock_solver	129792	3264	0	77	0	0	0	0	0	0	0	0
+       598	        -1	         0	    0	      0	                [Unknown stack frame(s)]	n/a	0	0	0	386	0	0	0	0	0	0	0	0
