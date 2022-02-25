@@ -13,6 +13,7 @@
 #include "Mesh.h"
 
 void Print_Mat(const double * A, int nrows, int ncols);
+void Print_Mat(const double * A, int nrows, int ncols, bool flag);
 void Print_Mat(std::complex<double> * A, int nrows, int ncols);
 void Print_Mat(const int* A, int nrows, int ncols);
 

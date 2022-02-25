@@ -150,6 +150,33 @@ Code/FC.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.s
 .PHONY : Code/FC.cpp.s
 
+Code/MVOperations.o: Code/MVOperations.cpp.o
+
+.PHONY : Code/MVOperations.o
+
+# target to build an object file
+Code/MVOperations.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o
+.PHONY : Code/MVOperations.cpp.o
+
+Code/MVOperations.i: Code/MVOperations.cpp.i
+
+.PHONY : Code/MVOperations.i
+
+# target to preprocess a source file
+Code/MVOperations.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.i
+.PHONY : Code/MVOperations.cpp.i
+
+Code/MVOperations.s: Code/MVOperations.cpp.s
+
+.PHONY : Code/MVOperations.s
+
+# target to generate assembly for a file
+Code/MVOperations.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.s
+.PHONY : Code/MVOperations.cpp.s
+
 Code/Mesh.o: Code/Mesh.cpp.o
 
 .PHONY : Code/Mesh.o
@@ -405,6 +432,9 @@ help:
 	@echo "... Code/FC.o"
 	@echo "... Code/FC.i"
 	@echo "... Code/FC.s"
+	@echo "... Code/MVOperations.o"
+	@echo "... Code/MVOperations.i"
+	@echo "... Code/MVOperations.s"
 	@echo "... Code/Mesh.o"
 	@echo "... Code/Mesh.i"
 	@echo "... Code/Mesh.s"

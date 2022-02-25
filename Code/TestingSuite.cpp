@@ -413,7 +413,7 @@ void TestingEulerSDNN()
     Mesh1DUniform mesh1 = slv.getMesh();
 
     // std::cout << "Solution" << std::endl;
-    //Print_Mesh1D(mesh1);
+    // Print_Mesh1D(mesh1);
 
 //     std::string result_file = "result.txt";
 //     Print_Mesh1D(mesh1, unknowns, result_file);
@@ -600,7 +600,10 @@ void TestingVML()
 
 int main()
 {
-    
+    // bool a = 1;
+    // bool b = 1;
+    // bool c = 1;
+    // std::cout << a + b + c << std::endl;
     //TestingVector1D();
     //TestingSpatDiffScheme();
     //TestingTimeStepScheme();

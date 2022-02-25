@@ -29,6 +29,18 @@ void Print_Mat(const double * A, int nrows, int ncols)
     }   
 }
 
+void Print_Mat(const double * A, int nrows, int ncols, bool flag)
+{
+    for(int i = 0; i < nrows; i++)
+    {
+        for(int j = 0; j < ncols; j++)
+        {
+            std::cout << A[j + i*ncols] << " ";
+        }
+        std::cout << std::endl;
+    }   
+}
+
 void Print_Mat(std::complex<double> * A, int nrows, int ncols)
 {
     for(int i = 0; i < nrows; i++)

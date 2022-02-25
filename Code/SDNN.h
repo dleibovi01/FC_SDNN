@@ -12,10 +12,13 @@
 #include "Mesh.h"
 #include "SDNN_data.h"
 #include "SVW.h"
+#include "MVOperations.h"
+#include "VectorOperations.h"
 
 constexpr int s = 7;
 constexpr double discard_noise = 0.01;
-constexpr CBLAS_LAYOUT Layout = CblasColMajor;
+// constexpr CBLAS_LAYOUT Layout = CblasColMajor;
+constexpr CBLAS_LAYOUT Layout = CblasRowMajor;
 constexpr CBLAS_TRANSPOSE TRANS = CblasNoTrans;
 
 void readMatrix(double* A, std::string filename_A)
@@ -33,13 +36,14 @@ void readMatrix(double* A, std::string filename_A)
     }        
 }
 
-inline void elu(int N, double* input, double alpha)
+inline void elu(const int N, double* input, const double alpha)
 {
+    #pragma omp simd
     for(int i = 0; i < N; i++)
     {
         if(input[i] <= 0)
         {
-            input[i] =  alpha*(std::exp(input[i]) - 1.0);;
+            input[i] =  alpha*(std::exp(input[i]) - 1.0);
         } 
     }
 }
@@ -197,7 +201,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     int N = patch->getNnodes();
     auto W = svw->getPatchSVWS();
     int M = W.size();
-    // std::cout <<" M = " << M << std::endl;
+
     auto patchIds = svw->getPatchIds();
     auto patches = mesh->getPatches();
     
@@ -480,79 +484,189 @@ public :
         int output = 4;
         // double res[M];
         // double res_end[output];
+
+
+        static int incx = 1;
+        static int incy = 1;
+        double a = 1.;
+        double b = 0.;    
+        int lda;
+
+
         double input_1[M];
         double input_2[M];
         double input_3[M];
         double output_4[4];
-        int incx = 1;
-        int incy = 1;
-        double a = 1.;
-        double b = 0.;    
-        int lda;
-        // CBLAS_LAYOUT Layout = CblasColMajor;
-        // CBLAS_TRANSPOSE TRANS = CblasNoTrans;
+        // for(int i = 0; i < N; i++)
+        // {
+        //     if(discard[i] == false)
+        //     {
+        //         std::copy(B1, B1 + M, input_1);
+        //         std::copy(B2, B2 + M, input_2);
+        //         std::copy(B3, B3 + M, input_3);
+        //         std::copy(B4, B4 + 4, output_4);
+
+        //         // lda = M;          
+        //         lda = s; 
+        //         cblas_dgemv (Layout, TRANS, M, s, a, W1, lda, stencils + i*s, 
+        //             incx, 1.0, input_1, incy);   
+        //         // MVMult_rowdom(M, s, W1, stencils + i*s, input_1);
+        //         // VectorAdd(M, input_1, B1, input_1);     
+        //         elu(M, input_1, alpha);
+
+        //         lda = M; 
+        //         cblas_dgemv (Layout, TRANS, M, M, a, W2, lda, input_1, incx, 1.0, 
+        //             input_2, incy);
+        //         // MVMult_rowdom(M, M, W2, input_1, input_2);
+        //         // VectorAdd(M, input_2, B2, input_2);  
+        //         elu(M, input_2, alpha); 
+
+        //         lda = M;
+        //         cblas_dgemv (Layout, TRANS, M, M, a, W3, lda, input_2, incx, 1.0, 
+        //             input_3, incy);
+        //         // MVMult_rowdom(M, M, W3, input_2, input_3);
+        //         // VectorAdd(M, input_3, B3, input_3); 
+        //         elu(M, input_3, alpha);           
+
+        //         // lda = output;
+        //         lda = M;
+        //         cblas_dgemv (Layout, TRANS, output, M, a, W4, lda, input_3, 
+        //             incx, 1.0, output_4, incy); 
+        //         // MVMult_rowdom(output, M, W4, input_3, output_4);
+        //         // VectorAdd(output, output_4, B4, output_4); 
 
 
-        // Matrix_mult(M, s, N, W1, stencils, input16);
+        //         tau[i] = std::distance(output_4, 
+        //             std::max_element(output_4, output_4 + output )) + 1;
+
+        //     }
+        // }
+
+        int N0 = VectorSum(N, discard);
+        int indices[N0];
+        double regStencils[s*N0];
+        formRegStencils(N, s, stencils, discard, regStencils, indices);
+        if(N0 > 0)
+        {
+            // std::cout <<"indices[0] = " << indices[0] << std::endl;
+            double input_1[M*N0];
+            double input_2[M*N0];
+            double input_3[M*N0];
+            double output_4[output*N0];
+            double ones[N0];
+
+            #pragma omp simd
+            for(int i = 0; i < M*N0; i++)
+            {
+                input_1[i] = 0.0;
+                input_2[i] = 0.0;
+                input_3[i] = 0.0;
+            }
+            #pragma omp simd
+            for(int i = 0; i < output*N0; i++)
+            {
+                output_4[i] = 0.0;
+            }
+            #pragma omp simd
+            for(int i = 0; i < N0; i++)
+            {
+                ones[i] = 1.0;
+            }
+
+            // std::cout <<"indices[0] = " << indices[0] << std::endl;
+
+            // cblas_dger (CblasRowMajor, M, N0, 1.0, B1, 1, ones, 1, input_1, N0);
+            // cblas_dger (CblasRowMajor, M, N0, 1.0, B2, 1, ones, 1, input_2, N0);
+            // cblas_dger (CblasRowMajor, M, N0, 1.0, B3, 1, ones, 1, input_3, N0);
+            // cblas_dger (CblasRowMajor, output, N0, 1.0, B4, 1, ones, 1,
+            //     output_4, N0);
+
+            // mkl_dimatcopy ('C', 'T', s, N0, 1.0, regStencils, s, N0);
+
+            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N0, s,
+            //     1.0, W1, s, regStencils, N0, 1.0, input_1, N0);
+            // elu(M*N0, input_1, alpha);
+
+            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
+            //     W2, M, input_1, N0, 1.0, input_2, N0);
+            // elu(M*N0, input_2, alpha);
+
+            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
+            //     W3, M, input_2, N0, 1.0, input_3, N0);
+            // elu(M*N0, input_3, alpha);
+
+            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, output, N0, M,
+            //     1.0, W4, M, input_3, N0, 1.0, output_4, N0);
+
+            // mkl_dimatcopy ('R', 'T', output, N0, 1.0, output_4, N0, output);
+
+            cblas_dger (CblasColMajor, M, N0, 1.0, B1, 1, ones, 1, input_1, M);
+            cblas_dger (CblasColMajor, M, N0, 1.0, B2, 1, ones, 1, input_2, M);
+            cblas_dger (CblasColMajor, M, N0, 1.0, B3, 1, ones, 1, input_3, M);
+            cblas_dger (CblasColMajor, output, N0, 1.0, B4, 1, ones, 1,
+                output_4, output);
+
+            // std::cout <<"input_1" << std::endl;
+            // Print_Mat(input_1, M, N0);
+            // std::cout << std::endl;
+
+            cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, M, N0, s,
+                1.0, W1, M, regStencils, s, 1.0, input_1, M);
+
+            // std::cout <<"input_1" << std::endl;
+            // Print_Mat(input_1, M, N0);
+            // std::cout << std::endl;
+
+            elu(M*N0, input_1, alpha);
+
+            cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
+                W2, M, input_1, M, 1.0, input_2, M);
+            elu(M*N0, input_2, alpha);
+
+            cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
+                W3, M, input_2, M, 1.0, input_3, M);
+            elu(M*N0, input_3, alpha);
+
+            cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, output, N0, M,
+                1.0, W4, output, input_3, M, 1.0, output_4, output);
+
+            // std::cout <<"output " << std::endl;
+            // Print_Mat(output_4, output, N0);
+            // std::cout << std::endl;
+
+
+            #pragma omp simd
+            for(int i = 0; i < N0; i++)
+            {
+                tau[indices[i]] = std::distance(output_4 + output*i, 
+                    std::max_element(output_4 + output*i,
+                        output_4 + output*(i + 1))) + 1;
+            }
+        }
+
+
+
+
+
+
+    }
+
+private :
+
+    void formRegStencils(int N, int s, const double * stencils, 
+        const bool * discard, double * regStencils, int * indices) const
+    {
+        int current_regindex = 0;
+        int current_index = 0;
         for(int i = 0; i < N; i++)
         {
-            if(discard[i] == false)
+            if(!discard[i])
             {
-                // lda = M;          
-                // cblas_dgemv (Layout, TRANS, M, s, a, W1, lda, stencils + i*s, 
-                //     incx, b, res, incy);           
-                // vdAdd(M, res, B1, input_1);           
-                // lda = M;
-                // elu(M, input_1, alpha);
-
-                // cblas_dgemv (Layout, TRANS, M, M, a, W2, lda, input_1, incx, b, 
-                //     res, incy);
-                // vdAdd(M, res, B2, input_2);
-                // elu(M, input_2, alpha); 
-
-                // lda = M;
-                // cblas_dgemv (Layout, TRANS, M, M, a, W3, lda, input_2, incx, b, 
-                //     res, incy);
-                // vdAdd(M, res, B3, input_3);
-                // elu(M, input_3, alpha);           
-
-                // lda = output;
-                // cblas_dgemv (Layout, TRANS, output, M, a, W4, lda, input_3, 
-                //     incx, b, res_end, incy);
-                // vdAdd(output, res_end, B4, output_4);  
-
-                std::copy(B1, B1 + M, input_1);
-                std::copy(B2, B2 + M, input_2);
-                std::copy(B3, B3 + M, input_3);
-                std::copy(B4, B4 + 4, output_4);
-
-                lda = M;          
-                cblas_dgemv (Layout, TRANS, M, s, a, W1, lda, stencils + i*s, 
-                    incx, 1.0, input_1, incy);           
-                // vdAdd(M, res, B1, input_1);           
-                // lda = M;
-                elu(M, input_1, alpha);
-
-                cblas_dgemv (Layout, TRANS, M, M, a, W2, lda, input_1, incx, 1.0, 
-                    input_2, incy);
-                // vdAdd(M, res, B2, input_2);
-                elu(M, input_2, alpha); 
-
-                lda = M;
-                cblas_dgemv (Layout, TRANS, M, M, a, W3, lda, input_2, incx, 1.0, 
-                    input_3, incy);
-                // vdAdd(M, res, B3, input_3);
-                elu(M, input_3, alpha);           
-
-                lda = output;
-                cblas_dgemv (Layout, TRANS, output, M, a, W4, lda, input_3, 
-                    incx, 1.0, output_4, incy);
-                // vdAdd(output, res_end, B4, output_4);  
-
-
-                tau[i] = std::distance(output_4, 
-                    std::max_element(output_4, output_4 + output )) + 1;
-
+                std::copy(stencils + i*s, stencils + (i+1)*s, 
+                    regStencils + current_regindex);
+                current_regindex += s;
+                indices[current_index] = i;
+                current_index++;
             }
         }
     }

@@ -106,13 +106,14 @@ void Fcont_Gram_Blend(const double * fx, std::complex<double> *f_ext, int N,
     // double * fl = new double[d];
     double fr[d];
     double fl[d];
+    double scaling = 1.0/fourPts;
     static int incx = 1;
     static int incy = 1;
     static double alpha = 1.;
     static double beta = 0.;    
     static int lda = C;
-    CBLAS_LAYOUT Layout = CblasColMajor;
-    CBLAS_TRANSPOSE TRANS = CblasNoTrans;    
+    static CBLAS_LAYOUT Layout = CblasColMajor;
+    static CBLAS_TRANSPOSE TRANS = CblasNoTrans;    
     // double  *z = new double[C];
    
     MKL_LONG status;
@@ -136,11 +137,9 @@ void Fcont_Gram_Blend(const double * fx, std::complex<double> *f_ext, int N,
     status = DftiComputeForward(desc_handle, f_ext); 
     for (int i = 0; i < N + C; i++)
     {
-        f_ext[i] = f_ext[i]/fourPts;
+        // f_ext[i] = f_ext[i]/fourPts;
+        f_ext[i] = f_ext[i]*scaling;
     }
-    // delete [] fl;
-    // delete [] fr;
-    // delete [] z;
 
 }
 

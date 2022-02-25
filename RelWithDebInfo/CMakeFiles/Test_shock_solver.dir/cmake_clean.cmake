@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o"
+  "CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Mesh.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Node1D.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o"

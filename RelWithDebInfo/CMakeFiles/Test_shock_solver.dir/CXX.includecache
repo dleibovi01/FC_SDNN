@@ -16,26 +16,6 @@ Mesh.h
 vector
 -
 
-/home/leibov/Documents/FC_SDNN/Code/FC.cpp
-iostream
--
-complex
--
-mkl.h
-/home/leibov/Documents/FC_SDNN/Code/mkl.h
-mkl_dfti.h
-/home/leibov/Documents/FC_SDNN/Code/mkl_dfti.h
-fstream
--
-string
--
-time.h
-/home/leibov/Documents/FC_SDNN/Code/time.h
-FC.h
-/home/leibov/Documents/FC_SDNN/Code/FC.h
-printing.h
-/home/leibov/Documents/FC_SDNN/Code/printing.h
-
 /home/leibov/Documents/FC_SDNN/Code/FC.h
 iostream
 -
@@ -73,6 +53,10 @@ Patch1DUniform.h
 /home/leibov/Documents/FC_SDNN/Code/Patch1DUniform.h
 Mesh.h
 /home/leibov/Documents/FC_SDNN/Code/Mesh.h
+
+/home/leibov/Documents/FC_SDNN/Code/MVOperations.h
+iostream
+-
 
 /home/leibov/Documents/FC_SDNN/Code/Mesh.h
 Patch1D.h
@@ -147,6 +131,10 @@ SDNN_data.h
 /home/leibov/Documents/FC_SDNN/Code/SDNN_data.h
 SVW.h
 /home/leibov/Documents/FC_SDNN/Code/SVW.h
+MVOperations.h
+/home/leibov/Documents/FC_SDNN/Code/MVOperations.h
+VectorOperations.h
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
 
 /home/leibov/Documents/FC_SDNN/Code/SDNN_data.h
 array
@@ -275,14 +263,6 @@ algorithm
 -
 mkl.h
 /home/leibov/Documents/FC_SDNN/Code/mkl.h
-
-/home/leibov/Documents/FC_SDNN/Code/VectorOperations.cpp
-iostream
--
-complex
--
-VectorOperations.h
-/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
 
 /home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
 iostream

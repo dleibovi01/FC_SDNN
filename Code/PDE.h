@@ -77,7 +77,6 @@ ANN ann;
 
 public:
 
-
     SDNN_flux(const IC &_ic, const BC &_bc, double &_T, int _pu, 
         const ANN &_ann) : PDE<VectorField>{_ic, _bc, _T, _pu}, ann{_ann} {}
 
