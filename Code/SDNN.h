@@ -297,15 +297,23 @@ void preprocess_stencils(int N, double *stencils, bool* discard, int* tau)
     double m = 0.0;
 
     #pragma omp simd
+    // #pragma omp simd collapse(2)
     for(int i = 0; i < N; i++)
     {
         slope = double(stencils[(i + 1)*s - 1] - stencils[i*s]) / double(s - 1);
         s0 = stencils[i*s];
-        #pragma omp simd
+        #pragma unroll
         for(int j = 0; j < s; j++)
         {
             stencils[i*s + j] = stencils[i*s + j] - (s0 + slope*double(j));
         }
+        // stencils[i*s] = stencils[i*s] - (s0 + slope*0.0);
+        // stencils[i*s + 1] = stencils[i*s + 1] - (s0 + slope*1.0);
+        // stencils[i*s + 2] = stencils[i*s + 2] - (s0 + slope*2.0);
+        // stencils[i*s + 3] = stencils[i*s + 3] - (s0 + slope*3.0);
+        // stencils[i*s + 4] = stencils[i*s + 4] - (s0 + slope*4.0);
+        // stencils[i*s + 5] = stencils[i*s + 5] - (s0 + slope*5.0);
+        // stencils[i*s + 6] = stencils[i*s + 6] - (s0 + slope*6.0);
     }   
 
     // #pragma omp simd lastprivate(M, m)
@@ -316,7 +324,8 @@ void preprocess_stencils(int N, double *stencils, bool* discard, int* tau)
         if(M - m > discard_noise)
         {
             discard[i] = false;
-            #pragma omp simd
+            // #pragma omp simd
+            #pragma unroll
             for (int j = 0; j < s; j++)
             {
                 stencils[i*s + j] = (2.0*stencils[i*s + j] - M - m) / (M - m);
