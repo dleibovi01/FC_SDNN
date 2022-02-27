@@ -246,20 +246,21 @@ void filter(VectorField *v, const std::vector<int> &unknowns) const
 }
 
 
-template<typename Patch, typename VectorField>
-void filter(Patch *patch, const std::vector<int> &unknowns) const
-{
-   int length = patch->getNnodes();   
-   double data[length];  
-   VectorField &v = patch->getFlowRef();
-   for(int i = 0; i < unknowns.size(); i++)
-   {
-      // FC_Der(v->getField(unknowns[i]), v->getField(unknowns[i]), filter_coeffs,
-      //    filter_coeffs, length, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
-      FC_Der(v->getField(unknowns[i]), v->getField(unknowns[i]), filter_coeffs,
-         filter_coeffs, length, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
-   } 
-}
+// template<typename Patch, typename VectorField>
+// template<typename Patch>
+// void filter(Patch *patch, const std::vector<int> &unknowns) const
+// {
+//    int length = patch->getNnodes();   
+//    double data[length];  
+//    auto v = patch->getFlowRef();
+//    for(int i = 0; i < unknowns.size(); i++)
+//    {
+//       // FC_Der(v->getField(unknowns[i]), v->getField(unknowns[i]), filter_coeffs,
+//       //    filter_coeffs, length, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+//       FC_Der(v.getField(unknowns[i]), v.getField(unknowns[i]), filter_coeffs,
+//          filter_coeffs, length, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+//    } 
+// }
 
 
 private:

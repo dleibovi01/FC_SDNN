@@ -475,10 +475,15 @@ public:
     template<typename VectorField, typename Sp_Diff, typename PDE>
     void advance(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
         const double dt, bool flag)
+    // template<typename Patch, typename Sp_Diff, typename PDE>
+    // void advance(Patch* patch, const Sp_Diff &sp_diff, const PDE &pde,
+    //     const double dt, bool flag)
     {
         const int unknowns = pde.getPhysUnknowns();
+        // auto v = patch->getFlowPtr();
         const int N = v->getLength();
         const int C = sp_diff.getC();
+  
 
         std::vector<int> stage0;
         std::vector<int> stage1;
@@ -501,11 +506,6 @@ public:
         // Pre-computing the derivative of the viscosity mu
         double mux[N];
         sp_diff.diff(v->getField(stages*unknowns + 1), mux);
-
-        // std::cout << "mux" << std::endl;
-        // Print_Mat(mux, N, 1);
-        // std::cout << std::endl;
-        // std::cout << std::endl;
 
 
         // 1st stage

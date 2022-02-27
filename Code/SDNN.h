@@ -216,10 +216,9 @@ void Lambda(Mesh * mesh, int phys_unknowns, int stages, double cutoff,
 
 
 
-template<typename Patch, typename Mesh, typename SVW, typename PDE, 
-    typename SpatDiffScheme>
+template<typename Patch, typename Mesh, typename SVW, typename PDE>
 void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde, 
-    const SpatDiffScheme &sp_diff, int phys_unknowns, int stages, int stage)
+    int phys_unknowns, int stages, int stage)
 {
     auto v = patch->getFlow();
     auto v0 = patch->getFlow();
@@ -252,8 +251,6 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
  
     // Need to form stencils and get maximums of MWSB
     int s = 7;
-    int C = sp_diff.getC();
-
     vdAbs(N, MWSB, MWSB);
     double MWSB_maxed[N];
     getMaxedMWSB(N, s, MWSB, MWSB_maxed);
@@ -273,10 +270,9 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
 }
 
 
-template<typename Mesh, typename PDE, typename SpatDiffScheme>
+template<typename Mesh, typename PDE>
 void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde,
-    const std::vector<SpatDiffScheme> &sp_diffs, int phys_unknowns, int stages,
-    int stage)
+    int phys_unknowns, int stages, int stage)
 {
     auto patches = mesh->getPatches();
     int npatches = patches.size();
@@ -284,8 +280,8 @@ void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde,
     for(int i = 0; i < npatches; i++)
     {
         // patch = patches[i];
-        updateViscPatch(patches[i], mesh, svws[i], pde, sp_diffs[i], 
-            phys_unknowns, stages, stage);
+        updateViscPatch(patches[i], mesh, svws[i], pde, phys_unknowns, stages,
+            stage);
     }
 }
 

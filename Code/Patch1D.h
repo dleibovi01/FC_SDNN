@@ -30,6 +30,7 @@ public:
     ~Patch1D();
     const VectorField1D & getFlow() const {return v;}
     VectorField1D & getFlowRef() {return v;}
+    VectorField1D* getFlowPtr() {return &v;}
     // VectorField1D* getVectorField() const {return &v;}
     std::vector<Node1D*> getNodes() const {return nodes;}
     Node1D* getNode(int i) const {return nodes[i];}
