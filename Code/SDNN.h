@@ -220,8 +220,8 @@ template<typename Patch, typename Mesh, typename SVW, typename PDE>
 void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde, 
     int phys_unknowns, int stages, int stage)
 {
-    auto v = patch->getFlow();
-    auto v0 = patch->getFlow();
+  
+    auto v0 = patch->getFlowRef();
     int N = patch->getNnodes();
     auto W = svw->getPatchSVWS();
     int M = W.size();
@@ -235,7 +235,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     std::vector<double> zeros(N, 0.0);
     double* mu = zeros.data();
     double h = patch->getH();
-    pde.getMWSB(v, MWSB);
+    
     double alpha = 1.0;
     double beta = 1.0;  
     int status;
@@ -243,7 +243,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     // Compute the contribution of each smooth wave function
     for(int i = 0; i < M; i++)
     {
-        v0 = patches[patchIds[i]]->getFlow();
+        v0 = patches[patchIds[i]]->getFlowRef();
         N0 = v0.getLength();
         weighted_tau = Visc_weights(N0, v0.getField(phys_unknowns*stages));
         W[i]->MV(alpha, weighted_tau.data(), beta, mu);
@@ -251,6 +251,9 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
  
     // Need to form stencils and get maximums of MWSB
     int s = 7;
+
+    auto v = patch->getFlowPtr();
+    pde.getMWSB(*v, MWSB);
     vdAbs(N, MWSB, MWSB);
     double MWSB_maxed[N];
     getMaxedMWSB(N, s, MWSB, MWSB_maxed);
@@ -261,12 +264,11 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
         y[i] = 0.0;
     }
    // Muiltiply by the wave speed
-    // vdMul(N, MWSB_maxed, mu, mu);
     VectorMul(N, MWSB_maxed, mu, mu);
     // Muiltiply by h
-    cblas_daxpy(N, h, mu, 1, y, 1);  
-    v.setField(phys_unknowns*stages + 1, N, y);
-    patch->setField(v);
+    cblas_daxpy(N, h, mu, 1, y, 1); 
+    v->setField(phys_unknowns*stages + 1, N, y);
+
 }
 
 
@@ -335,11 +337,12 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
 {
     MKL_LONG status;
     int fourPts;
-    auto v = patch->getFlow();
+    // auto v = patch->getFlow();
+    auto v = patch->getFlowPtr();
     
-    int N = v.getLength();
+    int N = v->getLength();
     double proxy[N];
-    pde.getProxy(v, proxy);
+    pde.getProxy(*v, proxy);
     int tau[N];
     bool discard[N];
 
@@ -371,8 +374,9 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     {
         tau_dbl[i] = double(tau[i]);
     }
-    v.setField(unknowns*stages, N, tau_dbl);
-    patch->setField(v);
+    // v.setField(unknowns*stages, N, tau_dbl);
+    // patch->setField(v);
+    v->setField(unknowns*stages, N, tau_dbl);
 
 }
 
