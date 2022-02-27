@@ -48,8 +48,6 @@ public:
     void compute_svw_data(Patch * patch_origin, Patch * patch_target, 
         int target_id)
     {
-        // int cols = patch_origin->getNnodes();
-        // int rows = patch_target->getNnodes();
         int rows = patch_origin->getNnodes();
         int cols = patch_target->getNnodes();
         auto nodes_origin = patch_origin->getNodes();
@@ -68,22 +66,7 @@ public:
         bool new_row;
         int last_index = 1;
         rows_start.push_back(last_index);
-        // for(int i = 0; i < rows; i++)
-        // {
-        //     new_row = false;
-        //     node_target = nodes_target[i];
-        //     for(int j = 0; j < cols; j++)
-        //     {
-        //         node_origin = nodes_origin[j];
-        //         value = visc_window(*node_origin, *node_target, cutoff);
-        //         if(value > tolerance)
-        //         {
-        //             values.push_back(value);
-        //             col_indx.push_back(j + 1);
-        //             last_index++;
-        //             new_row = true;
-        //         }
-        //     }
+
         for(int i = 0; i < rows; i++)
         {
             new_row = false;
@@ -137,8 +120,6 @@ public:
         {
             sum_total[i] = 1.0 / sum_total[i];
         }
-        // std::cout << " sum total " << std::endl;
-        // Print_Mat(sum_total, Nnodes, 1);
         for(int i = 0; i < N; i++)
         {
             patch_svws[i]->dotMV(sum_total);

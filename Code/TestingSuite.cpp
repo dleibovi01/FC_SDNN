@@ -405,14 +405,13 @@ void TestingEulerSDNN()
     // Run the solver
     double CFL = 2.0;
     bool visc = true;
-    bool adaptive = false;
-    // slv.solve_sdnn_fast(dt, CFL, adaptive, visc);    
+    bool adaptive = false;  
     slv.solve_sdnn(dt, CFL, adaptive, visc);  
 
     // Print the solution
     Mesh1DUniform mesh1 = slv.getMesh();
 
-    // std::cout << "Solution" << std::endl;
+    std::cout << "Solution" << std::endl;
     // Print_Mesh1D(mesh1);
 
 //     std::string result_file = "result.txt";

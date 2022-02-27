@@ -135,9 +135,9 @@ void Fcont_Gram_Blend(const double * fx, std::complex<double> *f_ext, int N,
 
 
     status = DftiComputeForward(desc_handle, f_ext); 
+    #pragma omp simd
     for (int i = 0; i < N + C; i++)
     {
-        // f_ext[i] = f_ext[i]/fourPts;
         f_ext[i] = f_ext[i]*scaling;
     }
 
@@ -153,9 +153,9 @@ double * FC_Der(const double * fx, std::complex<double> * der_coeffs,
     std::complex<double> f_ext[N + C];
     double * f_der = new double[N];
     Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
-    // vzMul(N + C, der_coeffs, f_ext, f_ext);
     VectorMul(N + C, der_coeffs, f_ext, f_ext); 
     status = DftiComputeBackward(desc_handle, f_ext); 
+    #pragma omp simd
     for (int j = 0; j < N; j++)
     {
         f_der[j] = f_ext[j].real();
@@ -187,11 +187,11 @@ void FC_Der(double *f_der, const std::complex<double> * f_hat,
     const std::complex<double> * der_coeffs, int N, int C, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 {
+
    std::complex<double> f_hat_temp[N+C];
-//    int mode = vmlSetMode(VML_EP);
-//    vzMul(N + C, der_coeffs, f_hat, f_hat_temp);
    VectorMul(N + C, der_coeffs, f_hat, f_hat_temp);
    int status = DftiComputeBackward(desc_handle, f_hat_temp); 
+   #pragma omp simd
    for (int j = 0; j < N; j++)
    {
        f_der[j] = f_hat_temp[j].real();
@@ -205,7 +205,6 @@ double * Fcont(const double * fx, int N, int d, int C, double fourPts,
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 {
     MKL_LONG status;
-    // std::complex<double> * f_ext = new std::complex<double>[N + C];
     std::complex<double> f_ext[N + C];
     double * f_der = new double[N];
 
@@ -226,6 +225,7 @@ void Fcont(const double * fx, double * f_der, int N, int d, int C,
     std::complex<double> f_ext[N + C];
     Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
     status = DftiComputeBackward(desc_handle, f_ext); 
+    #pragma omp simd
     for (int j = 0; j < N + C; j++)
     {
         f_der[j] = f_ext[j].real();

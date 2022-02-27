@@ -29,15 +29,15 @@ public:
     Patch1D & operator=(const Patch1D &patch);
     ~Patch1D();
     const VectorField1D & getFlow() const {return v;}
+    VectorField1D & getFlowRef() {return v;}
     // VectorField1D* getVectorField() const {return &v;}
     std::vector<Node1D*> getNodes() const {return nodes;}
     Node1D* getNode(int i) const {return nodes[i];}
     int getNnodes() const {return Nnodes;}
-    std::vector<int> getPhysBdryNodes() const {return phys_bdry_nodes;}
+    const std::vector<int> & getPhysBdryNodes() const {return phys_bdry_nodes;}
     int getIntraPatchNodesL() const {return intra_patch_nodes_l;}
     int getIntraPatchNodesR() const {return intra_patch_nodes_r;}
 
-    // void setField(const VectorField1D &_flow){v = _flow; VectorFieldToNodes();}
     void setField(const VectorField1D &_flow){v = _flow;}
     void setFlowValue(int i, int j, double d){v.setFieldValue(i, j, d);};
     void NodesToVectorField();

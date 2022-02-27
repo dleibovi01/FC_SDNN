@@ -298,16 +298,24 @@ class Solver{
 
             for(int i = 0; i < npatches; i++)
             {
-                auto v = patches[i]->getFlow();
+                // auto v = patches[i]->getFlow();
+                // if(t == 0.0)
+                // { 
+                //     filters[i].filter(&v, filt_unknowns);                       
+                // }   
+                // else
+                // {
+                //     filters[i + npatches].filter(&v, filt_unknowns);  
+                // }   
+                // patches[i]->setField(v);
                 if(t == 0.0)
                 { 
-                    filters[i].filter(&v, filt_unknowns);                       
+                    filters[i].filter(patches[i], filt_unknowns);                       
                 }   
                 else
                 {
-                    filters[i + npatches].filter(&v, filt_unknowns);  
+                    filters[i + npatches].filter(patches[i], filt_unknowns);  
                 }   
-                patches[i]->setField(v);
             }
 
             // Print_Patch1D(*patches[0]); 
@@ -335,10 +343,7 @@ class Solver{
             for(int i = 0; i < npatches; i++)
             {
                 auto v = patches[i]->getFlow();
-                ts.advance(&v, sp_diffs[i], pde, dt);
-
-                // Test
-                // ts.advance_fast(&v, cons_fft, sp_diffs[i], pde, dt);                
+                ts.advance(&v, sp_diffs[i], pde, dt);            
                 patches[i]->setField(v);
             }
             // Print_VectorField1D(patches[0]->getFlow());

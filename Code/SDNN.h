@@ -98,9 +98,32 @@ double Q(double tau)
     } 
 }
 
+
+void getMaxedMWSB(int N, int s, const double * MWSB, double * MWSB_maxed)
+{
+    double max_0;
+    double max_end;
+    max_0 = *(std::max_element(MWSB, MWSB + s + 1));
+    max_end = *(std::max_element(MWSB + N - s, MWSB + N));
+    MWSB_maxed[0] = max_0;
+    MWSB_maxed[1] = max_0;
+    MWSB_maxed[2] = max_0;
+    MWSB_maxed[N - 3] = max_end;
+    MWSB_maxed[N - 2] = max_end;
+    MWSB_maxed[N - 1] = max_end;
+
+    #pragma omp simd
+    for(int i = 3; i < N - 3; i++)
+    {
+        MWSB_maxed[i] = *(std::max_element(MWSB + i - 3, MWSB + i + 4));
+    }
+}
+
+
 std::vector<double> Visc_weights(int N, const double* tau)
 {
     std::vector<double> w(N, 0.0);
+    #pragma omp simd
     for(int i = 0; i < N; i++)
     {
         w[i] = Q(tau[i]);
@@ -110,8 +133,10 @@ std::vector<double> Visc_weights(int N, const double* tau)
 
 void form_stencils(int N, int C, const double* proxy_ext, double* stencils)
 {
+    #pragma omp simd
     for(int i = 0; i < N; i++)
     {
+        #pragma omp simd
         for (int j = 0; j < s; j++)
         {
             stencils[s*i+ j] = proxy_ext[(N + C - 3 + i + j) % (N + C)];
@@ -228,26 +253,19 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     // Need to form stencils and get maximums of MWSB
     int s = 7;
     int C = sp_diff.getC();
-    double MWSB_cont[N + C];
-    double MWSB_stencils[N*s];
-    double MWSB_maxed[N];
-    Fcont(MWSB, MWSB_cont, N, sp_diff.getD(), C, sp_diff.getFourPts_dbl(),
-        sp_diff.getAQ(), sp_diff.getFAQF(), sp_diff.getDescHandle()); 
-    form_stencils(N, C, MWSB_cont, MWSB_stencils);
-    vdAbs(N + C, MWSB_cont, MWSB_cont);
-    for(int i = 0; i < N; i++)
-    {
-        MWSB_maxed[i] = *(std::max_element(MWSB_stencils + i*s, 
-            MWSB_stencils + (i + 1)*s));
-    }
 
-   // Muiltiply by the wave speed
-    vdMul(N, MWSB_maxed, mu, mu);
+    vdAbs(N, MWSB, MWSB);
+    double MWSB_maxed[N];
+    getMaxedMWSB(N, s, MWSB, MWSB_maxed);
+
     double y[N];
     for(int i = 0; i < N; i++)
     {
         y[i] = 0.0;
     }
+   // Muiltiply by the wave speed
+    // vdMul(N, MWSB_maxed, mu, mu);
+    VectorMul(N, MWSB_maxed, mu, mu);
     // Muiltiply by h
     cblas_daxpy(N, h, mu, 1, y, 1);  
     v.setField(phys_unknowns*stages + 1, N, y);
@@ -279,26 +297,32 @@ void preprocess_stencils(int N, double *stencils, bool* discard, int* tau)
     double s0;
     double M = 0.0;
     double m = 0.0;
+
+    #pragma omp simd
     for(int i = 0; i < N; i++)
     {
         slope = double(stencils[(i + 1)*s - 1] - stencils[i*s]) / double(s - 1);
         s0 = stencils[i*s];
+        #pragma omp simd
         for(int j = 0; j < s; j++)
         {
             stencils[i*s + j] = stencils[i*s + j] - (s0 + slope*double(j));
         }
     }   
+
+    // #pragma omp simd lastprivate(M, m)
     for(int i = 0; i < N; i++)
     {
         M = *(std::max_element(stencils + i*s, stencils + (i + 1)*s));
         m = *(std::min_element(stencils + i*s, stencils + (i + 1)*s));
-        for (int j = 0; j < s; j++)
-        {
-            stencils[i*s + j] = (2.0*stencils[i*s + j] - M - m) / (M - m);
-        }
         if(M - m > discard_noise)
         {
             discard[i] = false;
+            #pragma omp simd
+            for (int j = 0; j < s; j++)
+            {
+                stencils[i*s + j] = (2.0*stencils[i*s + j] - M - m) / (M - m);
+            }
         }
         else
         {
@@ -345,7 +369,8 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     // get classification (forward propagation)
     pde.getANN().getRegularity(tau, discard, stencils, N, s);
 
-    double tau_dbl[N];   
+    double tau_dbl[N];  
+    #pragma omp simd 
     for(int i = 0; i < N; i++)
     {
         tau_dbl[i] = double(tau[i]);
@@ -573,32 +598,6 @@ public :
                 ones[i] = 1.0;
             }
 
-            // std::cout <<"indices[0] = " << indices[0] << std::endl;
-
-            // cblas_dger (CblasRowMajor, M, N0, 1.0, B1, 1, ones, 1, input_1, N0);
-            // cblas_dger (CblasRowMajor, M, N0, 1.0, B2, 1, ones, 1, input_2, N0);
-            // cblas_dger (CblasRowMajor, M, N0, 1.0, B3, 1, ones, 1, input_3, N0);
-            // cblas_dger (CblasRowMajor, output, N0, 1.0, B4, 1, ones, 1,
-            //     output_4, N0);
-
-            // mkl_dimatcopy ('C', 'T', s, N0, 1.0, regStencils, s, N0);
-
-            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N0, s,
-            //     1.0, W1, s, regStencils, N0, 1.0, input_1, N0);
-            // elu(M*N0, input_1, alpha);
-
-            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
-            //     W2, M, input_1, N0, 1.0, input_2, N0);
-            // elu(M*N0, input_2, alpha);
-
-            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
-            //     W3, M, input_2, N0, 1.0, input_3, N0);
-            // elu(M*N0, input_3, alpha);
-
-            // cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, output, N0, M,
-            //     1.0, W4, M, input_3, N0, 1.0, output_4, N0);
-
-            // mkl_dimatcopy ('R', 'T', output, N0, 1.0, output_4, N0, output);
 
             cblas_dger (CblasColMajor, M, N0, 1.0, B1, 1, ones, 1, input_1, M);
             cblas_dger (CblasColMajor, M, N0, 1.0, B2, 1, ones, 1, input_2, M);
@@ -606,17 +605,8 @@ public :
             cblas_dger (CblasColMajor, output, N0, 1.0, B4, 1, ones, 1,
                 output_4, output);
 
-            // std::cout <<"input_1" << std::endl;
-            // Print_Mat(input_1, M, N0);
-            // std::cout << std::endl;
-
             cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, M, N0, s,
                 1.0, W1, M, regStencils, s, 1.0, input_1, M);
-
-            // std::cout <<"input_1" << std::endl;
-            // Print_Mat(input_1, M, N0);
-            // std::cout << std::endl;
-
             elu(M*N0, input_1, alpha);
 
             cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, M, N0, M, 1.0,
@@ -629,11 +619,6 @@ public :
 
             cblas_dgemm (CblasColMajor, CblasNoTrans, CblasNoTrans, output, N0, M,
                 1.0, W4, output, input_3, M, 1.0, output_4, output);
-
-            // std::cout <<"output " << std::endl;
-            // Print_Mat(output_4, output, N0);
-            // std::cout << std::endl;
-
 
             #pragma omp simd
             for(int i = 0; i < N0; i++)

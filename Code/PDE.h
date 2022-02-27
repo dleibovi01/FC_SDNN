@@ -129,6 +129,7 @@ public:
 virtual void getMWSB(const VectorField &v, double* MWSB) const {}
 
 
+
 double getMWSBMax(const VectorField &v) const
 {
     int N = v.getLength();
