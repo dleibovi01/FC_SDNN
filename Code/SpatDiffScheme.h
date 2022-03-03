@@ -36,6 +36,15 @@ VectorField1D  diff(const VectorField1D & v)
 
 };
 
+
+// template<typename Patch>
+// class WENO_5Z_1D : public SpatDiffScheme<Patch>{
+
+// Patch* patch;
+// double epsilon;
+
+// };
+
 template<typename Patch>
 class FC_1D : public SpatDiffScheme<Patch>{
 
@@ -202,6 +211,12 @@ void diff(const double* y, double * y_der, double* y_der_2) const
 {
    std::complex<double> y_hat[N + C];
    Fcont_Gram_Blend(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+   diff(y_hat, y_der, y_der_2);
+}
+
+void diff(const std::complex<double> *y_hat, double * y_der,
+   double* y_der_2) const
+{
    FC_Der(y_der, y_hat, der_coeffs, N, C, desc_handle);
    FC_Der(y_der_2, y_hat, der_coeffs_2, N, C, desc_handle);
 }
@@ -242,6 +257,36 @@ void filter(VectorField *v, const std::vector<int> &unknowns) const
    {
       FC_Der(v->getField(unknowns[i]), v->getField(unknowns[i]), filter_coeffs,
          filter_coeffs, length, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+   } 
+}
+
+template<typename VectorField>
+void filter(VectorField *v, const std::vector<int> &unknowns, 
+   std::vector<std::complex<double> *> *ffts, 
+   const std::vector<int> &fft_loc) const
+{
+   int length = v->getLength();  
+   std::complex<double> f_ext[length + C]; 
+   // double *  f_der; 
+   for(int i = 0; i < unknowns.size(); i++)
+   {
+      // std::cout << fft_loc[i] << std::endl;
+      // FC_Der(v->getField(unknowns[i]), v->getField(unknowns[i]), filter_coeffs,
+      //    ffts->at(fft_loc[i]), length, d, C, fourPts_dbl, AQ, FAQF, desc_handle,
+      //    true);
+      // f_der = v->getField(unknowns[i]);
+      Fcont_Gram_Blend(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N, d, C, fourPts_dbl,
+         AQ, FAQF, desc_handle);
+      
+      VectorMul(N + C, ffts->at(fft_loc[i]), filter_coeffs, ffts->at(fft_loc[i]));
+      // Print_Mat(ffts->at(fft_loc[i]), N + C, 1);
+      std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
+      int status = DftiComputeBackward(desc_handle, f_ext);
+      for (int j = 0; j < length; j++)
+      {
+         v->getField(unknowns[i])[j] = f_ext[j].real();
+      }     
+
    } 
 }
 

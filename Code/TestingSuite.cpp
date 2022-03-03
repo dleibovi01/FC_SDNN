@@ -412,10 +412,10 @@ void TestingEulerSDNN()
     Mesh1DUniform mesh1 = slv.getMesh();
 
     std::cout << "Solution" << std::endl;
-    // Print_Mesh1D(mesh1);
+    Print_Mesh1D(mesh1);
 
-//     std::string result_file = "result.txt";
-//     Print_Mesh1D(mesh1, unknowns, result_file);
+    std::string result_file = "result.txt";
+    Print_Mesh1D(mesh1, unknowns, result_file);
 }
 
 

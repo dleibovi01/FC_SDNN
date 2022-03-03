@@ -16,6 +16,26 @@ Mesh.h
 vector
 -
 
+/home/leibov/Documents/FC_SDNN/Code/FC.cpp
+iostream
+-
+complex
+-
+mkl.h
+/home/leibov/Documents/FC_SDNN/Code/mkl.h
+mkl_dfti.h
+/home/leibov/Documents/FC_SDNN/Code/mkl_dfti.h
+fstream
+-
+string
+-
+time.h
+/home/leibov/Documents/FC_SDNN/Code/time.h
+FC.h
+/home/leibov/Documents/FC_SDNN/Code/FC.h
+printing.h
+/home/leibov/Documents/FC_SDNN/Code/printing.h
+
 /home/leibov/Documents/FC_SDNN/Code/FC.h
 iostream
 -

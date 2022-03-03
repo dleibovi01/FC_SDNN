@@ -35,6 +35,12 @@ void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs,
     const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
 
+void FC_Der(const double * fx, double *f_der, 
+    const std::complex<double> * der_coeffs, 
+    std::complex<double> *filter_coeffs, int N, int d, int C, double fourPts, 
+    const double * AQ, const double * FAQF, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag);
+
 void FC_Der(double *f_der, const std::complex<double> * f_hat, 
     const std::complex<double> * der_coeffs, int N, int C,
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);

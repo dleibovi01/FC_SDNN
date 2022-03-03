@@ -473,14 +473,14 @@ public:
 
 
     template<typename VectorField, typename Sp_Diff, typename PDE>
-    void advance(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
-        const double dt, bool flag)
-    // template<typename Patch, typename Sp_Diff, typename PDE>
-    // void advance(Patch* patch, const Sp_Diff &sp_diff, const PDE &pde,
+    // void advance(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
     //     const double dt, bool flag)
+    void advance(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
+        const double dt, bool flag, 
+        const std::vector<std::complex<double> *> & ffts, 
+        const std::vector<int> & ffts_loc)
     {
         const int unknowns = pde.getPhysUnknowns();
-        // auto v = patch->getFlowPtr();
         const int N = v->getLength();
         const int C = sp_diff.getC();
   
@@ -512,8 +512,11 @@ public:
         std::vector<std::vector<int> > extractions1;
         extractions1.push_back(stage0);
         std::vector<double> coeffs1 = {1.0, -a11*dt};
-        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux);
+        // pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux);
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux, ffts, ffts_loc);
         linComb(v, extractions1, stage1, coeffs1, flux);
+        // Print_VectorField1D(flux);
+        // Print_VectorField1D(*v);
 
         // 2nd stage
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux);

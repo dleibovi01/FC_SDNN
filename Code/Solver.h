@@ -80,8 +80,6 @@ class Solver{
         int stages = ts.getStages();
         pde.getIC()(&mesh);
 
-        // Print_Mesh1D(mesh);
-        // std::cout << std::endl;
         // Filter data      
         std::vector<int> filt_unknowns;
         for(int i = 0; i < phys_unknowns; i++)
@@ -91,7 +89,29 @@ class Solver{
 
         // Set viscosity normalization coefficients
         SVW_mesh svw_m{mesh};
-        // Lambda(&mesh, phys_unknowns, stages, 9.0*(mesh.getH()), true); 
+
+        // Pre-allocate a container to save the FFTS
+        std::vector<std::complex<double> * > fft_data;
+        std::vector<std::vector<int> > fft_locs;
+        std::vector<int> loc;
+        for(int i = 0; i < npatches; i++)
+        {
+            for(int j = 0; j < phys_unknowns; j++)
+            {
+                fft_data.push_back(
+                    new std::complex<double> [mesh.getPatches()[i]->getNnodes() + 
+                    sp_diffs[i].getC()]);
+                for(int k = 0; k < mesh.getPatches()[i]->getNnodes() + 
+                    sp_diffs[i].getC(); k++)
+                {
+                    fft_data[i*npatches + j][k] = 0.0;
+                }
+                loc.push_back(i*phys_unknowns + j);
+            }
+            fft_locs.push_back(loc);
+            loc.clear();
+        }
+
 
 
         auto t1 = std::chrono::high_resolution_clock::now();
@@ -109,48 +129,37 @@ class Solver{
                     updateTau(patches[i], sp_diffs[i], pde, 
                         sp_diffs[i].getShiftCoeffs(), phys_unknowns, stages);
                 }
-                updateVisc(&mesh, svw_m, pde, phys_unknowns, stages, 
-                    0); 
+                updateVisc(&mesh, svw_m, pde, phys_unknowns, stages, 0); 
             }
 
-            // if(t > 0)
+
+            // for(int i = 0; i < npatches; i++)
             // {
-            //     // Print_VectorField1D(patches[0]->getFlow());
-            //     Print_Mat(patches[0]->getFlow().getField(15), 100, 1);
-            //     std::cout << std::endl;
-            //     std::cout << std::endl;
-            //     Print_Mat(patches[0]->getFlow().getField(16), 100, 1);
-            //     std::cout << std::endl;
+            //     auto v = patches[i]->getFlowPtr();
+            //     if(t == 0.0)
+            //     { 
+            //         filters[i].filter(v, filt_unknowns);                      
+            //     }   
+            //     else
+            //     {
+            //         filters[i + npatches].filter(v, filt_unknowns);  
+            //     }   
             // }
-
-            // Print_Mesh1D(mesh); 
-
-            // Filter
-            // std::cout << "phys unknowns = " << std::endl;
-            // for(int i = 0; i < phys_unknowns; i++)
-            // {
-            //     std::cout << filt_unknowns[i] << std::endl;
-            // }
-
             for(int i = 0; i < npatches; i++)
             {
-                // auto v = patches[i]->getFlow();
                 auto v = patches[i]->getFlowPtr();
                 if(t == 0.0)
                 { 
-                    filters[i].filter(v, filt_unknowns);     
-                    // filters[i].filter(patches[i], filt_unknowns);                   
+                    filters[i].filter(v, filt_unknowns, &fft_data, fft_locs[i]);                      
                 }   
                 else
                 {
-                    filters[i + npatches].filter(v, filt_unknowns);  
-                    // filters[i + npatches].filter(patches[i], filt_unknowns); 
+                    filters[i + npatches].filter(v, filt_unknowns, &fft_data,
+                        fft_locs[i]);  
                 }   
-                // patches[i]->setField(v);
             }
 
-            // Print_Patch1D(*patches[0]); 
-            // Print_VectorField1D(patches[0]->getFlow());
+
 
             // Determination of the adaptive timestep
             if(adaptive)
@@ -173,18 +182,15 @@ class Solver{
             // Advancing
             for(int i = 0; i < npatches; i++)
             {
-                // auto v = patches[i]->getFlow();
-                // ts.advance(&v, sp_diffs[i], pde, dt, true);                
-                // patches[i]->setField(v);
                 auto v = patches[i]->getFlowPtr();
-                ts.advance(v, sp_diffs[i], pde, dt, true);  
+                // ts.advance(v, sp_diffs[i], pde, dt, true);
+                ts.advance(v, sp_diffs[i], pde, dt, true, fft_data, fft_locs[i]);  
             }
-            // Print_VectorField1D(patches[0]->getFlow());
+ 
             mesh.setPatches(patches);
             mesh.setIntraPatchBC(phys_unknowns);
             pde.getBC()(&mesh, t);
-            // Print_Mesh1D(mesh);
-            // std::cout << std::endl;
+            
         }
 
         patches = mesh.getPatches();

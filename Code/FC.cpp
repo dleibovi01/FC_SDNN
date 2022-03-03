@@ -98,6 +98,51 @@ void read_FC_Data(double *A, double *Q, int d, int C, std::string filename_A,
  }
 
 
+// void Fcont_Gram_Blend(const double * fx, std::complex<double> *fft, int N,
+//     int d, int C, double fourPts, const double * AQ, const double * FAQF, 
+//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
+// {
+//     std::complex<double> f_ext[N + C];
+//     double fr[d];
+//     double fl[d];
+//     double scaling = 1.0/fourPts;
+//     static int incx = 1;
+//     static int incy = 1;
+//     static double alpha = 1.;
+//     static double beta = 0.;    
+//     static int lda = C;
+//     static CBLAS_LAYOUT Layout = CblasColMajor;
+//     static CBLAS_TRANSPOSE TRANS = CblasNoTrans;    
+//     // double  *z = new double[C];
+   
+//     MKL_LONG status;
+
+//     for(int i = 0; i < d; i++)
+//     {
+//         fr[i] = fx[N - d + i];
+//         fl[i] = fx[i];
+//     }
+//     double  z[C];
+//     for(int i = 0; i < C; i++)
+//     {
+//         z[i] = 0.;
+//     }
+//     cblas_dgemv (Layout, TRANS, C, d, alpha, AQ, lda, fr, incx, beta, z, incy);
+//     cblas_dgemv (Layout, TRANS, C, d, alpha, FAQF, lda, fl, incx, alpha, z, incy);
+//     std::copy(z, z + C, f_ext + N);
+//     std::copy(fx, fx + N , f_ext); 
+
+
+//     status = DftiComputeForward(desc_handle, f_ext, fft); 
+//     #pragma omp simd
+//     for (int i = 0; i < N + C; i++)
+//     {
+//         f_ext[i] = f_ext[i]*scaling;
+//     }
+
+// }
+
+
 void Fcont_Gram_Blend(const double * fx, std::complex<double> *f_ext, int N,
     int d, int C, double fourPts, const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
@@ -171,15 +216,30 @@ void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs,
 {
     MKL_LONG status;
     std::complex<double> f_ext[N + C];
-    Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle);
-    // int mode = vmlSetMode(VML_EP);
-    // vzMul(N + C, der_coeffs, f_ext, f_ext);  
+    Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle); 
     VectorMul(N + C, der_coeffs, f_ext, f_ext); 
     status = DftiComputeBackward(desc_handle, f_ext); 
     for (int j = 0; j < N; j++)
     {
         f_der[j] = f_ext[j].real();
     }
+}
+
+void FC_Der(const double * fx, double *f_der, 
+    const std::complex<double> * der_coeffs, std::complex<double> * fft, int N,
+    int d, int C, double fourPts, const double * AQ, const double * FAQF, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
+{
+    MKL_LONG status;
+    // std::cout << "printing fft " << std::endl;
+    // Print_Mat(fft, N + C, 1);
+    Fcont_Gram_Blend(fx, fft, N, d, C, fourPts, AQ, FAQF, desc_handle); 
+    VectorMul(N + C, der_coeffs, fft, fft); 
+    status = DftiComputeBackward(desc_handle, fft); 
+    for (int j = 0; j < N; j++)
+    {
+        f_der[j] = fft[j].real();
+    }    
 }
 
 
@@ -197,6 +257,8 @@ void FC_Der(double *f_der, const std::complex<double> * f_hat,
        f_der[j] = f_hat_temp[j].real();
    } 
 }
+
+
 
 
 
