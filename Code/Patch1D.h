@@ -35,6 +35,7 @@ public:
     std::vector<Node1D*> getNodes() const {return nodes;}
     Node1D* getNode(int i) const {return nodes[i];}
     int getNnodes() const {return Nnodes;}
+    int getUnknowns() const {return v.getUnknowns();}
     const std::vector<int> & getPhysBdryNodes() const {return phys_bdry_nodes;}
     int getIntraPatchNodesL() const {return intra_patch_nodes_l;}
     int getIntraPatchNodesR() const {return intra_patch_nodes_r;}

@@ -34,6 +34,7 @@ void TestingSolver();
 void TestingSVW();
 void TestingSDNN();
 void TestingEulerSDNN();
+void TestingEulerWENO();
 void TestingVML();
 
 #endif

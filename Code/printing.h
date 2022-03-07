@@ -18,6 +18,8 @@ void Print_Mat(std::complex<double> * A, int nrows, int ncols);
 void Print_Mat(const int* A, int nrows, int ncols);
 
 void Print_VectorField1D(const VectorField1D &field);
+void Print_VectorField1D(const VectorField1D &field, int precision);
+void Print_VectorField1D(const VectorField1D &field, bool print, int precision);
 void Print_VectorField1D(const VectorField1D &field, bool print);
 void Print_Node1D(const Node1D &node);
 void Print_SparseMatrix_csr(int rows, int cols, int* rows_start, int* rows_end,

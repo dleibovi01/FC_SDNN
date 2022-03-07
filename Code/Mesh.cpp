@@ -5,15 +5,17 @@
 
 
 // Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
-//     int _overlap, int unknowns, bool l_b, bool r_b)
+//     int _overlap, int intrb, int unknowns, bool l_b, bool r_b)
 Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
-    int _overlap, int intrb, int unknowns, bool l_b, bool r_b)
+    int _overlap, int intrb, int unknowns, int l_b, int r_b)
 {
     double L;
     double h;
     int N;
-    bool lb;
-    bool rb;
+    // bool lb;
+    // bool rb;
+    int lb;
+    int rb;    
     int intrbl;
     int intrbr;
     overlap = _overlap;
@@ -24,41 +26,41 @@ Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize,
     {
         if (i == 0)
         {
-            if(l_b)
-            {
-                lb = true;
-            }  
-            else
-            {
-                lb = false;
-            }
-            
+            // if(l_b)
+            // {
+            //     lb = true;
+            // }  
+            // else
+            // {
+            //     lb = false;
+            // }
+            lb = l_b;
             intrbl = 0;
         }
         else
         {
-            lb = false;
-            // intrbl = overlap; // this is not good
+            // lb = false;
+            lb = 0;
             intrbl = intrb;
         }
         
         if(i == n_patches - 1)
         {
-            if(r_b)
-            {
-                rb = true;
-            }
-            else
-            {
-                rb = false;
-            }            
-            
+            // if(r_b)
+            // {
+            //     rb = true;
+            // }
+            // else
+            // {
+            //     rb = false;
+            // }            
+            rb = r_b;
             intrbr = 0;
         }
         else
         {
-            rb = false;
-            // intrbr = overlap; // this is not good
+            // rb = false;
+            rb = 0;
             intrbr = intrb; 
         }
         patches.push_back(new Patch1DUniform(patchsize, unknowns, 

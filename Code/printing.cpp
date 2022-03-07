@@ -76,6 +76,30 @@ void Print_VectorField1D(const VectorField1D &field)
     }
 }
 
+void Print_VectorField1D(const VectorField1D &field, int precision)
+{
+    int N = field.getUnknowns();
+    int length = field.getLength();
+    std::cout.precision(precision);
+    std::vector<double*> flow = field.getFlow();
+    double data [length*N] ; 
+    for (int i = 0; i < N; i++)
+    {
+        for(int j = 0; j < length; j++)
+        {
+            data[i*length + j] = (flow[i])[j];
+        }    
+    }
+    for(int i = 0; i < length; i++)
+    {
+        for(int j = 0; j < N; j++)
+        {
+            std::cout << data[j*length + i] << "  ";
+        }
+        std::cout << std::endl; 
+    }
+}
+
 void Print_VectorField1D(const VectorField1D &field, bool print)
 {
     if(print)
@@ -96,6 +120,30 @@ void Print_VectorField1D(const VectorField1D &field, bool print)
     else
     {
         Print_VectorField1D(field);
+    } 
+}
+
+
+void Print_VectorField1D(const VectorField1D &field, bool print, int precision)
+{
+    if(print)
+    {
+        VectorField1D u{field.getUnknowns() + 1, field.getLength()};
+        double temp[field.getLength()];
+        for(int i = 0; i < field.getLength(); i++)
+        {
+            temp[i] = double(i + 1);
+        }
+        u.setField(0, field.getLength(), temp);
+        for(int i = 0; i < field.getUnknowns(); i++)
+        {
+            u.setField(i+1, field.getLength(), field.getField(i));
+        }
+        Print_VectorField1D(u, precision);
+    }      
+    else
+    {
+        Print_VectorField1D(field, precision);
     } 
 }
 

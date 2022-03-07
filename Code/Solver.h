@@ -27,47 +27,107 @@ class Solver{
     Solver(const Meshtype &_mesh, const PDE &_pde, TS &_ts, 
         const std::vector<Sp_diff> &_sp_diff, 
         const std::vector<Filter> &_filter) : mesh{_mesh}, pde{_pde}, ts{_ts},
-         sp_diffs{_sp_diff}, filters{_filter} {}
+        sp_diffs{_sp_diff}, filters{_filter} {}
+
+    Solver(const Meshtype &_mesh, const PDE &_pde, TS &_ts, 
+        const std::vector<Sp_diff> &_sp_diff) : mesh{_mesh}, pde{_pde}, ts{_ts},
+        sp_diffs{_sp_diff} {}
 
     // const Meshtype& getMesh() const {return mesh;}
     const Meshtype& getMesh() const {return mesh;}
 
-
-    /*
-    void solve(double dt)
+    void solve(double dt, double CFL, bool adaptive)
     {
+        std::cout << "Solver" << std::endl;
         double t = 0.0;
         double T = pde.getT();
-        // std::vector<Patch*> patches = mesh.getPatches();
         auto patches = mesh.getPatches();
-        int npatches = patches.size();
+        int npatches = sp_diffs.size();
+        int phys_unknowns = pde.getPhysUnknowns();
+        int stages = ts.getStages();
         pde.getIC()(&mesh);
+
+        auto t1 = std::chrono::high_resolution_clock::now();
+    
+
+
+        int ndata = 11;
+        std::vector<VectorField1D> data_patch;
+        std::vector<std::vector<VectorField1D> > data;
+        for(int i = 0; i < npatches; i++)
+        {
+            for(int j = 0; j < ndata; j++)
+            {
+                data_patch.push_back(VectorField1D(phys_unknowns, 
+                    patches[i]->getNnodes()));
+            } 
+            data.push_back(data_patch);
+            data_patch.empty();
+        }
+
+
+        std::cout << " entering solver loop" << std::endl;
+        // Time loop
         while (t < T)
         {
             patches = mesh.getPatches();
-            for(int i = 0; i < npatches; i++)
-            {
-                // VectorField v = patches[i]->getFlow();
-                auto v = patches[i]->getFlow();
-                v = pde.Prim_to_cons(v);
-                v = ts.advance(v, sp_diff);
-                v = pde.Cons_to_prim(v);
-                patches[i]->setField(v);
-            }
-            mesh.setPatches(patches);
+
+            // Determination of the adaptive timestep
+            // if(adaptive)
+            // {
+            //     dt = pde.getAdaptiveTimeStep(mesh, phys_unknowns, stages, CFL);
+            // }
+
+            // std::cout << "dt = " << dt << std::endl;
+            
             if(t + dt > T)
             {
+                dt = T - t;
                 t = T; 
             }
             else
             {
                 t += dt;
+            }      
+
+    
+
+            // Advancing
+            for(int i = 0; i < npatches; i++)
+            {
+                ts.advance(patches[i], sp_diffs[i], pde, dt, t, &(data[i]));
             }
-            mesh.setIntraPatchBC();
+
+            mesh.setPatches(patches);
+            mesh.setIntraPatchBC(phys_unknowns);
             pde.getBC()(&mesh, t);
+            
         }
-    }
-    */
+
+        patches = mesh.getPatches();
+        for(int i = 0; i < npatches; i++)
+        {
+            patches[i]->VectorFieldToNodes();
+        }
+        mesh.setPatches(patches);
+
+
+        auto t2 = std::chrono::high_resolution_clock::now();
+
+        // Getting number of milliseconds as an integer. //
+        auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1); 
+        // Getting number of milliseconds as a double. //
+        std::chrono::duration<double, std::milli> ms_double = t2 - t1;
+
+        std::cout << ms_int.count() << "ms\n" << std::endl;
+        std::cout << ms_double.count() << "ms" << std::endl;  
+
+    }  
+
+
+
+
+
 
     void solve_sdnn(double dt, double CFL, bool adaptive, bool visc)
     {

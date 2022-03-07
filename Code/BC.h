@@ -55,13 +55,13 @@ private:
                 }           
                 else if(problem.compare(problem7) == 0)
                 {
-                   if(x == 0.0)
+                   if(x < 0.5)
                     {
                         y.push_back(1.0);
                         y.push_back(0.0);
                         y.push_back(2.5);
                     }  
-                   else if(x == 1.0)
+                   else if(x > 0.5)
                     {
                         y.push_back(0.125);
                         y.push_back(0.0);
@@ -78,8 +78,31 @@ public:
     BC(std::string _problem, int _unknowns) : problem{_problem}, 
         unknowns{_unknowns} {};
 
+    // template<typename Patch>
+    // void setBC(Patch* patch, double t)
+    // {
+    //     function f{problem};
+    //     std::vector<int> bdry_nodes = patch->getPhysBdryNodes(); 
+    //     std::vector<double> bdry_values;
+    //     for(int i = 0; i < bdry_nodes.size(); i++)
+    //     {
+    //         bdry_values = f(patch->getNode(bdry_nodes[i])->getPos(), t);
+    //         for(int j = 0; j < unknowns; j++)
+    //         {
+    //             patch->setFlowValue(j, bdry_nodes[i], bdry_values[j]);
+    //         }
+    //     }
+    //     // patch->NodesToVectorField();
+    // }
+
     template<typename Patch>
     void setBC(Patch* patch, double t)
+    {
+        setBC(patch, t, 0);
+    }
+
+    template<typename Patch>
+    void setBC(Patch* patch, double t, int stage)
     {
         function f{problem};
         std::vector<int> bdry_nodes = patch->getPhysBdryNodes(); 
@@ -89,10 +112,9 @@ public:
             bdry_values = f(patch->getNode(bdry_nodes[i])->getPos(), t);
             for(int j = 0; j < unknowns; j++)
             {
-                patch->setFlowValue(j, bdry_nodes[i], bdry_values[j]);
+                patch->setFlowValue(stage*unknowns + j, bdry_nodes[i],
+                    bdry_values[j]);
             }
-
-            
         }
         // patch->NodesToVectorField();
     }

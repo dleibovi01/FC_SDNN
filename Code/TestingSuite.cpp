@@ -345,7 +345,7 @@ void TestingEulerSDNN()
     ANN ann{alpha};  
     Euler1D_SDNN pde {ic, bc, T, gamma, ann};      
     int intrb = 6;
-    int npatches = 1;
+    int npatches = 4;
     int overlap = 24;
     // int N = 250 + (npatches - 1)*overlap;
     int N = 101;
@@ -358,8 +358,10 @@ void TestingEulerSDNN()
 
     // Create a mesh
     int unknowns = pde.getPhysUnknowns();
+    // Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
+    //     true, true};
     Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
-        true, true};
+        1, 1};
     ic(&mesh);
     //Print_Mesh1D(mesh);   
 
@@ -419,7 +421,80 @@ void TestingEulerSDNN()
 }
 
 
+void TestingEulerWENO()
+{  
 
+    // Create a PDE
+    double T = 0.2;
+    // double dt = 0.00002;
+    double dt = 0.000005;
+    //  double dt = 0.01;
+    // std::string problem = "smooth_LA";
+    std::string problem = "Euler1D_Sod";
+    BC bc{problem, 3};
+    IC ic{problem, 3};
+    double alpha = 1.0;
+    double gamma = 7.0/5.0;
+    
+    Euler1D_LF pde {ic, bc, T, gamma};      
+    int intrb = 6;
+    int npatches = 4;
+    int overlap = 24;
+    // int N = 250 + (npatches - 1)*overlap;
+    int N = 101;
+
+
+   // Create a time-stepping scheme
+    SSPRK_4 TS;
+    int stages = TS.getStages();
+    
+
+    // Create a mesh
+    int unknowns = pde.getPhysUnknowns();
+    // Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
+    //     true, true};
+    Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
+        3, 3};
+    ic(&mesh);
+    //Print_Mesh1D(mesh);   
+
+    VectorField1D v = (mesh.getPatches())[0]->getFlow();
+
+    int stage = 0;
+    std::vector<WENO_5Z_1D<Patch1DUniform, VectorField1D> > diff_schemes;
+    double epsilon = 0.000001;
+    std::cout << " Creating diff schemes " << std::endl;
+    for(int i = 0; i < npatches; i++)
+    {
+        diff_schemes.push_back(WENO_5Z_1D<Patch1DUniform, VectorField1D> 
+            (mesh.getPatches()[i], epsilon));
+    }
+
+    std::cout << " Created diff schemes " << std::endl;
+    // Create a solver
+    Solver<Mesh1DUniform, Euler1D_LF, SSPRK_4,
+        WENO_5Z_1D<Patch1DUniform, VectorField1D>, 
+        WENO_5Z_1D<Patch1DUniform, VectorField1D> >
+        slv{mesh, pde, TS, diff_schemes};
+    std::cout << " Created solver " << std::endl;
+
+    // Run the solver
+    double CFL = 2.0;
+    bool visc = true;
+    bool adaptive = false;  
+    std::cout << " solving " << std::endl;
+    slv.solve(dt, CFL, adaptive);  
+
+    // Print the solution
+    
+    Mesh1DUniform mesh1 = slv.getMesh();
+
+    std::cout << "Solution" << std::endl;
+    // Print_Mesh1D(mesh1);
+
+    // std::string result_file = "result_WENO.txt";
+    // Print_Mesh1D(mesh1, unknowns, result_file);
+}
 
 
 
@@ -610,7 +685,11 @@ int main()
     //TestingPatch1D();
     //TestingMesh1D();
     //TestingSDNN();
+
+
     TestingEulerSDNN();
+    // TestingEulerWENO();
+
     // TestingSVW();
     // TestingVML();
 

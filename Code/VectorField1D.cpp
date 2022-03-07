@@ -110,6 +110,14 @@ VectorField1D & VectorField1D::operator= (VectorField1D &&field)
     return *this;
 }
 
+void VectorField1D::setFlow(const std::vector<double*> flow_ext)
+{
+    for(int i = 0; i < unknowns; i++)
+    {
+        setField(i, length, flow_ext[i]);
+    }
+}
+
 
 VectorField1D & VectorField1D::operator+= (const VectorField1D &v)
 {
@@ -122,6 +130,21 @@ VectorField1D & VectorField1D::operator+= (const VectorField1D &v)
         y = getField(i);
         cblas_daxpy(length, alpha, v.getField(i), incx, y, incy);
         setField(i, length, y);
+    }
+    return *this;
+}
+
+VectorField1D & VectorField1D::operator+= (const double a)
+{
+    double *y;
+    for(int i = 0; i < unknowns; i++)
+    {
+        // y = flow[i];
+        y = getField(i);
+        for(int j = 0; j < length; j++)
+        {
+            y[j] += a;
+        }
     }
     return *this;
 }
@@ -153,6 +176,8 @@ VectorField1D & VectorField1D::operator*= (const VectorField1D &v)
     return *this;
 }
 
+
+
 VectorField1D & VectorField1D::operator*= (double* v)
 {
     double *y;
@@ -164,6 +189,9 @@ VectorField1D & VectorField1D::operator*= (double* v)
     }
     return *this;
 }
+
+
+
 
 
 VectorField1D & VectorField1D::operator*= (double alpha)
@@ -180,17 +208,27 @@ VectorField1D & VectorField1D::operator*= (double alpha)
     return *this;
 }
 
-VectorField1D & VectorField1D::operator/= (const VectorField1D &v)
+VectorField1D & VectorField1D::sqr()
 {
     double *y;
     for(int i = 0; i < unknowns; i++)
     {
-        y = getField(i);
-        vdMul(length, v.getField(i), y, y);
-        setField(i, length, y);
+        vdMul(length, getField(i), getField(i), getField(i));
     }
     return *this;
 }
+
+
+VectorField1D & VectorField1D::operator/= (const VectorField1D &v)
+{
+    // double *y;
+    for(int i = 0; i < unknowns; i++)
+    {
+        vdDiv(length, getField(i), v.getField(i), getField(i));
+    }
+    return *this;
+}
+
 
 VectorField1D & VectorField1D::operator>>= (const VectorField1D &v)
 {
@@ -203,6 +241,16 @@ VectorField1D & VectorField1D::operator>>= (const VectorField1D &v)
     }
     return *this;
 }
+
+VectorField1D & VectorField1D::abs ()
+{
+    for(int i = 0; i < unknowns; i++)
+    {
+        vdAbs(length, getField(i), getField(i));
+    }
+    return *this;
+}
+
 
 void VectorField1D::circshift (int j)
 {

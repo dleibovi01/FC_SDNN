@@ -203,6 +203,133 @@ private:
 };
 
 
+class Euler1D: public PDE<VectorField1D>{
+
+public:
+
+
+    Euler1D(const IC &_ic, const BC &_bc, double &_T, double _gamma) : 
+        PDE<VectorField1D>{_ic, _bc, _T, 3}, gamma{_gamma} {}
+
+    Euler1D(const Euler1D & flux) : PDE<VectorField1D>(flux), 
+        gamma{flux.gamma} {}
+
+    void Cons_to_flux(const VectorField1D &v, VectorField1D* flux, int stages,
+        int stage) const
+    {
+        const int N = v.getLength();
+
+        double data1[N];
+        double data2[N];
+        double data3[N];
+        double vel[N];
+        double kin[N];
+        double data_temp[N];      
+
+        vdDiv(N, v.getField(stage*phys_unknowns + 1), 
+            v.getField(stage*phys_unknowns), vel);
+        vdMul(N, vel, v.getField(stage*phys_unknowns + 1), kin);
+
+        // 1st element
+        std::copy(v.getField(stage*phys_unknowns + 1), 
+            v.getField(stage*phys_unknowns + 1) + N, data1);
+        // cblas_dscal(N, -1.0, data1, 1);
+
+        // 2nd element
+        std::copy(kin, kin + N, data2);
+        cblas_dscal(N, 1.5 - 0.5*gamma, data2, 1);
+        cblas_daxpy(N, gamma - 1.0, v.getField(stage*phys_unknowns + 2), 1, 
+            data2, 1);
+        // cblas_dscal(N, -1.0, data2, 1);
+
+        // 3rd element
+        // std::copy(kin, kin + N, data3);
+        // vdMul(N, vel, data_temp, data3);
+        // cblas_dscal(N, -0.5*(gamma - 1.0), data3, 1);
+        // vdMul(N, v.getField(stage*phys_unknowns + 2), vel, data_temp);
+        // cblas_daxpy(N, gamma, data_temp, 1, data3, 1);
+        // cblas_dscal(N, -1.0, data3, 1);
+
+
+        std::copy(kin, kin + N, data3);
+        cblas_dscal(N, -0.5*(gamma - 1.0), data3, 1);
+        cblas_daxpy(N, gamma, v.getField(stage*phys_unknowns + 2), 1, 
+            data3, 1);
+        vdMul(N, vel, data3, data3);
+
+
+
+        // Differentiating
+        flux->setField(0, N, data1);
+        flux->setField(1, N, data2);
+        flux->setField(2, N, data3);
+    }
+
+
+protected :
+
+    double gamma;
+
+};
+
+
+
+class Euler1D_LF : public Euler1D{
+
+    public:
+
+    Euler1D_LF(const IC &_ic, const BC &_bc, double &_T, double _gamma) : 
+        Euler1D{_ic, _bc, _T, _gamma} {}
+
+    Euler1D_LF(const Euler1D_LF & flux) : Euler1D(flux) {}
+
+    template<typename Sp_diff>
+    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+        const Sp_diff &sp, int stages, int stage, 
+        std::vector<VectorField1D>* data) const
+    {
+        VectorField1D flux2 = *flux;
+        const int N = v.getLength();
+        double vel[N];
+        double vel_sq[N];
+        double a[N];
+        double lambda;
+        
+        // // get the velocity
+        vdDiv(N, v.getField(1), v.getField(0), vel);
+        // Forming the speed of sound
+        vdMul(N, vel, vel, vel_sq);
+        vdDiv(N, v.getField(2),v.getField(0), a);
+        cblas_daxpy(N, -0.5, vel_sq, 1, a, 1);
+        vdSqrt(N, a, a);
+        cblas_dscal(N, std::sqrt(gamma * (gamma - 1)), a, 1);
+        // get lambda
+        vdAbs(N, vel, vel);
+        cblas_daxpy(N, 1.0, vel, 1, a, 1);
+        lambda= *(std::max_element(a, a + N));
+
+        // build the two fluxes
+        std::vector<int> extractions;
+        for(int i = 0; i < phys_unknowns; i++)
+        {
+            extractions.push_back(stage*phys_unknowns + i);
+        }
+        Cons_to_flux(v, flux, stages, stage);
+                
+        // flux2 = 0.5*(*flux - lambda*v.extract(extractions));
+        linComb2(*flux, v.extract(extractions), &flux2, 0.5, -0.5*lambda);
+        flux2.circshift(1);
+        
+        // flux->setFlow((0.5*(*flux + lambda*v.extract(extractions))).getFlow());
+        linComb2(*flux, v.extract(extractions), flux, 0.5, 0.5*lambda);
+
+        // obtain the flux derivative
+        sp.diff(&flux2, flux, data);
+    }
+    
+
+};
+
 
 class Euler1D_SDNN : public SDNN_flux<VectorField1D>{
 
