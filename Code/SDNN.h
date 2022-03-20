@@ -15,9 +15,15 @@
 #include "MVOperations.h"
 #include "VectorOperations.h"
 
+// ANN stencil size
 constexpr int s = 7;
+// ANN discard threshold
 constexpr double discard_noise = 0.01;
-// constexpr CBLAS_LAYOUT Layout = CblasColMajor;
+// Viscosity weights
+constexpr double w1 = 2.0; // 2.0 0.8 looked it it worked
+constexpr double w2 = 1.0; // 1.0 0.4 looked it it worked
+constexpr double w3 = 0.0; // 0.0
+// Matrix operations parameters
 constexpr CBLAS_LAYOUT Layout = CblasRowMajor;
 constexpr CBLAS_TRANSPOSE TRANS = CblasNoTrans;
 
@@ -86,15 +92,15 @@ double Q(double tau)
 {
     if(tau == 1.0)
     {
-        return 2.0;
+        return w1;
     }
     else if(tau == 2.0)
     {
-        return 1.0;
+        return w2;
     }
     else
     {
-        return 0.0;
+        return w3;
     } 
 }
 
@@ -307,13 +313,6 @@ void preprocess_stencils(int N, double *stencils, bool* discard, int* tau)
         {
             stencils[i*s + j] = stencils[i*s + j] - (s0 + slope*double(j));
         }
-        // stencils[i*s] = stencils[i*s] - (s0 + slope*0.0);
-        // stencils[i*s + 1] = stencils[i*s + 1] - (s0 + slope*1.0);
-        // stencils[i*s + 2] = stencils[i*s + 2] - (s0 + slope*2.0);
-        // stencils[i*s + 3] = stencils[i*s + 3] - (s0 + slope*3.0);
-        // stencils[i*s + 4] = stencils[i*s + 4] - (s0 + slope*4.0);
-        // stencils[i*s + 5] = stencils[i*s + 5] - (s0 + slope*5.0);
-        // stencils[i*s + 6] = stencils[i*s + 6] - (s0 + slope*6.0);
     }   
 
     // #pragma omp simd lastprivate(M, m)

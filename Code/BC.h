@@ -35,6 +35,13 @@ private:
                         y.push_back(0.0);
                     }                    
                 }
+               if(problem.compare(problem3) == 0)
+                {
+                    if(x == 0)
+                    {
+                        y.push_back(0.0);
+                    }                    
+                }
                 else if(problem.compare(problem4) == 0)
                 {
                     if(x == 0)

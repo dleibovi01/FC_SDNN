@@ -49,6 +49,7 @@ public:
     void setPatch(Patch* patch, int i) {patches[i] = patch;}
     void setPatches(const std::vector<Patch*> p) {patches = p;}
     std::vector<Patch*> getPatches() const {return patches;}
+    std::vector<Patch*>* getPatchesPtr() {return &patches;}
 };
 
 
@@ -70,7 +71,7 @@ public:
 
     double getH() const {return (patches[0]->getH());}
 
-    void setIntraPatchBC(int unknowns)
+    void setIntraPatchBC(int unknowns, int stage)
     {
         int N;
         int bdry_elems_l;
@@ -82,20 +83,19 @@ public:
             {
                 if(i == 0)
                 {
-                    patches[i]->setInnerBdry(patches[i + 1], overlap, unknowns,
-                        false);
+                    patches[i]->setInnerBdry(patches[i + 1], overlap, unknowns, 
+                        stage, false);
                 }
                 else if(i == patches.size() - 1)
                 {
                     patches[i]->setInnerBdry(patches[i - 1], overlap, unknowns, 
-                        true);
+                        stage, true);
                 }
                 else
                 {
                     patches[i]->setInnerBdry(patches[i - 1], patches[i + 1], 
-                        overlap, overlap, unknowns);                   
-                }   
-                // patches[i]->NodesToVectorField();             
+                        overlap, overlap, unknowns, stage);                   
+                }              
             }
         }
     }

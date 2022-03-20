@@ -24,6 +24,7 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-qmkl",
+                "-qopenmp",
                 "-O3",
                 // "-O0",
             ],

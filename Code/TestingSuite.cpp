@@ -153,7 +153,7 @@ void TestingMesh1D()
     IC ic{problem, 1};
     ic(&mesh);
     Print_Mesh1D(mesh);
-    mesh.setIntraPatchBC(1);
+    mesh.setIntraPatchBC(1, 0);
     Print_Mesh1D(mesh);
     int unknowns = 1;
     BC bc{"", unknowns};
@@ -237,10 +237,10 @@ global std::string B1_filename = "B1.txt";
 // {  
 
 //     // Create a PDE
-//     double T = 0.7;
+//     double T = 0.1;
 //     // double dt = 0.00002;
-//     double dt = 0.001;
-//     // std::string problem = "smooth_LA";
+//     double dt = 0.000001;
+//     // std::string problem = "one_wave";
 //     std::string problem = "one_wave";
 //     BC bc{problem, 1};
 //     IC ic{problem, 1};
@@ -252,10 +252,10 @@ global std::string B1_filename = "B1.txt";
 //     ANN ann{alpha};  
 //     LA1D_SDNN pde {ic, bc, T, a, ann};      
 //     int intrb = 6;
-//     int npatches = 1;
-//     int overlap = 24;
+//     int npatches = 30;
+//     int overlap = 12;
 //     // int N = 250 + (npatches - 1)*overlap;
-//     int N = 100;
+//     int N = 101;
 
 
 //    // Create a time-stepping scheme
@@ -319,10 +319,10 @@ global std::string B1_filename = "B1.txt";
 //     Mesh1DUniform mesh1 = slv.getMesh();
 
 //     std::cout << "Solution" << std::endl;
-//     Print_Mesh1D(mesh1);
+//     // Print_Mesh1D(mesh1);
 
 //     std::string result_file = "result.txt";
-//     Print_Mesh1D(mesh1, unknowns, result_file);
+//     Print_Mesh1D(mesh1, unknowns, intrb, result_file);
 // }
 
 
@@ -344,10 +344,15 @@ void TestingEulerSDNN()
     //     B2_filename, B3_filename, B4_filename, alpha};  
     ANN ann{alpha};  
     Euler1D_SDNN pde {ic, bc, T, gamma, ann};      
+    // int intrb = 6;
+    // int npatches = 15;
+    // int overlap = 24;
+    // int N = 101;
+
     int intrb = 6;
-    int npatches = 4;
-    int overlap = 24;
-    // int N = 250 + (npatches - 1)*overlap;
+    int npatches = 30;
+    int overlap = 12;
+
     int N = 101;
 
 
@@ -408,16 +413,16 @@ void TestingEulerSDNN()
     double CFL = 2.0;
     bool visc = true;
     bool adaptive = false;  
-    slv.solve_sdnn(dt, CFL, adaptive, visc);  
+    slv.solve_sdnn2(dt, CFL, adaptive, visc);  
 
     // Print the solution
     Mesh1DUniform mesh1 = slv.getMesh();
 
     std::cout << "Solution" << std::endl;
-    Print_Mesh1D(mesh1);
+    // Print_Mesh1D(mesh1);
 
     std::string result_file = "result.txt";
-    Print_Mesh1D(mesh1, unknowns, result_file);
+    Print_Mesh1D(mesh1, unknowns, intrb, result_file);
 }
 
 
@@ -438,10 +443,10 @@ void TestingEulerWENO()
     
     Euler1D_LF pde {ic, bc, T, gamma};      
     int intrb = 6;
-    int npatches = 4;
+    int npatches = 1;
     int overlap = 24;
     // int N = 250 + (npatches - 1)*overlap;
-    int N = 101;
+    int N = 500;
 
 
    // Create a time-stepping scheme
@@ -489,11 +494,11 @@ void TestingEulerWENO()
     
     Mesh1DUniform mesh1 = slv.getMesh();
 
-    std::cout << "Solution" << std::endl;
+    // std::cout << "Solution" << std::endl;
     // Print_Mesh1D(mesh1);
 
-    // std::string result_file = "result_WENO.txt";
-    // Print_Mesh1D(mesh1, unknowns, result_file);
+    std::string result_file = "result_WENO.txt";
+    Print_Mesh1D(mesh1, unknowns, intrb, result_file);
 }
 
 
@@ -684,7 +689,7 @@ int main()
     //TestingNode1D();
     //TestingPatch1D();
     //TestingMesh1D();
-    //TestingSDNN();
+    // TestingSDNN();
 
 
     TestingEulerSDNN();

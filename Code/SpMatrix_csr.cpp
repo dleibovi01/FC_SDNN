@@ -115,11 +115,6 @@ void SpMatrix_csr::rowSum(double* sum) const
 
 inline void SpMatrix_csr::MV(const double* x, double* y) const
 {
-    // int status;
-    // double alpha = 1.0;
-    // double beta = 0.0;
-    // status = mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE, alpha, 
-    //     *Matrix_handle, descr, x, beta, y);
     MV(1.0, x, 0.0, y);
 }
 

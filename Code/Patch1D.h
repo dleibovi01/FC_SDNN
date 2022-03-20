@@ -47,7 +47,7 @@ public:
     
     template<typename Patch>
     void setInnerBdry(const Patch &patch_l, const Patch &patch_r, int overlap_l, 
-        int overlap_r, int unknowns)
+        int overlap_r, int unknowns, int stage)
     {
         int Nnodes_l = patch_l->getNnodes();
         int Nnodes_r = patch_r->getNnodes();
@@ -55,22 +55,22 @@ public:
         {
             for(int j = 0; j < unknowns; j++)
             {
-                v.setFieldValue(j, i, patch_l->getFlow().getFieldValue(
-                    j, Nnodes_l - overlap_l + i));
+                v.setFieldValue(stage*unknowns + j, i, patch_l->getFlow().getFieldValue(
+                    stage*unknowns + j, Nnodes_l - overlap_l + i));
             }
         }
         for(int i = 0; i < intra_patch_nodes_r; i++)
         {
             for(int j = 0; j < unknowns; j++)
             {
-                v.setFieldValue(j, Nnodes_r - 1 - i, patch_r->getFlow().
-                    getFieldValue(j, overlap_r - 1 - i));
+                v.setFieldValue(stage*unknowns + j, Nnodes_r - 1 - i, patch_r->getFlow().
+                    getFieldValue(stage*unknowns + j, overlap_r - 1 - i));
             }
         }        
     }
 
     template<typename Patch>
-    void setInnerBdry(const Patch &patch, int overlap, int unknowns, 
+    void setInnerBdry(const Patch &patch, int overlap, int unknowns, int stage,
         bool direction)
     {
         int Nnodes_n = patch->getNnodes();
@@ -80,8 +80,8 @@ public:
             {
                 for(int j = 0; j < unknowns; j++)
                 {
-                    v.setFieldValue(j, i, patch->getFlow().
-                        getFieldValue(j, Nnodes_n - overlap + i));
+                    v.setFieldValue(stage*unknowns + j, i, patch->getFlow().
+                        getFieldValue(stage*unknowns + j, Nnodes_n - overlap + i));
                 }
             }
         }
@@ -91,8 +91,8 @@ public:
             {
                 for(int j = 0; j < unknowns; j++)
                 {
-                    v.setFieldValue(j, Nnodes - 1 - i, patch->getFlow().
-                        getFieldValue(j, overlap- 1 - i));
+                    v.setFieldValue(stage*unknowns + j, Nnodes - 1 - i, patch->getFlow().
+                        getFieldValue(stage*unknowns + j, overlap- 1 - i));
                 }
             }   
         }

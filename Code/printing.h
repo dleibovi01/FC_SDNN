@@ -57,7 +57,8 @@ void Print_Mesh1D(const Mesh<Patch> &mesh)
 }
 
 template<class Patch>
-void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, std::string filename)
+void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, int intrb,
+    std::string filename)
 {
     int N;
     std::vector<Patch*> patches = mesh.getPatches();
@@ -67,7 +68,9 @@ void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, std::string filename)
         myfile << patches.size();
         myfile << "\n";   
         myfile << unknowns;
-        myfile << "\n";              
+        myfile << "\n";   
+        myfile << intrb;
+        myfile << "\n";            
         for(int i = 0; i < patches.size(); i++)
         {
             auto patch = patches[i];
@@ -95,6 +98,53 @@ void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, std::string filename)
     }
     else std::cout << "Unable to open file";    
 }
+
+
+
+template<class Patch>
+void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, int intrb, int vector,
+    std::string filename)
+{
+    int N;
+    unknowns = 1;
+    std::vector<Patch*> patches = mesh.getPatches();
+    std::ofstream myfile (filename);
+    if (myfile.is_open())
+    {
+        myfile << patches.size();
+        myfile << "\n";   
+        myfile << unknowns;
+        myfile << "\n";   
+        myfile << intrb;
+        myfile << "\n";            
+        for(int i = 0; i < patches.size(); i++)
+        {
+            auto patch = patches[i];
+            auto v = patches[i]->getFlow();
+            N = v.getLength();
+            myfile << N;
+            myfile << "\n";             
+            // std::cout << "Patch " << i + 1 << std::endl;
+            for(int j = 0; j < N; j++)
+            {
+                myfile << std::fixed << std::setprecision(17) << patch->getNode(j)->getPos();
+                myfile << "\n";
+            }
+            for(int j = 0; j < unknowns; j++)
+            {
+                for(int k = 0; k < N; k++)
+                {
+                    // myfile << v.getFieldValue(j, k);
+                    myfile << std::fixed << std::setprecision(17) << v.getFieldValue(vector + j, k);
+                    myfile << "\n";
+                }
+            }     
+        }
+        myfile.close();
+    }
+    else std::cout << "Unable to open file";    
+}
+
 
 
 
