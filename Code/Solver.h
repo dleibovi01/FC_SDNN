@@ -12,6 +12,7 @@
 #include <chrono>
 #include <array>
 #include <string>
+#include <omp.h>
 
 template<typename Meshtype, typename PDE, typename TS, typename Sp_diff, 
     typename Filter>
@@ -140,6 +141,7 @@ class Solver{
         int phys_unknowns = pde.getPhysUnknowns();
         int stages = ts.getStages();
         pde.getIC()(&mesh);
+        int threads = 1;
 
         // Filter data      
         std::vector<int> filt_unknowns;
@@ -187,6 +189,8 @@ class Solver{
             // Smooth viscosity assignment
             if(visc)
             {
+                // #pragma omp parallel for num_threads(threads)
+                // #pragma omp parallel for
                 for(int i = 0; i < npatches; i++)
                 {
                     updateTau(patches[i], sp_diffs[i], pde, 
@@ -195,21 +199,14 @@ class Solver{
                 updateVisc(&mesh, svw_m, pde, phys_unknowns, stages, 0); 
             }
 
+            // #pragma omp parallel for num_threads(threads)
+            // #pragma omp parallel for
 
-            // for(int i = 0; i < npatches; i++)
-            // {
-            //     auto v = patches[i]->getFlowPtr();
-            //     if(t == 0.0)
-            //     { 
-            //         filters[i].filter(v, filt_unknowns);                      
-            //     }   
-            //     else
-            //     {
-            //         filters[i + npatches].filter(v, filt_unknowns);  
-            //     }   
-            // }
+            // Print_VectorField1D(patches[0]->getFlow(), true);
+            
             for(int i = 0; i < npatches; i++)
             {
+                // std::cout << "threads = " << omp_get_num_threads() << std::endl;
                 auto v = patches[i]->getFlowPtr();
                 if(t == 0.0)
                 { 
@@ -221,9 +218,10 @@ class Solver{
                         fft_locs[i]);  
                 }   
             }
+            // Print_VectorField1D(patches[0]->getFlow(), true);
 
             mesh.setIntraPatchBC(phys_unknowns, 0);
-            pde.getBC()(&mesh, t);
+            // pde.getBC()(&mesh, t);
 
             // Determination of the adaptive timestep
             if(adaptive)
@@ -231,6 +229,7 @@ class Solver{
                 dt = pde.getAdaptiveTimeStep(mesh, phys_unknowns, stages, CFL);
             }
 
+            // std::cout.precision(17);
             // std::cout << "dt = " << dt << std::endl;
             
             if(t + dt > T)
@@ -244,6 +243,9 @@ class Solver{
             }           
 
             // Advancing
+
+            // #pragma omp parallel for num_threads(threads)
+            // #pragma omp parallel for
             for(int i = 0; i < npatches; i++)
             {
                 auto v = patches[i]->getFlowPtr();
@@ -253,10 +255,12 @@ class Solver{
                 // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
             }
             // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
-            // Print_VectorField1D(mesh.getPatches()[0]->getFlow(), true);
+            // std::cout << std::endl;
+            // std::cout << "stage 1" << std::endl; 
+            // Print_VectorField1D(mesh.getPatches()[0]->getFlow(), true, 17);
             mesh.setPatches(patches);
             // mesh.setIntraPatchBC(phys_unknowns);
-            // pde.getBC()(&mesh, t);
+            pde.getBC()(&mesh, t);
             
         }
 
@@ -282,6 +286,7 @@ class Solver{
 
         std::cout << ms_int.count() << "ms\n" << std::endl;
         std::cout << ms_double.count() << "ms" << std::endl;  
+
 
     }  
 

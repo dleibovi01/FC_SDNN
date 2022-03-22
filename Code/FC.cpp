@@ -209,15 +209,19 @@ double * FC_Der(const double * fx, std::complex<double> * der_coeffs,
 }
 
 
-void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs, 
-    std::complex<double> * filter_coeffs, int N, int d, int C, double fourPts, 
+// void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs, 
+//     int N, int d, int C, double fourPts, 
+//     const double * AQ, const double * FAQF, 
+//     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
+void FC_Der(const double * fx, double *f_der, const double * der_coeffs, 
+    int N, int d, int C, double fourPts, 
     const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 {
     MKL_LONG status;
     std::complex<double> f_ext[N + C];
     Fcont_Gram_Blend(fx, f_ext, N, d, C, fourPts, AQ, FAQF, desc_handle); 
-    VectorMul(N + C, der_coeffs, f_ext, f_ext); 
+    VectorMulImCmp(N + C, der_coeffs, f_ext, f_ext); 
     status = DftiComputeBackward(desc_handle, f_ext); 
     for (int j = 0; j < N; j++)
     {
@@ -225,31 +229,32 @@ void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs,
     }
 }
 
-void FC_Der(const double * fx, double *f_der, 
-    const std::complex<double> * der_coeffs, std::complex<double> * fft, int N,
-    int d, int C, double fourPts, const double * AQ, const double * FAQF, 
-    const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
-{
-    MKL_LONG status;
-    // std::cout << "printing fft " << std::endl;
-    // Print_Mat(fft, N + C, 1);
-    Fcont_Gram_Blend(fx, fft, N, d, C, fourPts, AQ, FAQF, desc_handle); 
-    VectorMul(N + C, der_coeffs, fft, fft); 
-    status = DftiComputeBackward(desc_handle, fft); 
-    for (int j = 0; j < N; j++)
-    {
-        f_der[j] = fft[j].real();
-    }    
-}
+// void FC_Der(const double * fx, double *f_der, 
+//     const std::complex<double> * der_coeffs, std::complex<double> * fft, int N,
+//     int d, int C, double fourPts, const double * AQ, const double * FAQF, 
+//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
+// {
+//     MKL_LONG status;
+//     Fcont_Gram_Blend(fx, fft, N, d, C, fourPts, AQ, FAQF, desc_handle); 
+//     VectorMul(N + C, der_coeffs, fft, fft); 
+//     status = DftiComputeBackward(desc_handle, fft); 
+//     for (int j = 0; j < N; j++)
+//     {
+//         f_der[j] = fft[j].real();
+//     }    
+// }
 
 
+// void FC_Der(double *f_der, const std::complex<double> * f_hat,
+//     const std::complex<double> * der_coeffs, int N, int C, 
+//     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 void FC_Der(double *f_der, const std::complex<double> * f_hat,
-    const std::complex<double> * der_coeffs, int N, int C, 
+    const double * der_coeffs, int N, int C, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 {
 
    std::complex<double> f_hat_temp[N+C];
-   VectorMul(N + C, der_coeffs, f_hat, f_hat_temp);
+   VectorMulImCmp(N + C, der_coeffs, f_hat, f_hat_temp);
    int status = DftiComputeBackward(desc_handle, f_hat_temp); 
    #pragma omp simd
    for (int j = 0; j < N; j++)
@@ -258,7 +263,23 @@ void FC_Der(double *f_der, const std::complex<double> * f_hat,
    } 
 }
 
+// void FC_Der(double *f_der, const std::complex<double> * f_hat,
+//     const std::complex<double> * der_coeffs, int N, int C, 
+//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
+void FC_Der(double *f_der, const std::complex<double> * f_hat,
+    const double * der_coeffs, int N, int C, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
+{
 
+   std::complex<double> f_hat_temp[N+C];
+   VectorMulReCmp(N + C, der_coeffs, f_hat, f_hat_temp);
+   int status = DftiComputeBackward(desc_handle, f_hat_temp); 
+   #pragma omp simd
+   for (int j = 0; j < N; j++)
+   {
+       f_der[j] = f_hat_temp[j].real();
+   } 
+}
 
 
 
@@ -344,6 +365,16 @@ void getK(int * k, int fourPts)
 
 void getFiltCoeffs(std::complex<double> * filt_coeffs, int fourPts, 
     double alpha, double p)
+{
+    int k[fourPts];
+    getK(k, fourPts);
+    for(int i = 0; i < fourPts; i++)
+    {
+        filt_coeffs[i] = std::exp(- alpha*std::pow(2*k[i]/double(fourPts), p));
+    }
+}
+
+void getFiltCoeffs(double * filt_coeffs, int fourPts, double alpha, double p)
 {
     int k[fourPts];
     getK(k, fourPts);

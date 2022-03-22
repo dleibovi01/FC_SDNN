@@ -332,6 +332,7 @@ void TestingEulerSDNN()
     // Create a PDE
     double T = 0.2;
     // double dt = 0.00002;
+    // double dt = 1.0;
     double dt = 0.000005;
     // std::string problem = "smooth_LA";
     std::string problem = "Euler1D_Sod";
@@ -350,7 +351,7 @@ void TestingEulerSDNN()
     // int N = 101;
 
     int intrb = 6;
-    int npatches = 30;
+    int npatches = 4;
     int overlap = 12;
 
     int N = 101;
@@ -413,7 +414,7 @@ void TestingEulerSDNN()
     double CFL = 2.0;
     bool visc = true;
     bool adaptive = false;  
-    slv.solve_sdnn2(dt, CFL, adaptive, visc);  
+    slv.solve_sdnn(dt, CFL, adaptive, visc);  
 
     // Print the solution
     Mesh1DUniform mesh1 = slv.getMesh();
@@ -443,7 +444,7 @@ void TestingEulerWENO()
     
     Euler1D_LF pde {ic, bc, T, gamma};      
     int intrb = 6;
-    int npatches = 1;
+    int npatches = 4;
     int overlap = 24;
     // int N = 250 + (npatches - 1)*overlap;
     int N = 500;

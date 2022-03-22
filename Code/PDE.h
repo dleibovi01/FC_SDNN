@@ -428,11 +428,6 @@ public:
         std::complex<double> * der_coeffs = sp.getDerCoeffs();
 
 
-
-
-
-
-
         double fourPts_dbl = sp.getFourPts_dbl();
         DFTI_DESCRIPTOR_HANDLE desc_handle = sp.getDescHandle();
 
@@ -525,6 +520,24 @@ public:
         sp.diff(v.getField(stage*phys_unknowns), k1x, k1xx);
         sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx);
         sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx);
+
+        // std::cout << "k1x" << std::endl;
+        // Print_Mat(k1x, N, 1);
+
+        // std::cout << "k1xx" << std::endl;
+        // Print_Mat(k1xx, N, 1);
+
+        // std::cout << "k2x" << std::endl;
+        // Print_Mat(k2x, N, 1);
+
+        // std::cout << "k2xx" << std::endl;
+        // Print_Mat(k2xx, N, 1);
+
+        // std::cout << "k3x" << std::endl;
+        // Print_Mat(k3x, N, 1);
+
+        // std::cout << "k3xx" << std::endl;
+        // Print_Mat(k3xx, N, 1);
 
         computeDerFlux(v, flux, stages, stage, mux, k1x, k2x, k3x, k1xx, 
             k2xx, k3xx);

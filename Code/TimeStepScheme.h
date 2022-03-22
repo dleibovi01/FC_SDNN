@@ -692,6 +692,16 @@ public:
         double mux[N];
         sp_diff.diff(v->getField(stages*unknowns + 1), mux);
 
+    //   std::cout << "mu" << std::endl;
+    //     Print_Mat(v->getField(stages*unknowns + 1), N, 1);
+
+    //     std::cout << std::endl;
+    //     std::cout << std::endl;
+
+    //     std::cout << "mux" << std::endl;
+    //     Print_Mat(mux, N, 1);
+
+    //     std::cout << std::endl;
 
         // 1st stage
         std::vector<std::vector<int> > extractions1;
@@ -699,9 +709,9 @@ public:
         std::vector<double> coeffs1 = {1.0, -a11*dt};
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux, ffts, ffts_loc);
         linComb(v, extractions1, stage1, coeffs1, flux);
-        // Print_VectorField1D(v->extract(stage1), true);
-        // Print_VectorField1D(flux);
-        // Print_VectorField1D(*v);
+
+        // Print_VectorField1D(flux, true);
+        // Print_VectorField1D(v->extract(stage1), true, 17);
 
         // 2nd stage
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux);
@@ -710,6 +720,12 @@ public:
         extractions2.push_back(stage1);
         std::vector<double> coeffs2 = {a21, a22, -a23*dt};
         linComb(v, extractions2, stage2, coeffs2, flux);
+
+        // std::cout << std::endl;
+        // std::cout << "stage 2 " << std::endl;
+        // Print_VectorField1D(flux, true);
+
+        // std::cout << std::endl;
         // Print_VectorField1D(v->extract(stage2), true);
 
         // 3rd stage
@@ -719,6 +735,9 @@ public:
         extractions3.push_back(stage2);
         std::vector<double> coeffs3 = {a31, a32, -a33*dt};
         linComb(v, extractions3, stage3, coeffs3, flux);
+
+        // std::cout << std::endl;
+        // Print_VectorField1D(flux, true);
 
         // 4th stage
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 3, mux);
@@ -740,8 +759,6 @@ public:
         std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
         linComb(v, extractions5, stage0, coeffs5, flux3);   
         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
-        // Print_VectorField1D(v->extract(stage0), true);
-        // std::cout << std::endl;
     }        
 
     template<typename Mesh, typename Sp_Diff, typename PDE>
