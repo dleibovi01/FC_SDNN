@@ -44,6 +44,9 @@ public:
 
     void rowSum(double* sum) const;
     void MV(const double* x, double* y) const;
+
+    // CSR sparse matrix dense vector multiplication
+    void SMatVect(const double* x, double* y) const;
     void MV(double alpha, const double* x, double beta, double* y) const;
     void dotMV(const double* x);
     // void operator*(double* x, double* y) const;

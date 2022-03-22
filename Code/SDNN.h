@@ -252,7 +252,12 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
         v0 = patches[patchIds[i]]->getFlowRef();
         N0 = v0.getLength();
         weighted_tau = Visc_weights(N0, v0.getField(phys_unknowns*stages));
-        W[i]->MV(alpha, weighted_tau.data(), beta, mu);
+        // W[i]->MV(alpha, weighted_tau.data(), beta, mu);
+        W[i]->SMatVect(weighted_tau.data(), mu);
+
+        // std::cout << std::endl;
+        // Print_Mat(mu, N0, 1);
+        // std::cout << std::endl;
     }
  
     // Need to form stencils and get maximums of MWSB
