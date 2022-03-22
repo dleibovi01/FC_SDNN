@@ -157,3 +157,11 @@ void SpMatrix_csr::print() const
     }
     Print_Mat(entries, rows, cols);
 }
+
+void SpMatrix_csr::setMVHint()
+{
+    int status;
+    int calls = 1000000;
+    status = mkl_sparse_set_mv_hint(*Matrix_handle,
+        SPARSE_OPERATION_NON_TRANSPOSE, descr, calls);
+}

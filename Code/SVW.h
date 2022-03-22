@@ -96,6 +96,9 @@ public:
             patch_svws.push_back(new SpMatrix_csr{indexing, rows, cols,
                 rows_start.data(), rows_end.data(), col_indx.data(),
                 values.data()});
+            patch_svws.back()->setMVHint();
+            patch_svws.back()->optimize();
+            
         }
     }
 
@@ -153,6 +156,9 @@ public:
             patch_svws.push_back(new SpMatrix_csr{indexing, rows, cols,
                 rows_start.data(), rows_end.data(), col_indx.data(),
                 values.data()});
+            patch_svws.back()->setMVHint();
+            patch_svws.back()->optimize();
+            
         }
         
     }
@@ -256,6 +262,7 @@ private:
             //     patch_target = patches[j];
             //     svws[i]->compute_svw_data(patch_origin, patch_target, j);
             // }
+
             svws[i]->compute_svw_data(patch_origin, patches[0], 0);
             for(int j = 1; j < npatches - 1; j++)
             {

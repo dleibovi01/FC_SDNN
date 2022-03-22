@@ -39,6 +39,8 @@ public:
     double* getValues() const {return values;}
     sparse_matrix_t* getHandle() const {return Matrix_handle;}
     matrix_descr getDescr() const {return descr;}
+    void optimize() {int status = mkl_sparse_optimize(*Matrix_handle);}
+    void setMVHint();
 
     void rowSum(double* sum) const;
     void MV(const double* x, double* y) const;
