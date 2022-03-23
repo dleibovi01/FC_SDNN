@@ -227,7 +227,7 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     int phys_unknowns, int stages, int stage)
 {
   
-    auto v0 = patch->getFlowRef();
+    // auto v0 = patch->getFlowRef();
     int N = patch->getNnodes();
     auto W = svw->getPatchSVWS();
     int M = W.size();
@@ -249,22 +249,24 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     // Compute the contribution of each smooth wave function
     for(int i = 0; i < M; i++)
     {
-        v0 = patches[patchIds[i]]->getFlowRef();
-        N0 = v0.getLength();
-        weighted_tau = Visc_weights(N0, v0.getField(phys_unknowns*stages));
+        // v0 = patches[patchIds[i]]->getFlowRef();
+        // N0 = v0.getLength();
+        // weighted_tau = Visc_weights(N0, v0.getField(phys_unknowns*stages));
+        weighted_tau = 
+            Visc_weights(patches[patchIds[i]]->getFlowRef().getLength(),
+            patches[patchIds[i]]->getFlowRef().getField(phys_unknowns*stages));
+
+
         // W[i]->MV(alpha, weighted_tau.data(), beta, mu);
         W[i]->SMatVect(weighted_tau.data(), mu);
-
-        // std::cout << std::endl;
-        // Print_Mat(mu, N0, 1);
-        // std::cout << std::endl;
     }
  
     // Need to form stencils and get maximums of MWSB
     int s = 7;
 
-    auto v = patch->getFlowPtr();
-    pde.getMWSB(*v, MWSB);
+    // auto v = patch->getFlowPtr();
+    // pde.getMWSB(*v, MWSB);
+    pde.getMWSB(patch->getFlow(), MWSB);
     vdAbs(N, MWSB, MWSB);
     double MWSB_maxed[N];
     getMaxedMWSB(N, s, MWSB, MWSB_maxed);
@@ -278,7 +280,8 @@ void updateViscPatch(Patch *patch, Mesh *mesh, const SVW &svw, const PDE &pde,
     VectorMul(N, MWSB_maxed, mu, mu);
     // Muiltiply by h
     cblas_daxpy(N, h, mu, 1, y, 1); 
-    v->setField(phys_unknowns*stages + 1, N, y);
+    // v->setField(phys_unknowns*stages + 1, N, y);
+    patch->getFlowPtr()->setField(phys_unknowns*stages + 1, N, y);
 
 }
 

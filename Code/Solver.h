@@ -207,18 +207,18 @@ class Solver{
             for(int i = 0; i < npatches; i++)
             {
                 // std::cout << "threads = " << omp_get_num_threads() << std::endl;
-                auto v = patches[i]->getFlowPtr();
+                // auto v = patches[i]->getFlowPtr();
                 if(t == 0.0)
                 { 
-                    filters[i].filter(v, filt_unknowns, &fft_data, fft_locs[i]);                      
+                    filters[i].filter(patches[i]->getFlowPtr(), filt_unknowns,
+                        &fft_data, fft_locs[i]);                      
                 }   
                 else
                 {
-                    filters[i + npatches].filter(v, filt_unknowns, &fft_data,
-                        fft_locs[i]);  
+                    filters[i + npatches].filter(patches[i]->getFlowPtr(),
+                        filt_unknowns, &fft_data, fft_locs[i]);  
                 }   
             }
-            // Print_VectorField1D(patches[0]->getFlow(), true);
 
             mesh.setIntraPatchBC(phys_unknowns, 0);
             // pde.getBC()(&mesh, t);
@@ -228,9 +228,6 @@ class Solver{
             {
                 dt = pde.getAdaptiveTimeStep(mesh, phys_unknowns, stages, CFL);
             }
-
-            // std::cout.precision(17);
-            // std::cout << "dt = " << dt << std::endl;
             
             if(t + dt > T)
             {
@@ -248,9 +245,9 @@ class Solver{
             // #pragma omp parallel for
             for(int i = 0; i < npatches; i++)
             {
-                auto v = patches[i]->getFlowPtr();
-                ts.advance_sdnn(v, sp_diffs[i], pde, dt, true, fft_data,
-                    fft_locs[i]);  
+                // auto v = patches[i]->getFlowPtr();
+                ts.advance_sdnn(patches[i]->getFlowPtr(), sp_diffs[i], pde, dt,
+                    true, fft_data, fft_locs[i]);  
                 // ts.advance_sdnn(v, sp_diffs[i], pde, dt, &mux);  
                 // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
             }
