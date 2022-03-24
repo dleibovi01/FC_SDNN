@@ -147,22 +147,22 @@ void TestingPatch1D()
 
 void TestingMesh1D()
 {
-    Mesh1DUniform mesh{0, 1, 2, 10, 2, 1, 1, true, false};
-    Print_Mesh1D(mesh);
-    std::string problem = "step"; 
-    IC ic{problem, 1};
-    ic(&mesh);
-    Print_Mesh1D(mesh);
-    mesh.setIntraPatchBC(1, 0);
-    Print_Mesh1D(mesh);
-    int unknowns = 1;
-    BC bc{"", unknowns};
-    bc(&mesh, 0.0);
-    Print_Mesh1D(mesh);
+    // Mesh1DUniform mesh{0, 1, 2, 10, 2, 1, 1, true, false};
+    // Print_Mesh1D(mesh);
+    // std::string problem = "step"; 
+    // IC ic{problem, 1};
+    // ic(&mesh);
+    // Print_Mesh1D(mesh);
+    // mesh.setIntraPatchBC(1, 0);
+    // Print_Mesh1D(mesh);
+    // int unknowns = 1;
+    // BC bc{"", unknowns};
+    // bc(&mesh, 0.0);
+    // Print_Mesh1D(mesh);
 
-    Mesh1DUniform mesh2 = mesh;
-    std::cout <<"Printing second mesh" << std::endl;
-    Print_Mesh1D(mesh2);
+    // Mesh1DUniform mesh2 = mesh;
+    // std::cout <<"Printing second mesh" << std::endl;
+    // Print_Mesh1D(mesh2);
 
 }
 
@@ -233,97 +233,99 @@ global std::string B1_filename = "B1.txt";
     */
 }
 
-// void TestingSDNN()
-// {  
+void TestingSDNN()
+{  
 
-//     // Create a PDE
-//     double T = 0.1;
-//     // double dt = 0.00002;
-//     double dt = 0.000001;
-//     // std::string problem = "one_wave";
-//     std::string problem = "one_wave";
-//     BC bc{problem, 1};
-//     IC ic{problem, 1};
-//     double alpha = 1.0;
-//     double a = 1.0;
+    // Create a PDE
+    double T = 0.7;
+    // double dt = 0.00002;
+    double dt = 0.000001;
+    // std::string problem = "one_wave";
+    std::string problem = "one_wave";
+    // BC bc{problem, 1};
+    BC_LA_One_Wave bc;
+    IC ic{problem, 1};
+    double alpha = 1.0;
+    double a = 1.0;
     
-//     // ANN ann{W1_filename, W2_filename, W3_filename, W4_filename, B1_filename, 
-//     //     B2_filename, B3_filename, B4_filename, alpha};  
-//     ANN ann{alpha};  
-//     LA1D_SDNN pde {ic, bc, T, a, ann};      
-//     int intrb = 6;
-//     int npatches = 30;
-//     int overlap = 12;
-//     // int N = 250 + (npatches - 1)*overlap;
-//     int N = 101;
+    // ANN ann{W1_filename, W2_filename, W3_filename, W4_filename, B1_filename, 
+    //     B2_filename, B3_filename, B4_filename, alpha};  
+    ANN ann{alpha};  
+    LA1D_SDNN pde {ic, bc, T, a, ann};      
+    int intrb = 6;
+    int npatches = 1;
+    int overlap = 12;
+    // int N = 250 + (npatches - 1)*overlap;
+    int N = 501;
 
 
-//    // Create a time-stepping scheme
-//     SSPRK_4 TS;
-//     int stages = TS.getStages();
+   // Create a time-stepping scheme
+    SSPRK_4 TS;
+    int stages = TS.getStages();
     
 
-//     // Create a mesh
-//     int unknowns = pde.getPhysUnknowns();
-//     Mesh1DUniform mesh{0, 1.4, npatches, N, overlap, intrb, unknowns*stages + 3, 
-//         true, false};
-//     ic(&mesh);
-//     //Print_Mesh1D(mesh);   
+    // Create a mesh
+    int unknowns = pde.getPhysUnknowns();
+    Mesh1DUniform mesh{0, 1.4, npatches, N, overlap, intrb, unknowns*stages + 3, 
+        true, false};
+    ic(&mesh);
+    //Print_Mesh1D(mesh);   
 
-//     VectorField1D v = (mesh.getPatches())[0]->getFlow();
-//     int C = 27;
-//     int d = 5;
+    VectorField1D v = (mesh.getPatches())[0]->getFlow();
+    int C = 27;
+    int d = 5;
 
-//     double* A = new double [C*d];
-//     double* Q = new double [d*d];
-//     double* AQ = new double [C*d];
-//     double* FAQF = new double [C*d];    
-//     std::string filename_A = "../include/Ad5C27.txt";
-//     std::string filename_Q = "../include/Qd5C27.txt";
-//     read_FC_Data(A, Q, d, C, filename_A, filename_Q);
-//     build_Cont_Mat(A, Q, d, C, AQ, FAQF);
+    double* A = new double [C*d];
+    double* Q = new double [d*d];
+    double* AQ = new double [C*d];
+    double* FAQF = new double [C*d];    
+    std::string filename_A = "../include/Ad5C27.txt";
+    std::string filename_Q = "../include/Qd5C27.txt";
+    read_FC_Data(A, Q, d, C, filename_A, filename_Q);
+    build_Cont_Mat(A, Q, d, C, AQ, FAQF);
 
-//     int stage = 0;
-//     std::vector<FC_1D<Patch1DUniform> > diff_schemes;
-//     std::vector<FC_1D<Patch1DUniform> > filters;
-//     double alpha0 = 10.0;
-//     double p_0 = 2.0;
-//     double p = 14.0;
-//     double delta = 0.1;
-//     for(int i = 0; i < npatches; i++)
-//     {
-//         diff_schemes.push_back(FC_1D<Patch1DUniform> 
-//             (N, d, C, mesh.getPatches()[i], delta));
-//         filters.push_back(FC_1D<Patch1DUniform> 
-//             (N, d, C, mesh.getPatches()[i], alpha0, p_0));
-//     }
-//     // Print_Mat(diff_schemes[0].getShiftCoeffs(), N + C, 1);
-//     for(int i = 0; i < npatches; i++)
-//     {
-//         filters.push_back(FC_1D<Patch1DUniform> 
-//             (N, d, C, mesh.getPatches()[i], alpha0, p));
-//     }
+    int stage = 0;
+    std::vector<FC_1D<Patch1DUniform> > diff_schemes;
+    std::vector<FC_1D<Patch1DUniform> > filters;
+    double alpha0 = 10.0;
+    double p_0 = 2.0;
+    double p = 14.0;
+    double delta = 0.1;
+    for(int i = 0; i < npatches; i++)
+    {
+        diff_schemes.push_back(FC_1D<Patch1DUniform> 
+            (N, d, C, mesh.getPatches()[i], delta));
+        filters.push_back(FC_1D<Patch1DUniform> 
+            (N, d, C, mesh.getPatches()[i], alpha0, p_0));
+    }
+    // Print_Mat(diff_schemes[0].getShiftCoeffs(), N + C, 1);
+    for(int i = 0; i < npatches; i++)
+    {
+        filters.push_back(FC_1D<Patch1DUniform> 
+            (N, d, C, mesh.getPatches()[i], alpha0, p));
+    }
 
 
-//     // Create a solver
-//     Solver<Mesh1DUniform, LA1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, 
-//         FC_1D<Patch1DUniform> > slv{mesh, pde, TS, diff_schemes, filters};
+    // Create a solver
+    Solver<Mesh1DUniform, LA1D_SDNN<BC_LA_One_Wave>, SSPRK_4,
+        FC_1D<Patch1DUniform>, FC_1D<Patch1DUniform> >
+        slv{mesh, pde, TS, diff_schemes, filters};
 
-//     // Run the solver
-//     double CFL = 1.5;
-//     bool visc = true;
-//     bool adaptive = false;
-//     slv.solve_sdnn(dt, CFL, adaptive, visc);    
+    // Run the solver
+    double CFL = 1.5;
+    bool visc = true;
+    bool adaptive = true;
+    slv.solve_sdnn(dt, CFL, adaptive, visc);    
 
-//     // Print the solution
-//     Mesh1DUniform mesh1 = slv.getMesh();
+    // Print the solution
+    Mesh1DUniform mesh1 = slv.getMesh();
 
-//     std::cout << "Solution" << std::endl;
-//     // Print_Mesh1D(mesh1);
+    std::cout << "Solution" << std::endl;
+    // Print_Mesh1D(mesh1);
 
-//     std::string result_file = "result.txt";
-//     Print_Mesh1D(mesh1, unknowns, intrb, result_file);
-// }
+    std::string result_file = "result.txt";
+    Print_Mesh1D(mesh1, unknowns, intrb, result_file);
+}
 
 
 void TestingEulerSDNN()
@@ -336,7 +338,8 @@ void TestingEulerSDNN()
     double dt = 0.000005;
     // std::string problem = "smooth_LA";
     std::string problem = "Euler1D_Sod";
-    BC bc{problem, 3};
+    // BC bc{problem, 3};
+    BC_Euler_Sod bc;
     IC ic{problem, 3};
     double alpha = 1.0;
     double gamma = 7.0/5.0;
@@ -344,7 +347,7 @@ void TestingEulerSDNN()
     // ANN ann{W1_filename, W2_filename, W3_filename, W4_filename, B1_filename, 
     //     B2_filename, B3_filename, B4_filename, alpha};  
     ANN ann{alpha};  
-    Euler1D_SDNN pde {ic, bc, T, gamma, ann};      
+    Euler1D_SDNN<BC_Euler_Sod> pde {ic, bc, T, gamma, ann};      
     // int intrb = 6;
     // int npatches = 15;
     // int overlap = 24;
@@ -398,7 +401,6 @@ void TestingEulerSDNN()
         filters.push_back(FC_1D<Patch1DUniform> 
             (N, d, C, mesh.getPatches()[i], alpha0, p_0));
     }
-    // Print_Mat(diff_schemes[0].getShiftCoeffs(), N + C, 1);
     for(int i = 0; i < npatches; i++)
     {
         filters.push_back(FC_1D<Patch1DUniform> 
@@ -407,7 +409,7 @@ void TestingEulerSDNN()
 
 
     // Create a solver
-    Solver<Mesh1DUniform, Euler1D_SDNN, SSPRK_4, FC_1D<Patch1DUniform>, 
+    Solver<Mesh1DUniform, Euler1D_SDNN<BC_Euler_Sod>, SSPRK_4, FC_1D<Patch1DUniform>, 
         FC_1D<Patch1DUniform> > slv{mesh, pde, TS, diff_schemes, filters};
 
     // Run the solver
@@ -420,7 +422,7 @@ void TestingEulerSDNN()
     Mesh1DUniform mesh1 = slv.getMesh();
 
     std::cout << "Solution" << std::endl;
-    // Print_Mesh1D(mesh1);
+    Print_Mesh1D(mesh1);
 
     std::string result_file = "result.txt";
     Print_Mesh1D(mesh1, unknowns, intrb, result_file);
@@ -437,17 +439,17 @@ void TestingEulerWENO()
     //  double dt = 0.01;
     // std::string problem = "smooth_LA";
     std::string problem = "Euler1D_Sod";
-    BC bc{problem, 3};
+    BC_Euler_Sod bc;
     IC ic{problem, 3};
     double alpha = 1.0;
     double gamma = 7.0/5.0;
     
     Euler1D_LF pde {ic, bc, T, gamma};      
     int intrb = 6;
-    int npatches = 4;
-    int overlap = 24;
+    int npatches = 1;
+    int overlap = 12;
     // int N = 250 + (npatches - 1)*overlap;
-    int N = 500;
+    int N = 401;
 
 
    // Create a time-stepping scheme
@@ -457,8 +459,6 @@ void TestingEulerWENO()
 
     // Create a mesh
     int unknowns = pde.getPhysUnknowns();
-    // Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
-    //     true, true};
     Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
         3, 3};
     ic(&mesh);
@@ -478,7 +478,7 @@ void TestingEulerWENO()
 
     std::cout << " Created diff schemes " << std::endl;
     // Create a solver
-    Solver<Mesh1DUniform, Euler1D_LF, SSPRK_4,
+    Solver<Mesh1DUniform, Euler1D_LF<BC_Euler_Sod>, SSPRK_4,
         WENO_5Z_1D<Patch1DUniform, VectorField1D>, 
         WENO_5Z_1D<Patch1DUniform, VectorField1D> >
         slv{mesh, pde, TS, diff_schemes};
@@ -690,10 +690,10 @@ int main()
     //TestingNode1D();
     //TestingPatch1D();
     //TestingMesh1D();
-    // TestingSDNN();
+    TestingSDNN();
 
 
-    TestingEulerSDNN();
+    // TestingEulerSDNN();
     // TestingEulerWENO();
 
     // TestingSVW();

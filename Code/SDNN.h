@@ -290,14 +290,17 @@ template<typename Mesh, typename PDE>
 void updateVisc(Mesh *mesh, const SVW_mesh &svw_mesh, const PDE &pde,
     int phys_unknowns, int stages, int stage)
 {
-    auto patches = mesh->getPatches();
-    int npatches = patches.size();
-    auto svws = svw_mesh.getSVWs();
-    for(int i = 0; i < npatches; i++)
+    // auto patches = mesh->getPatches();
+    // int npatches = patches.size();
+    // auto svws = svw_mesh.getSVWs();
+    // for(int i = 0; i < npatches; i++)
+    for(int i = 0; i < mesh->getPatches().size(); i++)
     {
         // patch = patches[i];
-        updateViscPatch(patches[i], mesh, svws[i], pde, phys_unknowns, stages,
-            stage);
+        // updateViscPatch(patches[i], mesh, svws[i], pde, phys_unknowns, stages,
+        //     stage);
+        updateViscPatch(mesh->getPatches()[i], mesh, svw_mesh.getSVWs()[i], pde,
+            phys_unknowns, stages, stage);
     }
 }
 

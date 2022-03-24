@@ -14,6 +14,8 @@
 #include "Mesh.h"
 #include "Patch1DUniform.h"
 #include "IC.h"
+#include "BC_LA_1D.h"
+#include "BC_Euler_1D.h"
 #include "BC.h"
 #include "printing.h"
 #include "SpatDiffScheme.h"

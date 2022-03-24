@@ -18,7 +18,7 @@
 #include <array>
 
 
-template <typename VectorField>
+template <typename VectorField, typename BC>
 class PDE{
 
 protected:
@@ -37,7 +37,7 @@ public:
     PDE(const IC &_ic, const BC &_bc, double &_T, int _pu) : ic{_ic}, bc{_bc}, 
         T{_T}, phys_unknowns{_pu} {}
     
-    PDE(const PDE<VectorField> &pde) : ic{pde.ic}, bc{pde.bc}, T{pde.T}, 
+    PDE(const PDE<VectorField, BC> &pde) : ic{pde.ic}, bc{pde.bc}, T{pde.T}, 
         phys_unknowns{pde.phys_unknowns} {}
  
     virtual ~PDE() {};
@@ -51,14 +51,14 @@ public:
 };
 
 
-class LA1D : public PDE<VectorField1D>{
+class LA1D : public PDE<VectorField1D, BC>{
 
 double a;
 
 public:
 
     LA1D(const IC &_ic, const BC &_bc, double &_T, double _a) : 
-        PDE<VectorField1D>{_ic, _bc, _T, 1}, a{_a} {};
+        PDE<VectorField1D, BC>{_ic, _bc, _T, 1}, a{_a} {};
 
     VectorField1D Prim_to_cons(const VectorField1D &v) {return v;}
     VectorField1D Cons_to_prim(const VectorField1D &v) {return v;}
@@ -68,8 +68,8 @@ public:
 
 };
 
-template<typename VectorField>
-class SDNN_flux : public PDE<VectorField>{
+template<typename VectorField, typename BC>
+class SDNN_flux : public PDE<VectorField, BC>{
 
 protected: 
 
@@ -78,10 +78,10 @@ ANN ann;
 public:
 
     SDNN_flux(const IC &_ic, const BC &_bc, double &_T, int _pu, 
-        const ANN &_ann) : PDE<VectorField>{_ic, _bc, _T, _pu}, ann{_ann} {}
+        const ANN &_ann) : PDE<VectorField, BC>{_ic, _bc, _T, _pu}, ann{_ann} {}
 
     // Need a copy constructor and copy-assignment
-    SDNN_flux(const SDNN_flux<VectorField> & flux) : PDE<VectorField>(flux), 
+    SDNN_flux(const SDNN_flux<VectorField, BC> & flux) : PDE<VectorField, BC>(flux), 
         ann{flux.ann} {}    
 
     const ANN & getANN() const {return ann;}
@@ -150,17 +150,17 @@ double getMuMax(const VectorField &v, int unknowns, int stages) const
 
 };
 
-
-class LA1D_SDNN : public SDNN_flux<VectorField1D>{
+template <typename BC> 
+class LA1D_SDNN : public SDNN_flux<VectorField1D, BC>{
 
 public:
 
 
     LA1D_SDNN(const IC &_ic, const BC &_bc, double &_T, double _a, 
-        const ANN &ann) : SDNN_flux<VectorField1D>{_ic, _bc, _T, 1, ann}, 
+        const ANN &ann) : SDNN_flux<VectorField1D, BC>{_ic, _bc, _T, 1, ann}, 
         a{_a} {}
 
-    LA1D_SDNN(const LA1D_SDNN & flux) : SDNN_flux<VectorField1D>(flux), 
+    LA1D_SDNN(const LA1D_SDNN<BC> & flux) : SDNN_flux<VectorField1D, BC>(flux), 
         a{flux.a} {}
 
 
@@ -183,17 +183,59 @@ public:
 
     template<typename Sp_diff>
     void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
-        const Sp_diff &sp, int stages, int stage, double* mux) const
+        const Sp_diff &sp, int stages, int stage, const double* mux) const
     {
-        int N = v.getLength();
-        double data[N];
-        sp.diff(v.getField(stage), data);
-        vdMul(N, v.getField(stages + 1), data, data);
-        cblas_dscal(N, -1.0, data, 1);
-        cblas_daxpy(N, a, v.getField(stage), 1, data, 1);
-        sp.diff(data, data);
-        flux->setField(0, N, data);
+        // const int N = v.getLength();
+        // double data[N];
+        // sp.diff(v.getField(stage), data);
+        // vdMul(N, v.getField(stages + 1), data, data);
+        // cblas_dscal(N, -1.0, data, 1);
+        // cblas_daxpy(N, a, v.getField(stage), 1, data, 1);
+        // sp.diff(data, data);
+        // flux->setField(0, N, data);
+
+        const int N = v.getLength();
+        double k1x[N];
+        double k1xx[N];
+
+        // Differentiating
+        sp.diff(v.getField(stage), k1x, k1xx);
+
+        computeDerFlux(v, flux, stages, stage, mux, k1x, k1xx);
     }
+
+    template<typename Sp_diff>
+    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+        const Sp_diff &sp, int stages, int stage, const double * mux, 
+        const std::vector<std::complex<double> *>  & u_hat,
+        const std::vector<int> & fft_loc) const
+    {
+        const int N = v.getLength();
+        double k1x[N];
+        double k1xx[N];
+
+        // Differentiating
+        sp.diff(u_hat[fft_loc[0]], k1x, k1xx);
+
+        computeDerFlux(v, flux, stages, stage, mux, k1x, k1xx);
+    }
+
+    void computeDerFlux(const VectorField1D &v, VectorField1D* flux, 
+        int stages, int stage, const double * mux, const double *k1x, 
+        const double *k1xx) const
+    {
+        const int N = v.getLength();
+        double data[N];
+        double data2[N];
+        VectorMul(N, k1x, mux, data);
+        VectorMul(N, v.getField(stages + 1), k1xx, data2);
+        VectorAdd(N, data2, data, data);
+        cblas_dscal(N, -1.0, data, 1);
+        cblas_daxpy(N, a, k1x, 1, data, 1);
+        flux->setField(0, N, data);
+
+    }
+
 
     void getMWSB(const VectorField1D &v, double * MWSB) const
     {
@@ -217,16 +259,18 @@ private:
 
 };
 
+template<typename BC>
+class Euler1D : public PDE<VectorField1D, BC>{
 
-class Euler1D: public PDE<VectorField1D>{
+    using PDE<VectorField1D, BC>::phys_unknowns;
 
 public:
 
 
     Euler1D(const IC &_ic, const BC &_bc, double &_T, double _gamma) : 
-        PDE<VectorField1D>{_ic, _bc, _T, 3}, gamma{_gamma} {}
+        PDE<VectorField1D, BC>{_ic, _bc, _T, 3}, gamma{_gamma} {}
 
-    Euler1D(const Euler1D & flux) : PDE<VectorField1D>(flux), 
+    Euler1D(const Euler1D<BC> & flux) : PDE<VectorField1D, BC>(flux), 
         gamma{flux.gamma} {}
 
     void Cons_to_flux(const VectorField1D &v, VectorField1D* flux, int stages,
@@ -288,21 +332,27 @@ protected :
 };
 
 
+template<typename BC>
+class Euler1D_LF : public Euler1D<BC>{
 
-class Euler1D_LF : public Euler1D{
+    // using Euler1D<BC>::phys_unknowns;
+    using Euler1D<BC>::gamma;
+    using Euler1D<BC>::Cons_to_flux;
 
     public:
 
     Euler1D_LF(const IC &_ic, const BC &_bc, double &_T, double _gamma) : 
-        Euler1D{_ic, _bc, _T, _gamma} {}
+        Euler1D<BC>{_ic, _bc, _T, _gamma} {}
 
-    Euler1D_LF(const Euler1D_LF & flux) : Euler1D(flux) {}
+    Euler1D_LF(const Euler1D_LF<BC> & flux) : Euler1D<BC>(flux) {}
 
     template<typename Sp_diff>
     void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
         const Sp_diff &sp, int stages, int stage, 
         std::vector<VectorField1D>* data) const
     {
+
+        int phys_unknowns = 3;
         VectorField1D flux2 = *flux;
         const int N = v.getLength();
         double vel[N];
@@ -346,16 +396,19 @@ class Euler1D_LF : public Euler1D{
 };
 
 
-class Euler1D_SDNN : public SDNN_flux<VectorField1D>{
+template<typename BC>
+class Euler1D_SDNN : public SDNN_flux<VectorField1D, BC>{
+
+    using SDNN_flux<VectorField1D, BC>::phys_unknowns;
 
 public:
 
 
     Euler1D_SDNN(const IC &_ic, const BC &_bc, double &_T, double _gamma, 
-        const ANN &ann) : SDNN_flux<VectorField1D>{_ic, _bc, _T, 3, ann}, 
+        const ANN &ann) : SDNN_flux<VectorField1D, BC>{_ic, _bc, _T, 3, ann}, 
         gamma{_gamma} {}
 
-    Euler1D_SDNN(const Euler1D_SDNN & flux) : SDNN_flux<VectorField1D>(flux), 
+    Euler1D_SDNN(const Euler1D_SDNN<BC> & flux) : SDNN_flux<VectorField1D, BC>(flux), 
         gamma{flux.gamma} {}
 
 
@@ -416,92 +469,6 @@ public:
     }
 
 
-    template<typename Sp_diff, std::size_t fourPts>
-    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
-        const Sp_diff &sp, int stages, int stage, 
-        const std::vector<std::array<std::complex<double>, fourPts> > & ffts_old, 
-        std::vector<std::array<std::complex<double> , fourPts> > *ffts_flux) const
-    {
-        const int N = v.getLength();
-        const int C = sp.getC();
-        int d = sp.getD();
-        std::complex<double> * der_coeffs = sp.getDerCoeffs();
-
-
-        double fourPts_dbl = sp.getFourPts_dbl();
-        DFTI_DESCRIPTOR_HANDLE desc_handle = sp.getDescHandle();
-
-        double data1[N];
-        double data2[N];
-        double data2_temp[N];
-        double data3[N];
-        double vel[N];
-        double kin[N];
-        double data_temp[N];
- 
-
-        double k1x[N];
-        double k2x[N];
-        double k3x[N];       
-
-        std::complex<double> fft_temp[N+C]; 
-
-        vdDiv(N, v.getField(stage*phys_unknowns + 1), 
-            v.getField(stage*phys_unknowns), vel);
-        vdMul(N, vel, v.getField(stage*phys_unknowns + 1), kin);
-
-        // Differentiating
-        FC_Der(k1x, ffts_old[0].data(), der_coeffs, N, C, desc_handle);
-        FC_Der(k2x, ffts_old[1].data(), der_coeffs, N, C, desc_handle);
-        FC_Der(k3x, ffts_old[2].data(), der_coeffs, N, C, desc_handle);
-
-        // 1st element
-        vdMul(N, v.getField(stages*phys_unknowns + 1), k1x, data1);
-        cblas_daxpy(N, -1.0, v.getField(stage*phys_unknowns + 1), 1, data1, 1);
-        cblas_dscal(N, -1.0, data1, 1);        
-        // Fcont_Gram_Blend(data1, ffts_flux->at(0), N, d, C, fourPts_dbl, sp.getAQ(),
-        //     sp.getFAQF(), desc_handle);
-        Fcont_Gram_Blend(data1, fft_temp, N, d, C, fourPts_dbl, sp.getAQ(),
-            sp.getFAQF(), desc_handle);
-        std::copy(fft_temp, fft_temp + N + C, ffts_flux->at(0).begin());
-
-        // 2nd element
-        vdMul(N, v.getField(stages*phys_unknowns + 1), k2x, data2);
-        std::copy(kin, kin + N, data_temp);
-        cblas_dscal(N, 1.5 - 0.5*gamma, data_temp, 1);
-        cblas_daxpy(N, gamma - 1.0, v.getField(stage*phys_unknowns + 2), 1, 
-            data_temp, 1);
-        cblas_daxpy(N, -1.0, data_temp, 1, data2, 1);
-        cblas_dscal(N, -1.0, data2, 1);
-        // Fcont_Gram_Blend(data2, ffts_flux->at(1), N, d, C, fourPts_dbl, sp.getAQ(),
-        //     sp.getFAQF(), desc_handle);
-        Fcont_Gram_Blend(data1, fft_temp, N, d, C, fourPts_dbl, sp.getAQ(),
-            sp.getFAQF(), desc_handle);
-        std::copy(fft_temp, fft_temp + N + C, ffts_flux->at(1).begin());
-
-        // 3rd element
-        vdMul(N, v.getField(stages*phys_unknowns + 1), k3x, data3);
-        std::copy(kin, kin + N, data_temp);
-        cblas_dscal(N, -0.5*(gamma - 1.0), data_temp, 1);
-        cblas_daxpy(N, gamma, v.getField(stage*phys_unknowns + 2), 1, 
-            data_temp, 1);
-        vdMul(N, vel, data_temp, data_temp);
-        cblas_daxpy(N, -1.0, data_temp, 1, data3, 1);
-        cblas_dscal(N, -1.0, data3, 1);
-        // Fcont_Gram_Blend(data3, ffts_flux->at(2), N, d, C, fourPts_dbl, sp.getAQ(),
-        //     sp.getFAQF(), desc_handle);
-        Fcont_Gram_Blend(data1, fft_temp, N, d, C, fourPts_dbl, sp.getAQ(),
-            sp.getFAQF(), desc_handle);
-        std::copy(fft_temp, fft_temp + N + C, ffts_flux->at(2).begin());
-
-        // Differentiating
-        flux->setField(0, N, data1);
-        flux->setField(1, N, data2);
-        flux->setField(2, N, data3);
-    }
-
-
-
     template<typename Sp_diff>
     void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
         const Sp_diff &sp, int stages, int stage, const double * mux) const
@@ -521,23 +488,6 @@ public:
         sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx);
         sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx);
 
-        // std::cout << "k1x" << std::endl;
-        // Print_Mat(k1x, N, 1);
-
-        // std::cout << "k1xx" << std::endl;
-        // Print_Mat(k1xx, N, 1);
-
-        // std::cout << "k2x" << std::endl;
-        // Print_Mat(k2x, N, 1);
-
-        // std::cout << "k2xx" << std::endl;
-        // Print_Mat(k2xx, N, 1);
-
-        // std::cout << "k3x" << std::endl;
-        // Print_Mat(k3x, N, 1);
-
-        // std::cout << "k3xx" << std::endl;
-        // Print_Mat(k3xx, N, 1);
 
         computeDerFlux(v, flux, stages, stage, mux, k1x, k2x, k3x, k1xx, 
             k2xx, k3xx);
@@ -558,16 +508,6 @@ public:
         double k1xx[N];
         double k2xx[N];
         double k3xx[N];   
-
-        ////////////////////////////////////////////////////////////////////
-        // Just for testing
-        // int C = sp.getC();
-        // std::complex<double> filt_coeffs[N + C];
-        // std::complex<double> * der_coeffs = sp.getDerCoeffs();
-        // getFiltCoeffs(filt_coeffs, N + C, 10.0, 14.0);
-        // vzMul(N + C, der_coeffs, filt_coeffs, der_coeffs);
-        ////////////////////////////////////////////////////////////////////
-
 
         // Differentiating
         sp.diff(u_hat[fft_loc[0]], k1x, k1xx);
@@ -618,7 +558,7 @@ public:
         // vdAdd(N, data1_temp, data1, data1);
         VectorAdd(N, data1_temp, data1, data1);
         cblas_dscal(N, -1.0, data1, 1);
-        vdAdd(N, k2x, data1, data1);
+        VectorAdd(N, k2x, data1, data1);
 
         // 2nd element
         // get the viscous term

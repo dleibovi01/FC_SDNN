@@ -260,9 +260,6 @@ template<typename Patch>
 class FC_1D : public SpatDiffScheme<Patch>{
 
 Patch* patch;
-// std::complex<double> * der_coeffs;
-// std::complex<double> * der_coeffs_2;
-// std::complex<double> * filter_coeffs;
 double * der_coeffs;
 double * der_coeffs_2;
 double * filter_coeffs;
@@ -289,9 +286,6 @@ FC_1D(int _N, int _d, int _C, Patch *_patch, std::string filename_A,
    fourPts_dbl = double(fourPts);
    double h = patch->getH();
    prd = fourPts_dbl*h;
-   // der_coeffs = new std::complex<double> [N+C];
-   // der_coeffs_2 = new std::complex<double> [N+C];
-   // filter_coeffs = new std::complex<double> [N+C];
    der_coeffs = double[N+C];
    der_coeffs_2 = double[N+C];
    filter_coeffs = new double [N+C];
@@ -304,10 +298,6 @@ FC_1D(int _N, int _d, int _C, Patch *_patch, std::string filename_A,
    const std::complex<double> I(0, 1); 
    int k[N + C];
    getK(k, N + C);
-   // for(int j = 0; j < N + C; j++)
-   // {
-   //    der_coeffs[j] = 2.0*pi/prd*I*double(k[j]);
-   // } 
    for(int j = 0; j < N + C; j++)
    {
       der_coeffs[j] = 2.0*pi/prd*double(k[j]);
@@ -360,22 +350,16 @@ FC_1D(const FC_1D &slv)
    fourPts_dbl = slv.fourPts_dbl;
    prd = slv.getPrd();
    desc_handle = slv.getDescHandle();
-   // der_coeffs = new std::complex<double> [N+C];
-   // der_coeffs_2 = new std::complex<double> [N+C];
-   // filter_coeffs = new std::complex<double> [N+C]; 
    der_coeffs = new double [N+C];
    der_coeffs_2 = new double [N+C];
    filter_coeffs = new double [N+C]; 
    shift_coeffs = new std::complex<double> [N+C];
    AQ = new double [C*d];
    FAQF = new double [C*d];
-   // std::complex<double> * d_c = slv.getDerCoeffs();
    double * d_c = slv.getDerCoeffs();
    std::copy(d_c, d_c + N + C, der_coeffs);
-   // std::complex<double> * d_c_2 = slv.getDerCoeffs2();
    double * d_c_2 = slv.getDerCoeffs2();
    std::copy(d_c_2, d_c_2 + N + C, der_coeffs_2);
-   // std::complex<double> * f_c = slv.getFilterCoeffs();
    double * f_c = slv.getFilterCoeffs();
    std::copy(f_c, f_c + N + C, filter_coeffs);  
    std::complex<double> * s_c = slv.getShiftCoeffs();
@@ -404,10 +388,7 @@ int getC() const {return C;}
 int getFourPts() const {return fourPts;}
 double getFourPts_dbl() const {return fourPts_dbl;}
 double getPrd() const {return prd;}
-// std::complex<double> * getFilterCoeffs() const {return filter_coeffs;}
 double * getFilterCoeffs() const {return filter_coeffs;}
-// std::complex<double> * getDerCoeffs() const {return der_coeffs;}
-// std::complex<double> * getDerCoeffs2() const {return der_coeffs_2;}
 double * getDerCoeffs() const {return der_coeffs;}
 double * getDerCoeffs2() const {return der_coeffs_2;}
 std::complex<double> * getShiftCoeffs() const {return shift_coeffs;}
@@ -416,24 +397,9 @@ double * getFAQF() const {return FAQF;}
 DFTI_DESCRIPTOR_HANDLE getDescHandle() const {return desc_handle;}
 Patch* getPatch() const {return patch;}
 
-// VectorField1D  diff(const VectorField1D & v) const
-// {
-//    VectorField1D u{v.getUnknowns(), v.getLength()};
-//    int unknowns = v.getUnknowns();
-//    double data[v.getLength()];
-//    for(int i = 0; i < unknowns; i++)
-//    {
-//       FC_Der(v.getField(i), data, der_coeffs, filter_coeffs, N, d, C,
-//          fourPts_dbl, AQ, FAQF, desc_handle);
-//       u.setField(i, N, data);
-      
-//    }
-//    return u;
-// }
 
 void diff(const double* y, double *y_der) const
 {
-   // FC_Der(y, y_der, der_coeffs, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
    std::complex<double> y_hat[N + C];
    Fcont_Gram_Blend(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
    FC_Der(y_der, y_hat, der_coeffs, N, C, desc_handle);
@@ -466,31 +432,6 @@ void set_FC_Data(double* A, double* Q, int d, int C)
    }
 }
 
-// VectorField1D filter(const VectorField1D & v) const
-// {
-//    VectorField1D u{v};
-//    int unknowns = v.getUnknowns();
-//    int length = v.getLength();   
-//    double data[length];  
-//    for(int i = 0; i < unknowns; i++)
-//    {
-//       FC_Der(v.getField(i), data, filter_coeffs, filter_coeffs, length, d, C,
-//          fourPts_dbl, AQ, FAQF, desc_handle);
-//       u.setField(i, length, data);
-//    } 
-//    return u;
-// }
-
-// template<typename VectorField>
-// void filter(VectorField *v, const std::vector<int> &unknowns) const
-// {
-//    int length = v->getLength();    
-//    for(int i = 0; i < unknowns.size(); i++)
-//    {
-//       FC_Der(v->getField(unknowns[i]), v->getField(unknowns[i]), filter_coeffs,
-//          filter_coeffs, length, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
-//    } 
-// }
 
 template<typename VectorField>
 void filter(VectorField *v, const std::vector<int> &unknowns, 
@@ -503,7 +444,6 @@ void filter(VectorField *v, const std::vector<int> &unknowns,
    {
       Fcont_Gram_Blend(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N, d, C,
          fourPts_dbl, AQ, FAQF, desc_handle);
-      // VectorMul(N + C, ffts->at(fft_loc[i]), filter_coeffs, ffts->at(fft_loc[i]));
       VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]), ffts->at(fft_loc[i]));
       std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
       int status = DftiComputeBackward(desc_handle, f_ext);
@@ -527,9 +467,6 @@ private:
       fourPts_dbl = double(fourPts);
       double h = patch->getH();
       prd = fourPts_dbl*h;
-      // der_coeffs = new std::complex<double> [N+C];
-      // der_coeffs_2 = new std::complex<double> [N+C];
-      // filter_coeffs = new std::complex<double> [N+C];
       der_coeffs = new double [N+C];
       der_coeffs_2 = new double [N+C];
       filter_coeffs = new double [N+C];
@@ -545,7 +482,6 @@ private:
       getK(k, N + C);
       for(int j = 0; j < N + C; j++)
       {
-         // der_coeffs[j] = 2.0*pi/prd*I*double(k[j]);
          der_coeffs[j] = 2.0*pi/prd*double(k[j]);
          der_coeffs_2[j] = -4.0*pi*pi/prd/prd*double(k[j])*double(k[j]);
       }      
@@ -556,7 +492,6 @@ private:
       status = DftiCreateDescriptor(&desc_handle, DFTI_DOUBLE, DFTI_COMPLEX, 1,
          fourPts); 
       status = DftiCommitDescriptor(desc_handle);
-      // read_FC_Data(A, Q, d, C, filename_A, filename_Q);
       set_FC_Data(A, Q, d, C);
       build_Cont_Mat(A, Q, d, C, AQ, FAQF);      
    }
