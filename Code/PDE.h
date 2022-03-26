@@ -16,6 +16,7 @@
 #include "FC.h"
 #include "printing.h"
 #include <array>
+#include <vector>
 
 
 template <typename VectorField, typename BC>
@@ -183,23 +184,18 @@ public:
 
     template<typename Sp_diff>
     void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
-        const Sp_diff &sp, int stages, int stage, const double* mux) const
+        const Sp_diff &sp, int stages, int stage, const double* mux,
+        const double t) const
     {
-        // const int N = v.getLength();
-        // double data[N];
-        // sp.diff(v.getField(stage), data);
-        // vdMul(N, v.getField(stages + 1), data, data);
-        // cblas_dscal(N, -1.0, data, 1);
-        // cblas_daxpy(N, a, v.getField(stage), 1, data, 1);
-        // sp.diff(data, data);
-        // flux->setField(0, N, data);
-
         const int N = v.getLength();
         double k1x[N];
         double k1xx[N];
 
+        std::vector<double> bc_l = bc.getBC_L(t);
+        std::vector<double> bc_r = bc.getBC_R(t);
+
         // Differentiating
-        sp.diff(v.getField(stage), k1x, k1xx);
+        sp.diff(v.getField(stage), k1x, k1xx, bc_l[0], bc_r[0]);
 
         computeDerFlux(v, flux, stages, stage, mux, k1x, k1xx);
     }
@@ -399,6 +395,7 @@ class Euler1D_LF : public Euler1D<BC>{
 template<typename BC>
 class Euler1D_SDNN : public SDNN_flux<VectorField1D, BC>{
 
+    using SDNN_flux<VectorField1D, BC>::bc;
     using SDNN_flux<VectorField1D, BC>::phys_unknowns;
 
 public:
@@ -471,7 +468,8 @@ public:
 
     template<typename Sp_diff>
     void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
-        const Sp_diff &sp, int stages, int stage, const double * mux) const
+        const Sp_diff &sp, int stages, int stage, const double * mux, 
+        const double h, const double t) const
     {
         const int N = v.getLength();
 
@@ -482,11 +480,15 @@ public:
         double k2xx[N];
         double k3xx[N];   
 
+        std::vector<double> bc_l = bc.getBC_L(t);
+        std::vector<double> bc_r = bc.getBC_R(t);
 
         // Differentiating
-        sp.diff(v.getField(stage*phys_unknowns), k1x, k1xx);
-        sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx);
-        sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx);
+        sp.diff(v.getField(stage*phys_unknowns), k1x, k1xx, h, bc_l[0], bc_r[0]);
+        sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx, h, bc_l[1],
+            bc_r[1]);
+        sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx, h, bc_l[2],
+            bc_r[2]);
 
 
         computeDerFlux(v, flux, stages, stage, mux, k1x, k2x, k3x, k1xx, 

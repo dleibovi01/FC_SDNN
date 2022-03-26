@@ -146,6 +146,8 @@ public:
         {
             // bdry_values = enforceBC(patch->getNode(bdry_nodes[i])->getPos(), t);
             bdry_values = enforceBC(patch->getNode(bdry_nodes[i]), t);
+            // std::cout << "bdry_values[0] = " << bdry_values[0] << std::endl;
+            // std::cout << std::endl;
             for(int j = 0; j < unknowns; j++)
             {
                 patch->setFlowValue(stage*unknowns + j, bdry_nodes[i],

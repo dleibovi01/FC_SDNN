@@ -51,6 +51,8 @@ CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o: ../Code/VectorField1D.
 CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o: ../Code/printing.h
 
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/BC.h
+CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/BC_Euler_1D.h
+CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/BC_LA_1D.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/FC.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/FC_data.h
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/IC.h

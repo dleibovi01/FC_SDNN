@@ -15,7 +15,7 @@ public:
 
     BC_LA_One_Wave() : BC{1} {};
 
-    std::vector<double> enforceBC(const Node1D* node, const double t)
+    std::vector<double> enforceBC(const Node1D* node, const double t) const
     {
         std::vector<double> bdry_values;
         double x = node->getPos();
@@ -26,14 +26,14 @@ public:
         return bdry_values;
     }
 
-    std::vector<double> getBC_L(const double t)
+    std::vector<double> getBC_L(const double t) const
     {
         std::vector<double> bdry_values;
         bdry_values.push_back(0.0); 
         return bdry_values;     
     }
 
-    std::vector<double> getBC_R(const double t)
+    std::vector<double> getBC_R(const double t) const
     {
         std::vector<double> bdry_values;
         bdry_values.push_back(0.0); 

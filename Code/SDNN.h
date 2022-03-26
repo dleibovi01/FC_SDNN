@@ -541,51 +541,6 @@ public :
         double input_2[M];
         double input_3[M];
         double output_4[4];
-        // for(int i = 0; i < N; i++)
-        // {
-        //     if(discard[i] == false)
-        //     {
-        //         std::copy(B1, B1 + M, input_1);
-        //         std::copy(B2, B2 + M, input_2);
-        //         std::copy(B3, B3 + M, input_3);
-        //         std::copy(B4, B4 + 4, output_4);
-
-        //         // lda = M;          
-        //         lda = s; 
-        //         cblas_dgemv (Layout, TRANS, M, s, a, W1, lda, stencils + i*s, 
-        //             incx, 1.0, input_1, incy);   
-        //         // MVMult_rowdom(M, s, W1, stencils + i*s, input_1);
-        //         // VectorAdd(M, input_1, B1, input_1);     
-        //         elu(M, input_1, alpha);
-
-        //         lda = M; 
-        //         cblas_dgemv (Layout, TRANS, M, M, a, W2, lda, input_1, incx, 1.0, 
-        //             input_2, incy);
-        //         // MVMult_rowdom(M, M, W2, input_1, input_2);
-        //         // VectorAdd(M, input_2, B2, input_2);  
-        //         elu(M, input_2, alpha); 
-
-        //         lda = M;
-        //         cblas_dgemv (Layout, TRANS, M, M, a, W3, lda, input_2, incx, 1.0, 
-        //             input_3, incy);
-        //         // MVMult_rowdom(M, M, W3, input_2, input_3);
-        //         // VectorAdd(M, input_3, B3, input_3); 
-        //         elu(M, input_3, alpha);           
-
-        //         // lda = output;
-        //         lda = M;
-        //         cblas_dgemv (Layout, TRANS, output, M, a, W4, lda, input_3, 
-        //             incx, 1.0, output_4, incy); 
-        //         // MVMult_rowdom(output, M, W4, input_3, output_4);
-        //         // VectorAdd(output, output_4, B4, output_4); 
-
-
-        //         tau[i] = std::distance(output_4, 
-        //             std::max_element(output_4, output_4 + output )) + 1;
-
-        //     }
-        // }
-
         int N0 = VectorSum(N, discard);
         int indices[N0];
         double regStencils[s*N0];
@@ -647,12 +602,6 @@ public :
                         output_4 + output*(i + 1))) + 1;
             }
         }
-
-
-
-
-
-
     }
 
 private :

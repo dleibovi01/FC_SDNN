@@ -21,7 +21,17 @@ void read_FC_Data(double *A, double *Q, int d, int C, std::string filename_A,
 void build_Cont_Mat(const double *A, const double *Q, int d, int C, double *AQ, 
     double *FAQF);
 
+void build_Cont_Mat_DN(const double *A, const double *Q, const double* Q_tilde, 
+    int d, int C, double *AQ, double *FAQF);
+
+void build_Cont_Mat_ND(const double *A, const double *Q, const double* Q_tilde, 
+    int d, int C, double *AQ, double *FAQF);
+
 void Fcont_Gram_Blend(const double * fx, std::complex<double> *, int N, int d, 
+    int C, double fourPts, const double * AQ, const double * FAQF, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle);
+
+void Fcont_Gram_Blend_DD(const double * fx, std::complex<double> *, int N, int d, 
     int C, double fourPts, const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
 
@@ -30,31 +40,13 @@ double * FC_Der(const double * fx, std::complex<double> * der_coeffs,
     const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
 
-// void FC_Der(const double * fx, double *f_der, std::complex<double> * der_coeffs, 
-//     int N, int d, int C, double fourPts, const double * AQ, const double * FAQF, 
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
-
 void FC_Der(const double * fx, double *f_der, const double * der_coeffs, 
     int N, int d, int C, double fourPts, const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
 
-// void FC_Der(const double * fx, double *f_der, 
-//     const std::complex<double> * der_coeffs, 
-//     std::complex<double> *filter_coeffs, int N, int d, int C, double fourPts, 
-//     const double * AQ, const double * FAQF, 
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag);
-
-// void FC_Der(double *f_der, const std::complex<double> * f_hat, 
-//     const std::complex<double> * der_coeffs, int N, int C,
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
-
 void FC_Der(double *f_der, const std::complex<double> * f_hat, 
     const double * der_coeffs, int N, int C,
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
-
-// void FC_Der(double *f_der, const std::complex<double> * f_hat, 
-//     const std::complex<double> * der_coeffs, int N, int C,
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag);
 
 void FC_Der(double *f_der, const std::complex<double> * f_hat, 
     const double * der_coeffs, int N, int C,
@@ -80,5 +72,7 @@ void getFiltCoeffs(std::complex<double>* filt_coeffs, int fourPts, double alpha,
 
 void getFiltCoeffs(double* filt_coeffs, int fourPts, double alpha,
     double p);
+
+void getF1_F2(const int d, const int C, double* F1, double* F2);
 
 #endif 

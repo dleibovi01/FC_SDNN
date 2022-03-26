@@ -11,8 +11,22 @@ Patch1D.h
 /home/leibov/Documents/FC_SDNN/Code/Patch1D.h
 Patch1DUniform.h
 /home/leibov/Documents/FC_SDNN/Code/Patch1DUniform.h
+Node1D.h
+/home/leibov/Documents/FC_SDNN/Code/Node1D.h
 Mesh.h
 /home/leibov/Documents/FC_SDNN/Code/Mesh.h
+vector
+-
+
+/home/leibov/Documents/FC_SDNN/Code/BC_Euler_1D.h
+BC.h
+/home/leibov/Documents/FC_SDNN/Code/BC.h
+vector
+-
+
+/home/leibov/Documents/FC_SDNN/Code/BC_LA_1D.h
+BC.h
+/home/leibov/Documents/FC_SDNN/Code/BC.h
 vector
 -
 
@@ -98,6 +112,8 @@ FC.h
 printing.h
 /home/leibov/Documents/FC_SDNN/Code/printing.h
 array
+-
+vector
 -
 
 /home/leibov/Documents/FC_SDNN/Code/Patch1D.h
@@ -225,6 +241,10 @@ Patch1DUniform.h
 /home/leibov/Documents/FC_SDNN/Code/Patch1DUniform.h
 IC.h
 /home/leibov/Documents/FC_SDNN/Code/IC.h
+BC_LA_1D.h
+/home/leibov/Documents/FC_SDNN/Code/BC_LA_1D.h
+BC_Euler_1D.h
+/home/leibov/Documents/FC_SDNN/Code/BC_Euler_1D.h
 BC.h
 /home/leibov/Documents/FC_SDNN/Code/BC.h
 printing.h

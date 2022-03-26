@@ -246,8 +246,8 @@ class Solver{
             for(int i = 0; i < npatches; i++)
             {
                 // auto v = patches[i]->getFlowPtr();
-                ts.advance_sdnn(patches[i]->getFlowPtr(), sp_diffs[i], pde, dt,
-                    true, fft_data, fft_locs[i]);  
+                ts.advance_sdnn(patches[i], sp_diffs[i], pde, dt, 
+                    t, true, fft_data, fft_locs[i]);  
                 // ts.advance_sdnn(v, sp_diffs[i], pde, dt, &mux);  
                 // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
             }
@@ -258,6 +258,8 @@ class Solver{
             mesh.setPatches(patches);
             // mesh.setIntraPatchBC(phys_unknowns);
             pde.getBC()(&mesh, t);
+
+            // std::cout << std::endl;
             
         }
 
@@ -399,7 +401,7 @@ class Solver{
 
             // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux, fft_data, fft_locs,
             //     filters);
-            ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux, fft_data, fft_locs);
+            ts.advance_sdnn(&mesh, sp_diffs, pde, dt, t, &mux, fft_data, fft_locs);
             // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux);
  
             // std::cout << " patch 0" << std::endl;

@@ -659,17 +659,19 @@ public:
 
 
 
-    template<typename VectorField, typename Sp_Diff, typename PDE>
-    void advance_sdnn(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
-        const double dt, bool flag, 
+    template<typename Patch, typename Sp_Diff, typename PDE>
+    void advance_sdnn(Patch* patch, const Sp_Diff &sp_diff, const PDE &pde,
+        const double dt, const double t, bool flag, 
         const std::vector<std::complex<double> *> & ffts, 
         const std::vector<int> & ffts_loc)
     {
+
+        auto v = patch->getFlowPtr();
         const int unknowns = pde.getPhysUnknowns();
         const int N = v->getLength();
         const int C = sp_diff.getC();
-  
-
+        const double h = patch->getH();
+        
         std::vector<int> stage0;
         std::vector<int> stage1;
         std::vector<int> stage2;
@@ -684,13 +686,14 @@ public:
             stage4.push_back(i + 4*unknowns);
         }
 
-        VectorField flux{unknowns, N};
+        // VectorField flux{unknowns, N};
+        auto flux = v->extract(stage0);
 
         
 
         // Pre-computing the derivative of the viscosity mu
         double mux[N];
-        sp_diff.diff(v->getField(stages*unknowns + 1), mux);
+        sp_diff.diff(v->getField(stages*unknowns + 1), mux, h, 0, 0);
 
     //   std::cout << "mu" << std::endl;
     //     Print_Mat(v->getField(stages*unknowns + 1), N, 1);
@@ -714,7 +717,7 @@ public:
         // Print_VectorField1D(v->extract(stage1), true, 17);
 
         // 2nd stage
-        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux);
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux, h, t);
         std::vector<std::vector<int> > extractions2;
         extractions2.push_back(stage0);
         extractions2.push_back(stage1);
@@ -729,7 +732,7 @@ public:
         // Print_VectorField1D(v->extract(stage2), true);
 
         // 3rd stage
-        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 2, mux);
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 2, mux, h, t);
         std::vector<std::vector<int> > extractions3;
         extractions3.push_back(stage0);
         extractions3.push_back(stage2);
@@ -740,7 +743,7 @@ public:
         // Print_VectorField1D(flux, true);
 
         // 4th stage
-        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 3, mux);
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 3, mux, h, t);
         std::vector<std::vector<int> > extractions4;
         extractions4.push_back(stage0);
         extractions4.push_back(stage3);
@@ -749,7 +752,7 @@ public:
 
         // Stepping   
         VectorField1D flux3 = flux;
-        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux);
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux, h, t);
         std::vector<std::vector<int> > extractions5;
         extractions5.push_back(stage2);
         extractions5.push_back(stage3);
@@ -831,7 +834,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
 
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i), t);
             std::vector<std::vector<int> > extractions2;
             extractions2.push_back(stage0);
             extractions2.push_back(stage1);
@@ -852,7 +855,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
             
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i), t);
             std::vector<std::vector<int> > extractions3;
             extractions3.push_back(stage0);
             extractions3.push_back(stage2);
@@ -870,7 +873,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
     
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i), t);
             std::vector<std::vector<int> > extractions4;
             extractions4.push_back(stage0);
             extractions4.push_back(stage3);
@@ -888,8 +891,8 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
       
-            pde.Cons_to_der_flux(*v, &flux3, sp_diff[i], stages, 3, mux->at(i));
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux3, sp_diff[i], stages, 3, mux->at(i), t);
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i), t);
             std::vector<std::vector<int> > extractions5;
             std::vector<std::vector<int> > extractions1;
             extractions1.push_back(stage0);
@@ -978,7 +981,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
 
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i), t);
             std::vector<std::vector<int> > extractions2;
             extractions2.push_back(stage0);
             extractions2.push_back(stage1);
@@ -1000,7 +1003,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
             
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i), t);
             std::vector<std::vector<int> > extractions3;
             extractions3.push_back(stage0);
             extractions3.push_back(stage2);
@@ -1019,7 +1022,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
     
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i), t);
             std::vector<std::vector<int> > extractions4;
             extractions4.push_back(stage0);
             extractions4.push_back(stage3);
@@ -1038,8 +1041,8 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
       
-            pde.Cons_to_der_flux(*v, &flux3, sp_diff[i], stages, 3, mux->at(i));
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux3, sp_diff[i], stages, 3, mux->at(i), t);
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i), t);
             std::vector<std::vector<int> > extractions5;
             std::vector<std::vector<int> > extractions1;
             extractions1.push_back(stage0);
@@ -1097,14 +1100,14 @@ public:
             C = sp_diff[i].getC();
 
             // Pre-computing the derivative of the viscosity mu
-            sp_diff[i].diff(v->getField(stages*unknowns + 1), mux->at(i));    
+            sp_diff[i].diff(v->getField(stages*unknowns + 1), mux->at(i), 0, 0);    
             
             std::vector<std::vector<int> > extractions1;
             extractions1.push_back(stage0);
             std::vector<double> coeffs1 = {1.0, -a11*dt};
             // pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i),
             //     ffts, ffts_loc[i]);
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i), t);
             linComb(v, extractions1, stage1, coeffs1, flux);
         }
         mesh->setIntraPatchBC(unknowns, 1);
@@ -1129,7 +1132,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
 
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i), t);
             std::vector<std::vector<int> > extractions2;
             extractions2.push_back(stage0);
             extractions2.push_back(stage1);
@@ -1150,7 +1153,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
             
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i), t);
             std::vector<std::vector<int> > extractions3;
             extractions3.push_back(stage0);
             extractions3.push_back(stage2);
@@ -1168,7 +1171,7 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
     
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i), t);
             std::vector<std::vector<int> > extractions4;
             extractions4.push_back(stage0);
             extractions4.push_back(stage3);
@@ -1186,8 +1189,8 @@ public:
             N = v->getLength();
             C = sp_diff[i].getC();
       
-            pde.Cons_to_der_flux(*v, &flux3, sp_diff[i], stages, 3, mux->at(i));
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i));
+            pde.Cons_to_der_flux(*v, &flux3, sp_diff[i], stages, 3, mux->at(i), t);
+            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i), t);
             std::vector<std::vector<int> > extractions5;
             std::vector<std::vector<int> > extractions1;
             extractions1.push_back(stage0);
@@ -1211,110 +1214,110 @@ public:
 
 
 
-    template<typename Mesh, typename Sp_Diff, typename PDE>
-    void advance_sdnnv2(Mesh* mesh, const std::vector<Sp_Diff> & sp_diff,
-        const PDE &pde, const double dt, std::vector<double *> *mux, 
-        const std::vector<std::complex<double> *> & ffts, 
-        const std::vector<std::vector<int> > & ffts_loc)
-    {
-        auto patches = mesh->getPatchesPtr();
-        int npatches = patches->size();
+    // template<typename Mesh, typename Sp_Diff, typename PDE>
+    // void advance_sdnnv2(Mesh* mesh, const std::vector<Sp_Diff> & sp_diff,
+    //     const PDE &pde, const double dt, std::vector<double *> *mux, 
+    //     const std::vector<std::complex<double> *> & ffts, 
+    //     const std::vector<std::vector<int> > & ffts_loc)
+    // {
+    //     auto patches = mesh->getPatchesPtr();
+    //     int npatches = patches->size();
         
-        const int unknowns = pde.getPhysUnknowns();
+    //     const int unknowns = pde.getPhysUnknowns();
 
-        std::vector<int> stage0;
-        std::vector<int> stage1;
-        std::vector<int> stage2;
-        std::vector<int> stage3;
-        std::vector<int> stage4;
-        for(int i = 0; i < unknowns; i++)
-        {
-            stage0.push_back(i);
-            stage1.push_back(i + unknowns);
-            stage2.push_back(i + 2*unknowns);
-            stage3.push_back(i + 3*unknowns);
-            stage4.push_back(i + 4*unknowns);
-        }
+    //     std::vector<int> stage0;
+    //     std::vector<int> stage1;
+    //     std::vector<int> stage2;
+    //     std::vector<int> stage3;
+    //     std::vector<int> stage4;
+    //     for(int i = 0; i < unknowns; i++)
+    //     {
+    //         stage0.push_back(i);
+    //         stage1.push_back(i + unknowns);
+    //         stage2.push_back(i + 2*unknowns);
+    //         stage3.push_back(i + 3*unknowns);
+    //         stage4.push_back(i + 4*unknowns);
+    //     }
 
-        auto v = patches->at(0)->getFlowPtr();
-        auto flux = v->extract(stage0);
-        auto flux3 = v->extract(stage0);
-        int N = v->getLength();
-        int C = sp_diff[0].getC();
+    //     auto v = patches->at(0)->getFlowPtr();
+    //     auto flux = v->extract(stage0);
+    //     auto flux3 = v->extract(stage0);
+    //     int N = v->getLength();
+    //     int C = sp_diff[0].getC();
 
-        // int i = 0;
+    //     // int i = 0;
 
-        for(int i = 0; i < npatches; i++)
-        {
-            v = patches->at(i)->getFlowPtr();
-            flux = v->extract(stage0);
-            N = v->getLength();
-            C = sp_diff[i].getC();
+    //     for(int i = 0; i < npatches; i++)
+    //     {
+    //         v = patches->at(i)->getFlowPtr();
+    //         flux = v->extract(stage0);
+    //         N = v->getLength();
+    //         C = sp_diff[i].getC();
 
-            // Pre-computing the derivative of the viscosity mu
+    //         // Pre-computing the derivative of the viscosity mu
 
-            sp_diff[i].diff(v->getField(stages*unknowns + 1), mux->at(i));
-
-
-            // 1st stage
-            std::vector<std::vector<int> > extractions1;
-            extractions1.push_back(stage0);
-            std::vector<double> coeffs1 = {1.0, -a11*dt};
-            // pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i));
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i),
-                ffts, ffts_loc[i]);
-            linComb(v, extractions1, stage1, coeffs1, flux);
-
-            // Print_VectorField1D(v->extract(stage1), true);
+    //         sp_diff[i].diff(v->getField(stages*unknowns + 1), mux->at(i));
 
 
+    //         // 1st stage
+    //         std::vector<std::vector<int> > extractions1;
+    //         extractions1.push_back(stage0);
+    //         std::vector<double> coeffs1 = {1.0, -a11*dt};
+    //         // pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i));
+    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i),
+    //             ffts, ffts_loc[i]);
+    //         linComb(v, extractions1, stage1, coeffs1, flux);
 
-            // 2nd stage
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i));
-            std::vector<std::vector<int> > extractions2;
-            extractions2.push_back(stage0);
-            extractions2.push_back(stage1);
-            std::vector<double> coeffs2 = {a21, a22, -a23*dt};
-            linComb(v, extractions2, stage2, coeffs2, flux);
-
-            Print_VectorField1D(v->extract(stage2), true);
+    //         // Print_VectorField1D(v->extract(stage1), true);
 
 
-            // 3rd stage
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i));
-            std::vector<std::vector<int> > extractions3;
-            extractions3.push_back(stage0);
-            extractions3.push_back(stage2);
-            std::vector<double> coeffs3 = {a31, a32, -a33*dt};
-            linComb(v, extractions3, stage3, coeffs3, flux);
+
+    //         // 2nd stage
+    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i));
+    //         std::vector<std::vector<int> > extractions2;
+    //         extractions2.push_back(stage0);
+    //         extractions2.push_back(stage1);
+    //         std::vector<double> coeffs2 = {a21, a22, -a23*dt};
+    //         linComb(v, extractions2, stage2, coeffs2, flux);
+
+    //         Print_VectorField1D(v->extract(stage2), true);
+
+
+    //         // 3rd stage
+    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i));
+    //         std::vector<std::vector<int> > extractions3;
+    //         extractions3.push_back(stage0);
+    //         extractions3.push_back(stage2);
+    //         std::vector<double> coeffs3 = {a31, a32, -a33*dt};
+    //         linComb(v, extractions3, stage3, coeffs3, flux);
  
 
-            // 4th stage
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i));
-            std::vector<std::vector<int> > extractions4;
-            extractions4.push_back(stage0);
-            extractions4.push_back(stage3);
-            std::vector<double> coeffs4 = {a41, a42, -a43*dt};
-            linComb(v, extractions4, stage4, coeffs4, flux);
+    //         // 4th stage
+    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i));
+    //         std::vector<std::vector<int> > extractions4;
+    //         extractions4.push_back(stage0);
+    //         extractions4.push_back(stage3);
+    //         std::vector<double> coeffs4 = {a41, a42, -a43*dt};
+    //         linComb(v, extractions4, stage4, coeffs4, flux);
 
-            // Stepping   
-            flux3 = flux;
-            pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i));
-            std::vector<std::vector<int> > extractions5;
-            extractions5.push_back(stage2);
-            extractions5.push_back(stage3);
-            extractions5.push_back(stage4); 
-            std::vector<double> coeffs5 = {a51, a52, a54, -a53*dt};
-            std::vector<double> coeffs5_bis = {1, -a55*dt};
-            std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
-            linComb(v, extractions5, stage0, coeffs5, flux3);   
-            linComb(v, extractions1, stage0, coeffs5_bis, flux); 
-        }
-
-
+    //         // Stepping   
+    //         flux3 = flux;
+    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i));
+    //         std::vector<std::vector<int> > extractions5;
+    //         extractions5.push_back(stage2);
+    //         extractions5.push_back(stage3);
+    //         extractions5.push_back(stage4); 
+    //         std::vector<double> coeffs5 = {a51, a52, a54, -a53*dt};
+    //         std::vector<double> coeffs5_bis = {1, -a55*dt};
+    //         std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+    //         linComb(v, extractions5, stage0, coeffs5, flux3);   
+    //         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
+    //     }
 
 
-    }    
+
+
+    // }    
     
 
 };
