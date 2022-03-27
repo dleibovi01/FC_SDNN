@@ -489,7 +489,8 @@ public:
    template<typename VectorField>
    void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc) const
+      const std::vector<int> &fft_loc, double h, 
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
    {
       int length = v->getLength();  
       std::complex<double> f_ext[length + C]; 
@@ -602,7 +603,8 @@ public:
       double bc_r) const
    {
       std::complex<double> y_hat[N + C];
-      Fcont_Gram_Blend_DN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+      Fcont_Gram_Blend_DN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+         h, bc_r);
       FC_Der(y_der, y_hat, der_coeffs, N, C, desc_handle);
    }
 
@@ -610,21 +612,23 @@ public:
       double bc_l, double bc_r) const
    {
       std::complex<double> y_hat[N + C];
-      Fcont_Gram_Blend_DN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+      Fcont_Gram_Blend_DN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle,
+         h, bc_r);
       diff(y_hat, y_der, y_der_2);
    }
 
    template<typename VectorField>
    void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc) const
+      const std::vector<int> &fft_loc, double h, 
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
    {
       int length = v->getLength();  
       std::complex<double> f_ext[length + C]; 
       for(int i = 0; i < unknowns.size(); i++)
       {
          Fcont_Gram_Blend_DN(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-            d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+            d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_r[i]);
          VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
             ffts->at(fft_loc[i]));
          std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
@@ -725,7 +729,8 @@ public:
       double bc_r) const
    {
       std::complex<double> y_hat[N + C];
-      Fcont_Gram_Blend_ND(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+      Fcont_Gram_Blend_ND(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle,
+         h, bc_l);
       FC_Der(y_der, y_hat, der_coeffs, N, C, desc_handle);
    }
 
@@ -733,21 +738,23 @@ public:
       double bc_l, double bc_r) const
    {
       std::complex<double> y_hat[N + C];
-      Fcont_Gram_Blend_ND(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+      Fcont_Gram_Blend_ND(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+         h, bc_l);
       diff(y_hat, y_der, y_der_2);
    }
 
    template<typename VectorField>
    void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc) const
+      const std::vector<int> &fft_loc, double h, 
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
    {
       int length = v->getLength();  
       std::complex<double> f_ext[length + C]; 
       for(int i = 0; i < unknowns.size(); i++)
       {
          Fcont_Gram_Blend_ND(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-            d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+            d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_l[i]);
          VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
             ffts->at(fft_loc[i]));
          std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
@@ -846,7 +853,8 @@ public:
       double bc_r) const
    {
       std::complex<double> y_hat[N + C];
-      Fcont_Gram_Blend_NN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+      Fcont_Gram_Blend_NN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+         h, bc_l, bc_r);
       FC_Der(y_der, y_hat, der_coeffs, N, C, desc_handle);
    }
 
@@ -854,21 +862,23 @@ public:
       double bc_l, double bc_r) const
    {
       std::complex<double> y_hat[N + C];
-      Fcont_Gram_Blend_NN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+      Fcont_Gram_Blend_NN(y, y_hat, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+         h, bc_l, bc_r);
       diff(y_hat, y_der, y_der_2);
    }
 
    template<typename VectorField>
    void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc) const
+      const std::vector<int> &fft_loc, double h, 
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
    {
       int length = v->getLength();  
       std::complex<double> f_ext[length + C]; 
       for(int i = 0; i < unknowns.size(); i++)
       {
          Fcont_Gram_Blend_NN(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-            d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+            d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_l[i], bc_r[i]);
          VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
             ffts->at(fft_loc[i]));
          std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
@@ -890,7 +900,8 @@ private :
          if(d == 5)
          {
             std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
-            std::copy(Qd5C27_tilde_data.data(), Qd5C27_data.data() + d*d, Q);
+            std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d,
+               Q);
          }
       }
    }

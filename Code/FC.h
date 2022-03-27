@@ -35,6 +35,19 @@ void Fcont_Gram_Blend_DD(const double * fx, std::complex<double> *, int N, int d
     int C, double fourPts, const double * AQ, const double * FAQF, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle);
 
+void Fcont_Gram_Blend_DN(const double * fx, std::complex<double> *, int N, int d, 
+    int C, double fourPts, const double * AQ, const double * FAQF, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle, double h, double bc_r);
+
+void Fcont_Gram_Blend_ND(const double * fx, std::complex<double> *, int N, int d, 
+    int C, double fourPts, const double * AQ, const double * FAQF, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle, double h, double bc_l);
+
+void Fcont_Gram_Blend_NN(const double * fx, std::complex<double> *, int N, int d, 
+    int C, double fourPts, const double * AQ, const double * FAQF, 
+    const DFTI_DESCRIPTOR_HANDLE &desc_handle, double h, double bc_l,
+    double bc_r);
+
 double * FC_Der(const double * fx, std::complex<double> * der_coeffs, 
     std::complex<double> * filter_coeffs, int N, int d, int C, double fourPts, 
     const double * AQ, const double * FAQF, 

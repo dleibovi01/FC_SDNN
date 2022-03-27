@@ -217,8 +217,8 @@ void Fcont_Gram_Blend_DN(const double * fx, std::complex<double> *f_ext, int N,
         fr[i] = fx[N - d + i];
         fl[i] = fx[i];
     }
-    fl[d] = fx[d];
-    fr[N - 1] = bc_r * h / h0;
+    fl[d - 1] = fx[d - 1];
+    fr[d - 1] = bc_r * h / h0;
     double  z[C];
     for(int i = 0; i < C; i++)
     {
@@ -263,7 +263,7 @@ void Fcont_Gram_Blend_ND(const double * fx, std::complex<double> *f_ext, int N,
         fl[i] = fx[i];
     }
     fl[0] = - bc_l*h/h0;
-    fr[N - d] = fx[N - d];
+    fr[0] = fx[0];
     double  z[C];
     for(int i = 0; i < C; i++)
     {
@@ -305,15 +305,21 @@ void Fcont_Gram_Blend_NN(const double * fx, std::complex<double> *f_ext, int N,
         fl[i] = fx[i];
     }
     fl[0] = - bc_l*h/h0;
-    fr[N - d] = fx[N - d];
-    fl[d] = fx[d];
-    fr[N - 1] = bc_r * h / h0;
+    fr[0] = fx[N - d];
+    fl[d - 1] = fx[d - 1];
+    fr[d - 1] = bc_r * h / h0;
+
+
     double  z[C];
     for(int i = 0; i < C; i++)
     {
         z[i] = 0.;
     }
     cblas_dgemv (Layout, TRANS, C, d, alpha, AQ, lda, fr, incx, beta, z, incy);
+
+    // std::cout << "z" << std::endl;
+    // Print_Mat(z, C, 1);
+
     cblas_dgemv (Layout, TRANS, C, d, alpha, FAQF, lda, fl, incx, alpha, z, incy);
     std::copy(z, z + C, f_ext + N);
     std::copy(fx, fx + N , f_ext); 

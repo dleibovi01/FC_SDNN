@@ -181,6 +181,9 @@ class Solver{
 
         auto t1 = std::chrono::high_resolution_clock::now();
       
+        std::vector<double> bc_l;
+        std::vector<double> bc_r;
+        double h = 0.0;
         
         // Time loop
         while (t < T)
@@ -204,21 +207,35 @@ class Solver{
 
             // Print_VectorField1D(patches[0]->getFlow(), true);
             
+            bc_l = pde.getBC().getBC_L(t);
+            bc_r = pde.getBC().getBC_R(t);
+
+
+            // std::cout <<"bc_l[0] = " << bc_l[0] << std::endl;
+            // std::cout <<"bc_l[1] = " << bc_l[1] << std::endl;
+            // std::cout <<"bc_l[2] = " << bc_l[2] << std::endl;
+
+
+            // std::cout << std::endl;
+
             for(int i = 0; i < npatches; i++)
             {
+                h = patches[i]->getH();
                 // std::cout << "threads = " << omp_get_num_threads() << std::endl;
                 // auto v = patches[i]->getFlowPtr();
                 if(t == 0.0)
                 { 
                     filters[i].filter(patches[i]->getFlowPtr(), filt_unknowns,
-                        &fft_data, fft_locs[i]);                      
+                        &fft_data, fft_locs[i], h, bc_l, bc_r);                      
                 }   
                 else
                 {
                     filters[i + npatches].filter(patches[i]->getFlowPtr(),
-                        filt_unknowns, &fft_data, fft_locs[i]);  
+                        filt_unknowns, &fft_data, fft_locs[i], h, bc_l, bc_r);  
                 }   
             }
+
+            // Print_VectorField1D(mesh.getPatches()[0]->getFlow(), true, 17);
 
             mesh.setIntraPatchBC(phys_unknowns, 0);
             // pde.getBC()(&mesh, t);
@@ -252,12 +269,10 @@ class Solver{
                 // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
             }
             // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
-            // std::cout << std::endl;
-            // std::cout << "stage 1" << std::endl; 
             // Print_VectorField1D(mesh.getPatches()[0]->getFlow(), true, 17);
             mesh.setPatches(patches);
             // mesh.setIntraPatchBC(phys_unknowns);
-            pde.getBC()(&mesh, t);
+            // pde.getBC()(&mesh, t);
 
             // std::cout << std::endl;
             

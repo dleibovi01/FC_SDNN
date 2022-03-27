@@ -695,8 +695,8 @@ public:
         double mux[N];
         sp_diff.diff(v->getField(stages*unknowns + 1), mux, h, 0, 0);
 
-    //   std::cout << "mu" << std::endl;
-    //     Print_Mat(v->getField(stages*unknowns + 1), N, 1);
+         std::cout << "mu" << std::endl;
+        Print_Mat(v->getField(stages*unknowns + 1), N, 1);
 
     //     std::cout << std::endl;
     //     std::cout << std::endl;
@@ -713,8 +713,11 @@ public:
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux, ffts, ffts_loc);
         linComb(v, extractions1, stage1, coeffs1, flux);
 
-        // Print_VectorField1D(flux, true);
+        // // Print_VectorField1D(flux, true);
         // Print_VectorField1D(v->extract(stage1), true, 17);
+
+        // std::cout << "flux" << std::endl;
+        // Print_VectorField1D(flux, true, 17);
 
         // 2nd stage
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux, h, t);
