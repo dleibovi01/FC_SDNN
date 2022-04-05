@@ -142,16 +142,21 @@ public:
     {
         std::vector<int> bdry_nodes = patch->getPhysBdryNodes(); 
         std::vector<double> bdry_values;
+        std::vector<int> enforceable_bdries;
         for(int i = 0; i < bdry_nodes.size(); i++)
         {
-            // bdry_values = enforceBC(patch->getNode(bdry_nodes[i])->getPos(), t);
             bdry_values = enforceBC(patch->getNode(bdry_nodes[i]), t);
-            // std::cout << "bdry_values[0] = " << bdry_values[0] << std::endl;
-            // std::cout << std::endl;
-            for(int j = 0; j < unknowns; j++)
+            enforceable_bdries = 
+                getEnforceableBdries(patch->getNode(bdry_nodes[i]), t);
+            // for(int j = 0; j < unknowns; j++)
+            // {
+            //     patch->setFlowValue(stage*unknowns + j, bdry_nodes[i],
+            //         bdry_values[j]);
+            // }
+            for(int j = 0; j < enforceable_bdries.size(); j++)
             {
-                patch->setFlowValue(stage*unknowns + j, bdry_nodes[i],
-                    bdry_values[j]);
+                patch->setFlowValue(stage*unknowns + enforceable_bdries[j],
+                    bdry_nodes[i], bdry_values[j]);
             }
         }
     }
@@ -171,6 +176,13 @@ protected:
     {
         std::vector<double> v;
         return v;
+    }
+
+    virtual std::vector<int> getEnforceableBdries(const Node1D* node,
+        const double t) const
+    {
+        std::vector<int> v;
+        return v;        
     }
 
 };

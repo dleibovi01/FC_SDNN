@@ -484,10 +484,10 @@ public:
         std::vector<double> bc_r = bc.getBC_R(t);
 
         // Differentiating
-        sp.diff(v.getField(stage*phys_unknowns), k1x, k1xx, h, bc_l[0], bc_r[0]);
-        sp.diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx, h, bc_l[1],
+        sp->diff(v.getField(stage*phys_unknowns), k1x, k1xx, h, bc_l[0], bc_r[0]);
+        sp->diff(v.getField(stage*phys_unknowns + 1), k2x, k2xx, h, bc_l[1],
             bc_r[1]);
-        sp.diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx, h, bc_l[2],
+        sp->diff(v.getField(stage*phys_unknowns + 2), k3x, k3xx, h, bc_l[2],
             bc_r[2]);
 
 
@@ -512,9 +512,9 @@ public:
         double k3xx[N];   
 
         // Differentiating
-        sp.diff(u_hat[fft_loc[0]], k1x, k1xx);
-        sp.diff(u_hat[fft_loc[1]], k2x, k2xx);
-        sp.diff(u_hat[fft_loc[2]], k3x, k3xx);
+        sp->diff(u_hat[fft_loc[0]], k1x, k1xx);
+        sp->diff(u_hat[fft_loc[1]], k2x, k2xx);
+        sp->diff(u_hat[fft_loc[2]], k3x, k3xx);
 
         computeDerFlux(v, flux, stages, stage, mux, k1x, k2x, k3x, k1xx, 
             k2xx, k3xx);

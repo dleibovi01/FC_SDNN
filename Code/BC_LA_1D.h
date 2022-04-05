@@ -39,6 +39,14 @@ public:
         bdry_values.push_back(0.0); 
         return bdry_values;    
     }
+
+    std::vector<int> getEnforceableBdries(const Node1D* node, const double t)
+    {
+        std::vector<int> v;
+        v.push_back(0);
+        return v;
+
+    }
 };
 
 

@@ -58,14 +58,11 @@ class Mesh1DUniform : public Mesh<Patch1DUniform>
 public:
     int overlap;
     /* Constructor */
-
-    // Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
-    //     int _overlap, int intrb, int unknowns, bool l_b, bool r_b);    
+   
     Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
         int _overlap, int intrb, int unknowns, int l_b, int r_b);  
 
     /* Copy constructor */
-    // Mesh1DUniform(const Mesh1DUniform &mesh);
 
     int getOverlap() const {return overlap;}
 

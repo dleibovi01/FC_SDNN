@@ -606,7 +606,7 @@ public:
 
         // Pre-computing the derivative of the viscosity mu
         double mux[N];
-        sp_diff.diff(v->getField(stages*unknowns + 1), mux);
+        sp_diff->diff(v->getField(stages*unknowns + 1), mux);
 
 
         // 1st stage
@@ -669,7 +669,7 @@ public:
         auto v = patch->getFlowPtr();
         const int unknowns = pde.getPhysUnknowns();
         const int N = v->getLength();
-        const int C = sp_diff.getC();
+        const int C = sp_diff->getC();
         const double h = patch->getH();
         
         std::vector<int> stage0;
@@ -693,10 +693,7 @@ public:
 
         // Pre-computing the derivative of the viscosity mu
         double mux[N];
-        sp_diff.diff(v->getField(stages*unknowns + 1), mux, h, 0, 0);
-
-         std::cout << "mu" << std::endl;
-        Print_Mat(v->getField(stages*unknowns + 1), N, 1);
+        sp_diff->diff(v->getField(stages*unknowns + 1), mux, h, 0, 0);
 
     //     std::cout << std::endl;
     //     std::cout << std::endl;

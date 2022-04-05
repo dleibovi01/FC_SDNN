@@ -365,11 +365,11 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     int tau[N];
     bool discard[N];
 
-    int d = sp.getD();
-    int C = sp.getC();
-    double* AQ = sp.getAQ();
-    double* FAQF = sp.getFAQF();
-    DFTI_DESCRIPTOR_HANDLE desc_handle = sp.getDescHandle();
+    int d = sp->getD();
+    int C = sp->getC();
+    double* AQ = sp->getAQ();
+    double* FAQF = sp->getFAQF();
+    DFTI_DESCRIPTOR_HANDLE desc_handle = sp->getDescHandle();
 
     // Form the continuation
     fourPts = N + C;

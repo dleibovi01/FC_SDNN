@@ -400,6 +400,22 @@ public:
       status = DftiCommitDescriptor(desc_handle);    
    }
 
+
+   virtual void filter(VectorField1D *v, const std::vector<int> &unknowns, 
+      std::vector<std::complex<double> *> *ffts, 
+      const std::vector<int> &fft_loc, double h, 
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const {}
+
+   virtual void diff(const std::complex<double> *y_hat, double * y_der,
+      double* y_der_2) const {}
+
+   virtual void diff(const double* y, double *y_der, double h, double bc_l,
+      double bc_r) const {}
+
+   virtual void diff(const double* y, double * y_der, double* y_der_2, double h, 
+      double bc_l, double bc_r) const {}
+
+
 };
 
 
@@ -421,6 +437,8 @@ class FC_1D_DD : public FC_1D<Patch>{
    using FC_1D<Patch>::AQ;
    using FC_1D<Patch>::FAQF;
    using FC_1D<Patch>::desc_handle;
+   using FC_1D<Patch>::filter;
+   using FC_1D<Patch>::diff;
 
 public:
 
@@ -486,8 +504,8 @@ public:
       diff(y_hat, y_der, y_der_2);
    }
 
-   template<typename VectorField>
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
+   // template<typename VectorField>
+   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
@@ -547,6 +565,8 @@ class FC_1D_DN : public FC_1D<Patch>{
    using FC_1D<Patch>::AQ;
    using FC_1D<Patch>::FAQF;
    using FC_1D<Patch>::desc_handle;
+   using FC_1D<Patch>::filter;
+   using FC_1D<Patch>::diff;
 
 public:
 
@@ -617,8 +637,8 @@ public:
       diff(y_hat, y_der, y_der_2);
    }
 
-   template<typename VectorField>
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
+   // template<typename VectorField>
+   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
@@ -649,7 +669,8 @@ private :
       {
          std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
          std::copy(Qd5C27_data.data(), Qd5C27_data.data() + d*d, Q);
-         std::copy(Qd5C27_data.data(), Qd5C27_tilde_data.data() + d*d, Q_tilde);
+         std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d,
+            Q_tilde);
       }
    }
 
@@ -673,10 +694,13 @@ class FC_1D_ND : public FC_1D<Patch>{
    using FC_1D<Patch>::AQ;
    using FC_1D<Patch>::FAQF;
    using FC_1D<Patch>::desc_handle;
+   using FC_1D<Patch>::filter;
+   using FC_1D<Patch>::diff;
 
 public:
 
-   FC_1D_ND(int _N, int _d, int _C, Patch *_patch) : FC_1D<Patch>{_N, _d, _C, _patch}
+   FC_1D_ND(int _N, int _d, int _C, Patch *_patch) : FC_1D<Patch>{_N, _d, _C,
+      _patch}
    {
       double A[C*d];
       double Q[d*d]; 
@@ -691,7 +715,7 @@ public:
       double A[C*d];
       double Q[d*d]; 
       double Q_tilde[d*d]; 
-      set_FC_Data(A, Q, Q_tilde, d, C);
+      set_FC_Data(A, Q, Q_tilde, d, C); 
       build_Cont_Mat_ND(A, Q, Q_tilde, d, C, AQ, FAQF);  
       getFiltCoeffs(filter_coeffs, fourPts, alpha, p); 
    }
@@ -743,8 +767,8 @@ public:
       diff(y_hat, y_der, y_der_2);
    }
 
-   template<typename VectorField>
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
+   // template<typename VectorField>
+   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
@@ -755,6 +779,19 @@ public:
       {
          Fcont_Gram_Blend_ND(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
             d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_l[i]);
+               
+         
+         // std::cout << "AQ" << std::endl;
+         // Print_Mat(AQ, C, d);
+         // std::cout << std::endl;
+
+         // std::cout << "FAQF" << std::endl;
+         // Print_Mat(FAQF, C, d);
+         // std::cout << std::endl;
+         // std::setprecision(17);
+         // std::cout << "fft" << std::endl;
+         // Print_Mat(ffts->at(fft_loc[i]), N+C, 1);
+         // std::cout << std::endl;
          VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
             ffts->at(fft_loc[i]));
          std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
@@ -775,7 +812,8 @@ private :
       {
          std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
          std::copy(Qd5C27_data.data(), Qd5C27_data.data() + d*d, Q);
-         std::copy(Qd5C27_data.data(), Qd5C27_tilde_data.data() + d*d, Q_tilde);
+         std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d, 
+            Q_tilde);
       }
    }
 
@@ -800,6 +838,8 @@ class FC_1D_NN : public FC_1D<Patch>{
    using FC_1D<Patch>::AQ;
    using FC_1D<Patch>::FAQF;
    using FC_1D<Patch>::desc_handle;
+   using FC_1D<Patch>::filter;
+   using FC_1D<Patch>::diff;
 
 public:
 
@@ -867,8 +907,8 @@ public:
       diff(y_hat, y_der, y_der_2);
    }
 
-   template<typename VectorField>
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
+   // template<typename VectorField>
+   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const

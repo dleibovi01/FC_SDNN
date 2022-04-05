@@ -96,7 +96,7 @@ void read_FC_Data(double *A, double *Q, int d, int C, std::string filename_A,
     CBLAS_TRANSPOSE TRANSQ = CblasTrans;    
     double alpha = 1.;
     double beta = 0.;      
-    getF1_F2(d, C, F1, F2);
+    getF1_F2(d, C, F1, F2);   
     cblas_dgemm (CblasColMajor, TRANSA, TRANSQ, C, d, d, alpha, A, C, Q, d,
         beta, AQ, C);
     cblas_dgemm (CblasColMajor, TRANSQ, TRANSA, d, d, d, alpha, Q_tilde, d, F1,
@@ -263,7 +263,7 @@ void Fcont_Gram_Blend_ND(const double * fx, std::complex<double> *f_ext, int N,
         fl[i] = fx[i];
     }
     fl[0] = - bc_l*h/h0;
-    fr[0] = fx[0];
+    fr[0] = fx[N - d];
     double  z[C];
     for(int i = 0; i < C; i++)
     {
