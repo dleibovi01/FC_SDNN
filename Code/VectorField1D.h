@@ -160,30 +160,6 @@ void linComb(VectorField* v,
     }
 };
 
-// template<typename VectorField>
-// void linComb(VectorField* v, const std::vector<double> & coeffs,
-//     const VectorField &flux)
-// {
-//     int ncoeffs = coeffs.size();
-//     int N = v->getLength();
-//     double data[v->getLength()];
-//     int unknowns = v->getUnknowns();
-//     for(int i = 0; i < N; i++)
-//     {
-//         data[i] = 0.0;
-//     }
-//     for(int i = 0; i < unknowns; i++) 
-//     {
-//         std::copy(flux.getField(i), flux.getField(i) + N, data);
-//         cblas_dscal(N, coeffs[ncoeffs - 1], data, 1);
-//         for(int j = 0; j < ncoeffs - 1; j++)
-//         {
-//             cblas_daxpy(N, coeffs[j], v->getField(j), 1, data, 1);
-//         }
-//         v->setField(i, N, data);
-//     }
-// };
-
 template<typename VectorField>
 void linComb2(const VectorField &v1, const VectorField &v2, VectorField* v3, 
     double alpha, double beta)

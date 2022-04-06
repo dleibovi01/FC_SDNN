@@ -58,12 +58,6 @@ public:
     
 };
 
-// SpMatrix_csr dotMV(const SpMatrix_csr &M, const double* x)
-// { 
-//     SpMatrix_csr A = M;
-//     A.dotMV(x);
-//     return A;
-// }
 
 
 

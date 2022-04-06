@@ -128,17 +128,6 @@ void SpMatrix_csr::MV(double alpha, const double* x, double beta, double* y)
 
 void SpMatrix_csr::SMatVect(const double* x, double* y) const
 {
-    // int index = 0;
-    // int nnz = rows_end[rows - 1] - 1;
-    // std::cout << "nnz = " << nnz << std::endl;
-    // std::cout << " matrix " << std::endl;
-    // print();
-    // std::cout << std::endl;
-    // std::cout << "tau" << std::endl;
-    // Print_Mat(x, rows, 1);
-    // std::cout << "rows start" << std::endl;
-    // Print_Mat(rows_start, rows, 1);
-    // std::cout << std::endl;
     for(int i = 0; i < rows; i++)
     {
         // y[i] = 0.0;

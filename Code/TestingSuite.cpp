@@ -352,14 +352,14 @@ void TestingEulerSDNN()
     // int N = 101;
 
     int intrb = 6;
-    int npatches = 30;
+    int npatches = 4;
     int overlap = 12;
 
     int N = 101;
 
 
    // Create a time-stepping scheme
-    SSPRK_4 TS;
+    SSPRK_4 TS(3);
     int stages = TS.getStages();
     
 
@@ -487,20 +487,17 @@ void TestingEulerSDNN()
         slv{mesh, pde, TS, diff_schemes, filters};
 
 
-
-
-
     // Run the solver
     double CFL = 2.0;
     bool visc = true;
-    bool adaptive = true;  
+    bool adaptive = false;  
     slv.solve_sdnn(dt, CFL, adaptive, visc);  
 
     // Print the solution
     Mesh1DUniform mesh1 = slv.getMesh();
 
     std::cout << "Solution" << std::endl;
-    Print_Mesh1D(mesh1);
+    // Print_Mesh1D(mesh1);
 
     std::string result_file = "result.txt";
     Print_Mesh1D(mesh1, unknowns, intrb, result_file);

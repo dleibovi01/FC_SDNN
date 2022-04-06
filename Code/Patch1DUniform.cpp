@@ -2,9 +2,6 @@
 
 #include "Patch1DUniform.h"
 
-
-// Patch1DUniform::Patch1DUniform(int N, int _unknowns, double _a, double _b, 
-// bool lb, bool rb, int intrbl, int intrbr)
 Patch1DUniform::Patch1DUniform(int N, int _unknowns, double _a, double _b, 
     int lb, int rb, int intrbl, int intrbr)
 {
@@ -18,14 +15,6 @@ Patch1DUniform::Patch1DUniform(int N, int _unknowns, double _a, double _b,
         nodes[i]->setIndex(i);
         nodes[i]->setPos(a + i*h);
     }
-    // if(lb)
-    // {
-    //     phys_bdry_nodes.push_back(0);
-    // }
-    // if(rb)
-    // {
-    //     phys_bdry_nodes.push_back(N - 1);
-    // }
     for(int i = 0; i < lb; i++)
     {
         phys_bdry_nodes.push_back(i);

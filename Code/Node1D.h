@@ -26,8 +26,6 @@ public:
     
     Node1D(double pos, int n, int N, std::vector<double> values);
 
-    //~Node1D();
-
     double getPos() const {return pos;}
 
     int getIndex() const {return index;}

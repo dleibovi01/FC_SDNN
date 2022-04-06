@@ -196,8 +196,8 @@ class Solver{
                 // #pragma omp parallel for
                 for(int i = 0; i < npatches; i++)
                 {
-                    updateTau(patches[i], sp_diffs[i], pde, 
-                        sp_diffs[i]->getShiftCoeffs(), phys_unknowns, stages);
+                    updateTau(patches[i], sp_diffs[i], pde, phys_unknowns,
+                        stages);
                 }
                 updateVisc(&mesh, svw_m, pde, phys_unknowns, stages, 0); 
             }
@@ -209,12 +209,6 @@ class Solver{
             
             bc_l = pde.getBC().getBC_L(t);
             bc_r = pde.getBC().getBC_R(t);
-
-
-            // std::cout <<"bc_l[0] = " << bc_l[0] << std::endl;
-            // std::cout <<"bc_l[1] = " << bc_l[1] << std::endl;
-            // std::cout <<"bc_l[2] = " << bc_l[2] << std::endl;
-
 
             // std::cout << std::endl;
 
@@ -232,23 +226,6 @@ class Solver{
                         filt_unknowns, &fft_data, fft_locs[i], h, bc_l, bc_r);  
                 }   
             }
-
-            // Print_VectorField1D(mesh.getPatches()[0]->getFlow(), true, 17);
-
-            // std::cout << " Patch 0" << std::endl;
-            // Print_VectorField1D(patches[0]->getFlow(), true, 17);
-
-            // std::cout << std::endl;
-            // std::cout << " Patch 1" << std::endl;
-            // Print_VectorField1D(mesh.getPatches()[1]->getFlow(), true);
-
-            // std::cout << std::endl;
-            // std::cout << " Patch 2" << std::endl;
-            // Print_VectorField1D(mesh.getPatches()[2]->getFlow(), true);
-
-            // std::cout << std::endl;
-            // std::cout << " Patch 3" << std::endl;
-            // Print_VectorField1D(mesh.getPatches()[3]->getFlow(), true);
 
             mesh.setIntraPatchBC(phys_unknowns, 0);
             // pde.getBC()(&mesh, t);

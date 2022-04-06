@@ -26,40 +26,22 @@ Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize,
     {
         if (i == 0)
         {
-            // if(l_b)
-            // {
-            //     lb = true;
-            // }  
-            // else
-            // {
-            //     lb = false;
-            // }
             lb = l_b;
             intrbl = 0;
         }
         else
         {
-            // lb = false;
             lb = 0;
             intrbl = intrb;
         }
         
         if(i == n_patches - 1)
-        {
-            // if(r_b)
-            // {
-            //     rb = true;
-            // }
-            // else
-            // {
-            //     rb = false;
-            // }            
+        {          
             rb = r_b;
             intrbr = 0;
         }
         else
         {
-            // rb = false;
             rb = 0;
             intrbr = intrb; 
         }

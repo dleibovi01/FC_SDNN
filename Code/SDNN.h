@@ -71,22 +71,6 @@ void softmax(int N, double* input)
 }
 
 
-template<typename Node>
-double visc_window(const Node & node1, const Node & node2, double cutoff)
-{
-    double distance = node1.getDist(node2);
-    const double pi = std::acos(-1);
-    double H;
-    if (distance < cutoff)
-    {
-        H = std::cos(pi*distance / 2.0 / cutoff);
-        return H*H;
-    }
-    else
-    {
-        return 0.0;
-    }
-}
 
 double Q(double tau)
 {
@@ -151,73 +135,73 @@ void form_stencils(int N, int C, const double* proxy_ext, double* stencils)
 }
 
 
-template<typename Mesh>
-void Lambda(Mesh * mesh, int phys_unknowns, int stages, double cutoff, 
-    bool initialization)
-{
-    auto patches = mesh->getPatches();
-    auto patch_origin = patches[0];
-    auto patch_target = patches[0];
-    auto Node_origin = patch_origin->getNode(0);
-    auto Node_target = patch_target->getNode(0);
-    int npatches = patches.size();
-    int N_origin;
-    int N_target;
-    auto v_origin = patch_origin->getFlow();
-    auto v_target = patch_target->getFlow();
-    double *tau;
-    double *target_field;
+// template<typename Mesh>
+// void Lambda(Mesh * mesh, int phys_unknowns, int stages, double cutoff, 
+//     bool initialization)
+// {
+//     auto patches = mesh->getPatches();
+//     auto patch_origin = patches[0];
+//     auto patch_target = patches[0];
+//     auto Node_origin = patch_origin->getNode(0);
+//     auto Node_target = patch_target->getNode(0);
+//     int npatches = patches.size();
+//     int N_origin;
+//     int N_target;
+//     auto v_origin = patch_origin->getFlow();
+//     auto v_target = patch_target->getFlow();
+//     double *tau;
+//     double *target_field;
     
-    // Reset to zero the value of lambda on all nodes, all patches   
-    for(int i = 0; i < npatches; i++)
-    {
-        patch_origin = patches[i];
-        N_origin = patch_origin->getNnodes();
-        v_origin = patch_origin->getFlow();
-        for(int i = 0; i < N_origin; i++)
-        {
-            v_origin.setFieldValue(stages*phys_unknowns + 1, i, 0.0);
-        }
-        patch_origin->setField(v_origin);
-    }
+//     // Reset to zero the value of lambda on all nodes, all patches   
+//     for(int i = 0; i < npatches; i++)
+//     {
+//         patch_origin = patches[i];
+//         N_origin = patch_origin->getNnodes();
+//         v_origin = patch_origin->getFlow();
+//         for(int i = 0; i < N_origin; i++)
+//         {
+//             v_origin.setFieldValue(stages*phys_unknowns + 1, i, 0.0);
+//         }
+//         patch_origin->setField(v_origin);
+//     }
     
-    for(int i = 0; i < npatches; i++)
-    {
-        patch_origin = patches[i];
-        N_origin = patch_origin->getNnodes();
-        v_origin = patch_origin->getFlow();
-        tau = v_origin.getField(stages*phys_unknowns);
-        for(int j = 0; j < N_origin; j++)
-        {
-            Node_origin = patch_origin->getNode(j);
-            for(int k = 0; k < npatches; k++)
-            {
-                patch_target = patches[k];
-                N_target = patch_target->getNnodes();
-                v_target = patch_target->getFlow();                
-                for(int l = 0; l < N_target; l++)
-                {
-                    Node_target = patch_target->getNode(l);
-                    if(initialization)
-                    {
-                        v_target.setFieldValue(stages*phys_unknowns + 2, l, 
-                            v_target.getFieldValue(stages*phys_unknowns + 2, l) 
-                            + visc_window(*Node_origin, *Node_target, cutoff));
-                    }
-                    else
-                    {
-                        v_target.setFieldValue(stages*phys_unknowns + 1, l, 
-                            v_target.getFieldValue(stages*phys_unknowns + 1, l) 
-                            + Q(tau[j])*visc_window(*Node_origin, *Node_target, 
-                            cutoff) / 
-                            v_target.getFieldValue(stages*phys_unknowns + 2, l));                        
-                    }
-                }            
-                patch_target->setField(v_target);
-            }
-        }
-    }   
-}
+//     for(int i = 0; i < npatches; i++)
+//     {
+//         patch_origin = patches[i];
+//         N_origin = patch_origin->getNnodes();
+//         v_origin = patch_origin->getFlow();
+//         tau = v_origin.getField(stages*phys_unknowns);
+//         for(int j = 0; j < N_origin; j++)
+//         {
+//             Node_origin = patch_origin->getNode(j);
+//             for(int k = 0; k < npatches; k++)
+//             {
+//                 patch_target = patches[k];
+//                 N_target = patch_target->getNnodes();
+//                 v_target = patch_target->getFlow();                
+//                 for(int l = 0; l < N_target; l++)
+//                 {
+//                     Node_target = patch_target->getNode(l);
+//                     if(initialization)
+//                     {
+//                         v_target.setFieldValue(stages*phys_unknowns + 2, l, 
+//                             v_target.getFieldValue(stages*phys_unknowns + 2, l) 
+//                             + visc_window(*Node_origin, *Node_target, cutoff));
+//                     }
+//                     else
+//                     {
+//                         v_target.setFieldValue(stages*phys_unknowns + 1, l, 
+//                             v_target.getFieldValue(stages*phys_unknowns + 1, l) 
+//                             + Q(tau[j])*visc_window(*Node_origin, *Node_target, 
+//                             cutoff) / 
+//                             v_target.getFieldValue(stages*phys_unknowns + 2, l));                        
+//                     }
+//                 }            
+//                 patch_target->setField(v_target);
+//             }
+//         }
+//     }   
+// }
 
 
 
@@ -352,11 +336,10 @@ void preprocess_stencils(int N, double *stencils, bool* discard, int* tau)
 
 template<typename Patch, typename SpatDiffScheme, typename PDE>
 void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
-    std::complex<double>* shift_coeffs, int unknowns, int stages)
+    int unknowns, int stages)
 {
     MKL_LONG status;
     int fourPts;
-    // auto v = patch->getFlow();
     auto v = patch->getFlowPtr();
     
     int N = v->getLength();
@@ -374,8 +357,10 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     // Form the continuation
     fourPts = N + C;
     double proxy_ext[N+C];   
-    Fcont_shift(proxy, proxy_ext, shift_coeffs, N, d, C, double(fourPts), AQ, 
-        FAQF, desc_handle);
+    // Fcont_shift(proxy, proxy_ext, shift_coeffs, N, d, C, double(fourPts), AQ, 
+    //     FAQF, desc_handle);
+    Fcont_shift(proxy, proxy_ext, sp->getShiftCoeffs(), N, d, C,
+        double(fourPts), AQ, FAQF, desc_handle);
 
     // Form the stencils 
     double stencils[s*N];
@@ -393,8 +378,6 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     {
         tau_dbl[i] = double(tau[i]);
     }
-    // v.setField(unknowns*stages, N, tau_dbl);
-    // patch->setField(v);
     v->setField(unknowns*stages, N, tau_dbl);
 
 }

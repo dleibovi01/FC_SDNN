@@ -148,11 +148,6 @@ public:
             bdry_values = enforceBC(patch->getNode(bdry_nodes[i]), t);
             enforceable_bdries = 
                 getEnforceableBdries(patch->getNode(bdry_nodes[i]), t);
-            // for(int j = 0; j < unknowns; j++)
-            // {
-            //     patch->setFlowValue(stage*unknowns + j, bdry_nodes[i],
-            //         bdry_values[j]);
-            // }
             for(int j = 0; j < enforceable_bdries.size(); j++)
             {
                 patch->setFlowValue(stage*unknowns + enforceable_bdries[j],

@@ -257,12 +257,6 @@ private:
         for(int i = 0; i < npatches; i++)
         {
             patch_origin = patches[i];
-            // for(int j = 0; j < npatches; j++)
-            // {
-            //     patch_target = patches[j];
-            //     svws[i]->compute_svw_data(patch_origin, patch_target, j);
-            // }
-
             svws[i]->compute_svw_data(patch_origin, patches[0], 0);
             for(int j = 1; j < npatches - 1; j++)
             {
