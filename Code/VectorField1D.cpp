@@ -70,20 +70,31 @@ VectorField1D & VectorField1D::operator= (const VectorField1D &v)
     }
     else
     {
-        while(!flow.empty())
+        if((length == v.length) && (unknowns == v.unknowns))
         {
-            delete[] flow.back();
-            unknowns--;
-            flow.pop_back();
-        } 
-
-        unknowns = v.unknowns;
-        length = v.length;
-        for(int i = 0; i < unknowns; i++)
-        {
-            flow.push_back(new double[length]);
-            setField(i, length, v.getField(i));
+            for(int i = 0; i < unknowns; i++)
+            {
+                setField(i, length, v.getField(i));
+            }
         }
+        else
+        {
+            while(!flow.empty())
+            {
+                delete[] flow.back();
+                unknowns--;
+                flow.pop_back();
+            } 
+
+            unknowns = v.unknowns;
+            length = v.length;
+            for(int i = 0; i < unknowns; i++)
+            {
+                flow.push_back(new double[length]);
+                setField(i, length, v.getField(i));
+            }
+        }
+
     }
     return *this;  
 }

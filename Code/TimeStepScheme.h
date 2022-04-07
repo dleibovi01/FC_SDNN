@@ -185,6 +185,8 @@ std::vector<double> coeffs5;
 std::vector<double> coeffs5_bis;
 int stages;
 int unknowns;
+VectorField1D flux;
+VectorField1D flux3;
 
 static constexpr double a11 = 0.391752226571890;
 
@@ -208,7 +210,8 @@ static constexpr double a55 = 0.226007483236906;
 
 public:
 
-    SSPRK_4(int _unknowns) : unknowns{_unknowns}
+    SSPRK_4(int _unknowns, int _N) : unknowns{_unknowns}, flux{_unknowns, _N}, 
+        flux3{_unknowns, _N}
     {
         for(int i = 0; i < unknowns; i++)
         {
@@ -250,9 +253,7 @@ public:
         auto v = patch->getFlowPtr();
         const int N = v->getLength();
         
-        auto flux = v->extract(stage0);
-
-
+        // auto flux = v->extract(stage0);
 
         // 1st stage
         coeffs1[1] = -a11*dt;
@@ -285,7 +286,8 @@ public:
 
         // Stepping   
         // VectorField1D flux3 = flux;
-        auto flux3 = flux;
+        // auto flux3 = flux;
+        flux3 = flux;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, data);
         coeffs5[3] = -a53*dt;
         coeffs5_bis[1] = -a55*dt;
@@ -304,7 +306,7 @@ public:
         const int N = v->getLength();
         const int C = sp_diff.getC();
 
-        VectorField flux{unknowns, N};
+        // VectorField flux{unknowns, N};
 
         // Pre-computing the derivative of the viscosity mu
         double mux[N];
@@ -333,7 +335,8 @@ public:
         linComb(v, extractions4, stage4, coeffs4, flux);
 
         // Stepping   
-        VectorField1D flux3 = flux;
+        // VectorField1D flux3 = flux;
+        flux3 = flux;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux);
         coeffs5[3] = -a53*dt;
         coeffs5_bis[1] = -a55*dt;
@@ -358,7 +361,7 @@ public:
         const int C = sp_diff->getC();
         const double h = patch->getH();
         
-        auto flux = v->extract(stage0);
+        // auto flux = v->extract(stage0);
 
         // Pre-computing the derivative of the viscosity mu
         double mux[N];
@@ -388,7 +391,8 @@ public:
         linComb(v, extractions4, stage4, coeffs4, flux);
 
         // Stepping   
-        VectorField1D flux3 = flux;
+        // VectorField1D flux3 = flux;
+        flux3 = flux;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux, h, t);
         coeffs5[3] = -a53*dt;
         coeffs5_bis[1] = -a55*dt;
@@ -408,8 +412,8 @@ public:
         
 
         auto v = patches->at(0)->getFlowPtr();
-        auto flux = v->extract(stage0);
-        auto flux3 = v->extract(stage0);
+        // auto flux = v->extract(stage0);
+        // auto flux3 = v->extract(stage0);
         int N = v->getLength();
         int C = sp_diff[0].getC();
 
@@ -508,8 +512,8 @@ public:
         
 
         auto v = patches->at(0)->getFlowPtr();
-        auto flux = v->extract(stage0);
-        auto flux3 = v->extract(stage0);
+        // auto flux = v->extract(stage0);
+        // auto flux3 = v->extract(stage0);
         int N = v->getLength();
         int C = sp_diff[0].getC();
 
@@ -611,8 +615,8 @@ public:
         int npatches = patches->size();
 
         auto v = patches->at(0)->getFlowPtr();
-        auto flux = v->extract(stage0);
-        auto flux3 = v->extract(stage0);
+        // auto flux = v->extract(stage0);
+        // auto flux3 = v->extract(stage0);
         int N = v->getLength();
         int C = sp_diff[0].getC();
 

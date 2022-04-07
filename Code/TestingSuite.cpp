@@ -359,7 +359,7 @@ void TestingEulerSDNN()
 
 
    // Create a time-stepping scheme
-    SSPRK_4 TS(3);
+    SSPRK_4 TS{3, N};
     int stages = TS.getStages();
     
 
