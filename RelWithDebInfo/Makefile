@@ -150,6 +150,33 @@ Code/FC.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.s
 .PHONY : Code/FC.cpp.s
 
+Code/FC_1D.o: Code/FC_1D.cpp.o
+
+.PHONY : Code/FC_1D.o
+
+# target to build an object file
+Code/FC_1D.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o
+.PHONY : Code/FC_1D.cpp.o
+
+Code/FC_1D.i: Code/FC_1D.cpp.i
+
+.PHONY : Code/FC_1D.i
+
+# target to preprocess a source file
+Code/FC_1D.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.i
+.PHONY : Code/FC_1D.cpp.i
+
+Code/FC_1D.s: Code/FC_1D.cpp.s
+
+.PHONY : Code/FC_1D.s
+
+# target to generate assembly for a file
+Code/FC_1D.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.s
+.PHONY : Code/FC_1D.cpp.s
+
 Code/MVOperations.o: Code/MVOperations.cpp.o
 
 .PHONY : Code/MVOperations.o
@@ -230,6 +257,33 @@ Code/Node.s: Code/Node.cpp.s
 Code/Node.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.s
 .PHONY : Code/Node.cpp.s
+
+Code/Patch.o: Code/Patch.cpp.o
+
+.PHONY : Code/Patch.o
+
+# target to build an object file
+Code/Patch.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o
+.PHONY : Code/Patch.cpp.o
+
+Code/Patch.i: Code/Patch.cpp.i
+
+.PHONY : Code/Patch.i
+
+# target to preprocess a source file
+Code/Patch.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.i
+.PHONY : Code/Patch.cpp.i
+
+Code/Patch.s: Code/Patch.cpp.s
+
+.PHONY : Code/Patch.s
+
+# target to generate assembly for a file
+Code/Patch.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.s
+.PHONY : Code/Patch.cpp.s
 
 Code/Patch1D.o: Code/Patch1D.cpp.o
 
@@ -432,6 +486,9 @@ help:
 	@echo "... Code/FC.o"
 	@echo "... Code/FC.i"
 	@echo "... Code/FC.s"
+	@echo "... Code/FC_1D.o"
+	@echo "... Code/FC_1D.i"
+	@echo "... Code/FC_1D.s"
 	@echo "... Code/MVOperations.o"
 	@echo "... Code/MVOperations.i"
 	@echo "... Code/MVOperations.s"
@@ -441,6 +498,9 @@ help:
 	@echo "... Code/Node.o"
 	@echo "... Code/Node.i"
 	@echo "... Code/Node.s"
+	@echo "... Code/Patch.o"
+	@echo "... Code/Patch.i"
+	@echo "... Code/Patch.s"
 	@echo "... Code/Patch1D.o"
 	@echo "... Code/Patch1D.i"
 	@echo "... Code/Patch1D.s"

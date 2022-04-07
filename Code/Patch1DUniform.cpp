@@ -15,7 +15,6 @@ Patch1DUniform::Patch1DUniform(int N, int _unknowns, double _a, double _b,
     {
         nodes.push_back(new Node(_unknowns));
         nodes[i]->setIndex(i);
-        // nodes[i]->setPos(a + i*h);
         position[0] = a + i*h;
         nodes[i]->setPosition(position);
     }

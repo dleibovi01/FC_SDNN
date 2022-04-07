@@ -1,8 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o"
+  "CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Mesh.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.o"
+  "CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o"
   "CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o"

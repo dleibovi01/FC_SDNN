@@ -3,7 +3,6 @@
 #ifndef PATCH_H
 #define PATCH_H
 
-
 #include "Node.h"
 #include "VectorField.h"
 #include <iostream>

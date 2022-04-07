@@ -2,18 +2,12 @@
 
 #include "Mesh.h"
 
-
-
-// Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
-//     int _overlap, int intrb, int unknowns, bool l_b, bool r_b)
 Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
     int _overlap, int intrb, int unknowns, int l_b, int r_b)
 {
     double L;
     double h;
     int N;
-    // bool lb;
-    // bool rb;
     int lb;
     int rb;    
     int intrbl;
@@ -45,7 +39,11 @@ Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize,
             rb = 0;
             intrbr = intrb; 
         }
-        patches.push_back(new Patch1DUniform(patchsize, unknowns, 
+        // patches.push_back(new Patch1DUniform(patchsize, unknowns, 
+        //     a + double(i*(patchsize - overlap))*h, 
+        //     a + double(i*(patchsize - overlap) + (patchsize - 1))*h , lb, rb, 
+        //     intrbl, intrbr));
+        patches.push_back(new Patch1D(patchsize, unknowns, 
             a + double(i*(patchsize - overlap))*h, 
             a + double(i*(patchsize - overlap) + (patchsize - 1))*h , lb, rb, 
             intrbl, intrbr));

@@ -4,7 +4,7 @@
 #define MESH_H
 
 #include "Patch1D.h"
-#include "Patch1DUniform.h"
+// #include "Patch1DUniform.h"
 
 template <typename Patch>
 class Mesh{
@@ -53,7 +53,7 @@ public:
 };
 
 
-class Mesh1DUniform : public Mesh<Patch1DUniform>
+class Mesh1DUniform : public Mesh<Patch1D>
 {
 public:
     int overlap;

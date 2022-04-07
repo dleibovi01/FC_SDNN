@@ -11,6 +11,7 @@
                 "-Wall",
                 "-pedantic",
                 "FC.cpp",
+                "FC_1D.cpp",
                 "printing.cpp",
                 "TestingSuite.cpp",
                 "VectorField.cpp",
