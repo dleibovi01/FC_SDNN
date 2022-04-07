@@ -1,67 +1,65 @@
-/* 1D vector field */
+/* Vector field */
 
-#ifndef VECTORFIELD1D_H
-#define VECTORFIELD1D_H
+#ifndef VECTORFIELD_H
+#define VECTORFIELD_H
 
 #include <vector>
 #include <iostream>
 #include <algorithm>
-// #include "SpatDiffScheme.h"
 #include "mkl.h"
 
 
 
-class VectorField1D{
+class VectorField{
 
 std::vector<double*>  flow;
 int unknowns;
 int length;
 
 public:
-    //VectorField1D(Node1D* nodes);
-    VectorField1D();
+    //VectorField(Node1D* nodes);
+    VectorField();
     
-    VectorField1D(const std::vector<double*> &field, int n);
+    VectorField(const std::vector<double*> &field, int n);
     
     // Copy constructor
-    VectorField1D(const VectorField1D &field);
+    VectorField(const VectorField &field);
 
     // Move constructor
-    VectorField1D(VectorField1D &&field);
+    VectorField(VectorField &&field);
 
-    VectorField1D(int _unknowns, int _length);
+    VectorField(int _unknowns, int _length);
 
     // Copy assignment
-    VectorField1D & operator= (const VectorField1D &v);
+    VectorField & operator= (const VectorField &v);
 
     // Move assignment
-    VectorField1D & operator= (VectorField1D &&field);
+    VectorField & operator= (VectorField &&field);
 
-    VectorField1D & operator+= (const VectorField1D &v);
+    VectorField & operator+= (const VectorField &v);
 
-    VectorField1D & operator+= (const double a);
+    VectorField & operator+= (const double a);
 
-    VectorField1D & operator-= (const VectorField1D &v);
+    VectorField & operator-= (const VectorField &v);
 
-    VectorField1D & operator*= (const VectorField1D &v);
+    VectorField & operator*= (const VectorField &v);
 
-    VectorField1D & operator*= (double *v);
+    VectorField & operator*= (double *v);
 
-    VectorField1D & operator*= (double alpha);
+    VectorField & operator*= (double alpha);
 
-    VectorField1D & operator/= (const VectorField1D &v);
+    VectorField & operator/= (const VectorField &v);
 
-    VectorField1D & operator>>= (const VectorField1D &v);
+    VectorField & operator>>= (const VectorField &v);
 
-    VectorField1D & operator/= (double alpha){return (*this *= (1.0 / alpha));} 
+    VectorField & operator/= (double alpha){return (*this *= (1.0 / alpha));} 
 
-    // VectorField1D & sqr() {return (*this)*=(*this);}
-    VectorField1D & sqr();
+    VectorField & sqr();
 
-    VectorField1D & abs();
+    VectorField & abs();
 
 
-    ~VectorField1D();
+    ~VectorField();
     
     int getUnknowns() const {return unknowns;}
 
@@ -89,49 +87,49 @@ public:
 
     void circshift (int i);   
 
-    VectorField1D extract(std::vector<int> indices) const;
+    VectorField extract(std::vector<int> indices) const;
 
-    void setFields(const VectorField1D &v,  std::vector<int> indices);
+    void setFields(const VectorField &v,  std::vector<int> indices);
 
     void linComb(std::vector<double> coeffs, 
         std::vector<std::vector<int> > extractions, std::vector<int> target);
 
 };
 
-inline VectorField1D operator+ (const VectorField1D &a, const VectorField1D &b)
-    {return VectorField1D{a}+=b;}
+inline VectorField operator+ (const VectorField &a, const VectorField &b)
+    {return VectorField{a}+=b;}
 
-inline VectorField1D operator+ (const VectorField1D &a, const double b)
-    {return VectorField1D{a}+=b;}
+inline VectorField operator+ (const VectorField &a, const double b)
+    {return VectorField{a}+=b;}
 
-inline VectorField1D operator+ (const double b, const VectorField1D &a)
-    {return VectorField1D{a}+=b;}
+inline VectorField operator+ (const double b, const VectorField &a)
+    {return VectorField{a}+=b;}
 
-inline VectorField1D operator- (const VectorField1D &a, const VectorField1D &b)
-    {return VectorField1D{a}-=b;}
+inline VectorField operator- (const VectorField &a, const VectorField &b)
+    {return VectorField{a}-=b;}
 
-inline VectorField1D operator* (const VectorField1D &a, const VectorField1D &b)
-    {return VectorField1D{a}*=b;}    
+inline VectorField operator* (const VectorField &a, const VectorField &b)
+    {return VectorField{a}*=b;}    
 
-inline VectorField1D operator* (const VectorField1D &a, double alpha)
-    {return VectorField1D{a}*=alpha;}     
+inline VectorField operator* (const VectorField &a, double alpha)
+    {return VectorField{a}*=alpha;}     
 
-inline VectorField1D operator* (double alpha, const VectorField1D &a)
-    {return VectorField1D{a}*alpha;}
+inline VectorField operator* (double alpha, const VectorField &a)
+    {return VectorField{a}*alpha;}
 
-inline VectorField1D operator/ (const VectorField1D &a, double alpha)
-    {return VectorField1D{a}/=alpha;}  
+inline VectorField operator/ (const VectorField &a, double alpha)
+    {return VectorField{a}/=alpha;}  
 
-inline VectorField1D operator/ (const VectorField1D &a, const VectorField1D &b)
-    {return VectorField1D{a}/=b;} 
+inline VectorField operator/ (const VectorField &a, const VectorField &b)
+    {return VectorField{a}/=b;} 
 
-inline VectorField1D sqr(const VectorField1D &a) 
-    {return VectorField1D{a}.sqr();}
+inline VectorField sqr(const VectorField &a) 
+    {return VectorField{a}.sqr();}
 
-inline VectorField1D abs(const VectorField1D &a) 
-    {return VectorField1D{a}.abs();}
+inline VectorField abs(const VectorField &a) 
+    {return VectorField{a}.abs();}
 
-VectorField1D circshift(const VectorField1D &v, int j);
+VectorField circshift(const VectorField &v, int j);
 
 
 template<typename VectorField>

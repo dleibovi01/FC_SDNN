@@ -31,10 +31,11 @@ public:
     }
 
 
-    std::vector<double> enforceBC(const Node1D* node, const double t) 
+    std::vector<double> enforceBC(const Node* node, const double t) 
     {
         std::vector<double> bdry_values;
-        double x = node->getPos();
+        // double x = node->getPos();
+        double x = node->getPosition()[0];
         if(x == 0.0)
         {
             return bdry_values_l;
@@ -50,7 +51,7 @@ public:
 
     std::vector<double> getBC_R(const double t) const {return bdry_values_r;}
 
-    std::vector<int> getEnforceableBdries(const Node1D* node,
+    std::vector<int> getEnforceableBdries(const Node* node,
         const double t) const {return enforceable_bdries;}
 };
 
@@ -73,10 +74,11 @@ public:
     }
 
 
-    std::vector<double> enforceBC(const Node1D* node, const double t) 
+    std::vector<double> enforceBC(const Node* node, const double t) 
     {
         std::vector<double> bdry_values;
-        double x = node->getPos();
+        // double x = node->getPos();
+        double x = node->getPosition()[0];
         if(x == 0.0)
         {
             return bdry_values_l;
@@ -92,7 +94,7 @@ public:
 
     std::vector<double> getBC_R(const double t) const {return bdry_values_r;}
 
-    std::vector<int> getEnforceableBdries(const Node1D* node, const double t)
+    std::vector<int> getEnforceableBdries(const Node* node, const double t)
         const {return enforceable_bdries;}
 
 };
@@ -121,10 +123,11 @@ public:
     }
 
 
-    std::vector<double> enforceBC(const Node1D* node, const double t) 
+    std::vector<double> enforceBC(const Node* node, const double t) 
     {
         std::vector<double> bdry_values;
-        double x = node->getPos();
+        // double x = node->getPos();
+        double x = node->getPosition()[0];
         if(x == 0.0)
         {
             return bdry_values_l;
@@ -140,11 +143,12 @@ public:
 
     std::vector<double> getBC_R(const double t) const {return bdry_values_r;}
 
-    std::vector<int> getEnforceableBdries(const Node1D* node, const double t)
+    std::vector<int> getEnforceableBdries(const Node* node, const double t)
         const 
     {
         std::vector<int> enforceable_bdries;
-        double x = node->getPos();
+        // double x = node->getPos();
+        double x = node->getPosition()[0];
         if(x == 0.0)
         {
             return enforceable_bdries_l;

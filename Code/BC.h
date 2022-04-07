@@ -5,7 +5,7 @@
 
 #include "Patch1D.h"
 #include "Patch1DUniform.h"
-#include "Node1D.h"
+#include "Node.h"
 #include "Mesh.h"
 #include <vector>
 // #include "BC_LA_1D.h"
@@ -167,13 +167,13 @@ public:
 
 protected:
 
-    virtual std::vector<double> enforceBC(const Node1D* node, const double t)
+    virtual std::vector<double> enforceBC(const Node* node, const double t)
     {
         std::vector<double> v;
         return v;
     }
 
-    virtual std::vector<int> getEnforceableBdries(const Node1D* node,
+    virtual std::vector<int> getEnforceableBdries(const Node* node,
         const double t) const
     {
         std::vector<int> v;

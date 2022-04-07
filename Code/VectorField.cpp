@@ -1,18 +1,19 @@
 /* 1D vector field */
 
 
-#include "VectorField1D.h"
+#include "VectorField.h"
 #include "printing.h"
 #include <typeinfo>
 
-VectorField1D::VectorField1D()
+
+VectorField::VectorField()
 {
     unknowns = 0;
     length = 0;
     flow.push_back(new double[0]);
 }
 
-VectorField1D::VectorField1D(const std::vector<double*> &field, int n)
+VectorField::VectorField(const std::vector<double*> &field, int n)
 {
     unknowns = field.size();
     length = n;
@@ -23,7 +24,7 @@ VectorField1D::VectorField1D(const std::vector<double*> &field, int n)
     }
 }
 
-VectorField1D::VectorField1D(const VectorField1D &field)
+VectorField::VectorField(const VectorField &field)
 {
     unknowns = field.unknowns;
     length = field.length;
@@ -34,7 +35,7 @@ VectorField1D::VectorField1D(const VectorField1D &field)
     }
 }
 
-VectorField1D::VectorField1D(VectorField1D &&field)
+VectorField::VectorField(VectorField &&field)
 {
     // std::cout <<"calling move construction" << std::endl;
     unknowns = field.unknowns;
@@ -52,7 +53,7 @@ VectorField1D::VectorField1D(VectorField1D &&field)
 }
 
 
-VectorField1D::VectorField1D(int _unknowns, int _length)
+VectorField::VectorField(int _unknowns, int _length)
 {
     unknowns = _unknowns;
     length = _length;
@@ -62,7 +63,7 @@ VectorField1D::VectorField1D(int _unknowns, int _length)
     }
 }
 
-VectorField1D & VectorField1D::operator= (const VectorField1D &v)
+VectorField & VectorField::operator= (const VectorField &v)
 {
     if(this == &v)
     {
@@ -99,7 +100,7 @@ VectorField1D & VectorField1D::operator= (const VectorField1D &v)
     return *this;  
 }
 
-VectorField1D & VectorField1D::operator= (VectorField1D &&field)
+VectorField & VectorField::operator= (VectorField &&field)
 {
     // std::cout <<"calling move assignment" << std::endl;
     if(this == &field)
@@ -121,7 +122,7 @@ VectorField1D & VectorField1D::operator= (VectorField1D &&field)
     return *this;
 }
 
-void VectorField1D::setFlow(const std::vector<double*> flow_ext)
+void VectorField::setFlow(const std::vector<double*> flow_ext)
 {
     for(int i = 0; i < unknowns; i++)
     {
@@ -130,7 +131,7 @@ void VectorField1D::setFlow(const std::vector<double*> flow_ext)
 }
 
 
-VectorField1D & VectorField1D::operator+= (const VectorField1D &v)
+VectorField & VectorField::operator+= (const VectorField &v)
 {
     double alpha = 1.0;
     int incx = 1;
@@ -145,7 +146,7 @@ VectorField1D & VectorField1D::operator+= (const VectorField1D &v)
     return *this;
 }
 
-VectorField1D & VectorField1D::operator+= (const double a)
+VectorField & VectorField::operator+= (const double a)
 {
     double *y;
     for(int i = 0; i < unknowns; i++)
@@ -160,7 +161,7 @@ VectorField1D & VectorField1D::operator+= (const double a)
     return *this;
 }
 
-VectorField1D & VectorField1D::operator-= (const VectorField1D &v)
+VectorField & VectorField::operator-= (const VectorField &v)
 {
     double alpha = - 1.0;
     int incx = 1;
@@ -175,7 +176,7 @@ VectorField1D & VectorField1D::operator-= (const VectorField1D &v)
     return *this;
 }
 
-VectorField1D & VectorField1D::operator*= (const VectorField1D &v)
+VectorField & VectorField::operator*= (const VectorField &v)
 {
     double *y;
     for(int i = 0; i < unknowns; i++)
@@ -189,7 +190,7 @@ VectorField1D & VectorField1D::operator*= (const VectorField1D &v)
 
 
 
-VectorField1D & VectorField1D::operator*= (double* v)
+VectorField & VectorField::operator*= (double* v)
 {
     double *y;
     for(int i = 0; i < unknowns; i++)
@@ -205,7 +206,7 @@ VectorField1D & VectorField1D::operator*= (double* v)
 
 
 
-VectorField1D & VectorField1D::operator*= (double alpha)
+VectorField & VectorField::operator*= (double alpha)
 {
     double *y;
     int incx = 1;
@@ -219,7 +220,7 @@ VectorField1D & VectorField1D::operator*= (double alpha)
     return *this;
 }
 
-VectorField1D & VectorField1D::sqr()
+VectorField & VectorField::sqr()
 {
     double *y;
     for(int i = 0; i < unknowns; i++)
@@ -230,7 +231,7 @@ VectorField1D & VectorField1D::sqr()
 }
 
 
-VectorField1D & VectorField1D::operator/= (const VectorField1D &v)
+VectorField & VectorField::operator/= (const VectorField &v)
 {
     // double *y;
     for(int i = 0; i < unknowns; i++)
@@ -241,7 +242,7 @@ VectorField1D & VectorField1D::operator/= (const VectorField1D &v)
 }
 
 
-VectorField1D & VectorField1D::operator>>= (const VectorField1D &v)
+VectorField & VectorField::operator>>= (const VectorField &v)
 {
     double *y;
     for(int i = 0; i < unknowns; i++)
@@ -253,7 +254,7 @@ VectorField1D & VectorField1D::operator>>= (const VectorField1D &v)
     return *this;
 }
 
-VectorField1D & VectorField1D::abs ()
+VectorField & VectorField::abs ()
 {
     for(int i = 0; i < unknowns; i++)
     {
@@ -263,9 +264,10 @@ VectorField1D & VectorField1D::abs ()
 }
 
 
-void VectorField1D::circshift (int j)
+void VectorField::circshift (int j)
 {
     double *y;
+    std::cout <<"circshift" << std::endl; 
     for(int i = 0; i < unknowns; i++)
     {
         y = getField(i);
@@ -282,7 +284,7 @@ void VectorField1D::circshift (int j)
 }
 
 
-VectorField1D::~VectorField1D()
+VectorField::~VectorField()
 {
     while(!flow.empty())
     {
@@ -292,9 +294,9 @@ VectorField1D::~VectorField1D()
     }
 }
 
-VectorField1D VectorField1D::extract(std::vector<int> indices) const
+VectorField VectorField::extract(std::vector<int> indices) const
 {
-    VectorField1D w{indices.size(), length};
+    VectorField w{indices.size(), length};
     for(int k = 0; k < indices.size(); k++)
     {
         w.setField(k, length, flow[indices[k]]);
@@ -302,7 +304,7 @@ VectorField1D VectorField1D::extract(std::vector<int> indices) const
     return w;
 }
 
-void VectorField1D::setFields(const VectorField1D &v,  std::vector<int> indices)
+void VectorField::setFields(const VectorField &v,  std::vector<int> indices)
 {
     for(int i = 0; i < indices.size(); i++)
     {
@@ -310,7 +312,7 @@ void VectorField1D::setFields(const VectorField1D &v,  std::vector<int> indices)
     }
 }
 
-void VectorField1D::linComb(std::vector<double> coeffs, 
+void VectorField::linComb(std::vector<double> coeffs, 
     std::vector<std::vector<int> > extractions, std::vector<int> target)
 {
     // extractions[ncoeffs, unknowns]
@@ -333,9 +335,9 @@ void VectorField1D::linComb(std::vector<double> coeffs,
 
 
 
-VectorField1D circshift (const VectorField1D & v, int j)
+VectorField circshift (const VectorField & v, int j)
 {
-    VectorField1D u{v};
+    VectorField u{v};
     u.circshift(j);
     return u;
 }

@@ -1,16 +1,17 @@
-/* 1D node */
+/* Node */
 
-#ifndef NODE1D_H
-#define NODE1D_H
+#ifndef NODE_H
+#define NODE_H
 
 #include <iostream>
 #include <vector>
 #include <cmath>
 
-class Node1D{
+class Node{
 
 /* The abscissa of the node. */
-double pos;
+// double pos;
+std::vector<double> position;
 /* The index of the node. */
 int index;
 /* The number of flow variables. */
@@ -20,13 +21,15 @@ std::vector<double> values;
 
 public:
 
-    // Node1D();
+    // Node();
 
-    Node1D(int _unknowns);
+    Node(int _unknowns);
     
-    Node1D(double pos, int n, int N, std::vector<double> values);
+    Node(const std::vector<double> & _pos, int _n, int _N, 
+        const std::vector<double> & _values) : position{_pos}, index{_n}, 
+        unknowns{_N}, values{_values} {};
 
-    double getPos() const {return pos;}
+    std::vector<double> getPosition() const {return position;}
 
     int getIndex() const {return index;}
 
@@ -44,10 +47,9 @@ public:
 
     void setUnknowns(int _unknowns);
 
-    void setPos(double _pos) {pos = _pos;}
+    void setPosition(const std::vector<double> & _pos) {position = _pos;}
 
-    double getDist(const Node1D & node) const {return std::abs(pos - node.pos);}
-
+    double getDist(const Node & node) const;
 
 
 };

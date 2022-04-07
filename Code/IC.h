@@ -128,7 +128,7 @@ public:
         std::vector<double> init_values;
         for(int i = 0; i < patch->getNnodes(); i++)
         {
-            init_values = f(patch->getNode(i)->getPos());
+            init_values = f(patch->getNode(i)->getPosition()[0]);
             for(int j = 0; j < unknowns; j++)
             {
                 patch->getNode(i)->setValue(j, init_values[j]);

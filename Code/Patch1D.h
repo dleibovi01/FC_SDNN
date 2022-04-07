@@ -3,47 +3,33 @@
 #ifndef PATCH1D_H
 #define PATCH1D_H
 
-#include "Node1D.h"
-#include "VectorField1D.h"
+#include "Node.h"
+#include "VectorField.h"
 #include <iostream>
+#include "Patch.h"
 
 
-class Patch1D{
+
+class Patch1D : public Patch{
 
 protected:
 
-VectorField1D v;
-std::vector<Node1D*> nodes;
-int Nnodes;
-std::vector<int> phys_bdry_nodes;
 int intra_patch_nodes_l;
 int intra_patch_nodes_r;
+double h;
 
 
 public:
 
     Patch1D(){};
-    Patch1D(const VectorField1D &v1, std::vector<Node1D*> n, std::vector<int> p,
+    Patch1D(const VectorField &v1, std::vector<Node*> n, std::vector<int> p,
             int i_l, int i_r);
     Patch1D(const Patch1D &patch);
     Patch1D & operator=(const Patch1D &patch);
     ~Patch1D();
-    const VectorField1D & getFlow() const {return v;}
-    VectorField1D & getFlowRef() {return v;}
-    VectorField1D* getFlowPtr() {return &v;}
-    // VectorField1D* getVectorField() const {return &v;}
-    std::vector<Node1D*> getNodes() const {return nodes;}
-    Node1D* getNode(int i) const {return nodes[i];}
-    int getNnodes() const {return Nnodes;}
-    int getUnknowns() const {return v.getUnknowns();}
-    const std::vector<int> & getPhysBdryNodes() const {return phys_bdry_nodes;}
     int getIntraPatchNodesL() const {return intra_patch_nodes_l;}
     int getIntraPatchNodesR() const {return intra_patch_nodes_r;}
 
-    void setField(const VectorField1D &_flow){v = _flow;}
-    void setFlowValue(int i, int j, double d){v.setFieldValue(i, j, d);};
-    void NodesToVectorField();
-    void VectorFieldToNodes();
     
     template<typename Patch>
     void setInnerBdry(const Patch &patch_l, const Patch &patch_r, int overlap_l, 
@@ -55,16 +41,18 @@ public:
         {
             for(int j = 0; j < unknowns; j++)
             {
-                v.setFieldValue(stage*unknowns + j, i, patch_l->getFlow().getFieldValue(
-                    stage*unknowns + j, Nnodes_l - overlap_l + i));
+                v.setFieldValue(stage*unknowns + j, i, 
+                    patch_l->getFlow().getFieldValue(stage*unknowns + j,
+                    Nnodes_l - overlap_l + i));
             }
         }
         for(int i = 0; i < intra_patch_nodes_r; i++)
         {
             for(int j = 0; j < unknowns; j++)
             {
-                v.setFieldValue(stage*unknowns + j, Nnodes_r - 1 - i, patch_r->getFlow().
-                    getFieldValue(stage*unknowns + j, overlap_r - 1 - i));
+                v.setFieldValue(stage*unknowns + j, Nnodes_r - 1 - i,
+                    patch_r->getFlow().getFieldValue(stage*unknowns + j,
+                    overlap_r - 1 - i));
             }
         }        
     }
@@ -81,7 +69,8 @@ public:
                 for(int j = 0; j < unknowns; j++)
                 {
                     v.setFieldValue(stage*unknowns + j, i, patch->getFlow().
-                        getFieldValue(stage*unknowns + j, Nnodes_n - overlap + i));
+                        getFieldValue(stage*unknowns + j, Nnodes_n - overlap +
+                        i));
                 }
             }
         }
@@ -91,8 +80,9 @@ public:
             {
                 for(int j = 0; j < unknowns; j++)
                 {
-                    v.setFieldValue(stage*unknowns + j, Nnodes - 1 - i, patch->getFlow().
-                        getFieldValue(stage*unknowns + j, overlap- 1 - i));
+                    v.setFieldValue(stage*unknowns + j, Nnodes - 1 - i,
+                        patch->getFlow().getFieldValue(stage*unknowns + j,
+                        overlap- 1 - i));
                 }
             }   
         }

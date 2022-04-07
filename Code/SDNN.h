@@ -8,7 +8,7 @@
 #include <string>
 #include "mkl_operations.h"
 #include "FC.h"
-#include "VectorField1D.h"
+#include "VectorField.h"
 #include "Mesh.h"
 #include "SDNN_data.h"
 #include "SVW.h"

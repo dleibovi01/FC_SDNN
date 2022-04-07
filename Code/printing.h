@@ -7,8 +7,8 @@
 #include <iomanip>
 #include <complex>
 #include <string>
-#include "VectorField1D.h"
-#include "Node1D.h"
+#include "VectorField.h"
+#include "Node.h"
 #include "Patch1D.h"
 #include "Mesh.h"
 
@@ -17,11 +17,11 @@ void Print_Mat(const double * A, int nrows, int ncols, bool flag);
 void Print_Mat(const std::complex<double> * A, int nrows, int ncols);
 void Print_Mat(const int* A, int nrows, int ncols);
 
-void Print_VectorField1D(const VectorField1D &field);
-void Print_VectorField1D(const VectorField1D &field, int precision);
-void Print_VectorField1D(const VectorField1D &field, bool print, int precision);
-void Print_VectorField1D(const VectorField1D &field, bool print);
-void Print_Node1D(const Node1D &node);
+void Print_VectorField(const VectorField &field);
+void Print_VectorField(const VectorField &field, int precision);
+void Print_VectorField(const VectorField &field, bool print, int precision);
+void Print_VectorField(const VectorField &field, bool print);
+void Print_Node(const Node &node);
 void Print_SparseMatrix_csr(int rows, int cols, int* rows_start, int* rows_end,
     int* col_indx, double* values);
 
@@ -32,7 +32,7 @@ void Print_Patch1D(const Patch &patch)
     std::cout << patch.getNnodes() << " nodes" << std::endl;
     for(int i = 0; i < patch.getNnodes(); i++)
     {
-        std::cout << "Position = " << patch.getNode(i)->getPos() << " ";
+        std::cout << "Position = " << patch.getNode(i)->getPosition()[0] << " ";
         unknowns = patch.getNode(i)->getUnknowns();
         for(int j = 0; j < unknowns; j++)
         {
@@ -81,7 +81,7 @@ void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, int intrb,
             std::cout << "Patch " << i + 1 << std::endl;
             for(int j = 0; j < N; j++)
             {
-                myfile << std::fixed << std::setprecision(17) << patch->getNode(j)->getPos();
+                myfile << std::fixed << std::setprecision(17) << patch->getNode(j)->getPosition()[0];
                 myfile << "\n";
             }
             for(int j = 0; j < unknowns; j++)

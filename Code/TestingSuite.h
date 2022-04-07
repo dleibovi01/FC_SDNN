@@ -8,8 +8,8 @@
 #define MKL_Complex8 std::complex<float>
 #include "mkl.h"
 #include <vector>
-#include "VectorField1D.h"
-#include "Node1D.h"
+#include "VectorField.h"
+#include "Node.h"
 #include "Patch1D.h"
 #include "Mesh.h"
 #include "Patch1DUniform.h"
@@ -27,7 +27,7 @@
 
 
 void TestingVector1D();
-void TestingNode1D();
+void TestingNode();
 void TestingPatch1D();
 void TestingMesh1D();
 void TestingSpatDiffScheme();

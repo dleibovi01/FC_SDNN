@@ -53,7 +53,7 @@ void Print_Mat(const std::complex<double> * A, int nrows, int ncols)
     }   
 }
 
-void Print_VectorField1D(const VectorField1D &field)
+void Print_VectorField(const VectorField &field)
 {
     int N = field.getUnknowns();
     int length = field.getLength();
@@ -76,7 +76,7 @@ void Print_VectorField1D(const VectorField1D &field)
     }
 }
 
-void Print_VectorField1D(const VectorField1D &field, int precision)
+void Print_VectorField(const VectorField &field, int precision)
 {
     int N = field.getUnknowns();
     int length = field.getLength();
@@ -100,11 +100,11 @@ void Print_VectorField1D(const VectorField1D &field, int precision)
     }
 }
 
-void Print_VectorField1D(const VectorField1D &field, bool print)
+void Print_VectorField(const VectorField &field, bool print)
 {
     if(print)
     {
-        VectorField1D u{field.getUnknowns() + 1, field.getLength()};
+        VectorField u{field.getUnknowns() + 1, field.getLength()};
         double temp[field.getLength()];
         for(int i = 0; i < field.getLength(); i++)
         {
@@ -115,20 +115,20 @@ void Print_VectorField1D(const VectorField1D &field, bool print)
         {
             u.setField(i+1, field.getLength(), field.getField(i));
         }
-        Print_VectorField1D(u);
+        Print_VectorField(u);
     }      
     else
     {
-        Print_VectorField1D(field);
+        Print_VectorField(field);
     } 
 }
 
 
-void Print_VectorField1D(const VectorField1D &field, bool print, int precision)
+void Print_VectorField(const VectorField &field, bool print, int precision)
 {
     if(print)
     {
-        VectorField1D u{field.getUnknowns() + 1, field.getLength()};
+        VectorField u{field.getUnknowns() + 1, field.getLength()};
         double temp[field.getLength()];
         for(int i = 0; i < field.getLength(); i++)
         {
@@ -139,17 +139,17 @@ void Print_VectorField1D(const VectorField1D &field, bool print, int precision)
         {
             u.setField(i+1, field.getLength(), field.getField(i));
         }
-        Print_VectorField1D(u, precision);
+        Print_VectorField(u, precision);
     }      
     else
     {
-        Print_VectorField1D(field, precision);
+        Print_VectorField(field, precision);
     } 
 }
 
-void Print_Node1D(const Node1D &node)
+void Print_Node(const Node &node)
 {
-    std::cout << "Node position: " << node.getPos() << std::endl;
+    std::cout << "Node position: " << node.getPosition()[0] << std::endl;
     std::cout << "Node index: " << node.getIndex() << std::endl;
     std::cout << "Unknowns: " << node.getUnknowns() << std::endl;
     std::cout << "Stored values:" << std::endl;
@@ -178,11 +178,6 @@ void Print_SparseMatrix_csr(int rows, int cols, int* rows_start, int* rows_end,
         for(int j = rows_start[i]; j < rows_end[i]; j++)
         {
             entries[rows*col_indx[j] + i] = values[j];
-            // if(j == col_indx[val_index])
-            // {
-            //     entries[rows*j + i] = values[val_index];
-            //     val_index++;
-            // }
         }
     }
     Print_Mat(entries, rows, cols);

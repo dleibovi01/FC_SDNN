@@ -54,13 +54,13 @@ class Solver{
 
 
     //     int ndata = 11;
-    //     std::vector<VectorField1D> data_patch;
-    //     std::vector<std::vector<VectorField1D> > data;
+    //     std::vector<VectorField> data_patch;
+    //     std::vector<std::vector<VectorField> > data;
     //     for(int i = 0; i < npatches; i++)
     //     {
     //         for(int j = 0; j < ndata; j++)
     //         {
-    //             data_patch.push_back(VectorField1D(phys_unknowns, 
+    //             data_patch.push_back(VectorField(phys_unknowns, 
     //                 patches[i]->getNnodes()));
     //         } 
     //         data.push_back(data_patch);
@@ -205,7 +205,7 @@ class Solver{
             // #pragma omp parallel for num_threads(threads)
             // #pragma omp parallel for
 
-            // Print_VectorField1D(patches[0]->getFlow(), true);
+            // Print_VectorField(patches[0]->getFlow(), true);
             
             bc_l = pde.getBC().getBC_L(t);
             bc_r = pde.getBC().getBC_R(t);
@@ -259,7 +259,7 @@ class Solver{
                 // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
             } 
             // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux); 
-            // Print_VectorField1D(patches[0]->getFlow(), true, 17);
+            // Print_VectorField(patches[0]->getFlow(), true, 17);
             // for(int i = 0; i < npatches; i++)
             // {
             //     patches[i]->VectorFieldToNodes();
@@ -269,7 +269,7 @@ class Solver{
             mesh.setPatches(patches);
             // mesh.setIntraPatchBC(phys_unknowns);
             pde.getBC()(&mesh, t);
-            // Print_VectorField1D(mesh.getPatches()[0]->getFlow(), true, 17);
+            // Print_VectorField(mesh.getPatches()[0]->getFlow(), true, 17);
             // // Print_Mesh1D(mesh);
 
             // std::cout << std::endl;
@@ -418,11 +418,11 @@ class Solver{
 //             // ts.advance_sdnn(&mesh, sp_diffs, pde, dt, &mux);
  
 //             // std::cout << " patch 0" << std::endl;
-//             // Print_VectorField1D(mesh.getPatches()[0]->getFlow().extract(viscosity), true);
+//             // Print_VectorField(mesh.getPatches()[0]->getFlow().extract(viscosity), true);
 //             // std::cout << std::endl;
 //             // std::cout << std::endl;
 //             // std::cout << " patch 1" << std::endl;
-//             // Print_VectorField1D(mesh.getPatches()[1]->getFlow().extract(viscosity), true);
+//             // Print_VectorField(mesh.getPatches()[1]->getFlow().extract(viscosity), true);
 //             // std::cout << std::endl;
 //             // mesh.setPatches(patches);
 //             // mesh.setIntraPatchBC(phys_unknowns);

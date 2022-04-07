@@ -6,7 +6,7 @@
 #define MKL_Complex16 std::complex<double>
 #define MKL_Complex8 std::complex<float>
 #include "mkl.h"
-#include "VectorField1D.h"
+#include "VectorField.h"
 #include "Mesh.h"
 #include <algorithm> 
 #include <vector>
@@ -28,9 +28,9 @@ double h;
 public:
 
 FD1_1D(Patch *_patch) : patch{_patch}, h{_patch->getH()} {};
-VectorField1D  diff(const VectorField1D & v)
+VectorField  diff(const VectorField & v)
 {
-   VectorField1D u = circshift(v, -1);
+   VectorField u = circshift(v, -1);
    u = (v - u) / h;
    return u;
 }
@@ -38,7 +38,7 @@ VectorField1D  diff(const VectorField1D & v)
 };
 
 
-template<typename Patch, typename VectorField>
+template<typename Patch>
 class WENO_5Z_1D : public SpatDiffScheme<Patch>{
 
 Patch* patch;
@@ -63,22 +63,22 @@ WENO_5Z_1D(Patch *_patch, double _epsilon) : patch{_patch}, epsilon{_epsilon},
    // int ndata = 11;
    // for(int i = 0; i < ndata; i++)
    // {
-   //    data.push_back(VectorField1D(patch->getUnknowns(), patch->getNnodes()));
+   //    data.push_back(VectorField(patch->getUnknowns(), patch->getNnodes()));
    // }
 }
 
-void diff(VectorField1D *fluxL, VectorField1D* fluxR, 
-   std::vector<VectorField1D>* data) const
+void diff(VectorField *fluxL, VectorField* fluxR, 
+   std::vector<VectorField>* data) const
 {
    const int N = fluxR->getLength();
    const int unknowns = fluxR->getUnknowns();
 
    // Setting some vectors to hold the data
    // int ndata = 11;
-   // std::vector<VectorField1D> data;
+   // std::vector<VectorField> data;
    // for(int i = 0; i < ndata; i++)
    // {
-   //    data.push_back(VectorField1D(unknowns, N));
+   //    data.push_back(VectorField(unknowns, N));
    // }
 
    ///////////////////////////////////////////////////////////
@@ -401,7 +401,7 @@ public:
    }
 
 
-   virtual void filter(VectorField1D *v, const std::vector<int> &unknowns, 
+   virtual void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const {}
@@ -505,7 +505,7 @@ public:
    }
 
    // template<typename VectorField>
-   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
+   void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
@@ -638,7 +638,7 @@ public:
    }
 
    // template<typename VectorField>
-   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
+   void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
@@ -768,7 +768,7 @@ public:
    }
 
    // template<typename VectorField>
-   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
+   void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
@@ -908,7 +908,7 @@ public:
    }
 
    // template<typename VectorField>
-   void filter(VectorField1D *v, const std::vector<int> &unknowns, 
+   void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const

@@ -9,11 +9,15 @@ Patch1DUniform::Patch1DUniform(int N, int _unknowns, double _a, double _b,
     b = _b;
     Nnodes = N;
     double h = (b - a)/double(N - 1);
+    std::vector<double> position;
+    position.push_back(0.0);
     for(int i = 0; i < N; i++)
     {
-        nodes.push_back(new Node1D(_unknowns));
+        nodes.push_back(new Node(_unknowns));
         nodes[i]->setIndex(i);
-        nodes[i]->setPos(a + i*h);
+        // nodes[i]->setPos(a + i*h);
+        position[0] = a + i*h;
+        nodes[i]->setPosition(position);
     }
     for(int i = 0; i < lb; i++)
     {
@@ -25,5 +29,5 @@ Patch1DUniform::Patch1DUniform(int N, int _unknowns, double _a, double _b,
     }
     intra_patch_nodes_l = intrbl;
     intra_patch_nodes_r = intrbr;
-    v = VectorField1D{_unknowns, N};
+    v = VectorField{_unknowns, N};
 }

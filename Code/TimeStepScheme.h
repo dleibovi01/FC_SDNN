@@ -3,7 +3,7 @@
 #ifndef TIMESTEPSCHEME_H
 #define TIMESTEPSCHEME_H
 
-#include "VectorField1D.h"
+#include "VectorField.h"
 #include "Mesh.h"
 #include "SpatDiffScheme.h"
 #define MKL_Complex16 std::complex<double>
@@ -79,7 +79,7 @@ h{_h} {}
 
 
 
-template<typename VectorField, typename Sp_Diff>
+template<typename Sp_Diff>
 void diffLinComb(VectorField* v, 
     const std::vector<std::vector<int> > &extractions, 
     const std::vector<int> &target, const std::vector<double> & coeffs,
@@ -108,7 +108,7 @@ void diffLinComb(VectorField* v,
 };
 
 
-template<typename VectorField, typename Sp_Diff>
+template<typename Sp_Diff>
 void diffLinComb(VectorField* v, 
     const std::vector<std::vector<int> > &extractions, 
     const std::vector<int> &target, const std::vector<double> & coeffs,
@@ -156,9 +156,9 @@ double getStages() {return stages;}
 Fwd_Euler(double _dt) : dt{_dt} {}
 
 template<typename Sp_Diff>
-VectorField1D advance(const VectorField1D & v, const Sp_Diff &sp_diff)
+VectorField advance(const VectorField & v, const Sp_Diff &sp_diff)
 {
-    VectorField1D u = v - dt*sp_diff.diff(v);
+    VectorField u = v - dt*sp_diff.diff(v);
     return u;
 }
 
@@ -185,8 +185,8 @@ std::vector<double> coeffs5;
 std::vector<double> coeffs5_bis;
 int stages;
 int unknowns;
-VectorField1D flux;
-VectorField1D flux3;
+VectorField flux;
+VectorField flux3;
 
 static constexpr double a11 = 0.391752226571890;
 
@@ -259,7 +259,7 @@ public:
         coeffs1[1] = -a11*dt;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, data);
         linComb(v, extractions1, stage1, coeffs1, flux);
-        // Print_VectorField1D(flux);
+        // Print_VectorField(flux);
         pde.getBC().setBC(patch, t, 1);
 
 
@@ -285,13 +285,13 @@ public:
 
 
         // Stepping   
-        // VectorField1D flux3 = flux;
+        // VectorField flux3 = flux;
         // auto flux3 = flux;
         flux3 = flux;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, data);
         coeffs5[3] = -a53*dt;
         coeffs5_bis[1] = -a55*dt;
-        std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+        std::vector<VectorField*> fluxes5 = {&flux3, &flux};
         linComb(v, extractions5, stage0, coeffs5, flux3);   
         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
         pde.getBC().setBC(patch, t);
@@ -299,7 +299,7 @@ public:
     }       
 
 
-    template<typename VectorField, typename Sp_Diff, typename PDE>
+    template<typename Sp_Diff, typename PDE>
     void advance(VectorField* v, const Sp_Diff &sp_diff, const PDE &pde,
         const double dt, bool flag)
     {
@@ -335,12 +335,12 @@ public:
         linComb(v, extractions4, stage4, coeffs4, flux);
 
         // Stepping   
-        // VectorField1D flux3 = flux;
+        // VectorField flux3 = flux;
         flux3 = flux;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux);
         coeffs5[3] = -a53*dt;
         coeffs5_bis[1] = -a55*dt;
-        std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+        std::vector<VectorField*> fluxes5 = {&flux3, &flux};
         linComb(v, extractions5, stage0, coeffs5, flux3);   
         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
     }  
@@ -391,12 +391,12 @@ public:
         linComb(v, extractions4, stage4, coeffs4, flux);
 
         // Stepping   
-        // VectorField1D flux3 = flux;
+        // VectorField flux3 = flux;
         flux3 = flux;
         pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux, h, t);
         coeffs5[3] = -a53*dt;
         coeffs5_bis[1] = -a55*dt;
-        std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+        std::vector<VectorField*> fluxes5 = {&flux3, &flux};
         linComb(v, extractions5, stage0, coeffs5, flux3);   
         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
     }        
@@ -492,7 +492,7 @@ public:
             pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i), t);
             coeffs5[3] = -a53*dt;
             coeffs5_bis[1] = -a55*dt;
-            std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+            std::vector<VectorField*> fluxes5 = {&flux3, &flux};
             linComb(v, extractions5, stage0, coeffs5, flux3);   
             linComb(v, extractions1, stage0, coeffs5_bis, flux); 
         }
@@ -596,7 +596,7 @@ public:
             pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i), t);
             coeffs5[3] = -a53*dt;
             coeffs5_bis[1] = -a55*dt;
-            std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+            std::vector<VectorField*> fluxes5 = {&flux3, &flux};
             filters[npatches + i].filter(&flux, stage0);
             filters[npatches + i].filter(&flux3, stage0);
             linComb(v, extractions5, stage0, coeffs5, flux3);   
@@ -695,7 +695,7 @@ public:
             pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i), t);
             coeffs5[3] = -a53*dt;
             coeffs5_bis[1] = -a55*dt;
-            std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+            std::vector<VectorField*> fluxes5 = {&flux3, &flux};
             linComb(v, extractions5, stage0, coeffs5, flux3);   
             linComb(v, extractions1, stage0, coeffs5_bis, flux); 
         }
@@ -764,7 +764,7 @@ public:
     //             ffts, ffts_loc[i]);
     //         linComb(v, extractions1, stage1, coeffs1, flux);
 
-    //         // Print_VectorField1D(v->extract(stage1), true);
+    //         // Print_VectorField(v->extract(stage1), true);
 
 
 
@@ -776,7 +776,7 @@ public:
     //         std::vector<double> coeffs2 = {a21, a22, -a23*dt};
     //         linComb(v, extractions2, stage2, coeffs2, flux);
 
-    //         Print_VectorField1D(v->extract(stage2), true);
+    //         Print_VectorField(v->extract(stage2), true);
 
 
     //         // 3rd stage
@@ -805,7 +805,7 @@ public:
     //         extractions5.push_back(stage4); 
     //         std::vector<double> coeffs5 = {a51, a52, a54, -a53*dt};
     //         std::vector<double> coeffs5_bis = {1, -a55*dt};
-    //         std::vector<VectorField1D*> fluxes5 = {&flux3, &flux};
+    //         std::vector<VectorField*> fluxes5 = {&flux3, &flux};
     //         linComb(v, extractions5, stage0, coeffs5, flux3);   
     //         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
     //     }

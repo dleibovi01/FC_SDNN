@@ -30,53 +30,53 @@ void TestingVector1D()
 
 
 
-    VectorField1D e1{field, N};
-    Print_VectorField1D(e1);
-    VectorField1D e2{e1};
+    VectorField e1{field, N};
+    Print_VectorField(e1);
+    VectorField e2{e1};
     a[0] = 100;
     e1.setField(0, N, b);
-    Print_VectorField1D(e1);
+    Print_VectorField(e1);
 
-    VectorField1D e3 = e1;
+    VectorField e3 = e1;
     std::cout << "e3" << std::endl;
-    Print_VectorField1D(e3);
+    Print_VectorField(e3);
 
     e1.setField(1, N, a);
     std::cout << "e3" << std::endl;
-    Print_VectorField1D(e3);
+    Print_VectorField(e3);
 
 
 
     e3 = e2;
     std::cout << "e3" << std::endl;
-    Print_VectorField1D(e3);    
+    Print_VectorField(e3);    
 
     std::cout << "e1" << std::endl;
-    Print_VectorField1D(e1);       
+    Print_VectorField(e1);       
 
     std::cout << "Sum" << std::endl;
-    Print_VectorField1D(e1 + e3);   
+    Print_VectorField(e1 + e3);   
 
     std::cout << "Product" << std::endl;
-    Print_VectorField1D(e1 * e3);     
+    Print_VectorField(e1 * e3);     
 
     std::cout << "Product scalar" << std::endl;
-    Print_VectorField1D(e3*=2.0);     
+    Print_VectorField(e3*=2.0);     
 
     std::cout << "Product scalar" << std::endl;
-    Print_VectorField1D(0.1*e3);       
+    Print_VectorField(0.1*e3);       
 
 /*
     std::cout << "Circshifted" << std::endl;
     e3.circshift(1);
-    Print_VectorField1D(e3);  
+    Print_VectorField(e3);  
 */
     std::cout << "Circshifted function" << std::endl;
-    VectorField1D e4 = circshift(e3, -1);
-    Print_VectorField1D(e4);  
+    VectorField e4 = circshift(e3, -1);
+    Print_VectorField(e4);  
 }
 
-void TestingNode1D()
+void TestingNode()
 {   
   std::vector<double> a;
     a.push_back(1.0);
@@ -86,14 +86,17 @@ void TestingNode1D()
     b.push_back(5.0);
     b.push_back(2.5);
     b.push_back(-1.1);
-    Node1D n{0.22, 0, 3, a};
-    Print_Node1D(n);
+    std::vector<double> position;
+    position = {0.22};
+    // Node n{0.22, 0, 3, a};
+    Node n{position, 0, 3, a};
+    Print_Node(n);
     n.setValue(1, -1.0);
-    Print_Node1D(n);
+    Print_Node(n);
     n.setValues(b);
-    Print_Node1D(n);
-    Node1D n2{4};
-    Print_Node1D(n2);
+    Print_Node(n);
+    Node n2{4};
+    Print_Node(n2);
 }
 
 void TestingPatch1D()
@@ -124,7 +127,7 @@ void TestingPatch1D()
     field.push_back(c1);
 
 
-    VectorField1D e1{field, N};
+    VectorField e1{field, N};
     patch.setField(e1);
 
     patch.VectorFieldToNodes();
@@ -185,16 +188,16 @@ void TestingSpatDiffScheme()
     field.push_back(a);
     field.push_back(b);
     field.push_back(c);
-    VectorField1D e1{field, N}; 
+    VectorField e1{field, N}; 
 
-    VectorField1D e2 = diff_scheme.diff(e1, h);
+    VectorField e2 = diff_scheme.diff(e1, h);
 
     std::cout << "Initial vectorfield" << std::endl;
-    Print_VectorField1D(e1);
+    Print_VectorField(e1);
 
 
     std::cout << "Differentiated vectorfield" << std::endl;
-    Print_VectorField1D(e2); 
+    Print_VectorField(e2); 
     */   
 }
 
@@ -221,15 +224,15 @@ void TestingTimeStepScheme()
     field.push_back(a);
     field.push_back(b);
     field.push_back(c);
-    VectorField1D e1{field, N}; 
+    VectorField e1{field, N}; 
 
-    VectorField1D e2 = TS.advance(e1);
+    VectorField e2 = TS.advance(e1);
 global std::string B1_filename = "B1.txt";
-    Print_VectorField1D(e1);
+    Print_VectorField(e1);
 
 
     std::cout << "Differentiated vectorfield" << std::endl;
-    Print_VectorField1D(e2);    
+    Print_VectorField(e2);    
     */
 }
 
@@ -271,7 +274,7 @@ void TestingSDNN()
 //     ic(&mesh);
 //     //Print_Mesh1D(mesh);   
 
-//     VectorField1D v = (mesh.getPatches())[0]->getFlow();
+//     VectorField v = (mesh.getPatches())[0]->getFlow();
 //     int C = 27;
 //     int d = 5;
 
@@ -333,8 +336,6 @@ void TestingEulerSDNN()
 
     // Create a PDE
     double T = 0.2;
-    // double dt = 0.00002;
-    // double dt = 1.0;
     double dt = 0.000005;
     // std::string problem = "smooth_LA";
     std::string problem = "Euler1D_Sod";
@@ -372,7 +373,6 @@ void TestingEulerSDNN()
     ic(&mesh);
     //Print_Mesh1D(mesh);   
 
-    VectorField1D v = (mesh.getPatches())[0]->getFlow();
     int C = 27;
     int d = 5;
 
@@ -490,14 +490,14 @@ void TestingEulerSDNN()
     // Run the solver
     double CFL = 2.0;
     bool visc = true;
-    bool adaptive = false;  
+    bool adaptive = true;  
     slv.solve_sdnn(dt, CFL, adaptive, visc);  
 
     // Print the solution
     Mesh1DUniform mesh1 = slv.getMesh();
 
     std::cout << "Solution" << std::endl;
-    // Print_Mesh1D(mesh1);
+    Print_Mesh1D(mesh1);
 
     std::string result_file = "result.txt";
     Print_Mesh1D(mesh1, unknowns, intrb, result_file);
@@ -550,7 +550,7 @@ void TestingEulerSDNN()
 //     ic(&mesh);
 //     //Print_Mesh1D(mesh);   
 
-//     VectorField1D v = (mesh.getPatches())[0]->getFlow();
+//     VectorField v = (mesh.getPatches())[0]->getFlow();
 //     int C = 27;
 //     int d = 5;
 
@@ -712,23 +712,23 @@ void TestingEulerWENO()
 //     ic(&mesh);
 //     //Print_Mesh1D(mesh);   
 
-//     VectorField1D v = (mesh.getPatches())[0]->getFlow();
+//     VectorField v = (mesh.getPatches())[0]->getFlow();
 
 //     int stage = 0;
-//     std::vector<WENO_5Z_1D<Patch1DUniform, VectorField1D> > diff_schemes;
+//     std::vector<WENO_5Z_1D<Patch1DUniform, VectorField> > diff_schemes;
 //     double epsilon = 0.000001;
 //     std::cout << " Creating diff schemes " << std::endl;
 //     for(int i = 0; i < npatches; i++)
 //     {
-//         diff_schemes.push_back(WENO_5Z_1D<Patch1DUniform, VectorField1D> 
+//         diff_schemes.push_back(WENO_5Z_1D<Patch1DUniform, VectorField> 
 //             (mesh.getPatches()[i], epsilon));
 //     }
 
 //     std::cout << " Created diff schemes " << std::endl;
 //     // Create a solver
 //     Solver<Mesh1DUniform, Euler1D_LF<BC_Euler_Sod>, SSPRK_4,
-//         WENO_5Z_1D<Patch1DUniform, VectorField1D>, 
-//         WENO_5Z_1D<Patch1DUniform, VectorField1D> >
+//         WENO_5Z_1D<Patch1DUniform, VectorField>, 
+//         WENO_5Z_1D<Patch1DUniform, VectorField> >
 //         slv{mesh, pde, TS, diff_schemes};
 //     std::cout << " Created solver " << std::endl;
 
@@ -935,7 +935,7 @@ int main()
     //TestingVector1D();
     //TestingSpatDiffScheme();
     //TestingTimeStepScheme();
-    //TestingNode1D();
+    //TestingNode();
     //TestingPatch1D();
     //TestingMesh1D();
     // TestingSDNN();

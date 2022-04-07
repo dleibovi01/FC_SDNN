@@ -6,7 +6,7 @@
 #include "Mesh.h"
 #include "IC.h"
 #include "BC.h"
-#include "VectorField1D.h"
+#include "VectorField.h"
 #include <string>
 #include <fstream>
 #include <cmath>
@@ -19,7 +19,7 @@
 #include <vector>
 
 
-template <typename VectorField, typename BC>
+template <typename BC>
 class PDE{
 
 protected:
@@ -38,7 +38,7 @@ public:
     PDE(const IC &_ic, const BC &_bc, double &_T, int _pu) : ic{_ic}, bc{_bc}, 
         T{_T}, phys_unknowns{_pu} {}
     
-    PDE(const PDE<VectorField, BC> &pde) : ic{pde.ic}, bc{pde.bc}, T{pde.T}, 
+    PDE(const PDE<BC> &pde) : ic{pde.ic}, bc{pde.bc}, T{pde.T}, 
         phys_unknowns{pde.phys_unknowns} {}
  
     virtual ~PDE() {};
@@ -52,25 +52,25 @@ public:
 };
 
 
-class LA1D : public PDE<VectorField1D, BC>{
+class LA1D : public PDE<BC>{
 
 double a;
 
 public:
 
     LA1D(const IC &_ic, const BC &_bc, double &_T, double _a) : 
-        PDE<VectorField1D, BC>{_ic, _bc, _T, 1}, a{_a} {};
+        PDE<BC>{_ic, _bc, _T, 1}, a{_a} {};
 
-    VectorField1D Prim_to_cons(const VectorField1D &v) {return v;}
-    VectorField1D Cons_to_prim(const VectorField1D &v) {return v;}
-    VectorField1D Prim_to_flux(const VectorField1D &v) {return v;}
-    VectorField1D Flux_to_prim(const VectorField1D &v) {return v;}
-    VectorField1D Cons_to_flux(const VectorField1D &v) {return v;}
+    VectorField Prim_to_cons(const VectorField &v) {return v;}
+    VectorField Cons_to_prim(const VectorField &v) {return v;}
+    VectorField Prim_to_flux(const VectorField &v) {return v;}
+    VectorField Flux_to_prim(const VectorField &v) {return v;}
+    VectorField Cons_to_flux(const VectorField &v) {return v;}
 
 };
 
-template<typename VectorField, typename BC>
-class SDNN_flux : public PDE<VectorField, BC>{
+template<typename BC>
+class SDNN_flux : public PDE<BC>{
 
 protected: 
 
@@ -79,10 +79,10 @@ ANN ann;
 public:
 
     SDNN_flux(const IC &_ic, const BC &_bc, double &_T, int _pu, 
-        const ANN &_ann) : PDE<VectorField, BC>{_ic, _bc, _T, _pu}, ann{_ann} {}
+        const ANN &_ann) : PDE<BC>{_ic, _bc, _T, _pu}, ann{_ann} {}
 
     // Need a copy constructor and copy-assignment
-    SDNN_flux(const SDNN_flux<VectorField, BC> & flux) : PDE<VectorField, BC>(flux), 
+    SDNN_flux(const SDNN_flux<BC> & flux) : PDE<BC>(flux), 
         ann{flux.ann} {}    
 
     const ANN & getANN() const {return ann;}
@@ -108,9 +108,7 @@ public:
             v = patch->getFlow();
             MWSB_max = getMWSBMax(v);
             mu_max = getMuMax(v, unknowns, stages);
-            h = patch->getH();
-            // std::cout <<"mu_max = " << mu_max << std::endl;
-            // std::cout <<"MWSB_max = " << MWSB_max << std::endl;
+            h = patch->getH();;
             timestep = CFL / (pi*(MWSB_max/h + mu_max/h/h));
             if(i == 0)
             {
@@ -152,24 +150,24 @@ double getMuMax(const VectorField &v, int unknowns, int stages) const
 };
 
 template <typename BC> 
-class LA1D_SDNN : public SDNN_flux<VectorField1D, BC>{
+class LA1D_SDNN : public SDNN_flux<BC>{
 
 public:
 
 
     LA1D_SDNN(const IC &_ic, const BC &_bc, double &_T, double _a, 
-        const ANN &ann) : SDNN_flux<VectorField1D, BC>{_ic, _bc, _T, 1, ann}, 
+        const ANN &ann) : SDNN_flux<BC>{_ic, _bc, _T, 1, ann}, 
         a{_a} {}
 
-    LA1D_SDNN(const LA1D_SDNN<BC> & flux) : SDNN_flux<VectorField1D, BC>(flux), 
+    LA1D_SDNN(const LA1D_SDNN<BC> & flux) : SDNN_flux<BC>(flux), 
         a{flux.a} {}
 
 
-    VectorField1D Prim_to_cons(const VectorField1D &v, int stages, int stage) {return v;}
-    VectorField1D Cons_to_prim(const VectorField1D &v, int stages, int stage) {return v;}
+    VectorField Prim_to_cons(const VectorField &v, int stages, int stage) {return v;}
+    VectorField Cons_to_prim(const VectorField &v, int stages, int stage) {return v;}
 
     template<typename Sp_diff>
-    void Cons_to_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage) const
     {
         int N = v.getLength();
@@ -183,7 +181,7 @@ public:
 
 
     template<typename Sp_diff>
-    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_der_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage, const double* mux,
         const double t) const
     {
@@ -201,7 +199,7 @@ public:
     }
 
     template<typename Sp_diff>
-    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_der_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage, const double * mux, 
         const std::vector<std::complex<double> *>  & u_hat,
         const std::vector<int> & fft_loc) const
@@ -216,7 +214,7 @@ public:
         computeDerFlux(v, flux, stages, stage, mux, k1x, k1xx);
     }
 
-    void computeDerFlux(const VectorField1D &v, VectorField1D* flux, 
+    void computeDerFlux(const VectorField &v, VectorField* flux, 
         int stages, int stage, const double * mux, const double *k1x, 
         const double *k1xx) const
     {
@@ -233,7 +231,7 @@ public:
     }
 
 
-    void getMWSB(const VectorField1D &v, double * MWSB) const
+    void getMWSB(const VectorField &v, double * MWSB) const
     {
         int N = v.getLength();
         for(int i = 0; i < N; i++)
@@ -242,7 +240,7 @@ public:
         }
     }
 
-    void getProxy(const VectorField1D &v, double* proxy) const
+    void getProxy(const VectorField &v, double* proxy) const
     {
         int N = v.getLength();
         std::copy(v.getField(0), v.getField(0) + N, proxy);    
@@ -256,20 +254,20 @@ private:
 };
 
 template<typename BC>
-class Euler1D : public PDE<VectorField1D, BC>{
+class Euler1D : public PDE<BC>{
 
-    using PDE<VectorField1D, BC>::phys_unknowns;
+    using PDE<BC>::phys_unknowns;
 
 public:
 
 
     Euler1D(const IC &_ic, const BC &_bc, double &_T, double _gamma) : 
-        PDE<VectorField1D, BC>{_ic, _bc, _T, 3}, gamma{_gamma} {}
+        PDE<BC>{_ic, _bc, _T, 3}, gamma{_gamma} {}
 
-    Euler1D(const Euler1D<BC> & flux) : PDE<VectorField1D, BC>(flux), 
+    Euler1D(const Euler1D<BC> & flux) : PDE<BC>(flux), 
         gamma{flux.gamma} {}
 
-    void Cons_to_flux(const VectorField1D &v, VectorField1D* flux, int stages,
+    void Cons_to_flux(const VectorField &v, VectorField* flux, int stages,
         int stage) const
     {
         const int N = v.getLength();
@@ -298,14 +296,6 @@ public:
         // cblas_dscal(N, -1.0, data2, 1);
 
         // 3rd element
-        // std::copy(kin, kin + N, data3);
-        // vdMul(N, vel, data_temp, data3);
-        // cblas_dscal(N, -0.5*(gamma - 1.0), data3, 1);
-        // vdMul(N, v.getField(stage*phys_unknowns + 2), vel, data_temp);
-        // cblas_daxpy(N, gamma, data_temp, 1, data3, 1);
-        // cblas_dscal(N, -1.0, data3, 1);
-
-
         std::copy(kin, kin + N, data3);
         cblas_dscal(N, -0.5*(gamma - 1.0), data3, 1);
         cblas_daxpy(N, gamma, v.getField(stage*phys_unknowns + 2), 1, 
@@ -343,13 +333,13 @@ class Euler1D_LF : public Euler1D<BC>{
     Euler1D_LF(const Euler1D_LF<BC> & flux) : Euler1D<BC>(flux) {}
 
     template<typename Sp_diff>
-    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_der_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage, 
-        std::vector<VectorField1D>* data) const
+        std::vector<VectorField>* data) const
     {
 
         int phys_unknowns = 3;
-        VectorField1D flux2 = *flux;
+        VectorField flux2 = *flux;
         const int N = v.getLength();
         double vel[N];
         double vel_sq[N];
@@ -393,27 +383,27 @@ class Euler1D_LF : public Euler1D<BC>{
 
 
 template<typename BC>
-class Euler1D_SDNN : public SDNN_flux<VectorField1D, BC>{
+class Euler1D_SDNN : public SDNN_flux<BC>{
 
-    using SDNN_flux<VectorField1D, BC>::bc;
-    using SDNN_flux<VectorField1D, BC>::phys_unknowns;
+    using SDNN_flux<BC>::bc;
+    using SDNN_flux<BC>::phys_unknowns;
 
 public:
 
 
     Euler1D_SDNN(const IC &_ic, const BC &_bc, double &_T, double _gamma, 
-        const ANN &ann) : SDNN_flux<VectorField1D, BC>{_ic, _bc, _T, 3, ann}, 
+        const ANN &ann) : SDNN_flux<BC>{_ic, _bc, _T, 3, ann}, 
         gamma{_gamma} {}
 
-    Euler1D_SDNN(const Euler1D_SDNN<BC> & flux) : SDNN_flux<VectorField1D, BC>(flux), 
+    Euler1D_SDNN(const Euler1D_SDNN<BC> & flux) : SDNN_flux<BC>(flux), 
         gamma{flux.gamma} {}
 
 
-    VectorField1D Prim_to_cons(const VectorField1D &v, int stages, int stage) {return v;}
-    VectorField1D Cons_to_prim(const VectorField1D &v, int stages, int stage) {return v;}
+    VectorField Prim_to_cons(const VectorField &v, int stages, int stage) {return v;}
+    VectorField Cons_to_prim(const VectorField &v, int stages, int stage) {return v;}
 
     template<typename Sp_diff>
-    void Cons_to_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage) const
     {
 
@@ -467,7 +457,7 @@ public:
 
 
     template<typename Sp_diff>
-    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_der_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage, const double * mux, 
         const double h, const double t) const
     {
@@ -497,7 +487,7 @@ public:
 
 
     template<typename Sp_diff>
-    void Cons_to_der_flux(const VectorField1D &v, VectorField1D* flux, 
+    void Cons_to_der_flux(const VectorField &v, VectorField* flux, 
         const Sp_diff &sp, int stages, int stage, const double * mux, 
         const std::vector<std::complex<double> *>  & u_hat,
         const std::vector<int> & fft_loc) const
@@ -521,7 +511,7 @@ public:
     }
 
 
-    void computeDerFlux(const VectorField1D &v, VectorField1D* flux, 
+    void computeDerFlux(const VectorField &v, VectorField* flux, 
         int stages, int stage, const double * mux, const double *k1x, 
         const double *k2x, const double *k3x, const double *k1xx, 
         const double *k2xx, const double *k3xx) const
@@ -604,7 +594,7 @@ public:
 
 
 
-    void getMWSB(const VectorField1D &v, double * MWSB) const
+    void getMWSB(const VectorField &v, double * MWSB) const
     {
         int N = v.getLength();
         double vel[N];
@@ -624,7 +614,7 @@ public:
         cblas_daxpy(N, 1.0, vel, 1, MWSB, 1);
     }
 
-    void getProxy(const VectorField1D &v, double* proxy) const
+    void getProxy(const VectorField &v, double* proxy) const
     {
         int N = v.getLength();
         double vel[N];
