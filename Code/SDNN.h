@@ -54,8 +54,6 @@ inline void elu(const int N, double* input, const double alpha)
     }
 }
 
-
-
 void softmax(int N, double* input)
 {
     double sum_exp = 0;

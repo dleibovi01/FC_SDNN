@@ -12,7 +12,6 @@
 #include "Node.h"
 #include "Patch1D.h"
 #include "Mesh.h"
-// #include "Patch1DUniform.h"
 #include "IC.h"
 #include "BC_LA_1D.h"
 #include "BC_Euler_1D.h"

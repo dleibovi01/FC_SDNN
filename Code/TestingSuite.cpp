@@ -354,7 +354,7 @@ void TestingEulerSDNN()
     // int N = 101;
 
     int intrb = 6;
-    int npatches = 4;
+    int npatches = 15;
     int overlap = 12;
 
     int N = 101;
@@ -373,6 +373,13 @@ void TestingEulerSDNN()
         1, 1};
     ic(&mesh);
     //Print_Mesh1D(mesh);   
+
+    // std::vector<int> inner_nodes = mesh.getPatches()[3]->getInnerNodes();
+    // for(int i = 0; i < inner_nodes.size(); i++)
+    // {
+    //     std::cout << inner_nodes[i] << std::endl;
+    // }
+
 
     int C = 27;
     int d = 5;

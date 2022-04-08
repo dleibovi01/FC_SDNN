@@ -223,24 +223,6 @@ private :
 
    void set_FC_Data(double* A, double* Q, int d, int C);
 
-   // void set_FC_Data(double* A, double* Q, int d, int C)
-   // {
-   //    if(C == 27)
-   //    {
-   //       if(d == 5)
-   //       {
-   //          std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
-   //          std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d,
-   //             Q);
-   //       }
-   //    }
-   // }
-
 };
-
-
-
-
-
 
 #endif

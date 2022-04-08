@@ -15,6 +15,7 @@ VectorField v;
 std::vector<Node*> nodes;
 int Nnodes;
 std::vector<int> phys_bdry_nodes;
+std::vector<int> inner_nodes;
 
 public:
 
@@ -28,6 +29,9 @@ public:
     const std::vector<int> & getPhysBdryNodes() const {return phys_bdry_nodes;}
     void setField(const VectorField &_flow){v = _flow;}
     void setFlowValue(int i, int j, double d){v.setFieldValue(i, j, d);}
+    const std::vector<int> & getInnerNodes() const {return inner_nodes;}
+    void addInnerNode(int i) {inner_nodes.push_back(i);}
+    void setInnerNodes(const std::vector<int> &in) {inner_nodes = in;}
 
     void NodesToVectorField();
     void VectorFieldToNodes();

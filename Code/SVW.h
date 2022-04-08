@@ -53,6 +53,7 @@ public:
         int cols = patch_target->getNnodes();
         auto nodes_origin = patch_origin->getNodes();
         auto nodes_target = patch_target->getNodes();
+        std::vector<int> inner_nodes = patch_target->getInnerNodes();
         std::vector<double> values;
         std::vector<int> rows_start;
         std::vector<int> rows_end;
@@ -72,14 +73,14 @@ public:
         {
             new_row = false;
             node_origin = nodes_origin[i];
-            for(int j = 0; j < cols; j++)
+            for(int j = 0; j < inner_nodes.size(); j++)
             {
-                node_target = nodes_target[j];
+                node_target = nodes_target[inner_nodes[j]];
                 value = visc_window(*node_origin, *node_target, cutoff_h);
                 if(value > tolerance)
                 {
                     values.push_back(value);
-                    col_indx.push_back(j + 1);
+                    col_indx.push_back(inner_nodes[j] + 1);
                     last_index++;
                     new_row = true;
                 }
@@ -102,66 +103,6 @@ public:
         }
     }
 
-
-    template<typename Patch>
-    void compute_svw_data_innerpatch(Patch * patch_origin, Patch * patch_target, 
-        int target_id)
-    {
-        int rows = patch_origin->getNnodes();
-        int cols = patch_target->getNnodes();
-        int intrbl = patch_target->getIntraPatchNodesL();
-        int intrbr = patch_target->getIntraPatchNodesR();
-        auto nodes_origin = patch_origin->getNodes();
-        auto nodes_target = patch_target->getNodes();
-        std::vector<double> values;
-        std::vector<int> rows_start;
-        std::vector<int> rows_end;
-        std::vector<int> col_indx;
-        double value;
-        double h = patch_target->getH();
-        double cutoff_h = window_cutoff*h;
-        auto node_origin = nodes_origin[0];
-        auto node_target = nodes_target[0];
-        sparse_index_base_t indexing = SPARSE_INDEX_BASE_ONE;
-        sparse_status_t status;
-        bool new_row;
-        int last_index = 1;
-        rows_start.push_back(last_index);
-
-        for(int i = 0; i < rows; i++)
-        {
-            new_row = false;
-            node_origin = nodes_origin[i];
-            for(int j = intrbl; j < cols - intrbr; j++)
-            {
-                node_target = nodes_target[j];
-                value = visc_window(*node_origin, *node_target, cutoff_h);
-                if(value > tolerance)
-                {
-                    values.push_back(value);
-                    col_indx.push_back(j + 1);
-                    last_index++;
-                    new_row = true;
-                }
-            }
-            rows_end.push_back(last_index);
-            if(i < rows - 1)
-            {
-                rows_start.push_back(last_index);
-            }             
-        }   
-        if(values.size() > tolerance)
-        {
-            patch_ids.push_back(target_id);
-            patch_svws.push_back(new SpMatrix_csr{indexing, rows, cols,
-                rows_start.data(), rows_end.data(), col_indx.data(),
-                values.data()});
-            patch_svws.back()->setMVHint();
-            patch_svws.back()->optimize();
-            
-        }
-        
-    }
 
     void setScaledSVWS()
     {
@@ -256,16 +197,10 @@ private:
         // Compute the unscaled windows
         for(int i = 0; i < npatches; i++)
         {
-            patch_origin = patches[i];
-            svws[i]->compute_svw_data(patch_origin, patches[0], 0);
-            for(int j = 1; j < npatches - 1; j++)
+            for(int j = 0; j < npatches; j++)
             {
-                patch_target = patches[j];
-                svws[i]->compute_svw_data_innerpatch(patch_origin, 
-                    patch_target, j);
+                svws[i]->compute_svw_data(patches[i], patches[j], j);
             }
-            svws[i]->compute_svw_data(patch_origin, patches[npatches - 1],
-                npatches - 1);
         }
         // Scale the windows
         for(int i = 0; i < npatches; i++)
