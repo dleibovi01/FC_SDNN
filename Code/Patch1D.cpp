@@ -46,19 +46,6 @@ Patch1D::Patch1D(int N, int _unknowns, double _a, double _b, int lb, int rb,
 }
 
 
-Patch1D::Patch1D(const Patch1D &patch)
-{
-    v = patch.getFlow();
-    std::vector<Node*> n = patch.getNodes();
-    Nnodes = n.size();
-    for(int i = 0; i < Nnodes; i++)
-    {
-        nodes.push_back(n[i]);
-    }
-    phys_bdry_nodes = patch.getPhysBdryNodes();
-    intra_patch_nodes_l = patch.getIntraPatchNodesL();
-    intra_patch_nodes_r = patch.getIntraPatchNodesR();
-}
 
 Patch1D & Patch1D::operator=(const Patch1D &patch)
 {
@@ -76,15 +63,6 @@ Patch1D & Patch1D::operator=(const Patch1D &patch)
     return *this; 
 }
 
-Patch1D::~Patch1D()
-{
-    while(!nodes.empty())
-    {
-        delete nodes.back();
-        Nnodes--;
-        nodes.pop_back();
-    }
-}
 
 void Patch1D::setInnerBdry(Patch1D* patch_l, Patch1D* patch_r, int overlap_l,
     int overlap_r, int unknowns, int stage)

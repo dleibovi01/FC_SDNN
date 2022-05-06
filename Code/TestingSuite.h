@@ -12,6 +12,7 @@
 #include "Node.h"
 #include "Patch1D.h"
 #include "Mesh.h"
+#include "Mesh1D.h"
 #include "IC.h"
 #include "BC_LA_1D.h"
 #include "BC_Euler_1D.h"
@@ -23,6 +24,8 @@
 #include <chrono>
 #include "SVW.h"
 #include "SpMatrix_csr.h"
+
+#include "TestingMesh.h"
 
 
 void TestingVector1D();

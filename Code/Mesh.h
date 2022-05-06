@@ -4,6 +4,7 @@
 #define MESH_H
 
 #include "Patch1D.h"
+#include "Patch2D.h"
 // #include "Patch1DUniform.h"
 
 template <typename Patch>
@@ -46,55 +47,21 @@ public:
         }   
         return *this;       
     }
+
+    // ~Mesh()
+    // {
+    //     while(!patches.empty())
+    //     {
+    //         delete patches.back();
+    //         patches.pop_back();
+    //     }
+    // }
+
+    
     void setPatch(Patch* patch, int i) {patches[i] = patch;}
     void setPatches(const std::vector<Patch*> p) {patches = p;}
     std::vector<Patch*> getPatches() const {return patches;}
     std::vector<Patch*>* getPatchesPtr() {return &patches;}
 };
 
-
-class Mesh1DUniform : public Mesh<Patch1D>
-{
-public:
-    int overlap;
-    /* Constructor */
-   
-    Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
-        int _overlap, int intrb, int unknowns, int l_b, int r_b);  
-
-    /* Copy constructor */
-
-    int getOverlap() const {return overlap;}
-
-    double getH() const {return (patches[0]->getH());}
-
-    void setIntraPatchBC(int unknowns, int stage)
-    {
-        int N;
-        int bdry_elems_l;
-        int bdry_elems_r;
-        N = patches.size();
-        if (N > 1)
-        {
-            for(int i = 0; i < patches.size(); i++)
-            {
-                if(i == 0)
-                {
-                    patches[i]->setInnerBdry(patches[i + 1], overlap, unknowns, 
-                        stage, false);
-                }
-                else if(i == patches.size() - 1)
-                {
-                    patches[i]->setInnerBdry(patches[i - 1], overlap, unknowns, 
-                        stage, true);
-                }
-                else
-                {
-                    patches[i]->setInnerBdry(patches[i - 1], patches[i + 1], 
-                        overlap, overlap, unknowns, stage);                   
-                }              
-            }
-        }
-    }
-};
 #endif

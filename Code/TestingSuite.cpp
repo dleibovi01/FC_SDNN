@@ -354,7 +354,7 @@ void TestingEulerSDNN()
     // int N = 101;
 
     int intrb = 6;
-    int npatches = 15;
+    int npatches = 4;
     int overlap = 12;
 
     int N = 101;
@@ -954,6 +954,7 @@ int main()
 
 
     TestingEulerSDNN();
+    Test2DMesh();
     // TestingEulerWENO();
 
     // TestingSVW();

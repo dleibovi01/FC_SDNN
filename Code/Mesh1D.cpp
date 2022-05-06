@@ -1,7 +1,9 @@
 /* 1D Mesh */
 
-#include "Mesh.h"
+#include "Mesh1D.h"
 #include <numeric>
+
+
 
 Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize, 
     int _overlap, int intrb, int unknowns, int l_b, int r_b)
@@ -16,7 +18,7 @@ Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize,
     overlap = _overlap;
     N = n_patches*patchsize - (n_patches - 1)*overlap;
     L = b - a;
-    h = L/(double (N - 1));
+    h = L / (double (N - 1));
     std::vector<int> inner_nodes_onepatch(patchsize);
     std::vector<int> inner_nodes_leftpatch(patchsize - intrb);
     std::vector<int> inner_nodes_innerpatch(patchsize - 2*intrb);
@@ -29,7 +31,6 @@ Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize,
         patchsize - 2*intrb, intrb);
     std::iota(inner_nodes_rightpatch.data(), inner_nodes_rightpatch.data() +
         patchsize - intrb, intrb);
-
     for(int i = 0; i < n_patches; i++)
     {
         if (i == 0)
@@ -78,3 +79,35 @@ Mesh1DUniform::Mesh1DUniform(double a, double b, int n_patches, int patchsize,
         }
     }
 }
+
+
+void Mesh1DUniform::setIntraPatchBC(int unknowns, int stage)
+{
+    int N;
+    int bdry_elems_l;
+    int bdry_elems_r;
+    N = patches.size();
+    if (N > 1)
+    {
+        for(int i = 0; i < patches.size(); i++)
+        {
+            if(i == 0)
+            {
+                patches[i]->setInnerBdry(patches[i + 1], overlap, unknowns, 
+                    stage, false);
+            }
+            else if(i == patches.size() - 1)
+            {
+                patches[i]->setInnerBdry(patches[i - 1], overlap, unknowns, 
+                    stage, true);
+            }
+            else
+            {
+                patches[i]->setInnerBdry(patches[i - 1], patches[i + 1], 
+                    overlap, overlap, unknowns, stage);                   
+            }              
+        }
+    }
+}
+
+

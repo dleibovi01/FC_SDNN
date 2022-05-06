@@ -9,8 +9,11 @@
 #include <string>
 #include "VectorField.h"
 #include "Node.h"
+#include "Patch.h"
 #include "Patch1D.h"
+#include "Patch2D.h"
 #include "Mesh.h"
+#include "Mesh2D.h"
 
 void Print_Mat(const double * A, int nrows, int ncols);
 void Print_Mat(const double * A, int nrows, int ncols, bool flag);
@@ -147,6 +150,8 @@ void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, int intrb, int vector,
 
 
 
+void Print_Patch2D(const Patch2D &patch);
+void Print_Mesh2DUniform(const Mesh2DUniform &mesh);
 
 
 #endif 

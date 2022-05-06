@@ -355,8 +355,6 @@ void updateTau (Patch * patch, const SpatDiffScheme &sp, const PDE &pde,
     // Form the continuation
     fourPts = N + C;
     double proxy_ext[N+C];   
-    // Fcont_shift(proxy, proxy_ext, shift_coeffs, N, d, C, double(fourPts), AQ, 
-    //     FAQF, desc_handle);
     Fcont_shift(proxy, proxy_ext, sp->getShiftCoeffs(), N, d, C,
         double(fourPts), AQ, FAQF, desc_handle);
 
