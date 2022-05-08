@@ -372,25 +372,8 @@ void FC_Der(const double * fx, double *f_der, const double * der_coeffs,
     }
 }
 
-// void FC_Der(const double * fx, double *f_der, 
-//     const std::complex<double> * der_coeffs, std::complex<double> * fft, int N,
-//     int d, int C, double fourPts, const double * AQ, const double * FAQF, 
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
-// {
-//     MKL_LONG status;
-//     Fcont_Gram_Blend(fx, fft, N, d, C, fourPts, AQ, FAQF, desc_handle); 
-//     VectorMul(N + C, der_coeffs, fft, fft); 
-//     status = DftiComputeBackward(desc_handle, fft); 
-//     for (int j = 0; j < N; j++)
-//     {
-//         f_der[j] = fft[j].real();
-//     }    
-// }
 
 
-// void FC_Der(double *f_der, const std::complex<double> * f_hat,
-//     const std::complex<double> * der_coeffs, int N, int C, 
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
 void FC_Der(double *f_der, const std::complex<double> * f_hat,
     const double * der_coeffs, int N, int C, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle)
@@ -406,9 +389,6 @@ void FC_Der(double *f_der, const std::complex<double> * f_hat,
    } 
 }
 
-// void FC_Der(double *f_der, const std::complex<double> * f_hat,
-//     const std::complex<double> * der_coeffs, int N, int C, 
-//     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)
 void FC_Der(double *f_der, const std::complex<double> * f_hat,
     const double * der_coeffs, int N, int C, 
     const DFTI_DESCRIPTOR_HANDLE &desc_handle, bool flag)

@@ -55,7 +55,8 @@
         "memory_resource": "cpp",
         "optional": "cpp",
         "random": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "patch": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

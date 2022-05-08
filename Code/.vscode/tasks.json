@@ -12,6 +12,7 @@
                 "-pedantic",
                 "FC.cpp",
                 "FC_1D.cpp",
+                "FC_2D.cpp",
                 "printing.cpp",
                 "TestingSuite.cpp",
                 "VectorField.cpp",

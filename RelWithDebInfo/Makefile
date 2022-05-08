@@ -204,32 +204,59 @@ Code/MVOperations.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.s
 .PHONY : Code/MVOperations.cpp.s
 
-Code/Mesh.o: Code/Mesh.cpp.o
+Code/Mesh1D.o: Code/Mesh1D.cpp.o
 
-.PHONY : Code/Mesh.o
+.PHONY : Code/Mesh1D.o
 
 # target to build an object file
-Code/Mesh.cpp.o:
-	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh.cpp.o
-.PHONY : Code/Mesh.cpp.o
+Code/Mesh1D.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o
+.PHONY : Code/Mesh1D.cpp.o
 
-Code/Mesh.i: Code/Mesh.cpp.i
+Code/Mesh1D.i: Code/Mesh1D.cpp.i
 
-.PHONY : Code/Mesh.i
+.PHONY : Code/Mesh1D.i
 
 # target to preprocess a source file
-Code/Mesh.cpp.i:
-	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh.cpp.i
-.PHONY : Code/Mesh.cpp.i
+Code/Mesh1D.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.i
+.PHONY : Code/Mesh1D.cpp.i
 
-Code/Mesh.s: Code/Mesh.cpp.s
+Code/Mesh1D.s: Code/Mesh1D.cpp.s
 
-.PHONY : Code/Mesh.s
+.PHONY : Code/Mesh1D.s
 
 # target to generate assembly for a file
-Code/Mesh.cpp.s:
-	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh.cpp.s
-.PHONY : Code/Mesh.cpp.s
+Code/Mesh1D.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.s
+.PHONY : Code/Mesh1D.cpp.s
+
+Code/Mesh2D.o: Code/Mesh2D.cpp.o
+
+.PHONY : Code/Mesh2D.o
+
+# target to build an object file
+Code/Mesh2D.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o
+.PHONY : Code/Mesh2D.cpp.o
+
+Code/Mesh2D.i: Code/Mesh2D.cpp.i
+
+.PHONY : Code/Mesh2D.i
+
+# target to preprocess a source file
+Code/Mesh2D.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.i
+.PHONY : Code/Mesh2D.cpp.i
+
+Code/Mesh2D.s: Code/Mesh2D.cpp.s
+
+.PHONY : Code/Mesh2D.s
+
+# target to generate assembly for a file
+Code/Mesh2D.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.s
+.PHONY : Code/Mesh2D.cpp.s
 
 Code/Node.o: Code/Node.cpp.o
 
@@ -338,6 +365,33 @@ Code/Patch1DUniform.s: Code/Patch1DUniform.cpp.s
 Code/Patch1DUniform.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.s
 .PHONY : Code/Patch1DUniform.cpp.s
+
+Code/Patch2D.o: Code/Patch2D.cpp.o
+
+.PHONY : Code/Patch2D.o
+
+# target to build an object file
+Code/Patch2D.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o
+.PHONY : Code/Patch2D.cpp.o
+
+Code/Patch2D.i: Code/Patch2D.cpp.i
+
+.PHONY : Code/Patch2D.i
+
+# target to preprocess a source file
+Code/Patch2D.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.i
+.PHONY : Code/Patch2D.cpp.i
+
+Code/Patch2D.s: Code/Patch2D.cpp.s
+
+.PHONY : Code/Patch2D.s
+
+# target to generate assembly for a file
+Code/Patch2D.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.s
+.PHONY : Code/Patch2D.cpp.s
 
 Code/SpMatrix_csr.o: Code/SpMatrix_csr.cpp.o
 
@@ -492,9 +546,12 @@ help:
 	@echo "... Code/MVOperations.o"
 	@echo "... Code/MVOperations.i"
 	@echo "... Code/MVOperations.s"
-	@echo "... Code/Mesh.o"
-	@echo "... Code/Mesh.i"
-	@echo "... Code/Mesh.s"
+	@echo "... Code/Mesh1D.o"
+	@echo "... Code/Mesh1D.i"
+	@echo "... Code/Mesh1D.s"
+	@echo "... Code/Mesh2D.o"
+	@echo "... Code/Mesh2D.i"
+	@echo "... Code/Mesh2D.s"
 	@echo "... Code/Node.o"
 	@echo "... Code/Node.i"
 	@echo "... Code/Node.s"
@@ -507,6 +564,9 @@ help:
 	@echo "... Code/Patch1DUniform.o"
 	@echo "... Code/Patch1DUniform.i"
 	@echo "... Code/Patch1DUniform.s"
+	@echo "... Code/Patch2D.o"
+	@echo "... Code/Patch2D.i"
+	@echo "... Code/Patch2D.s"
 	@echo "... Code/SpMatrix_csr.o"
 	@echo "... Code/SpMatrix_csr.i"
 	@echo "... Code/SpMatrix_csr.s"

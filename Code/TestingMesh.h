@@ -23,8 +23,11 @@ void Test2DMesh()
         {
             for(int k = 0; k < patchsize_x * patchsize_y; k++)
             {
-                mesh.getPatches()[j*npatches_y + i]->getNode(k)->
-                    setValue(0, double(j*npatches_y + i));
+                for(int u = 0; u < unknowns; u++)
+                {
+                    mesh.getPatches()[j*npatches_y + i]->getNode(k)->
+                        setValue(u, double(j*npatches_y + i + u*npatches_x*npatches_y));
+                }
             }
         }
     }
@@ -32,15 +35,12 @@ void Test2DMesh()
     {
         mesh.getPatches()[i]->NodesToVectorField();
     }
-    mesh.setIntraPatchBC(1, 0);
+    mesh.setIntraPatchBC(unknowns, 0);
      for(int i = 0; i < npatches_x * npatches_y; i++)
     {
         mesh.getPatches()[i]->VectorFieldToNodes();
     }   
-    Print_Mesh2DUniform(mesh);
-
-
-    
+    Print_Mesh2DUniform(mesh); 
 }
 
 

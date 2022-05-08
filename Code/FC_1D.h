@@ -20,7 +20,6 @@ class FC_1D : public SpatDiffScheme<Patch1D>{
 
 protected:
 
-   Patch1D* patch;
    double * der_coeffs;
    double * der_coeffs_2;
    double * filter_coeffs;
@@ -38,18 +37,18 @@ protected:
 
 public:
 
-   FC_1D(int _N, int _d, int _C, Patch1D *_patch) : patch{_patch}
+   FC_1D(int _N, int _d, int _C, double _h)
    {
-      init(_N, _d, _C);
+      init(_N, _d, _C, _h);
    }
 
-   FC_1D(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) : patch{_patch}
+   FC_1D(int _N, int _d, int _C, double _h, int alpha, int p)
    {
-      init(_N, _d, _C);
+      init(_N, _d, _C, _h);
       getFiltCoeffs(filter_coeffs, fourPts, alpha, p); 
    }
 
-   FC_1D(int _N, int _d, int _C, Patch1D *_patch, double delta);
+   FC_1D(int _N, int _d, int _C, double _h, double delta);
 
    FC_1D(const FC_1D &slv);
 
@@ -69,14 +68,16 @@ public:
    double * getAQ() const {return AQ;}
    double * getFAQF() const {return FAQF;}
    DFTI_DESCRIPTOR_HANDLE getDescHandle() const {return desc_handle;}
-   Patch1D* getPatch() const {return patch;}
 
-   void init(int _N, int _d, int _C);
+   void init(int _N, int _d, int _C, double _h);
 
-   virtual void filter(VectorField *v, const std::vector<int> &unknowns, 
+   void filter(VectorField *v, const std::vector<int> &unknowns, 
       std::vector<std::complex<double> *> *ffts, 
       const std::vector<int> &fft_loc, double h, 
-      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const {}
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
+
+   virtual void filter(double* y, std::complex<double> *fft, double h,
+      double bc_l, double bc_r) const {}
 
    virtual void diff(const std::complex<double> *y_hat, double * y_der,
       double* y_der_2) const {}
@@ -87,6 +88,7 @@ public:
    virtual void diff(const double* y, double * y_der, double* y_der_2, double h, 
       double bc_l, double bc_r) const {}
 
+
 };
 
 
@@ -95,11 +97,11 @@ class FC_1D_DD : public FC_1D{
 
 public:
 
-   FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch);
+   FC_1D_DD(int _N, int _d, int _C, double _h);
 
-   FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p);
+   FC_1D_DD(int _N, int _d, int _C, double _h, int alpha, int p);
 
-   FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch, double delta);
+   FC_1D_DD(int _N, int _d, int _C, double _h, double delta);
 
    FC_1D_DD(const FC_1D_DD &slv) : FC_1D(slv) {}
 
@@ -112,10 +114,9 @@ public:
    void diff(const double* y, double * y_der, double* y_der_2, double h, 
       double bc_l, double bc_r) const;
 
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
-      std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc, double h, 
-      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
+   void filter(double* y, std::complex<double> *fft, double h, double bc_l,
+      double bc_r) const;
+
 
 private :
 
@@ -123,18 +124,16 @@ private :
 };
 
 
-
-
 // FC scheme with left Dirichlet right Neumann boundary conditions
 class FC_1D_DN : public FC_1D{
 
 public:
 
-   FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch);
+   FC_1D_DN(int _N, int _d, int _C, double _h);
 
-   FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p);
+   FC_1D_DN(int _N, int _d, int _C, double _h, int alpha, int p);
 
-   FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch, double delta);
+   FC_1D_DN(int _N, int _d, int _C, double _h, double delta);
 
    FC_1D_DN(const FC_1D_DN &slv) : FC_1D(slv) {}
 
@@ -147,10 +146,8 @@ public:
    void diff(const double* y, double * y_der, double* y_der_2, double h, 
       double bc_l, double bc_r) const;
 
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
-      std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc, double h, 
-      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
+   void filter(double* y, std::complex<double> *fft, double h, double bc_l,
+      double bc_r) const;
 
 private :
 
@@ -163,11 +160,11 @@ class FC_1D_ND : public FC_1D{
 
 public:
 
-   FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch);
+   FC_1D_ND(int _N, int _d, int _C, double _h);
 
-   FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p);
+   FC_1D_ND(int _N, int _d, int _C, double _h, int alpha, int p);
 
-   FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch, double delta) ;
+   FC_1D_ND(int _N, int _d, int _C, double _h, double delta) ;
 
    FC_1D_ND(const FC_1D_ND &slv) : FC_1D(slv) {}
 
@@ -180,10 +177,8 @@ public:
    void diff(const double* y, double * y_der, double* y_der_2, double h, 
       double bc_l, double bc_r) const;
 
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
-      std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc, double h, 
-      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
+   void filter(double* y, std::complex<double> *fft, double h, double bc_l,
+      double bc_r) const;
 
 private :
 
@@ -197,11 +192,11 @@ class FC_1D_NN : public FC_1D{
 
 public:
 
-   FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch);
+   FC_1D_NN(int _N, int _d, int _C, double _h);
 
-   FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p);
+   FC_1D_NN(int _N, int _d, int _C, double _h, int alpha, int p);
 
-   FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch, double delta);
+   FC_1D_NN(int _N, int _d, int _C, double _h, double delta);
 
    FC_1D_NN(const FC_1D_NN &slv) : FC_1D(slv) {}
 
@@ -214,10 +209,8 @@ public:
    void diff(const double* y, double * y_der, double* y_der_2, double h, 
       double bc_l, double bc_r) const;
 
-   void filter(VectorField *v, const std::vector<int> &unknowns, 
-      std::vector<std::complex<double> *> *ffts, 
-      const std::vector<int> &fft_loc, double h, 
-      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
+   void filter(double* y, std::complex<double> *fft, double h, double bc_l,
+      double bc_r) const;
 
 private :
 

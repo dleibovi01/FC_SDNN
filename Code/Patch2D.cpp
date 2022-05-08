@@ -125,10 +125,7 @@ void Patch2D::setInnerBdry(Patch2D* patch, int position, int fringe,
                 for(int j = 0; j < fringe; j++)
                 {
                     for(int k = 0; k < unknowns; k++)
-                    {
-                        // std::cout << "In case 3" << std::endl;
-                        // std::cout << "(Nx - fringe + j)*Ny + i = " << (Nx - fringe + j)*Ny + i  << std::endl;
-                        // std::cout << "(overlap - fringe + j)*Ny + Ny - overlap + i = " << (overlap - fringe + j)*Ny + Ny - overlap + i << std::endl;   
+                    { 
                         v.setFieldValue(stage*unknowns + k, (Nx - fringe + j)*Ny
                             + i, patch->getFlow().getFieldValue(stage*unknowns
                             + k, (overlap - fringe + j)*Ny + Ny - overlap + i));
@@ -144,10 +141,6 @@ void Patch2D::setInnerBdry(Patch2D* patch, int position, int fringe,
                 {
                     for(int k = 0; k < unknowns; k++)
                     {
-                        // std::cout << "stage*unknowns + k = " << stage*unknowns + k << std::endl; 
-                        // std::cout << "j*Ny + i = " << j*Ny + i << std::endl; 
-                        // std::cout << "(Nx - overlap + fringe + j)*Ny + i = " << (Nx - overlap + fringe + j)*Ny + i << std::endl; 
-                        // Print_VectorField(v);
                         v.setFieldValue(stage*unknowns + k, j*Ny + i, 
                             patch->getFlow().getFieldValue(stage*unknowns + k,
                             (Nx - overlap + j)*Ny + i));
@@ -162,10 +155,7 @@ void Patch2D::setInnerBdry(Patch2D* patch, int position, int fringe,
                 for(int j = 0; j < fringe; j++)
                 {
                     for(int k = 0; k < unknowns; k++)
-                    {
-                        // std::cout << "In case 6" << std::endl;
-                        // std::cout << "(Nx - fringe + j)*Ny + i = " << (Nx - fringe + j)*Ny + i << std::endl;
-                        // std::cout << "(overlap - fringe + j)*Ny + i) " << (overlap - fringe + j)*Ny + i << std::endl;                          
+                    {                      
                         v.setFieldValue(stage*unknowns + k, (Nx - fringe + j)*Ny
                             + i, 
                             patch->getFlow().getFieldValue(stage*unknowns + k,
@@ -181,10 +171,7 @@ void Patch2D::setInnerBdry(Patch2D* patch, int position, int fringe,
                 for(int j = 0; j < fringe; j++)
                 {
                     for(int k = 0; k < unknowns; k++)
-                    {
-                        // std::cout << "In case 7" << std::endl;
-                        // std::cout << "j*Ny + Ny - fringe + i = " << j*Ny + Ny - fringe + i << std::endl;
-                        // std::cout << "(Nx - overlap + j)*Ny + overlap - fringe + i = " << (Nx - overlap + j)*Ny + overlap - fringe + i << std::endl;   
+                    { 
                         v.setFieldValue(stage*unknowns + k, j*Ny + Ny - fringe
                             + i, patch->getFlow().getFieldValue(stage*unknowns
                             + k, (Nx - overlap + j)*Ny + overlap - fringe + i));
@@ -200,9 +187,6 @@ void Patch2D::setInnerBdry(Patch2D* patch, int position, int fringe,
                 {
                     for(int k = 0; k < unknowns; k++)
                     {
-                        // std::cout << "In case 8" << std::endl;
-                        // std::cout << "j*Ny + Ny - fringe + i = " << j*Ny + Ny - fringe + i << std::endl;
-                        // std::cout << "j*Ny + overlap - fringe + i = " << j*Ny + overlap - fringe + i << std::endl;   
                         v.setFieldValue(stage*unknowns + k, j*Ny + Ny - fringe
                             + i, patch->getFlow().getFieldValue(stage*unknowns
                             + k, j*Ny + overlap - fringe + i));
@@ -217,12 +201,7 @@ void Patch2D::setInnerBdry(Patch2D* patch, int position, int fringe,
                 for(int j = 0; j < fringe; j++)
                 {
                     for(int k = 0; k < unknowns; k++)
-                    {
-                        // std::cout << "In case 9" << std::endl;
-                        // std::cout << "(Nx - fringe + j)*Ny + Ny - fringe + i = " << (Nx - fringe + j)*Ny
-                        //     + Ny - fringe + i << std::endl;
-                        // std::cout << "(overlap - fringe + j)*Ny + overlap - fringe + i) = " << (overlap - fringe + j)*Ny 
-                        //     + overlap - fringe + i << std::endl;                           
+                    {                        
                         v.setFieldValue(stage*unknowns + k, (Nx - fringe + j)*Ny
                             + Ny - fringe + i, 
                             patch->getFlow().getFieldValue(stage*unknowns

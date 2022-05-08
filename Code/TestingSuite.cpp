@@ -426,17 +426,107 @@ void TestingEulerSDNN()
 
 
 
+    // // Neumann-Neumann multiple patches
+
+    // FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0], delta);
+    // FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0], delta);
+    // FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0], delta);
+    // FC_1D_DN diff_schemes_r(N, d, C, 
+    //     mesh.getPatches()[npatches - 1], delta);
+    // FC_1D_DN filters_r(N, d, C, 
+    //     mesh.getPatches()[npatches - 1], delta);
+    // FC_1D_DN filters_r0(N, d, C, 
+    //     mesh.getPatches()[npatches - 1], delta);
+
+    // std::vector<FC_1D_DD> diff_schemes0;
+    // std::vector<FC_1D_DD> filters0;
+    // std::vector<FC_1D * > diff_schemes;
+    // std::vector<FC_1D * > filters;
+
+    // for(int i = 1; i < npatches - 1; i++)
+    // {
+    //     diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], delta));
+    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], alpha0, p_0));
+    // }
+    // for(int i = 1; i < npatches - 1; i++)
+    // {
+    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], alpha0, p));
+    // }
+
+    // diff_schemes.push_back(&diff_schemes_l);
+    // filters.push_back(&filters_l);
+    // for(int i = 0; i < npatches - 2; i++)
+    // {
+    //     diff_schemes.push_back(&diff_schemes0[i]);
+    //     filters.push_back(&filters0[i]);
+    // }
+    // diff_schemes.push_back(&diff_schemes_r);
+    // filters.push_back(&filters_r);
+
+    // filters.push_back(&filters_l0);
+    // for(int i = 0; i < npatches - 2; i++)
+    // {
+    //     filters.push_back(&filters0[npatches - 2 + i]);
+    // }
+    // filters.push_back(&filters_r0);
+
     // Neumann-Neumann multiple patches
 
-    FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0], delta);
-    FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0], delta);
-    FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0], delta);
+    // // std::cout << "h = " << mesh.getPatches()[0]->getH() << std::endl;
+    // FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0]->getH(), mesh.getPatches()[0], delta);
+    // FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0]->getH(), mesh.getPatches()[0], delta);
+    // FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0]->getH(), mesh.getPatches()[0], delta);
+    // FC_1D_DN diff_schemes_r(N, d, C, 
+    //     mesh.getPatches()[npatches - 1]->getH(), mesh.getPatches()[npatches - 1], delta);
+    // FC_1D_DN filters_r(N, d, C, 
+    //     mesh.getPatches()[npatches - 1]->getH(), mesh.getPatches()[npatches - 1], delta);
+    // FC_1D_DN filters_r0(N, d, C, 
+    //     mesh.getPatches()[npatches - 1]->getH(), mesh.getPatches()[npatches - 1], delta);
+
+    // std::vector<FC_1D_DD> diff_schemes0;
+    // std::vector<FC_1D_DD> filters0;
+    // std::vector<FC_1D * > diff_schemes;
+    // std::vector<FC_1D * > filters;
+
+    // for(int i = 1; i < npatches - 1; i++)
+    // {
+    //     diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), mesh.getPatches()[i], delta));
+    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), mesh.getPatches()[i], alpha0, p_0));
+    // }
+    // for(int i = 1; i < npatches - 1; i++)
+    // {
+    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), mesh.getPatches()[i], alpha0, p));
+    // }
+
+    // diff_schemes.push_back(&diff_schemes_l);
+    // filters.push_back(&filters_l);
+    // for(int i = 0; i < npatches - 2; i++)
+    // {
+    //     diff_schemes.push_back(&diff_schemes0[i]);
+    //     filters.push_back(&filters0[i]);
+    // }
+    // diff_schemes.push_back(&diff_schemes_r);
+    // filters.push_back(&filters_r);
+
+    // filters.push_back(&filters_l0);
+    // for(int i = 0; i < npatches - 2; i++)
+    // {
+    //     filters.push_back(&filters0[npatches - 2 + i]);
+    // }
+    // filters.push_back(&filters_r0);
+
+
+    // Neumann-Neumann multiple patches
+
+    FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0]->getH(), delta);
+    FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0]->getH(), delta);
+    FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0]->getH(), delta);
     FC_1D_DN diff_schemes_r(N, d, C, 
-        mesh.getPatches()[npatches - 1], delta);
+        mesh.getPatches()[npatches - 1]->getH(), delta);
     FC_1D_DN filters_r(N, d, C, 
-        mesh.getPatches()[npatches - 1], delta);
+        mesh.getPatches()[npatches - 1]->getH(), delta);
     FC_1D_DN filters_r0(N, d, C, 
-        mesh.getPatches()[npatches - 1], delta);
+        mesh.getPatches()[npatches - 1]->getH(), delta);
 
     std::vector<FC_1D_DD> diff_schemes0;
     std::vector<FC_1D_DD> filters0;
@@ -445,12 +535,12 @@ void TestingEulerSDNN()
 
     for(int i = 1; i < npatches - 1; i++)
     {
-        diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], delta));
-        filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], alpha0, p_0));
+        diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), delta));
+        filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), alpha0, p_0));
     }
     for(int i = 1; i < npatches - 1; i++)
     {
-        filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], alpha0, p));
+        filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), alpha0, p));
     }
 
     diff_schemes.push_back(&diff_schemes_l);
@@ -469,8 +559,6 @@ void TestingEulerSDNN()
         filters.push_back(&filters0[npatches - 2 + i]);
     }
     filters.push_back(&filters_r0);
-
-
 
 
 
@@ -954,7 +1042,10 @@ int main()
 
 
     TestingEulerSDNN();
-    Test2DMesh();
+    // Test2DMesh();
+    Testing2DFC();
+
+
     // TestingEulerWENO();
 
     // TestingSVW();

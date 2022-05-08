@@ -26,6 +26,7 @@
 #include "SpMatrix_csr.h"
 
 #include "TestingMesh.h"
+#include "TestingFC.h"
 
 
 void TestingVector1D();

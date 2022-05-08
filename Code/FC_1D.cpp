@@ -9,10 +9,9 @@
 
 // FC_1D definitions
 
-FC_1D::FC_1D(int _N, int _d, int _C, Patch1D *_patch, double delta) :
-    patch{_patch}
+FC_1D::FC_1D(int _N, int _d, int _C, double _h, double delta)
 {
-    init(_N, _d, _C);
+    init(_N, _d, _C, _h);
     int k[fourPts];
     getK(k, fourPts);
     const double pi = std::acos(-1);
@@ -26,11 +25,12 @@ FC_1D::FC_1D(int _N, int _d, int _C, Patch1D *_patch, double delta) :
 
 FC_1D::FC_1D(const FC_1D &slv)
 {
-    patch = slv.getPatch();
+    // patch = slv.getPatch();
     N = slv.getN();
     d = slv.getD();
     C = slv.getC();
-    h = slv.getH();
+    // h = slv.getH();
+    h = slv.h;
     fourPts = slv.getFourPts();
     fourPts_dbl = slv.fourPts_dbl;
     prd = slv.getPrd();
@@ -65,14 +65,14 @@ FC_1D::~FC_1D()
     delete [] shift_coeffs;
 }
 
-void FC_1D::init(int _N, int _d, int _C)
+void FC_1D::init(int _N, int _d, int _C, double _h)
 {
     N = _N;
     d = _d;
     C = _C;
     fourPts = N + C;
     fourPts_dbl = double(fourPts);
-    h = patch->getH();
+    h = _h;
     prd = fourPts_dbl*h;
     der_coeffs = new double [N+C];
     der_coeffs_2 = new double [N+C];
@@ -101,11 +101,25 @@ void FC_1D::init(int _N, int _d, int _C)
     status = DftiCommitDescriptor(desc_handle);    
 }
 
+void FC_1D::filter(VectorField *v, const std::vector<int> &unknowns, 
+    std::vector<std::complex<double> *> *ffts, 
+    const std::vector<int> &fft_loc, double h, 
+    const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
+{
+    for(int i = 0; i < unknowns.size(); i++)
+    {
+        filter(v->getField(unknowns[i]), ffts->at(fft_loc[i]), h, bc_l[i], 
+            bc_r[i]);   
+    } 
+}
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // FC_1D_DD definitions
 
-FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, double _h) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -113,8 +127,8 @@ FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch) :
     build_Cont_Mat(A, Q, d, C, AQ, FAQF);  
 }
 
-FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, double _h, int alpha, int p) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -123,8 +137,8 @@ FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) :
     getFiltCoeffs(filter_coeffs, fourPts, alpha, p); 
 }
 
-FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, Patch1D *_patch, double delta) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_DD::FC_1D_DD(int _N, int _d, int _C, double _h, double delta) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -164,26 +178,18 @@ void FC_1D_DD::diff(const double* y, double * y_der, double* y_der_2, double h,
     diff(y_hat, y_der, y_der_2);
 }
 
-void FC_1D_DD::filter(VectorField *v, const std::vector<int> &unknowns, 
-    std::vector<std::complex<double> *> *ffts, 
-    const std::vector<int> &fft_loc, double h, 
-    const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
+void FC_1D_DD::filter(double* y, std::complex<double> *fft, double h,
+    double bc_l, double bc_r) const
 {
-    int length = v->getLength();  
-    std::complex<double> f_ext[length + C]; 
-    for(int i = 0; i < unknowns.size(); i++)
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_DD(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+    VectorMulReCmp(N + C, filter_coeffs, fft, fft);
+    std::copy(fft, fft + N + C, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
     {
-        Fcont_Gram_Blend_DD(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-        d, C, fourPts_dbl, AQ, FAQF, desc_handle);
-        VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
-        ffts->at(fft_loc[i]));
-        std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
-        int status = DftiComputeBackward(desc_handle, f_ext);
-        for (int j = 0; j < length; j++)
-        {
-        v->getField(unknowns[i])[j] = f_ext[j].real();
-        }     
-    } 
+        y[j]= f_ext[j].real();
+    }      
 }
 
 void FC_1D_DD::set_FC_Data(double* A, double* Q, int d, int C)
@@ -201,8 +207,8 @@ void FC_1D_DD::set_FC_Data(double* A, double* Q, int d, int C)
 ////////////////////////////////////////////////////////////////////////////////
 // FC_1D_DN definitions
 
-FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, double _h) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -211,8 +217,8 @@ FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch) :
     build_Cont_Mat_DN(A, Q, Q_tilde, d, C, AQ, FAQF);  
 }
 
-FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, double _h, int alpha, int p) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -222,8 +228,8 @@ FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) :
     getFiltCoeffs(filter_coeffs, fourPts, alpha, p); 
 }
 
-FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, Patch1D *_patch, double delta) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_DN::FC_1D_DN(int _N, int _d, int _C, double _h, double delta) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -266,27 +272,19 @@ void FC_1D_DN::diff(const double* y, double * y_der, double* y_der_2, double h,
     diff(y_hat, y_der, y_der_2);
 }
 
-void FC_1D_DN::filter(VectorField *v, const std::vector<int> &unknowns, 
-    std::vector<std::complex<double> *> *ffts, 
-    const std::vector<int> &fft_loc, double h, 
-    const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
+void FC_1D_DN::filter(double* y, std::complex<double> *fft, double h,
+    double bc_l, double bc_r) const
 {
-    int length = v->getLength();  
-    std::complex<double> f_ext[length + C]; 
-    for(int i = 0; i < unknowns.size(); i++)
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_DN(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_r);
+    VectorMulReCmp(N + C, filter_coeffs, fft, fft);
+    std::copy(fft, fft + N + C, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
     {
-        Fcont_Gram_Blend_DN(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-        d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_r[i]);
-        VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
-        ffts->at(fft_loc[i]));
-        std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
-        int status = DftiComputeBackward(desc_handle, f_ext);
-        for (int j = 0; j < length; j++)
-        {
-        v->getField(unknowns[i])[j] = f_ext[j].real();
-        }     
-
-    } 
+        y[j]= f_ext[j].real();
+    }      
 }
 
 void FC_1D_DN::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
@@ -303,8 +301,7 @@ void FC_1D_DN::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
 ////////////////////////////////////////////////////////////////////////////////
 // FC_1D_ND definitions
 
-FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch) : FC_1D{_N, _d, _C,
-    _patch}
+FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, double _h) : FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -313,8 +310,8 @@ FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch) : FC_1D{_N, _d, _C,
     build_Cont_Mat_ND(A, Q, Q_tilde, d, C, AQ, FAQF);  
 }
 
-FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, double _h, int alpha, int p) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -324,8 +321,8 @@ FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) :
     getFiltCoeffs(filter_coeffs, fourPts, alpha, p); 
 }
 
-FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, Patch1D *_patch, double delta) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_ND::FC_1D_ND(int _N, int _d, int _C, double _h, double delta) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -368,26 +365,19 @@ void FC_1D_ND::diff(const double* y, double * y_der, double* y_der_2, double h,
     diff(y_hat, y_der, y_der_2);
 }
 
-void FC_1D_ND::filter(VectorField *v, const std::vector<int> &unknowns, 
-    std::vector<std::complex<double> *> *ffts, 
-    const std::vector<int> &fft_loc, double h, 
-    const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
+void FC_1D_ND::filter(double* y, std::complex<double> *fft, double h,
+    double bc_l, double bc_r) const
 {
-    int length = v->getLength();  
-    std::complex<double> f_ext[length + C]; 
-    for(int i = 0; i < unknowns.size(); i++)
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_ND(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_l);
+    VectorMulReCmp(N + C, filter_coeffs, fft, fft);
+    std::copy(fft, fft + N + C, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
     {
-        Fcont_Gram_Blend_ND(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-        d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_l[i]);
-        VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
-        ffts->at(fft_loc[i]));
-        std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
-        int status = DftiComputeBackward(desc_handle, f_ext);
-        for (int j = 0; j < length; j++)
-        {
-        v->getField(unknowns[i])[j] = f_ext[j].real();
-        }     
-    } 
+        y[j]= f_ext[j].real();
+    }      
 }
 
 void FC_1D_ND::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
@@ -405,8 +395,8 @@ void FC_1D_ND::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
 ////////////////////////////////////////////////////////////////////////////////
 // FC_1D_NN definitions
 
-FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, double _h) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -414,8 +404,8 @@ FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch) :
     build_Cont_Mat(A, Q, d, C, AQ, FAQF);  
 }
 
-FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, double _h, int alpha, int p) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -424,8 +414,8 @@ FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch, int alpha, int p) :
     getFiltCoeffs(filter_coeffs, fourPts, alpha, p); 
 }
 
-FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch, double delta) : 
-    FC_1D{_N, _d, _C, _patch}
+FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, double _h, double delta) : 
+    FC_1D{_N, _d, _C, _h}
 {
     double A[C*d];
     double Q[d*d]; 
@@ -438,7 +428,7 @@ FC_1D_NN::FC_1D_NN(int _N, int _d, int _C, Patch1D *_patch, double delta) :
     for(int i = 0; i < fourPts; i++)
     {
         shift_coeffs[i] = std::exp(2.0*pi*I* double(k[i]) * delta / 
-        double(fourPts));
+            double(fourPts));
     }
 }
 
@@ -467,26 +457,19 @@ void FC_1D_NN::diff(const double* y, double * y_der, double* y_der_2, double h,
     diff(y_hat, y_der, y_der_2);
 }
 
-void FC_1D_NN::filter(VectorField *v, const std::vector<int> &unknowns, 
-    std::vector<std::complex<double> *> *ffts, 
-    const std::vector<int> &fft_loc, double h, 
-    const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
+void FC_1D_NN::filter(double* y, std::complex<double> *fft, double h,
+    double bc_l, double bc_r) const
 {
-    int length = v->getLength();  
-    std::complex<double> f_ext[length + C]; 
-    for(int i = 0; i < unknowns.size(); i++)
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_NN(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_l, bc_r);
+    VectorMulReCmp(N + C, filter_coeffs, fft, fft);
+    std::copy(fft, fft + N + C, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
     {
-        Fcont_Gram_Blend_NN(v->getField(unknowns[i]), ffts->at(fft_loc[i]), N,
-        d, C, fourPts_dbl, AQ, FAQF, desc_handle, h, bc_l[i], bc_r[i]);
-        VectorMulReCmp(N + C, filter_coeffs, ffts->at(fft_loc[i]),
-        ffts->at(fft_loc[i]));
-        std::copy(ffts->at(fft_loc[i]), ffts->at(fft_loc[i]) + N + C, f_ext);
-        int status = DftiComputeBackward(desc_handle, f_ext);
-        for (int j = 0; j < length; j++)
-        {
-        v->getField(unknowns[i])[j] = f_ext[j].real();
-        }     
-    } 
+        y[j]= f_ext[j].real();
+    }      
 }
 
 void FC_1D_NN::set_FC_Data(double* A, double* Q, int d, int C)

@@ -22,7 +22,7 @@ private:
         std::string problem;
         public:
             function(std::string _problem){problem = _problem;}
-            std::vector<double> operator()(double x)
+            std::vector<double> operator()(std::vector<double> x)
             {
                 std::string problem0 = "";
                 std::string problem1 = "LA_Gaussian";
@@ -32,6 +32,7 @@ private:
                 std::string problem5 = "one_wave";
                 std::string problem6 = "smooth_LA";
                 std::string problem7 = "Euler1D_Sod";
+                std::string problem8 = "2D_test";
                 std::vector<double> y;
                 if(problem.compare(problem0) == 0)
                 {
@@ -42,11 +43,11 @@ private:
                     double sigma = 0.1;
                     double pi = 3.1415926535897932384686;
                     y.push_back(1.0 / (sqrt(2.0 * pi) * sigma)*
-                        exp(- 0.5 * (x - 0.5) * (x - 0.5) / sigma / sigma));
+                        exp(- 0.5 * (x[0] - 0.5) * (x[0] - 0.5) / sigma / sigma));
                 }
                 else if(problem.compare(problem2) == 0)
                 {
-                    if(x < 0.5)
+                    if(x[0] < 0.5)
                     {
                         y.push_back(1.0);
                     }
@@ -57,25 +58,25 @@ private:
                 }
                 else if(problem.compare(problem3) == 0)
                 {
-                    y.push_back(exp(- 160 * (x - 0.5) * (x - 0.5)));
+                    y.push_back(exp(- 160 * (x[0] - 0.5) * (x[0] - 0.5)));
                 }   
                 else if(problem.compare(problem4) == 0)
                 {
-                    if(0.2 < x && x <= 0.3)
+                    if(0.2 < x[0] && x[0] <= 0.3)
                     {
-                        y.push_back(10.0*(x - 0.2));
+                        y.push_back(10.0*(x[0] - 0.2));
                     }
-                    else if(0.3 < x && x <= 0.4)
+                    else if(0.3 < x[0] && x[0] <= 0.4)
                     {
-                        y.push_back(10.0*(0.4 - x));
+                        y.push_back(10.0*(0.4 - x[0]));
                     }
-                    else if(0.6 < x && x <= 0.8)
+                    else if(0.6 < x[0] && x[0] <= 0.8)
                     {
                         y.push_back(1.0);
                     }
-                    else if(1 < x && x <= 1.2)
+                    else if(1 < x[0] && x[0] <= 1.2)
                     {
-                        y.push_back(100.0*(x - 1.0)*(1.2 - x));
+                        y.push_back(100.0*(x[0] - 1.0)*(1.2 - x[0]));
                     }
                     else
                     {
@@ -84,7 +85,7 @@ private:
                 }   
                 else if(problem.compare(problem5) == 0)
                 {
-                    if(0.2 < x && x <= 0.3)
+                    if(0.2 < x[0] && x[0] <= 0.3)
                     {
                         y.push_back(1.0);
                     }
@@ -95,11 +96,11 @@ private:
                 }      
                 else if(problem.compare(problem6) == 0)
                 {
-                    y.push_back(std::exp(- 160 * (x - 0.5) * (x - 0.5)));
+                    y.push_back(std::exp(- 160 * (x[0] - 0.5) * (x[0] - 0.5)));
                 }     
                 else if(problem.compare(problem7) == 0)
                 {
-                    if(0 <= x && x <= 0.5)
+                    if(0 <= x[0] && x[0] <= 0.5)
                     {
                         y.push_back(1.0);
                         y.push_back(0.0);
@@ -111,7 +112,11 @@ private:
                         y.push_back(0.0);
                         y.push_back(0.25);
                     }    
-                }                              
+                }  
+                else if(problem.compare(problem8) == 0)
+                {
+                    y.push_back(std::exp(std::cos(x[0]) * std::sin(x[1])));
+                }                          
                 return y;
             }
     };
@@ -128,7 +133,7 @@ public:
         std::vector<double> init_values;
         for(int i = 0; i < patch->getNnodes(); i++)
         {
-            init_values = f(patch->getNode(i)->getPosition()[0]);
+            init_values = f(patch->getNode(i)->getPosition());
             for(int j = 0; j < unknowns; j++)
             {
                 patch->getNode(i)->setValue(j, init_values[j]);
