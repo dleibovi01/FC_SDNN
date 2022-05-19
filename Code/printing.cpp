@@ -187,8 +187,25 @@ void Print_SparseMatrix_csr(int rows, int cols, int* rows_start, int* rows_end,
 void Print_Patch2D(const Patch2D &patch)
 {
     int unknowns = patch.getNode(0)->getUnknowns();
-    // if(patch.getNnodes() > 0)
-    //     unknowns = patch.getNode(0)->getUnknowns();
+    int patchsize_x = patch.getNx();
+    int patchsize_y = patch.getNy();
+    for(int u = 0; u < unknowns; u++)
+    {
+        std::cout << "Unknown " << u << std::endl;
+        for(int i = 0; i < patchsize_y; i++)
+        {
+            for(int j = 0; j < patchsize_x; j++)
+            {
+                std::cout << patch.getNode(patchsize_y*j + i)->getValues()[u] 
+                    << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+}
+
+void Print_Patch2D(const Patch2D &patch, int unknowns)
+{
     int patchsize_x = patch.getNx();
     int patchsize_y = patch.getNy();
     for(int u = 0; u < unknowns; u++)
@@ -220,6 +237,25 @@ void Print_Mesh2DUniform(const Mesh2DUniform &mesh)
             std::cout << "PATCH " << npatches_y*j + i << ". position : (" << 
                 i << ", " << j << ")" << std::endl;
             Print_Patch2D(*patches[npatches_y*j + i]);
+            std::cout << std::endl;
+            std::cout << std::endl;
+        }
+    }   
+}
+
+void Print_Mesh2DUniform(const Mesh2DUniform &mesh, int unknowns)
+{
+    int npatches_x = mesh.getNpatches_x();
+    int npatches_y = mesh.getNpatches_y();
+    int npatches = npatches_x * npatches_y;
+    auto patches = mesh.getPatches();
+    for(int j = 0; j < npatches_x; j++)
+    {
+        for(int i = 0; i < npatches_y; i++)
+        {
+            std::cout << "PATCH " << npatches_y*j + i << ". position : (" << 
+                i << ", " << j << ")" << std::endl;
+            Print_Patch2D(*patches[npatches_y*j + i], unknowns);
             std::cout << std::endl;
             std::cout << std::endl;
         }

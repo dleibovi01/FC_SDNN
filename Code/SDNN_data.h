@@ -1,5 +1,10 @@
 // File including the neural network data
 
+
+#ifndef SDNN_DATA_H
+#define SDNN_DATA_H
+
+
 #include <array>
 
 
@@ -1475,3 +1480,6 @@ constexpr std::array<double, 4> B4_data =
     0.0911224335432053,
     -0.699481189250946    
 };
+
+
+#endif

@@ -25,11 +25,9 @@ FC_1D::FC_1D(int _N, int _d, int _C, double _h, double delta)
 
 FC_1D::FC_1D(const FC_1D &slv)
 {
-    // patch = slv.getPatch();
     N = slv.getN();
     d = slv.getD();
     C = slv.getC();
-    // h = slv.getH();
     h = slv.h;
     fourPts = slv.getFourPts();
     fourPts_dbl = slv.fourPts_dbl;
@@ -113,6 +111,15 @@ void FC_1D::filter(VectorField *v, const std::vector<int> &unknowns,
     } 
 }
 
+void FC_1D::filter(VectorField *v, const std::vector<int> &unknowns, double h, 
+    const std::vector<double> &bc_l, const std::vector<double> &bc_r) const
+{
+    for(int i = 0; i < unknowns.size(); i++)
+    {
+        filter(v->getField(unknowns[i]), h, bc_l[i], bc_r[i]);   
+    } 
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -192,6 +199,31 @@ void FC_1D_DD::filter(double* y, std::complex<double> *fft, double h,
     }      
 }
 
+void FC_1D_DD::filter(double* y, double h, double bc_l, double bc_r) const
+{
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_DD(y, f_ext, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+    VectorMulReCmp(N + C, filter_coeffs, f_ext, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
+    {
+        y[j]= f_ext[j].real();
+    }      
+}
+
+void FC_1D_DD::shift(const double* y, double * y_shift, double h, double bc_l,
+    double bc_r) const
+{
+    std::complex<double> fft[N + C]; 
+    Fcont_Gram_Blend_DD(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle);
+    vzMul(N + C, shift_coeffs, fft, fft);
+    int status = DftiComputeBackward(desc_handle, fft);
+    for (int j = 0; j < N + C; j++)
+    {
+        y_shift[j]= fft[j].real();
+    }    
+}
+
 void FC_1D_DD::set_FC_Data(double* A, double* Q, int d, int C)
 {
     if(C == 27)
@@ -200,6 +232,11 @@ void FC_1D_DD::set_FC_Data(double* A, double* Q, int d, int C)
         {
         std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
         std::copy(Qd5C27_data.data(), Qd5C27_data.data() + d*d, Q);
+        }
+        if(d == 2)
+        {
+        std::copy(Ad2C27_data.data(), Ad2C27_data.data() + d*C, A);
+        std::copy(Qd2C27_data.data(), Qd2C27_data.data() + d*d, Q);
         }
     }
 }
@@ -287,6 +324,33 @@ void FC_1D_DN::filter(double* y, std::complex<double> *fft, double h,
     }      
 }
 
+void FC_1D_DN::filter(double* y, double h, double bc_l, double bc_r) const
+{
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_DN(y, f_ext, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_r);
+    VectorMulReCmp(N + C, filter_coeffs, f_ext, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
+    {
+        y[j]= f_ext[j].real();
+    }      
+}
+
+void FC_1D_DN::shift(const double* y, double * y_shift, double h, double bc_l,
+    double bc_r) const
+{
+    std::complex<double> fft[N + C]; 
+    Fcont_Gram_Blend_DN(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_r);
+    vzMul(N + C, shift_coeffs, fft, fft);
+    int status = DftiComputeBackward(desc_handle, fft);
+    for (int j = 0; j < N + C; j++)
+    {
+        y_shift[j]= fft[j].real();
+    }    
+}
+
 void FC_1D_DN::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
 {
     if(C == 27 && d == 5)
@@ -294,6 +358,13 @@ void FC_1D_DN::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
         std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
         std::copy(Qd5C27_data.data(), Qd5C27_data.data() + d*d, Q);
         std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d,
+        Q_tilde);
+    }
+    if(C == 27 && d == 2)
+    {
+        std::copy(Ad2C27_data.data(), Ad2C27_data.data() + d*C, A);
+        std::copy(Qd2C27_data.data(), Qd2C27_data.data() + d*d, Q);
+        std::copy(Qd2C27_tilde_data.data(), Qd2C27_tilde_data.data() + d*d,
         Q_tilde);
     }
 }
@@ -380,6 +451,34 @@ void FC_1D_ND::filter(double* y, std::complex<double> *fft, double h,
     }      
 }
 
+void FC_1D_ND::filter(double* y, double h, double bc_l, double bc_r) const
+{
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_ND(y, f_ext, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_l);
+    VectorMulReCmp(N + C, filter_coeffs, f_ext, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
+    {
+        y[j]= f_ext[j].real();
+    }      
+}
+
+void FC_1D_ND::shift(const double* y, double * y_shift, double h, double bc_l,
+    double bc_r) const
+{
+    std::complex<double> fft[N + C]; 
+    Fcont_Gram_Blend_ND(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_l);
+    vzMul(N + C, shift_coeffs, fft, fft);
+    int status = DftiComputeBackward(desc_handle, fft);
+    for (int j = 0; j < N + C; j++)
+    {
+        y_shift[j]= fft[j].real();
+    }    
+}
+
+
 void FC_1D_ND::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
 {
     if(C == 27 && d == 5)
@@ -387,6 +486,13 @@ void FC_1D_ND::set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C)
         std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
         std::copy(Qd5C27_data.data(), Qd5C27_data.data() + d*d, Q);
         std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d, 
+        Q_tilde);
+    }
+    if(C == 27 && d == 2)
+    {
+        std::copy(Ad2C27_data.data(), Ad2C27_data.data() + d*C, A);
+        std::copy(Qd2C27_data.data(), Qd2C27_data.data() + d*d, Q);
+        std::copy(Qd2C27_tilde_data.data(), Qd2C27_tilde_data.data() + d*d, 
         Q_tilde);
     }
 }
@@ -472,6 +578,33 @@ void FC_1D_NN::filter(double* y, std::complex<double> *fft, double h,
     }      
 }
 
+void FC_1D_NN::filter(double* y, double h, double bc_l, double bc_r) const
+{
+    std::complex<double> f_ext[N + C]; 
+    Fcont_Gram_Blend_NN(y, f_ext, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_l, bc_r);
+    VectorMulReCmp(N + C, filter_coeffs, f_ext, f_ext);
+    int status = DftiComputeBackward(desc_handle, f_ext);
+    for (int j = 0; j < N; j++)
+    {
+        y[j]= f_ext[j].real();
+    }      
+}
+
+void FC_1D_NN::shift(const double* y, double * y_shift, double h, double bc_l,
+    double bc_r) const
+{
+    std::complex<double> fft[N + C]; 
+    Fcont_Gram_Blend_NN(y, fft, N, d, C, fourPts_dbl, AQ, FAQF, desc_handle, 
+        h, bc_l, bc_r);
+    vzMul(N + C, shift_coeffs, fft, fft);
+    int status = DftiComputeBackward(desc_handle, fft);
+    for (int j = 0; j < N + C; j++)
+    {
+        y_shift[j]= fft[j].real();
+    }    
+}
+
 void FC_1D_NN::set_FC_Data(double* A, double* Q, int d, int C)
 {
     if(C == 27)
@@ -480,6 +613,12 @@ void FC_1D_NN::set_FC_Data(double* A, double* Q, int d, int C)
         {
             std::copy(Ad5C27_data.data(), Ad5C27_data.data() + d*C, A);
             std::copy(Qd5C27_tilde_data.data(), Qd5C27_tilde_data.data() + d*d,
+                Q);
+        }
+        else if (d == 2)
+        {
+            std::copy(Ad2C27_data.data(), Ad2C27_data.data() + d*C, A);
+            std::copy(Qd2C27_tilde_data.data(), Qd2C27_tilde_data.data() + d*d,
                 Q);
         }
     }

@@ -332,302 +332,29 @@ void TestingSDNN()
 }
 
 
-void TestingEulerSDNN()
-{  
-
-    // Create a PDE
-    double T = 0.2;
-    double dt = 0.000005;
-    // std::string problem = "smooth_LA";
-    std::string problem = "Euler1D_Sod";
-    // BC bc{problem, 3};
-    BC_Euler_Sod_NN bc;
-    IC ic{problem, 3};
-    double alpha = 1.0;
-    double gamma = 7.0/5.0;
-    
-    ANN ann{alpha};  
-    Euler1D_SDNN<BC_Euler_Sod_NN> pde {ic, bc, T, gamma, ann};      
-    // int intrb = 6;
-    // int npatches = 15;
-    // int overlap = 24;
-    // int N = 101;
-
-    int intrb = 6;
-    int npatches = 4;
-    int overlap = 12;
-
-    int N = 101;
-
-
-   // Create a time-stepping scheme
-    SSPRK_4 TS{3, N};
-    int stages = TS.getStages();
-    
-
-    // Create a mesh
-    int unknowns = pde.getPhysUnknowns();
-    // Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
-    //     true, true};
-    Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
-        1, 1};
-    ic(&mesh);
-    //Print_Mesh1D(mesh);   
-
-    // std::vector<int> inner_nodes = mesh.getPatches()[3]->getInnerNodes();
-    // for(int i = 0; i < inner_nodes.size(); i++)
-    // {
-    //     std::cout << inner_nodes[i] << std::endl;
-    // }
-
-
-    int C = 27;
-    int d = 5;
-
-    int stage = 0;
-    double alpha0 = 10.0;
-    double p_0 = 2.0;
-    double p = 14.0;
-    double delta = 0.1;
-
-
-    // std::vector<FC_1D<Patch1D> > diff_schemes;
-    // std::vector<FC_1D<Patch1D> > filters;
-
-    // Dirichlet-Dirichlet multiple patches
-
-    // std::vector<FC_1D_DD<Patch1D> > diff_schemes0;
-    // std::vector<FC_1D_DD<Patch1D> > filters0;
-    // std::vector<FC_1D<Patch1D>  * > diff_schemes;
-    // std::vector<FC_1D<Patch1D>  * > filters;
-
-    // for(int i = 0; i < npatches; i++)
-    // {
-    //     diff_schemes0.push_back(FC_1D_DD<Patch1D> 
-    //         (N, d, C, mesh.getPatches()[i], delta));
-    //     filters0.push_back(FC_1D_DD<Patch1D> 
-    //         (N, d, C, mesh.getPatches()[i], alpha0, p_0));
-    // }
-    // for(int i = 0; i < npatches; i++)
-    // {
-    //     filters0.push_back(FC_1D_DD<Patch1D> 
-    //         (N, d, C, mesh.getPatches()[i], alpha0, p));
-    // }
-
-    // for(int i = 0; i < npatches; i++)
-    // {
-    //     diff_schemes.push_back(&diff_schemes0[i]);
-    //     filters.push_back(&filters0[i]);
-    // }
-    // for(int i = 0; i < npatches; i++)
-    // {
-    //     filters.push_back(&filters0[npatches + i]);
-    // }
-
-
-
-    // // Neumann-Neumann multiple patches
-
-    // FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0], delta);
-    // FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0], delta);
-    // FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0], delta);
-    // FC_1D_DN diff_schemes_r(N, d, C, 
-    //     mesh.getPatches()[npatches - 1], delta);
-    // FC_1D_DN filters_r(N, d, C, 
-    //     mesh.getPatches()[npatches - 1], delta);
-    // FC_1D_DN filters_r0(N, d, C, 
-    //     mesh.getPatches()[npatches - 1], delta);
-
-    // std::vector<FC_1D_DD> diff_schemes0;
-    // std::vector<FC_1D_DD> filters0;
-    // std::vector<FC_1D * > diff_schemes;
-    // std::vector<FC_1D * > filters;
-
-    // for(int i = 1; i < npatches - 1; i++)
-    // {
-    //     diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], delta));
-    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], alpha0, p_0));
-    // }
-    // for(int i = 1; i < npatches - 1; i++)
-    // {
-    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i], alpha0, p));
-    // }
-
-    // diff_schemes.push_back(&diff_schemes_l);
-    // filters.push_back(&filters_l);
-    // for(int i = 0; i < npatches - 2; i++)
-    // {
-    //     diff_schemes.push_back(&diff_schemes0[i]);
-    //     filters.push_back(&filters0[i]);
-    // }
-    // diff_schemes.push_back(&diff_schemes_r);
-    // filters.push_back(&filters_r);
-
-    // filters.push_back(&filters_l0);
-    // for(int i = 0; i < npatches - 2; i++)
-    // {
-    //     filters.push_back(&filters0[npatches - 2 + i]);
-    // }
-    // filters.push_back(&filters_r0);
-
-    // Neumann-Neumann multiple patches
-
-    // // std::cout << "h = " << mesh.getPatches()[0]->getH() << std::endl;
-    // FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0]->getH(), mesh.getPatches()[0], delta);
-    // FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0]->getH(), mesh.getPatches()[0], delta);
-    // FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0]->getH(), mesh.getPatches()[0], delta);
-    // FC_1D_DN diff_schemes_r(N, d, C, 
-    //     mesh.getPatches()[npatches - 1]->getH(), mesh.getPatches()[npatches - 1], delta);
-    // FC_1D_DN filters_r(N, d, C, 
-    //     mesh.getPatches()[npatches - 1]->getH(), mesh.getPatches()[npatches - 1], delta);
-    // FC_1D_DN filters_r0(N, d, C, 
-    //     mesh.getPatches()[npatches - 1]->getH(), mesh.getPatches()[npatches - 1], delta);
-
-    // std::vector<FC_1D_DD> diff_schemes0;
-    // std::vector<FC_1D_DD> filters0;
-    // std::vector<FC_1D * > diff_schemes;
-    // std::vector<FC_1D * > filters;
-
-    // for(int i = 1; i < npatches - 1; i++)
-    // {
-    //     diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), mesh.getPatches()[i], delta));
-    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), mesh.getPatches()[i], alpha0, p_0));
-    // }
-    // for(int i = 1; i < npatches - 1; i++)
-    // {
-    //     filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), mesh.getPatches()[i], alpha0, p));
-    // }
-
-    // diff_schemes.push_back(&diff_schemes_l);
-    // filters.push_back(&filters_l);
-    // for(int i = 0; i < npatches - 2; i++)
-    // {
-    //     diff_schemes.push_back(&diff_schemes0[i]);
-    //     filters.push_back(&filters0[i]);
-    // }
-    // diff_schemes.push_back(&diff_schemes_r);
-    // filters.push_back(&filters_r);
-
-    // filters.push_back(&filters_l0);
-    // for(int i = 0; i < npatches - 2; i++)
-    // {
-    //     filters.push_back(&filters0[npatches - 2 + i]);
-    // }
-    // filters.push_back(&filters_r0);
-
-
-    // Neumann-Neumann multiple patches
-
-    FC_1D_ND diff_schemes_l(N, d, C, mesh.getPatches()[0]->getH(), delta);
-    FC_1D_ND filters_l(N, d, C, mesh.getPatches()[0]->getH(), delta);
-    FC_1D_ND filters_l0(N, d, C, mesh.getPatches()[0]->getH(), delta);
-    FC_1D_DN diff_schemes_r(N, d, C, 
-        mesh.getPatches()[npatches - 1]->getH(), delta);
-    FC_1D_DN filters_r(N, d, C, 
-        mesh.getPatches()[npatches - 1]->getH(), delta);
-    FC_1D_DN filters_r0(N, d, C, 
-        mesh.getPatches()[npatches - 1]->getH(), delta);
-
-    std::vector<FC_1D_DD> diff_schemes0;
-    std::vector<FC_1D_DD> filters0;
-    std::vector<FC_1D * > diff_schemes;
-    std::vector<FC_1D * > filters;
-
-    for(int i = 1; i < npatches - 1; i++)
-    {
-        diff_schemes0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), delta));
-        filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), alpha0, p_0));
-    }
-    for(int i = 1; i < npatches - 1; i++)
-    {
-        filters0.push_back(FC_1D_DD(N, d, C, mesh.getPatches()[i]->getH(), alpha0, p));
-    }
-
-    diff_schemes.push_back(&diff_schemes_l);
-    filters.push_back(&filters_l);
-    for(int i = 0; i < npatches - 2; i++)
-    {
-        diff_schemes.push_back(&diff_schemes0[i]);
-        filters.push_back(&filters0[i]);
-    }
-    diff_schemes.push_back(&diff_schemes_r);
-    filters.push_back(&filters_r);
-
-    filters.push_back(&filters_l0);
-    for(int i = 0; i < npatches - 2; i++)
-    {
-        filters.push_back(&filters0[npatches - 2 + i]);
-    }
-    filters.push_back(&filters_r0);
-
-
-
-    // Neumann-Dirichlet one patch
-    // std::vector<FC_1D<Patch1D> *> diff_schemes;
-    // std::vector<FC_1D<Patch1D> *> filters;
-    // std::vector<FC_1D_ND<Patch1D> > diff_schemes0;
-    // std::vector<FC_1D_ND<Patch1D> > filters0;
-    // diff_schemes0.push_back(FC_1D_ND<Patch1D> (N, d, C, 
-    //     mesh.getPatches()[0], delta));
-    // filters0.push_back(FC_1D_ND<Patch1D> (N, d, C, mesh.getPatches()[0],
-    //     alpha0, p_0));
-    // filters0.push_back(FC_1D_ND<Patch1D> (N, d, C, mesh.getPatches()[0],
-    //     alpha0, p));
-    // diff_schemes.push_back(&diff_schemes0[0]);
-    // filters.push_back(&filters0[0]);
-    // filters.push_back(&filters0[1]);
-
-
-    // // Create a solver
-    // Solver<Mesh1DUniform, Euler1D_SDNN<BC_Euler_Sod_NN>, SSPRK_4, 
-    //     FC_1D<Patch1D> * , FC_1D<Patch1D> * >
-    //     slv{mesh, pde, TS, diff_schemes, filters};
-    // Create a solver
-    Solver<Mesh1DUniform, Euler1D_SDNN<BC_Euler_Sod_NN>, SSPRK_4, FC_1D*,
-        FC_1D* > slv{mesh, pde, TS, diff_schemes, filters};
-
-
-    // Run the solver
-    double CFL = 2.0;
-    bool visc = true;
-    bool adaptive = true;  
-    slv.solve_sdnn(dt, CFL, adaptive, visc);  
-
-    // Print the solution
-    Mesh1DUniform mesh1 = slv.getMesh();
-
-    std::cout << "Solution" << std::endl;
-    Print_Mesh1D(mesh1);
-
-    std::string result_file = "result.txt";
-    Print_Mesh1D(mesh1, unknowns, intrb, result_file);
-}
-
-
 // void TestingEulerSDNN()
 // {  
 
 //     // Create a PDE
 //     double T = 0.2;
-//     // double dt = 0.00002;
-//     // double dt = 1.0;
 //     double dt = 0.000005;
 //     // std::string problem = "smooth_LA";
 //     std::string problem = "Euler1D_Sod";
 //     // BC bc{problem, 3};
-//     BC_Euler_Sod bc;
+//     BC_Euler_Sod_NN bc;
 //     IC ic{problem, 3};
 //     double alpha = 1.0;
 //     double gamma = 7.0/5.0;
+
+//     double w1 = 2.0;
+//     double w2 = 1.0;
+//     double w3 = 0.0;
+//     double w4 = 0.0;
+//     double discard_noise = 0.01;
     
-//     // ANN ann{W1_filename, W2_filename, W3_filename, W4_filename, B1_filename, 
-//     //     B2_filename, B3_filename, B4_filename, alpha};  
-//     ANN ann{alpha};  
-//     Euler1D_SDNN<BC_Euler_Sod> pde {ic, bc, T, gamma, ann};      
-//     // int intrb = 6;
-//     // int npatches = 15;
-//     // int overlap = 24;
-//     // int N = 101;
+//     // ANN ann{alpha};  
+//     SDNN sdnn{discard_noise, w1, w2, w3, w4, alpha};
+//     Euler1D_SDNN<BC_Euler_Sod_NN> pde {ic, bc, T, gamma, sdnn};      
 
 //     int intrb = 6;
 //     int npatches = 4;
@@ -637,20 +364,16 @@ void TestingEulerSDNN()
 
 
 //    // Create a time-stepping scheme
-//     SSPRK_4 TS;
+//     SSPRK_4 TS{3, N};
 //     int stages = TS.getStages();
     
-
 //     // Create a mesh
 //     int unknowns = pde.getPhysUnknowns();
-//     // Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
-//     //     true, true};
 //     Mesh1DUniform mesh{0, 1.0, npatches, N, overlap, intrb, unknowns*stages + 3, 
 //         1, 1};
 //     ic(&mesh);
 //     //Print_Mesh1D(mesh);   
 
-//     VectorField v = (mesh.getPatches())[0]->getFlow();
 //     int C = 27;
 //     int d = 5;
 
@@ -660,99 +383,23 @@ void TestingEulerSDNN()
 //     double p = 14.0;
 //     double delta = 0.1;
 
-
-//     std::vector<FC_1D_DD<Patch1D> > diff_schemes0;
-//     std::vector<FC_1D_DD<Patch1D> > filters0;
-//     std::vector<FC_1D<Patch1D>  * > diff_schemes;
-//     std::vector<FC_1D<Patch1D>  * > filters;
-
-//     for(int i = 0; i < npatches; i++)
-//     {
-//         diff_schemes0.push_back(FC_1D_DD<Patch1D> 
-//             (N, d, C, mesh.getPatches()[i], delta));
-//         filters0.push_back(FC_1D_DD<Patch1D> 
-//             (N, d, C, mesh.getPatches()[i], alpha0, p_0));
-//     }
-//     for(int i = 0; i < npatches; i++)
-//     {
-//         filters0.push_back(FC_1D_DD<Patch1D> 
-//             (N, d, C, mesh.getPatches()[i], alpha0, p));
-//     }
-
-//     for(int i = 0; i < npatches; i++)
-//     {
-//         diff_schemes.push_back(&diff_schemes0[i]);
-//         filters.push_back(&filters0[i]);
-//     }
-//     for(int i = 0; i < npatches; i++)
-//     {
-//         filters.push_back(&filters0[npatches + i]);
-//     }
-
-
-
-
-//     // FC_1D_ND<Patch1D> diff_schemes_l(N, d, C, mesh.getPatches()[0], delta);
-//     // FC_1D_ND<Patch1D> filters_l(N, d, C, mesh.getPatches()[0], delta);
-//     // FC_1D_ND<Patch1D> filters_l0(N, d, C, mesh.getPatches()[0], delta);
-//     // FC_1D_DN<Patch1D> diff_schemes_r(N, d, C, 
-//     //     mesh.getPatches()[npatches - 1], delta);
-//     // FC_1D_DN<Patch1D> filters_r(N, d, C, 
-//     //     mesh.getPatches()[npatches - 1], delta);
-//     // FC_1D_DN<Patch1D> filters_r0(N, d, C, 
-//     //     mesh.getPatches()[npatches - 1], delta);
-
-//     // std::vector<FC_1D_DD<Patch1D> > diff_schemes0;
-//     // std::vector<FC_1D_DD<Patch1D> > filters0;
-//     // std::vector<FC_1D<Patch1D>  * > diff_schemes;
-//     // std::vector<FC_1D<Patch1D>  * > filters;
-
-//     // for(int i = 1; i < npatches - 1; i++)
-//     // {
-//     //     diff_schemes0.push_back(FC_1D_DD<Patch1D> 
-//     //         (N, d, C, mesh.getPatches()[i], delta));
-//     //     filters0.push_back(FC_1D_DD<Patch1D> 
-//     //         (N, d, C, mesh.getPatches()[i], alpha0, p_0));
-//     // }
-//     // for(int i = 1; i < npatches - 1; i++)
-//     // {
-//     //     filters0.push_back(FC_1D_DD<Patch1D> 
-//     //         (N, d, C, mesh.getPatches()[i], alpha0, p));
-//     // }
-
-//     // diff_schemes.push_back(&diff_schemes_l);
-//     // filters.push_back(&filters_l);
-//     // for(int i = 0; i < npatches - 2; i++)
-//     // {
-//     //     diff_schemes.push_back(&diff_schemes0[i]);
-//     //     filters.push_back(&filters0[i]);
-//     // }
-//     // diff_schemes.push_back(&diff_schemes_r);
-//     // filters.push_back(&filters_r);
-
-//     // filters.push_back(&filters_l0);
-//     // for(int i = 0; i < npatches - 2; i++)
-//     // {
-//     //     filters.push_back(&filters0[npatches - 2 + i]);
-//     // }
-//     // filters.push_back(&filters_r0);
-
-
+//     std::vector<FC_1D * > diff_schemes;
+//     std::vector<FC_1D * > filters;
+//     initialize1DFCSDNN(&diff_schemes, &filters, mesh, npatches, "NN", N, d, C,
+//         delta, alpha0, p_0, p);
 
 
 //     // Create a solver
-//     Solver<Mesh1DUniform, Euler1D_SDNN<BC_Euler_Sod>, SSPRK_4, 
-//         FC_1D<Patch1D>  * , FC_1D<Patch1D>  * >
-//         slv{mesh, pde, TS, diff_schemes, filters};
-
-
-
+//     Solver<Mesh1DUniform, Euler1D_SDNN<BC_Euler_Sod_NN>, SSPRK_4, FC_1D*,
+//         FC_1D* > slv{mesh, pde, TS, diff_schemes, filters};
+//     // Solver<Mesh1DUniform, Euler1D_SDNN<BC_Euler_Sod>, SSPRK_4, FC_1D*,
+//     //     FC_1D* > slv{mesh, pde, TS, diff_schemes, filters};
 
 
 //     // Run the solver
 //     double CFL = 2.0;
 //     bool visc = true;
-//     bool adaptive = false;  
+//     bool adaptive = true;  
 //     slv.solve_sdnn(dt, CFL, adaptive, visc);  
 
 //     // Print the solution
@@ -763,17 +410,11 @@ void TestingEulerSDNN()
 
 //     std::string result_file = "result.txt";
 //     Print_Mesh1D(mesh1, unknowns, intrb, result_file);
+
+//     free1DFCSDNN(&diff_schemes, &filters);
+
+//     std::cout << "Memory was freed" << std::endl;
 // }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1041,9 +682,11 @@ int main()
     // TestingSDNN();
 
 
-    TestingEulerSDNN();
+    // Testing1DEulerSDNN();
     // Test2DMesh();
-    Testing2DFC();
+    // Testing2DFC();
+    // Testing2DSDNN();
+    Testing2DFCSDNN();
 
 
     // TestingEulerWENO();

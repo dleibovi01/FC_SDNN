@@ -57,9 +57,22 @@ include CMakeFiles/Test_shock_solver.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Test_shock_solver.dir/flags.make
 
+CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
+CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o: ../Code/ANN.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/ANN.cpp
+
+CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.i"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leibov/Documents/FC_SDNN/Code/ANN.cpp > CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.i
+
+CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.s"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/ANN.cpp -o CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.s
+
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o: ../Code/FC.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/FC.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.i: cmake_force
@@ -72,7 +85,7 @@ CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o: ../Code/FC_1D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/FC_1D.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.i: cmake_force
@@ -83,9 +96,22 @@ CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.s"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/FC_1D.cpp -o CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.s
 
+CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
+CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o: ../Code/FC_2D.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/FC_2D.cpp
+
+CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.i"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leibov/Documents/FC_SDNN/Code/FC_2D.cpp > CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.i
+
+CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.s"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/FC_2D.cpp -o CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.s
+
 CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o: ../Code/MVOperations.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/MVOperations.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.i: cmake_force
@@ -98,7 +124,7 @@ CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o: ../Code/Mesh1D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Mesh1D.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.i: cmake_force
@@ -111,7 +137,7 @@ CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o: ../Code/Mesh2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Mesh2D.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.i: cmake_force
@@ -124,7 +150,7 @@ CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.o: ../Code/Node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Node.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.i: cmake_force
@@ -137,7 +163,7 @@ CMakeFiles/Test_shock_solver.dir/Code/Node.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o: ../Code/Patch.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Patch.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.i: cmake_force
@@ -150,7 +176,7 @@ CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o: ../Code/Patch1D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Patch1D.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.i: cmake_force
@@ -163,7 +189,7 @@ CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o: ../Code/Patch1DUniform.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Patch1DUniform.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.i: cmake_force
@@ -176,7 +202,7 @@ CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o: ../Code/Patch2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Patch2D.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.i: cmake_force
@@ -187,9 +213,35 @@ CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.s"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/Patch2D.cpp -o CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.s
 
+CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
+CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o: ../Code/SDNN.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/SDNN.cpp
+
+CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.i"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leibov/Documents/FC_SDNN/Code/SDNN.cpp > CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.i
+
+CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.s"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/SDNN.cpp -o CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.s
+
+CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
+CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o: ../Code/Solver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/Solver.cpp
+
+CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.i"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leibov/Documents/FC_SDNN/Code/Solver.cpp > CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.i
+
+CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.s"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/Solver.cpp -o CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.s
+
 CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o: ../Code/SpMatrix_csr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/SpMatrix_csr.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.i: cmake_force
@@ -202,7 +254,7 @@ CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o: ../Code/TestingSuite.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/TestingSuite.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.i: cmake_force
@@ -215,7 +267,7 @@ CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o: ../Code/VectorField.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/VectorField.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.i: cmake_force
@@ -228,7 +280,7 @@ CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.s: cmake_force
 
 CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o: ../Code/VectorOperations.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/VectorOperations.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.i: cmake_force
@@ -239,9 +291,22 @@ CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.s"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/VectorOperations.cpp -o CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.s
 
+CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
+CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o: ../Code/mkl_operations.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/mkl_operations.cpp
+
+CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.i"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leibov/Documents/FC_SDNN/Code/mkl_operations.cpp > CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.i
+
+CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.s"
+	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leibov/Documents/FC_SDNN/Code/mkl_operations.cpp -o CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.s
+
 CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o: CMakeFiles/Test_shock_solver.dir/flags.make
 CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o: ../Code/printing.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o"
 	/opt/intel/oneapi/compiler/2022.0.2/linux/bin/intel64/icpc  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o -c /home/leibov/Documents/FC_SDNN/Code/printing.cpp
 
 CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.i: cmake_force
@@ -254,8 +319,10 @@ CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.s: cmake_force
 
 # Object files for target Test_shock_solver
 Test_shock_solver_OBJECTS = \
+"CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o" \
+"CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o" \
@@ -264,17 +331,22 @@ Test_shock_solver_OBJECTS = \
 "CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o" \
+"CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o" \
+"CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o" \
+"CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o" \
 "CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o"
 
 # External object files for target Test_shock_solver
 Test_shock_solver_EXTERNAL_OBJECTS =
 
+Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/FC.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.o
+Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/MVOperations.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Mesh1D.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Mesh2D.cpp.o
@@ -283,14 +355,17 @@ Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Patch.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Patch1D.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Patch1DUniform.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.o
+Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o
+Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/SpMatrix_csr.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/TestingSuite.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/VectorField.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.o
+Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/Code/printing.cpp.o
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/build.make
 Test_shock_solver: CMakeFiles/Test_shock_solver.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable Test_shock_solver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leibov/Documents/FC_SDNN/RelWithDebInfo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable Test_shock_solver"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Test_shock_solver.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

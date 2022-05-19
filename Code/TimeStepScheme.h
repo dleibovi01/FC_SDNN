@@ -348,10 +348,8 @@ public:
 
 
 
-
-
-    template<typename Patch, typename Sp_Diff, typename PDE>
-    void advance_sdnn(Patch* patch, const Sp_Diff &sp_diff, const PDE &pde,
+    template<typename Sp_Diff, typename PDE>
+    void advance_sdnn(Patch1D* patch, const Sp_Diff &sp_diff, const PDE &pde,
         const double dt, const double t, bool flag, 
         const std::vector<std::complex<double> *> & ffts, 
         const std::vector<int> & ffts_loc)
@@ -704,117 +702,112 @@ public:
 
     } 
 
+    ////////////////////////////////////////////////////////////////////////////
+    // 2D routines
 
+    template<typename Sp_Diff, typename PDE>
+    void advance2DSDNN(Patch2D* patch, const Sp_Diff &sp_diff, const PDE &pde,
+        const double dt, const double t, double * mux, double * muy, 
+        const std::vector<double *> &bc_l, const std::vector<double *> &bc_r,
+        const std::vector<double *> &bc_d, const std::vector<double *> &bc_u)
+    {
 
-
-
-
-
-
-    // template<typename Mesh, typename Sp_Diff, typename PDE>
-    // void advance_sdnnv2(Mesh* mesh, const std::vector<Sp_Diff> & sp_diff,
-    //     const PDE &pde, const double dt, std::vector<double *> *mux, 
-    //     const std::vector<std::complex<double> *> & ffts, 
-    //     const std::vector<std::vector<int> > & ffts_loc)
-    // {
-    //     auto patches = mesh->getPatchesPtr();
-    //     int npatches = patches->size();
+        auto v = patch->getFlowPtr();
+        const int N = v->getLength();
+        const int Cx = sp_diff->getCx();
+        const int Cy = sp_diff->getCy();
+        const double hx = patch->getHx();
+        const double hy = patch->getHy();
         
-    //     const int unknowns = pde.getPhysUnknowns();
+        // auto flux = v->extract(stage0);
 
-    //     std::vector<int> stage0;
-    //     std::vector<int> stage1;
-    //     std::vector<int> stage2;
-    //     std::vector<int> stage3;
-    //     std::vector<int> stage4;
-    //     for(int i = 0; i < unknowns; i++)
-    //     {
-    //         stage0.push_back(i);
-    //         stage1.push_back(i + unknowns);
-    //         stage2.push_back(i + 2*unknowns);
-    //         stage3.push_back(i + 3*unknowns);
-    //         stage4.push_back(i + 4*unknowns);
-    //     }
+        // Printing viscositiy
+        // std::cout << "mu" << std::endl;
+        // Print_Mat(v->getField(stages*unknowns + 1), 10, 10);        
 
-    //     auto v = patches->at(0)->getFlowPtr();
-    //     auto flux = v->extract(stage0);
-    //     auto flux3 = v->extract(stage0);
-    //     int N = v->getLength();
-    //     int C = sp_diff[0].getC();
-
-    //     // int i = 0;
-
-    //     for(int i = 0; i < npatches; i++)
-    //     {
-    //         v = patches->at(i)->getFlowPtr();
-    //         flux = v->extract(stage0);
-    //         N = v->getLength();
-    //         C = sp_diff[i].getC();
-
-    //         // Pre-computing the derivative of the viscosity mu
-
-    //         sp_diff[i].diff(v->getField(stages*unknowns + 1), mux->at(i));
+        // std::cout << " Printing bc_l[0]" << std::endl;
+        // Print_Mat(bc_r[0], 10, 1);
+        // std::cout << std::endl;
 
 
-    //         // 1st stage
-    //         std::vector<std::vector<int> > extractions1;
-    //         extractions1.push_back(stage0);
-    //         std::vector<double> coeffs1 = {1.0, -a11*dt};
-    //         // pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i));
-    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 0, mux->at(i),
-    //             ffts, ffts_loc[i]);
-    //         linComb(v, extractions1, stage1, coeffs1, flux);
+        // Pre-computing the derivative of the viscosity mu
+        sp_diff->diff_x(v->getField(stages*unknowns + 1), mux, hx, bc_l[0], 
+            bc_r[0]);
+        sp_diff->diff_y(v->getField(stages*unknowns + 1), muy, hy, bc_d[0], 
+            bc_u[0]);
 
-    //         // Print_VectorField(v->extract(stage1), true);
+        // Printing viscosities
+        // std::cout << "mux" << std::endl;
+        // Print_Mat(mux, 10, 10);
+        // std::cout << std::endl;
+        // std::cout << std::endl;
+        // std::cout << "muy" << std::endl;
+        // Print_Mat(muy, 10, 10);        
 
+        // 1st stage
+        coeffs1[1] = -a11*dt;
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 0, mux, muy, hx, hy,
+            t, bc_l, bc_r, bc_d, bc_u);
+        linComb(v, extractions1, stage1, coeffs1, flux);
 
-
-    //         // 2nd stage
-    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 1, mux->at(i));
-    //         std::vector<std::vector<int> > extractions2;
-    //         extractions2.push_back(stage0);
-    //         extractions2.push_back(stage1);
-    //         std::vector<double> coeffs2 = {a21, a22, -a23*dt};
-    //         linComb(v, extractions2, stage2, coeffs2, flux);
-
-    //         Print_VectorField(v->extract(stage2), true);
-
-
-    //         // 3rd stage
-    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 2, mux->at(i));
-    //         std::vector<std::vector<int> > extractions3;
-    //         extractions3.push_back(stage0);
-    //         extractions3.push_back(stage2);
-    //         std::vector<double> coeffs3 = {a31, a32, -a33*dt};
-    //         linComb(v, extractions3, stage3, coeffs3, flux);
- 
-
-    //         // 4th stage
-    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 3, mux->at(i));
-    //         std::vector<std::vector<int> > extractions4;
-    //         extractions4.push_back(stage0);
-    //         extractions4.push_back(stage3);
-    //         std::vector<double> coeffs4 = {a41, a42, -a43*dt};
-    //         linComb(v, extractions4, stage4, coeffs4, flux);
-
-    //         // Stepping   
-    //         flux3 = flux;
-    //         pde.Cons_to_der_flux(*v, &flux, sp_diff[i], stages, 4, mux->at(i));
-    //         std::vector<std::vector<int> > extractions5;
-    //         extractions5.push_back(stage2);
-    //         extractions5.push_back(stage3);
-    //         extractions5.push_back(stage4); 
-    //         std::vector<double> coeffs5 = {a51, a52, a54, -a53*dt};
-    //         std::vector<double> coeffs5_bis = {1, -a55*dt};
-    //         std::vector<VectorField*> fluxes5 = {&flux3, &flux};
-    //         linComb(v, extractions5, stage0, coeffs5, flux3);   
-    //         linComb(v, extractions1, stage0, coeffs5_bis, flux); 
-    //     }
+        // Printing 1st stage rho
+        // std::cout << " Printing 1st stage rho" << std::endl;
+        // Print_Mat(v->getField(4), 10, 10);
+        // std::cout << std::endl;
+        // std::cout << " Printing 1st stage rho*u" << std::endl;
+        // Print_Mat(v->getField(5), 10, 10);
+        // std::cout << std::endl;
+        // std::cout << " Printing 1st stage rho*v" << std::endl;
+        // Print_Mat(v->getField(6), 10, 10);
+        // std::cout << std::endl;
+        // std::cout << " Printing 1st stage E" << std::endl;
+        // Print_Mat(v->getField(7), 10, 10);
+        // std::cout << std::endl;
 
 
+        // 2nd stage
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 1, mux, muy, hx, hy,
+            t, bc_l, bc_r, bc_d, bc_u);
+        coeffs2[2] = -a23*dt;
+        linComb(v, extractions2, stage2, coeffs2, flux);
+       // Printing 2nd stage rho
+        // std::cout << " Printing 2nd stage rho" << std::endl;
+        // Print_Mat(v->getField(8), 10, 10);
+        // std::cout << std::endl;
+        // std::cout << " Printing 2nd  stage rho*u" << std::endl;
+        // Print_Mat(v->getField(9), 10, 10);
+        // std::cout << std::endl;
+        // std::cout << " Printing 2nd  stage rho*v" << std::endl;
+        // Print_Mat(v->getField(10), 10, 10);
+        // std::cout << std::endl;
+        // std::cout << " Printing 2nd  stage E" << std::endl;
+        // Print_Mat(v->getField(11), 10, 10);
+        // std::cout << std::endl;
+
+        // 3rd stage
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 2, mux, muy, hx, hy,
+            t, bc_l, bc_r, bc_d, bc_u);
+        coeffs3[2] = -a33*dt;
+        linComb(v, extractions3, stage3, coeffs3, flux);
 
 
-    // }    
+        // 4th stage
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 3, mux, muy, hx, hy,
+            t, bc_l, bc_r, bc_d, bc_u);
+        coeffs4[2] = -a43*dt;
+        linComb(v, extractions4, stage4, coeffs4, flux);
+
+        // Stepping   
+        // VectorField flux3 = flux;
+        flux3 = flux;
+        pde.Cons_to_der_flux(*v, &flux, sp_diff, stages, 4, mux, muy, hx, hy,
+            t, bc_l, bc_r, bc_d, bc_u);
+        coeffs5[3] = -a53*dt;
+        coeffs5_bis[1] = -a55*dt;
+        std::vector<VectorField*> fluxes5 = {&flux3, &flux};
+        linComb(v, extractions5, stage0, coeffs5, flux3);   
+        linComb(v, extractions1, stage0, coeffs5_bis, flux); 
+    }    
     
 
 };

@@ -1,4 +1,4 @@
-/* Boundary conditions for 1D Linear advection equations*/
+/* Boundary conditions for 1D Euler equations*/
 
 #ifndef BC_Euler_1D_H
 #define BC_Euler_1D_H

@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/leibov/Documents/FC_SDNN/Code/ANN.h
+string
+-
+mkl.h
+-
+MVOperations.h
+/home/leibov/Documents/FC_SDNN/Code/MVOperations.h
+VectorOperations.h
+/home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
+SDNN_data.h
+/home/leibov/Documents/FC_SDNN/Code/SDNN_data.h
+cmath
+-
+algorithm
+-
+fstream
+-
+
 /home/leibov/Documents/FC_SDNN/Code/BC.h
 Patch1D.h
 /home/leibov/Documents/FC_SDNN/Code/Patch1D.h
@@ -19,6 +37,12 @@ vector
 -
 
 /home/leibov/Documents/FC_SDNN/Code/BC_Euler_1D.h
+BC.h
+/home/leibov/Documents/FC_SDNN/Code/BC.h
+vector
+-
+
+/home/leibov/Documents/FC_SDNN/Code/BC_Euler_2D.h
 BC.h
 /home/leibov/Documents/FC_SDNN/Code/BC.h
 vector
@@ -48,12 +72,6 @@ math.h
 VectorOperations.h
 /home/leibov/Documents/FC_SDNN/Code/VectorOperations.h
 
-/home/leibov/Documents/FC_SDNN/Code/FC_1D.cpp
-complex
--
-FC_1D.h
-/home/leibov/Documents/FC_SDNN/Code/FC_1D.h
-
 /home/leibov/Documents/FC_SDNN/Code/FC_1D.h
 complex
 -
@@ -75,6 +93,20 @@ FC_data.h
 /home/leibov/Documents/FC_SDNN/Code/FC_data.h
 SpatDiffScheme.h
 /home/leibov/Documents/FC_SDNN/Code/SpatDiffScheme.h
+
+/home/leibov/Documents/FC_SDNN/Code/FC_2D.h
+FC.h
+/home/leibov/Documents/FC_SDNN/Code/FC.h
+FC_1D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_1D.h
+Patch2D.h
+/home/leibov/Documents/FC_SDNN/Code/Patch2D.h
+SpatDiffScheme.h
+/home/leibov/Documents/FC_SDNN/Code/SpatDiffScheme.h
+string.h
+-
+printing.h
+/home/leibov/Documents/FC_SDNN/Code/printing.h
 
 /home/leibov/Documents/FC_SDNN/Code/FC_data.h
 array
@@ -131,7 +163,7 @@ BC.h
 /home/leibov/Documents/FC_SDNN/Code/BC.h
 VectorField.h
 /home/leibov/Documents/FC_SDNN/Code/VectorField.h
-string
+string.h
 -
 fstream
 -
@@ -174,14 +206,6 @@ Patch.h
 Patch1D.h
 /home/leibov/Documents/FC_SDNN/Code/Patch1D.h
 
-/home/leibov/Documents/FC_SDNN/Code/Patch2D.cpp
-Patch2D.h
-/home/leibov/Documents/FC_SDNN/Code/Patch2D.h
-printing.h
-/home/leibov/Documents/FC_SDNN/Code/printing.h
-VectorField.h
-/home/leibov/Documents/FC_SDNN/Code/VectorField.h
-
 /home/leibov/Documents/FC_SDNN/Code/Patch2D.h
 Node.h
 /home/leibov/Documents/FC_SDNN/Code/Node.h
@@ -189,24 +213,28 @@ iostream
 -
 Patch.h
 /home/leibov/Documents/FC_SDNN/Code/Patch.h
+algorithm
+-
+
+/home/leibov/Documents/FC_SDNN/Code/SDNN.cpp
+SDNN.h
+/home/leibov/Documents/FC_SDNN/Code/SDNN.h
 
 /home/leibov/Documents/FC_SDNN/Code/SDNN.h
-cmath
--
-PDE.h
-/home/leibov/Documents/FC_SDNN/Code/PDE.h
-string
--
-mkl_operations.h
-/home/leibov/Documents/FC_SDNN/Code/mkl_operations.h
 FC.h
 /home/leibov/Documents/FC_SDNN/Code/FC.h
+ANN.h
+/home/leibov/Documents/FC_SDNN/Code/ANN.h
+algorithm
+-
+cmath
+-
+string
+-
 VectorField.h
 /home/leibov/Documents/FC_SDNN/Code/VectorField.h
 Mesh.h
 /home/leibov/Documents/FC_SDNN/Code/Mesh.h
-SDNN_data.h
-/home/leibov/Documents/FC_SDNN/Code/SDNN_data.h
 SVW.h
 /home/leibov/Documents/FC_SDNN/Code/SVW.h
 MVOperations.h
@@ -230,6 +258,20 @@ SpMatrix_csr.h
 cmath
 -
 
+/home/leibov/Documents/FC_SDNN/Code/Solver.cpp
+Solver.h
+/home/leibov/Documents/FC_SDNN/Code/Solver.h
+Mesh.h
+/home/leibov/Documents/FC_SDNN/Code/Mesh.h
+string.h
+-
+vector
+-
+FC_1D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_1D.h
+FC_2D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_2D.h
+
 /home/leibov/Documents/FC_SDNN/Code/Solver.h
 SpatDiffScheme.h
 /home/leibov/Documents/FC_SDNN/Code/SpatDiffScheme.h
@@ -237,6 +279,8 @@ TimeStepScheme.h
 /home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h
 Mesh.h
 /home/leibov/Documents/FC_SDNN/Code/Mesh.h
+Mesh1D.h
+/home/leibov/Documents/FC_SDNN/Code/Mesh1D.h
 PDE.h
 /home/leibov/Documents/FC_SDNN/Code/PDE.h
 printing.h
@@ -251,6 +295,8 @@ string
 -
 omp.h
 -
+FC_2D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_2D.h
 
 /home/leibov/Documents/FC_SDNN/Code/SpMatrix_csr.h
 vector
@@ -261,8 +307,6 @@ printing.h
 /home/leibov/Documents/FC_SDNN/Code/printing.h
 
 /home/leibov/Documents/FC_SDNN/Code/SpatDiffScheme.h
-mkl.h
-/home/leibov/Documents/FC_SDNN/Code/mkl.h
 VectorField.h
 /home/leibov/Documents/FC_SDNN/Code/VectorField.h
 Mesh.h
@@ -276,11 +320,51 @@ vector
 FC.h
 /home/leibov/Documents/FC_SDNN/Code/FC.h
 
+/home/leibov/Documents/FC_SDNN/Code/TestingFC.h
+Mesh2D.h
+/home/leibov/Documents/FC_SDNN/Code/Mesh2D.h
+FC_2D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_2D.h
+IC.h
+/home/leibov/Documents/FC_SDNN/Code/IC.h
+iostream
+-
+
 /home/leibov/Documents/FC_SDNN/Code/TestingMesh.h
 Mesh2D.h
 /home/leibov/Documents/FC_SDNN/Code/Mesh2D.h
 printing.h
 /home/leibov/Documents/FC_SDNN/Code/printing.h
+
+/home/leibov/Documents/FC_SDNN/Code/TestingSDNN.h
+Mesh2D.h
+/home/leibov/Documents/FC_SDNN/Code/Mesh2D.h
+FC_2D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_2D.h
+IC.h
+/home/leibov/Documents/FC_SDNN/Code/IC.h
+iostream
+-
+BC_Euler_2D.h
+/home/leibov/Documents/FC_SDNN/Code/BC_Euler_2D.h
+SDNN.h
+/home/leibov/Documents/FC_SDNN/Code/SDNN.h
+
+/home/leibov/Documents/FC_SDNN/Code/TestingSolver.h
+Mesh2D.h
+/home/leibov/Documents/FC_SDNN/Code/Mesh2D.h
+FC_2D.h
+/home/leibov/Documents/FC_SDNN/Code/FC_2D.h
+IC.h
+/home/leibov/Documents/FC_SDNN/Code/IC.h
+iostream
+-
+BC_Euler_2D.h
+/home/leibov/Documents/FC_SDNN/Code/BC_Euler_2D.h
+SDNN.h
+/home/leibov/Documents/FC_SDNN/Code/SDNN.h
+PDE.h
+/home/leibov/Documents/FC_SDNN/Code/PDE.h
 
 /home/leibov/Documents/FC_SDNN/Code/TestingSuite.cpp
 TestingSuite.h
@@ -331,6 +415,12 @@ SpMatrix_csr.h
 /home/leibov/Documents/FC_SDNN/Code/SpMatrix_csr.h
 TestingMesh.h
 /home/leibov/Documents/FC_SDNN/Code/TestingMesh.h
+TestingFC.h
+/home/leibov/Documents/FC_SDNN/Code/TestingFC.h
+TestingSDNN.h
+/home/leibov/Documents/FC_SDNN/Code/TestingSDNN.h
+TestingSolver.h
+/home/leibov/Documents/FC_SDNN/Code/TestingSolver.h
 
 /home/leibov/Documents/FC_SDNN/Code/TimeStepScheme.h
 VectorField.h

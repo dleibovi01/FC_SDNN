@@ -16,6 +16,7 @@
 #include "FC_data.h"
 #include "SpatDiffScheme.h"
 
+
 class FC_1D : public SpatDiffScheme<Patch1D>{
 
 protected:
@@ -76,8 +77,13 @@ public:
       const std::vector<int> &fft_loc, double h, 
       const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
 
+   void filter(VectorField *v, const std::vector<int> &unknowns, double h, 
+      const std::vector<double> &bc_l, const std::vector<double> &bc_r) const;
+
    virtual void filter(double* y, std::complex<double> *fft, double h,
       double bc_l, double bc_r) const {}
+
+   virtual void filter(double* y, double h, double bc_l, double bc_r) const {}
 
    virtual void diff(const std::complex<double> *y_hat, double * y_der,
       double* y_der_2) const {}
@@ -87,6 +93,9 @@ public:
 
    virtual void diff(const double* y, double * y_der, double* y_der_2, double h, 
       double bc_l, double bc_r) const {}
+
+   virtual void shift(const double* y, double * y_shift, double h, double bc_l,
+      double bc_r) const {}
 
 
 };
@@ -115,6 +124,11 @@ public:
       double bc_l, double bc_r) const;
 
    void filter(double* y, std::complex<double> *fft, double h, double bc_l,
+      double bc_r) const;
+
+   void filter(double* y, double h, double bc_l, double bc_r) const;
+
+   void shift(const double* y, double * y_shift, double h, double bc_l,
       double bc_r) const;
 
 
@@ -149,6 +163,11 @@ public:
    void filter(double* y, std::complex<double> *fft, double h, double bc_l,
       double bc_r) const;
 
+   void filter(double* y, double h, double bc_l, double bc_r) const;
+
+   void shift(const double* y, double * y_shift, double h, double bc_l,
+      double bc_r) const;
+
 private :
 
    void set_FC_Data(double* A, double* Q, double* Q_tilde, int d, int C);
@@ -178,6 +197,11 @@ public:
       double bc_l, double bc_r) const;
 
    void filter(double* y, std::complex<double> *fft, double h, double bc_l,
+      double bc_r) const;
+
+   void filter(double* y, double h, double bc_l, double bc_r) const;
+
+   void shift(const double* y, double * y_shift, double h, double bc_l,
       double bc_r) const;
 
 private :
@@ -212,10 +236,17 @@ public:
    void filter(double* y, std::complex<double> *fft, double h, double bc_l,
       double bc_r) const;
 
+   void filter(double* y, double h, double bc_l, double bc_r) const;
+
+   void shift(const double* y, double * y_shift, double h, double bc_l,
+      double bc_r) const;
+
 private :
 
    void set_FC_Data(double* A, double* Q, int d, int C);
 
 };
+
+
 
 #endif

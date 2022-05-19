@@ -3,9 +3,9 @@
 #ifndef SPADIFFSCHEME_H
 #define SPADIFFSCHEME_H
 
-#define MKL_Complex16 std::complex<double>
-#define MKL_Complex8 std::complex<float>
-#include "mkl.h"
+// #define MKL_Complex16 std::complex<double>
+// #define MKL_Complex8 std::complex<float>
+// #include "mkl.h"
 #include "VectorField.h"
 #include "Mesh.h"
 #include "Patch1D.h"

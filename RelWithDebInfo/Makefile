@@ -123,6 +123,33 @@ Test_shock_solver/fast:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/build
 .PHONY : Test_shock_solver/fast
 
+Code/ANN.o: Code/ANN.cpp.o
+
+.PHONY : Code/ANN.o
+
+# target to build an object file
+Code/ANN.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.o
+.PHONY : Code/ANN.cpp.o
+
+Code/ANN.i: Code/ANN.cpp.i
+
+.PHONY : Code/ANN.i
+
+# target to preprocess a source file
+Code/ANN.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.i
+.PHONY : Code/ANN.cpp.i
+
+Code/ANN.s: Code/ANN.cpp.s
+
+.PHONY : Code/ANN.s
+
+# target to generate assembly for a file
+Code/ANN.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/ANN.cpp.s
+.PHONY : Code/ANN.cpp.s
+
 Code/FC.o: Code/FC.cpp.o
 
 .PHONY : Code/FC.o
@@ -176,6 +203,33 @@ Code/FC_1D.s: Code/FC_1D.cpp.s
 Code/FC_1D.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_1D.cpp.s
 .PHONY : Code/FC_1D.cpp.s
+
+Code/FC_2D.o: Code/FC_2D.cpp.o
+
+.PHONY : Code/FC_2D.o
+
+# target to build an object file
+Code/FC_2D.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.o
+.PHONY : Code/FC_2D.cpp.o
+
+Code/FC_2D.i: Code/FC_2D.cpp.i
+
+.PHONY : Code/FC_2D.i
+
+# target to preprocess a source file
+Code/FC_2D.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.i
+.PHONY : Code/FC_2D.cpp.i
+
+Code/FC_2D.s: Code/FC_2D.cpp.s
+
+.PHONY : Code/FC_2D.s
+
+# target to generate assembly for a file
+Code/FC_2D.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/FC_2D.cpp.s
+.PHONY : Code/FC_2D.cpp.s
 
 Code/MVOperations.o: Code/MVOperations.cpp.o
 
@@ -393,6 +447,60 @@ Code/Patch2D.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Patch2D.cpp.s
 .PHONY : Code/Patch2D.cpp.s
 
+Code/SDNN.o: Code/SDNN.cpp.o
+
+.PHONY : Code/SDNN.o
+
+# target to build an object file
+Code/SDNN.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.o
+.PHONY : Code/SDNN.cpp.o
+
+Code/SDNN.i: Code/SDNN.cpp.i
+
+.PHONY : Code/SDNN.i
+
+# target to preprocess a source file
+Code/SDNN.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.i
+.PHONY : Code/SDNN.cpp.i
+
+Code/SDNN.s: Code/SDNN.cpp.s
+
+.PHONY : Code/SDNN.s
+
+# target to generate assembly for a file
+Code/SDNN.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/SDNN.cpp.s
+.PHONY : Code/SDNN.cpp.s
+
+Code/Solver.o: Code/Solver.cpp.o
+
+.PHONY : Code/Solver.o
+
+# target to build an object file
+Code/Solver.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.o
+.PHONY : Code/Solver.cpp.o
+
+Code/Solver.i: Code/Solver.cpp.i
+
+.PHONY : Code/Solver.i
+
+# target to preprocess a source file
+Code/Solver.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.i
+.PHONY : Code/Solver.cpp.i
+
+Code/Solver.s: Code/Solver.cpp.s
+
+.PHONY : Code/Solver.s
+
+# target to generate assembly for a file
+Code/Solver.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/Solver.cpp.s
+.PHONY : Code/Solver.cpp.s
+
 Code/SpMatrix_csr.o: Code/SpMatrix_csr.cpp.o
 
 .PHONY : Code/SpMatrix_csr.o
@@ -501,6 +609,33 @@ Code/VectorOperations.cpp.s:
 	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/VectorOperations.cpp.s
 .PHONY : Code/VectorOperations.cpp.s
 
+Code/mkl_operations.o: Code/mkl_operations.cpp.o
+
+.PHONY : Code/mkl_operations.o
+
+# target to build an object file
+Code/mkl_operations.cpp.o:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.o
+.PHONY : Code/mkl_operations.cpp.o
+
+Code/mkl_operations.i: Code/mkl_operations.cpp.i
+
+.PHONY : Code/mkl_operations.i
+
+# target to preprocess a source file
+Code/mkl_operations.cpp.i:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.i
+.PHONY : Code/mkl_operations.cpp.i
+
+Code/mkl_operations.s: Code/mkl_operations.cpp.s
+
+.PHONY : Code/mkl_operations.s
+
+# target to generate assembly for a file
+Code/mkl_operations.cpp.s:
+	$(MAKE) -f CMakeFiles/Test_shock_solver.dir/build.make CMakeFiles/Test_shock_solver.dir/Code/mkl_operations.cpp.s
+.PHONY : Code/mkl_operations.cpp.s
+
 Code/printing.o: Code/printing.cpp.o
 
 .PHONY : Code/printing.o
@@ -537,12 +672,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Test_shock_solver"
+	@echo "... Code/ANN.o"
+	@echo "... Code/ANN.i"
+	@echo "... Code/ANN.s"
 	@echo "... Code/FC.o"
 	@echo "... Code/FC.i"
 	@echo "... Code/FC.s"
 	@echo "... Code/FC_1D.o"
 	@echo "... Code/FC_1D.i"
 	@echo "... Code/FC_1D.s"
+	@echo "... Code/FC_2D.o"
+	@echo "... Code/FC_2D.i"
+	@echo "... Code/FC_2D.s"
 	@echo "... Code/MVOperations.o"
 	@echo "... Code/MVOperations.i"
 	@echo "... Code/MVOperations.s"
@@ -567,6 +708,12 @@ help:
 	@echo "... Code/Patch2D.o"
 	@echo "... Code/Patch2D.i"
 	@echo "... Code/Patch2D.s"
+	@echo "... Code/SDNN.o"
+	@echo "... Code/SDNN.i"
+	@echo "... Code/SDNN.s"
+	@echo "... Code/Solver.o"
+	@echo "... Code/Solver.i"
+	@echo "... Code/Solver.s"
 	@echo "... Code/SpMatrix_csr.o"
 	@echo "... Code/SpMatrix_csr.i"
 	@echo "... Code/SpMatrix_csr.s"
@@ -579,6 +726,9 @@ help:
 	@echo "... Code/VectorOperations.o"
 	@echo "... Code/VectorOperations.i"
 	@echo "... Code/VectorOperations.s"
+	@echo "... Code/mkl_operations.o"
+	@echo "... Code/mkl_operations.i"
+	@echo "... Code/mkl_operations.s"
 	@echo "... Code/printing.o"
 	@echo "... Code/printing.i"
 	@echo "... Code/printing.s"

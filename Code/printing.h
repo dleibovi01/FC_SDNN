@@ -151,7 +151,9 @@ void Print_Mesh1D(const Mesh<Patch> &mesh, int unknowns, int intrb, int vector,
 
 
 void Print_Patch2D(const Patch2D &patch);
+void Print_Patch2D(const Patch2D &patch, int unknowns);
 void Print_Mesh2DUniform(const Mesh2DUniform &mesh);
+void Print_Mesh2DUniform(const Mesh2DUniform &mesh, int unknowns);
 
 
 #endif 

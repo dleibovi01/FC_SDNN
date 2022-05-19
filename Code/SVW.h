@@ -12,6 +12,8 @@
 
 const double tolerance = std::pow(10.0, -15.0);
 constexpr double window_cutoff = 9.0; // 9.0
+const double pi = std::acos(-1);
+
 
 class SVW {
 
@@ -76,7 +78,7 @@ public:
             for(int j = 0; j < inner_nodes.size(); j++)
             {
                 node_target = nodes_target[inner_nodes[j]];
-                value = visc_window(*node_origin, *node_target, cutoff_h);
+                value = visc_window(*node_origin, *node_target, cutoff_h); // jkl
                 if(value > tolerance)
                 {
                     values.push_back(value);
@@ -137,7 +139,7 @@ private:
     double visc_window(const Node & node1, const Node & node2, double cutoff)
     {
         double distance = node1.getDist(node2);
-        const double pi = std::acos(-1);
+        // const double pi = std::acos(-1);
         double H;
         if (distance < cutoff)
         {

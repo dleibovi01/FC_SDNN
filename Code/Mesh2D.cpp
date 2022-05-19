@@ -19,6 +19,11 @@ Mesh2DUniform::Mesh2DUniform(double a, double b, double c, double d,
 
     std::vector<int> inner_nodes_onepatch(patchsize);
 
+    std::vector<int> inner_nodes_onlyleftpatch;
+    std::vector<int> inner_nodes_onlyrightpatch;
+    std::vector<int> inner_nodes_onlybottompatch;
+    std::vector<int> inner_nodes_onlytoppatch;
+
     std::vector<int> inner_nodes_topleftpatch;
     std::vector<int> inner_nodes_toppatch;
     std::vector<int> inner_nodes_toprightpatch;
@@ -28,6 +33,48 @@ Mesh2DUniform::Mesh2DUniform(double a, double b, double c, double d,
     std::vector<int> inner_nodes_bottompatch;
     std::vector<int> inner_nodes_bottomrightpatch;
     std::vector<int> inner_nodes_innerpatch;
+
+    // one patch
+    for(int i = 0; i < patchsize_x; i++)
+    {
+        for(int j = 0; j < patchsize_y; j++)
+        {
+            inner_nodes_onepatch.push_back(patchsize_y * i + j);
+        }
+    }
+
+    // Only a left and a right patch
+    for(int i = 0; i < patchsize_x - fringe; i++)
+    {
+        for(int j = 0; j < patchsize_y; j++)
+        {
+            inner_nodes_onlyleftpatch.push_back(patchsize_y * i + j);
+        }
+    }
+    for(int i = fringe; i < patchsize_x; i++)
+    {
+        for(int j = 0; j < patchsize_y; j++)
+        {
+            inner_nodes_onlyrightpatch.push_back(patchsize_y * i + j);
+        }
+    }
+
+    // Only a bottom and a top patch
+    for(int i = 0; i < patchsize_x; i++)
+    {
+        for(int j = 0; j < patchsize_y - fringe; j++)
+        {
+            inner_nodes_onlybottompatch.push_back(patchsize_y * i + j);
+        }
+    }
+    for(int i = 0; i < patchsize_x; i++)
+    {
+        for(int j = fringe; j < patchsize_y; j++)
+        {
+            inner_nodes_onlytoppatch.push_back(patchsize_y * i + j);
+        }
+    }
+
 
     // top left inner nodes
     for(int i = 0; i < patchsize_x - fringe; i++)
@@ -146,47 +193,69 @@ Mesh2DUniform::Mesh2DUniform(double a, double b, double c, double d,
         
     }
 
-    // Gotta set the inner nodes now
-    for(int i = 0; i < npatches_x; i++)
+    // Inner nodes if there is only 1 patch vertically or horizontally ?
+
+    if(npatches_x == 1 && npatches_y == 1)
     {
-        for(int j = 0; j < npatches_y; j++)
+        patches[0]->setInnerNodes(inner_nodes_onepatch);
+    }
+    else if(npatches_y == 1 && npatches_x > 1)
+    {
+        patches[0]->setInnerNodes(inner_nodes_onlyleftpatch);
+        patches[1]->setInnerNodes(inner_nodes_onlyrightpatch);
+    }
+    else if(npatches_x == 1 && npatches_y > 1)
+    {
+        patches[0]->setInnerNodes(inner_nodes_onlybottompatch);
+        patches[1]->setInnerNodes(inner_nodes_onlytoppatch);
+    }    
+    else
+    {
+        // Gotta set the inner nodes now
+        for(int i = 0; i < npatches_x; i++)
         {
-            if(i == 0)
+            for(int j = 0; j < npatches_y; j++)
             {
-                if(j == 0)
-                    patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_bottomleftpatch);
-                else if(j == npatches_y - 1)
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_topleftpatch);
+                if(i == 0)
+                {
+                    if(j == 0)
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_bottomleftpatch);
+                    else if(j == npatches_y - 1)
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_topleftpatch);
+                    else
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_leftpatch);                             
+                }
+                else if(i == npatches_x - 1)
+                {
+                    if(j == 0)
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_bottomrightpatch);    
+                    else if(j == npatches_y - 1)
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_toprightpatch);
+                    else
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_rightpatch);               
+                }
                 else
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_leftpatch);                             
+                    if(j == 0)
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_bottompatch);    
+                    else if(j == npatches_y - 1)
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_toppatch);
+                    else
+                        patches[i*npatches_y + j]->
+                            setInnerNodes(inner_nodes_innerpatch);  
             }
-            else if(i == npatches_x - 1)
-            {
-                if(j == 0)
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_bottomrightpatch);    
-                else if(j == npatches_y - 1)
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_toprightpatch);
-                else
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_rightpatch);               
-            }
-            else
-                if(j == 0)
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_bottompatch);    
-                else if(j == npatches_y - 1)
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_toppatch);
-                else
-                     patches[i*npatches_y + j]->
-                        setInnerNodes(inner_nodes_innerpatch);  
         }
     }
+
+
+
 }
 
 

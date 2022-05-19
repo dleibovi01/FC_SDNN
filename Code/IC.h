@@ -33,6 +33,8 @@ private:
                 std::string problem6 = "smooth_LA";
                 std::string problem7 = "Euler1D_Sod";
                 std::string problem8 = "2D_test";
+                std::string problem9 = "Burgers_Square";
+                std::string problem10 = "Euler2D_Riemann4";
                 std::vector<double> y;
                 if(problem.compare(problem0) == 0)
                 {
@@ -116,7 +118,80 @@ private:
                 else if(problem.compare(problem8) == 0)
                 {
                     y.push_back(std::exp(std::cos(x[0]) * std::sin(x[1])));
-                }                          
+                }      
+                else if(problem.compare(problem9) == 0)
+                {
+                    if((x[0] >= 0.5) && (x[1] >= 0.5))
+                        y.push_back(-1.0);
+                    if((x[0] < 0.5) && (x[1] >= 0.5))
+                        y.push_back(-0.2);
+                    if((x[0] < 0.5) && (x[1] < 0.5))
+                        y.push_back(0.5);
+                    if((x[0] >= 0.5) && (x[1] < 0.5))
+                        y.push_back(0.8);                                             
+                }     
+                else if(problem.compare(problem10) == 0)
+                {
+                    double gamma = 7.0/5.0;
+
+                    double rho_1 = 1.1;
+                    double vx_1 = 0;
+                    double vy_1 = 0;
+                    double p_1 = 1.1;
+                    double E_1 = p_1/(gamma - 1.0)
+                        + 0.5*rho_1*(vx_1*vx_1 + vy_1*vy_1);
+
+                    double rho_2 = 0.5065;
+                    double vx_2 = 0.8939;
+                    double vy_2 = 0;
+                    double p_2 = 0.35;
+                    double E_2 = p_2/(gamma - 1.0)
+                        + 0.5*rho_2*(vx_2*vx_2 + vy_2*vy_2);
+
+                    double rho_3 = 1.1;
+                    double vx_3 = 0.8939;
+                    double vy_3 = 0.8939;
+                    double p_3 = 1.1;
+                    double E_3 = p_3/(gamma - 1.0)
+                         + 0.5*rho_3*(vx_3*vx_3 + vy_3*vy_3);
+
+                    double rho_4 = 0.5065;
+                    double vx_4 = 0;
+                    double vy_4 = 0.8939;
+                    double p_4 = 0.35;
+                    double E_4 = p_4/(gamma - 1)
+                         + 0.5*rho_4*(vx_4*vx_4 + vy_4*vy_4);
+
+
+                    if((x[0] > 0.6) && (x[1] > 0.6))
+                    {
+                        y.push_back(rho_1);
+                        y.push_back(rho_1*vx_1);
+                        y.push_back(rho_1*vy_1);
+                        y.push_back(E_1);
+                    }
+                    if((x[0] <= 0.6) && (x[1] > 0.6))
+                    {
+                        y.push_back(rho_2);
+                        y.push_back(rho_2*vx_2);
+                        y.push_back(rho_2*vy_2);
+                        y.push_back(E_2);
+                    }
+                    if((x[0] <= 0.6) && (x[1] <= 0.6))
+                    {
+                        y.push_back(rho_3);
+                        y.push_back(rho_3*vx_3);
+                        y.push_back(rho_3*vy_3);
+                        y.push_back(E_3);
+                    }
+                    if((x[0] > 0.6) && (x[1] <= 0.6))
+                    {
+                        y.push_back(rho_4);
+                        y.push_back(rho_4*vx_4);
+                        y.push_back(rho_4*vy_4);
+                        y.push_back(E_4); 
+                    }                                       
+                }                   
                 return y;
             }
     };

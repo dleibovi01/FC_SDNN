@@ -16,6 +16,7 @@
 #include "IC.h"
 #include "BC_LA_1D.h"
 #include "BC_Euler_1D.h"
+
 #include "BC.h"
 #include "printing.h"
 #include "SpatDiffScheme.h"
@@ -27,6 +28,8 @@
 
 #include "TestingMesh.h"
 #include "TestingFC.h"
+#include "TestingSDNN.h"
+#include "TestingSolver.h"
 
 
 void TestingVector1D();

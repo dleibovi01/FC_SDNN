@@ -4,9 +4,10 @@
 #define PATCH2D_H
 
 #include "Node.h"
-// #include "VectorField.h"
 #include <iostream>
 #include "Patch.h"
+#include <algorithm>
+
 // #include "printing.h"
 
 class Patch2D : public Patch{
@@ -31,6 +32,7 @@ public:
     int getNy() const{return Ny;}
     double getHx() const {return hx;}
     double getHy() const {return hy;}
+    double getH() const {return std::min(hx, hy);}
     int getFringe() const {return fringe;}
     void setInnerBdry(Patch2D* patch, int position, int fringe, 
         int overlap, int unknowns, int stage);
